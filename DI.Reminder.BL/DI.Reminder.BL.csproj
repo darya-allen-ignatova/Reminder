@@ -51,5 +51,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DI.Reminder.Common\DI.Reminder.Common.csproj">
+      <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
+      <Name>DI.Reminder.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
