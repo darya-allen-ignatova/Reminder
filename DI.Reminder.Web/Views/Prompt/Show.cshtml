@@ -1,0 +1,71 @@
+﻿@model DI.Reminder.BL.Prompt
+@{
+    ViewBag.Title = "Show";
+}
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<html>
+<head>
+    <link href="~/Content/CategoriesSheet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <div class="form-horizontal">
+            <div class="widget">
+                <h3 class="widget-title">Категории</h3>
+                <ul class="widget-list">
+                    <li>
+
+                        @Ajax.ActionLink("All", "CategoryDetails", new AjaxOptions
+                        {
+                            Url = Url.Action("CategoryDetails", new { _category = "All" }),
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "categoryDetails"
+                        })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Important", "CategoryDetails", new AjaxOptions
+                        {
+                            Url = Url.Action("CategoryDetails", new { _category = "Important" }),
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "categoryDetails"
+                        })
+                    </li>
+                    <li>
+
+                        @Ajax.ActionLink("Personal", "CategoryDetails", new AjaxOptions
+                        {
+                            Url = Url.Action("CategoryDetails", new { Category = "Personal" }),
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "categoryDetails"
+                        })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Work", "CategoryDetails", new AjaxOptions
+                        {
+                            Url = Url.Action("CategoryDetails", new { Category = "Work" }),
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "categoryDetails"
+                        })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Others", "CategoryDetails", new AjaxOptions
+                        {
+                            Url = Url.Action("CategoryDetails", new { Category = "Others" }),
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "categoryDetails"
+                        })
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div id="categoryDetails"></div>
+    </div>
+</body>
+</html>

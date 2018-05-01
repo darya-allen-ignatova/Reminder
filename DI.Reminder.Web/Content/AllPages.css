@@ -1,0 +1,88 @@
+﻿body {
+    font-family: 'Merriweather', serif;
+}
+.name {
+    color: #855C6A;
+    font-family: ‘Lato’, sans-serif;
+    font-size: 40px;
+    line-height: 30px;
+    margin:20px;
+}
+
+p {
+    color: #adb7bd;
+    font-family: ‘Lucida Sans’, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 26px;
+    text-indent: 30px;
+    margin: 0;
+}
+
+a {
+    color: #fe921f;
+    text-decoration: underline;
+}
+
+    a:hover {
+        color: #ffffff
+    }
+
+.date {
+    background: #fe921f;
+    color: #ffffff;
+    display: inline-block;
+    font-family: ‘Lato’, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 12px;
+    letter-spacing: 1px;
+    margin: 0 0 30px;
+    padding: 10px 15px 8px;
+    text-transform: uppercase;
+}
+img {
+    width: 500px;
+    height: 300px;
+    margin:15px;
+}
+
+a.boton1 {
+    background: #FCF2E5;
+    color: #855C6A;
+    text-decoration: none;
+    display: block;
+    width: 160px;
+    text-align: left;
+    transition: all 0.3s;
+}
+
+    a.boton1:hover {
+        box-shadow: 0px -5px 0 #855C6A inset;
+    }
+
+.vid {
+    float: left;
+    width:48%;
+    height:300px;
+}
+.vid-rigth {
+    float: right;
+    width: 48%;
+    height: 300px;
+}
+.new{
+    margin-top:100px;
+}
+div {
+    color: #FCF2E5;
+    font-family: ‘Rouge Script’, cursive;
+    font-size: 130px;
+    font-weight: normal;
+    line-height: 48px;
+    margin: 0 0 50px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #082b34;
+}
+
+
+

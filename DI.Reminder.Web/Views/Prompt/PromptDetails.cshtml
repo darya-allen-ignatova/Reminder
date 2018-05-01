@@ -1,0 +1,24 @@
+﻿@model DI.Reminder.BL.Prompt
+
+@{
+    ViewBag.Title = "PromptDetails";
+}
+<link href="~/Content/AllPages.css" rel="stylesheet" />
+<h2 class="name">Additional information about prompt</h2>
+<div>
+    <div class="vid">
+        <div > @Html.DisplayFor(X => Model.Name)</div>
+        <div> Category:@Html.DisplayFor(X => Model.Category)</div>
+        <div>Description:</div>
+        <div>@Html.DisplayFor(X => Model.Description)</div>
+    </div>
+    <div class="vid-rigth">
+        @Html.DisplayFor(X => Model.CreatingDate)
+        <div>
+            <!--Картинка -->
+        </div>
+    </div>
+</div>       
+     
+
+
