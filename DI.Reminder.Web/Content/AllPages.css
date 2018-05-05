@@ -1,6 +1,7 @@
 ﻿body {
     background-image: url('solid-pink-iphone-clipart-4.jpg');
     font-family: 'Merriweather', serif;
+    background-size: cover;
 }
 .name {
     color: #855C6A;
@@ -44,7 +45,7 @@ a {
 img.big {
     width: 800px;
     height: 600px;
-    margin:15px;
+    margin:20px;
 }
 
 a.boton1 {
@@ -53,7 +54,7 @@ a.boton1 {
     text-decoration: none;
     display: block;
     width: 250px;
-    height:40px;
+    height:50px;
     text-align: left;
     transition: all 0.3s;
 }
@@ -64,13 +65,26 @@ a.boton1 {
 
 .vid {
     float: left;
-    width:20%;
-    height:300px;
+    width:36%;
+    height:200px;
 }
 .vid-rigth {
+    float: left;
+    width: 40%;
+    height: 200px;
+}
+.vid-services {
     float: right;
-    width: 60%;
-    height: 300px;
+    color: #855C6A;
+    font-size: 200%;
+    margin:10px;
+    width: 17%;
+    height: 200px;
+}
+.vid-rigth-new {
+    float: right;
+    width: 64%;
+    height: 200px;
 }
 .new{
     margin-top:100px;
@@ -79,7 +93,7 @@ h3.title {
     color: #FCF2E5;
     font-size: 200%;
     font-family: ‘Rouge Script’, cursive;
-    margin: 30px 0 50px;
+    margin: 10px 0 10px;
     text-align: left;
     text-shadow: 1px 1px 2px #082b34;
 }
@@ -89,7 +103,7 @@ a.title {
     font-size: 150%;
     font-family: ‘Rouge Script’, cursive;
     margin-left: 20px;
-    margin-bottom:30px;
+    margin-top:30px;
     text-align: left;
     text-shadow: 1px 1px 2px #082b34;
     padding: 20px;
@@ -107,7 +121,6 @@ a.title {
     font-family: ‘Rouge Script’, cursive;
     font-size:125%;
     line-height:70px;
-    margin-left: 10px;
     margin-bottom: 5px;
     text-align: left;
     text-shadow: 1px 1px 2px #082b34;
@@ -115,10 +128,10 @@ a.title {
 }
 .nam {
     color: #855C6A;
-    font-family: ‘Lato’, sans-serif;
+    font-family: ‘Rouge Script’, cursive;
     font-size: 20px;
     line-height: 25px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 }
 
@@ -128,7 +141,32 @@ a.title {
     font-size: 10px;
     line-height: 25px;
     margin-bottom: 5px;
+    float: left;
+    width: 70%;
+    height: 300px;
 }
+a.button {
+    background-color: #FADADD;
+    color: #855C6A;
+    text-decoration: none;
+    display: block;
+    width: 220px;
+    height: 40px;
+    text-align: left;
+    transition: all 0.3s;
+}
+
+    a.button:hover {
+        box-shadow: 0px -5px 0 #855C6A inset;
+    }
+
+.somebut-left {
+    float: left;
+    width: 33%;
+    height: 200px;
+}
+
+
 
 
 

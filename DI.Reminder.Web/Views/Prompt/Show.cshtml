@@ -61,11 +61,11 @@
     </div>
 </div>
 @*<div id="categoryDetails"></div>*@
-<div class="vid-rigth">
-    <div style=" width:100%; background: #FADADD; display:block; min-width: 100px; height:210px;"></div>
+<div class="vid-rigth-new">
+    <div style=" width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
         @foreach (var m in Model)
         {
-            <div class="nam">
+            <div class="nam" >
                 @Html.DisplayFor(name => m.Name)
                 <div style="float:right; margin-right:800px"> @Html.ActionLink("Details", "PromptDetails", new {m.ID})</div>
             </div>
