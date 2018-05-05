@@ -28,5 +28,9 @@ namespace DI.Reminder.BL
         {
             return _list.FirstOrDefault(f => f.ID == _id);
         }
+        public IEnumerable<Prompt> GetAll()
+        {
+            return _list;
+        }
     }
 }

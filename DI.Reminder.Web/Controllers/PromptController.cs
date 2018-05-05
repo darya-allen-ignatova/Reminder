@@ -10,8 +10,8 @@ namespace DI.Reminder.Web.Controllers
 {
     public class PromptController : Controller
     {
-        IPrompt prompt;
-        ILogger logger;
+        private readonly IPrompt prompt;
+        private readonly ILogger logger;
         public PromptController(IPrompt _prompt, ILogger _logger)
         {
             prompt = _prompt;
@@ -25,7 +25,7 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult Show()
         {
-            return View();
+            return View(prompt.GetAll());
         }
         public ActionResult CategoryDetails(string _category)
      {
@@ -36,11 +36,9 @@ namespace DI.Reminder.Web.Controllers
            }
            return View(_list);
         }
-        public ActionResult PromptDetails(int? id)
+        public ActionResult PromptDetails(int? ID)
         {
-            //Логирование
-            //logger.Debug(typeof(PromptController));
-            return View(prompt.GetPrompt(id));
+            return View(prompt.GetPrompt(ID));
         }
     }
 }

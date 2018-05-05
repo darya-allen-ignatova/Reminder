@@ -18,14 +18,19 @@
 
 namespace DI.Reminder.Web.DependencyResolution
 {
+    using StructureMap;
     using DI.Reminder.BL;
     using DI.Reminder.Common;
-    using StructureMap;
 
     public static class IoC
     {
+
         public static IContainer Initialize()
         {
+            //return new Container(x =>
+            //{
+            //    x.AddRegistry<AppRegistry>();
+            //});
             return new Container(x =>
             {
                 x.For<IPrompt>().Use<GetPrompts>();

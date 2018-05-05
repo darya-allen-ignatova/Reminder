@@ -13,7 +13,6 @@ body {
 
 .widget {
     padding: 20px 30px;
-    background: white;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -44,10 +43,10 @@ body {
         padding: 6px 0;
         letter-spacing: 1px;
         font-weight: 300;
-        color: #444;
+        color: #FCF2E5;
         transition: .3s linear;
     }
 
         .widget-list a:hover {
-            color: orange;
+            color: #855C6A;
         }

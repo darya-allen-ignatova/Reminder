@@ -104,15 +104,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="404.html" />
     <Content Include="Content\3-Details-To-Keep-In-Mind-About-Orthodontic-Treatment-.jpeg" />
     <Content Include="Content\AllPages.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CategoriesSheet.css" />
+    <Content Include="Content\iABCCXH53.jpg" />
     <Content Include="Content\Layout.css" />
-    <Content Include="Content\luxfon.com-2852.jpg" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\solid-pink-iphone-clipart-4.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PromptController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -156,6 +157,9 @@
     <Content Include="Views\Prompt\Show.cshtml" />
     <Content Include="Views\Prompt\CategoryDetails.cshtml" />
     <Content Include="Views\Prompt\PromptDetails.cshtml" />
+    <Content Include="Views\Error\HttpError404.cshtml" />
+    <Content Include="Views\Error\HttpError500.cshtml" />
+    <Content Include="Views\Error\OtherErrors.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -175,6 +179,10 @@
     <ProjectReference Include="..\DI.Reminder.Common\DI.Reminder.Common.csproj">
       <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
       <Name>DI.Reminder.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Reminder.Dependence\DI.Reminder.Dependence.csproj">
+      <Project>{e7f41fba-0942-4f39-86cc-005e3dd82fc9}</Project>
+      <Name>DI.Reminder.Dependence</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

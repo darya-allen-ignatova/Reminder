@@ -43,10 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DI.Reminder.BL\DI.Reminder.BL.csproj">
+      <Project>{a9d4f4a8-a601-4b84-910c-2cc81c6d2779}</Project>
+      <Name>DI.Reminder.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Reminder.Common\DI.Reminder.Common.csproj">
+      <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
+      <Name>DI.Reminder.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

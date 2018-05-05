@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DI.Reminder.BL
 {
-    public interface IPrompt
+    public interface ICategories
     {
-        IEnumerable<Prompt> GetList(string _category);
-        Prompt GetPrompt(int? _id);
+        IEnumerable<string> GetCategories();
     }
 }

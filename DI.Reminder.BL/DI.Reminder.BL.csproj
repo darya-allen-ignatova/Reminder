@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetPrompts.cs" />
-    <Compile Include="IPrompt.cs" />
-    <Compile Include="Prompt.cs" />
+    <Compile Include="BLRegistry.cs" />
+    <Compile Include="Categories.cs" />
+    <Compile Include="Prompt\GetPrompts.cs" />
+    <Compile Include="ICategories.cs" />
+    <Compile Include="Prompt\IPrompt.cs" />
+    <Compile Include="Prompt\Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

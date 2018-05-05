@@ -9,8 +9,9 @@ namespace DI.Reminder.Common
 {
     public interface ILogger
     {
-        //ILog For(object LoggedObject);
-        ILog For(Type ObjectType);
-        void Debug(Type ObjectType);
+        void  Error(string _message);
+        void Debug(string _message);
+        void Warn(string _message);
+        void Fatal(string _message);
     }
 }
