@@ -12,7 +12,6 @@ namespace DI.Reminder.Dependence
                       scan =>
                       {
                           scan.AssembliesFromApplicationBaseDirectory();
-                          //scan.Assembly("DI.Remember.Common");
                           scan.WithDefaultConventions();
                           scan.LookForRegistries();
                       }

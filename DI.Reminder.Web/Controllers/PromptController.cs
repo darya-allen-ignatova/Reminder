@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using DI.Reminder.BL;
 using DI.Reminder.Common;
@@ -11,16 +8,15 @@ namespace DI.Reminder.Web.Controllers
     public class PromptController : Controller
     {
         private readonly IPrompt prompt;
-        private readonly ILogger logger;
-        public PromptController(IPrompt _prompt, ILogger _logger)
+        public PromptController(IPrompt _prompt)
         {
             prompt = _prompt;
-            if(logger==null)
-            logger = _logger;
+           
         }
         // GET: Prompt
         public ActionResult Home()
         {
+
             return View();
         }
         public ActionResult Show()

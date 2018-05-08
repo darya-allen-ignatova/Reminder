@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StructureMap;
+﻿using StructureMap;
 
 namespace DI.Reminder.BL
 {
@@ -11,12 +6,7 @@ namespace DI.Reminder.BL
     {
         public BLRegistry()
         {
-            Scan(scan =>
-            {
-                scan.TheCallingAssembly();
-                scan.WithDefaultConventions();
-            });
-            
+            For<IPrompt>().Use<GetPrompts>();
         }
     }
 }

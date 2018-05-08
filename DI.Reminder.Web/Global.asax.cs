@@ -10,6 +10,7 @@ namespace DI.Reminder.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -21,30 +22,29 @@ namespace DI.Reminder.Web
         {
             Exception exception = Server.GetLastError();
             Response.Clear();
-
             HttpException httpException = exception as HttpException;
-
             if (httpException != null)
             {
-                string action;
-
+                string _action;
                 switch (httpException.GetHttpCode())
                 {
                     case 404:
-                        action = "HttpError404";
+                        _action = "HttpError404";
                         break;
                     case 500:
-                        action = "HttpError500";
+                        _action = "HttpError500";
                         break;
                     default:
-                        action = "OtherErrors";
+                        _action = "OtherErrors";
                         break;
                 }
                 Server.ClearError();
-                Response.Redirect(String.Format("~/Error/{0}", action));
+                Response.Redirect($"~/Error/{_action}");
+                //Response.RedirectToRoute(new { controller = "Error", action = _action }, new { message = exception.Message + "\n" + exception.StackTrace } );
+                
+                
             }
-            //if(httpException.GetHttpCode()!=404)
-            //logger.Error(exception.Message+"\n"+exception.StackTrace);
+            
         }
     }
     
