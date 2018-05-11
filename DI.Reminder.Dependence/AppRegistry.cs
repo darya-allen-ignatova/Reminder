@@ -1,21 +1,18 @@
 ﻿using StructureMap;
+using DI.Reminder.BL;
+
 
 namespace DI.Reminder.Dependence
 {
     public class AppRegistry:Registry 
     {
-        public IContainer Container;
         public AppRegistry()
         {
-            Container = new Container(x => x.Scan
-                  (
-                      scan =>
-                      {
-                          scan.AssembliesFromApplicationBaseDirectory();
-                          scan.WithDefaultConventions();
+           Scan(scan => {
+               scan.AssembliesFromApplicationBaseDirectory();
+               //scan.Assembly(typeof(BLRegistry).Assembly);
                           scan.LookForRegistries();
-                      }
-                  )
+                        }
            );
         }
     }

@@ -27,16 +27,15 @@ namespace DI.Reminder.Web.DependencyResolution
     {
         public static IContainer Initialize()
         {
-            
-            //return new Container(x =>
-            //{
-            //    x.AddRegistry<AppRegistry>();
-            //});
             return new Container(x =>
             {
-                x.For<IPrompt>().Use<GetPrompts>();
-                x.For<ILogger>().Use<AppLogger>();
+                x.AddRegistry<AppRegistry>();
             });
+            //return new Container(x =>
+            //{
+            //    x.For<IPrompt>().Use<GetPrompts>();
+            //    x.For<ILogger>().Use<AppLogger>();
+            //});
         }
     }
 }

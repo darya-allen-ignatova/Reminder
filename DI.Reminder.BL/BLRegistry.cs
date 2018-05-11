@@ -2,7 +2,7 @@
 
 namespace DI.Reminder.BL
 {
-    class BLRegistry:Registry
+    public class BLRegistry:Registry
     {
         public BLRegistry()
         {

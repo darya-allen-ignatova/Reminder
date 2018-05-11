@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0292db41-1195-4819-b9e1-f2bc36c61e7d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:54201/Advertising.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Advertising.xsd" MetadataType="Schema" ID="83af6649-d5b6-462e-83d2-ccd32b7cf863" SourceId="1" SourceUrl="http://localhost:54201/Advertising.svc?xsd=xsd1" />
+    <MetadataFile FileName="Advertising.disco" MetadataType="Disco" ID="f6f7e5b0-ec6b-47f1-939a-938f506c3107" SourceId="1" SourceUrl="http://localhost:54201/Advertising.svc?disco" />
+    <MetadataFile FileName="Advertising1.xsd" MetadataType="Schema" ID="e6dad75d-0c94-446e-92f6-0fda60286ba1" SourceId="1" SourceUrl="http://localhost:54201/Advertising.svc?xsd=xsd0" />
+    <MetadataFile FileName="Advertising.wsdl" MetadataType="Wsdl" ID="eaff5895-990f-4037-9cf1-be02140acc2c" SourceId="1" SourceUrl="http://localhost:54201/Advertising.svc?wsdl" />
+    <MetadataFile FileName="Advertising2.xsd" MetadataType="Schema" ID="e217cfb1-4315-4038-b46c-ae7f1867eb7a" SourceId="1" SourceUrl="http://localhost:54201/Advertising.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

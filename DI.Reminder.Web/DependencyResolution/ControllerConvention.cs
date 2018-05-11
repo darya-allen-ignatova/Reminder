@@ -36,7 +36,10 @@ namespace DI.Reminder.Web.DependencyResolution {
 
         public void ScanTypes(TypeSet types, Registry registry)
         {
-            throw new NotImplementedException();
+            foreach (var type in types.AllTypes())
+            {
+                registry.For(type).LifecycleIs(new UniquePerRequestLifecycle());
+            }
         }
 
         #endregion
