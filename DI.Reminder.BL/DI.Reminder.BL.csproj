@@ -44,12 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLRegistry.cs" />
+    <Compile Include="Service\BLService.cs" />
+    <Compile Include="Service\IBLService.cs" />
     <Compile Include="Categories.cs" />
     <Compile Include="Prompt\GetPrompts.cs" />
     <Compile Include="ICategories.cs" />
     <Compile Include="Prompt\IPrompt.cs" />
     <Compile Include="Prompt\Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ServiceItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -58,6 +61,10 @@
     <ProjectReference Include="..\DI.Reminder.Common\DI.Reminder.Common.csproj">
       <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
       <Name>DI.Reminder.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Reminder.Data\DI.Reminder.Data.csproj">
+      <Project>{56e8e502-6db9-467a-98bf-5550ad59fc79}</Project>
+      <Name>DI.Reminder.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

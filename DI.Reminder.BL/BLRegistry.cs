@@ -1,4 +1,5 @@
-﻿using StructureMap;
+﻿using DI.Reminder.BL.Service;
+using StructureMap;
 
 namespace DI.Reminder.BL
 {
@@ -7,6 +8,7 @@ namespace DI.Reminder.BL
         public BLRegistry()
         {
             For<IPrompt>().Use<GetPrompts>();
+            For<IBLService>().Use<BLService>();
         }
     }
 }

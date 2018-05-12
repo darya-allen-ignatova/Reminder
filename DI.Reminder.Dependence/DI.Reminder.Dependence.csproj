@@ -58,6 +58,13 @@
       <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
       <Name>DI.Reminder.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DI.Reminder.Data\DI.Reminder.Data.csproj">
+      <Project>{56e8e502-6db9-467a-98bf-5550ad59fc79}</Project>
+      <Name>DI.Reminder.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

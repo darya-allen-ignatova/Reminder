@@ -1,10 +1,6 @@
-﻿<div>
-    Here link
+﻿@model  IEnumerable< DI.Reminder.BL.ServiceItem>
+@foreach(var item in Model)
+<div>
+    @Html.DisplayFor(m => item.Url)
 </div>
 
-<div>
-    And here link
-</div>
-<div>
-    Also link
-</div>

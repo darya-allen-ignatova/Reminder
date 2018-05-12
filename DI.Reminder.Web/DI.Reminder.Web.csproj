@@ -106,16 +106,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\AppService\Advertising.disco" />
-    <None Include="Connected Services\AppService\configuration91.svcinfo" />
-    <None Include="Connected Services\AppService\configuration.svcinfo" />
-    <Content Include="Connected Services\AppService\DI.Reminder.Web.AppService.AdvertItem.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Connected Services\AppService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Content\3-Details-To-Keep-In-Mind-About-Orthodontic-Treatment-.jpeg" />
     <Content Include="Content\AllPages.css" />
     <Content Include="Content\bootstrap.css" />
@@ -129,16 +119,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Connected Services\AppService\Advertising.wsdl" />
-    <None Include="Connected Services\AppService\Advertising.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AppService\Advertising1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AppService\Advertising2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -152,11 +132,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
-    <Compile Include="Connected Services\AppService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PromptController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -216,9 +191,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\AppService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

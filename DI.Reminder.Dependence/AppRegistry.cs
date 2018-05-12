@@ -1,5 +1,5 @@
 ﻿using StructureMap;
-using DI.Reminder.BL;
+using DI.Reminder.Data;
 
 
 namespace DI.Reminder.Dependence
@@ -10,7 +10,6 @@ namespace DI.Reminder.Dependence
         {
            Scan(scan => {
                scan.AssembliesFromApplicationBaseDirectory();
-               //scan.Assembly(typeof(BLRegistry).Assembly);
                           scan.LookForRegistries();
                         }
            );
