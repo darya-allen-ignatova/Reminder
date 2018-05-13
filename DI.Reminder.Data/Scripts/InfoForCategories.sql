@@ -1,0 +1,7 @@
+INSERT INTO Categories(ID,Name,ParentID) VALUES (1,'Important',NULL)
+INSERT INTO Categories(ID,Name,ParentID) VALUES (2,'Personal',NULL)
+INSERT INTO Categories(ID,Name,ParentID) VALUES (1,'Work',NULL)
+INSERT INTO Categories(ID,Name,ParentID) VALUES (1,'Other',NULL)
+INSERT INTO Categories(ID,Name,ParentID) VALUES (2,'Family',2)
+INSERT INTO Categories(ID,Name,ParentID) VALUES (1,'Bills',2)
+INSERT INTO Categories(ID,Name,ParentID) VALUES (1,'Others',2)

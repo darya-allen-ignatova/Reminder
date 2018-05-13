@@ -1,40 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using DI.Reminder.BL;
-using DI.Reminder.Common;
+using DI.Reminder.BL.Repository;
 
 namespace DI.Reminder.Web.Controllers
 {
     public class PromptController : Controller
     {
         private readonly IPrompt prompt;
-        public PromptController(IPrompt _prompt)
+        IPromptRepository _promptrep;
+        public PromptController(IPrompt _prompt, IPromptRepository promptrep)
         {
             prompt = _prompt;
-           
+            _promptrep = promptrep;
         }
         // GET: Prompt
         public ActionResult Home()
         {
-
             return View();
         }
-        public ActionResult Show()
+        public ActionResult Show(int id=0)
         {
-            return View(prompt.GetAll());
+            return View(_promptrep.GetCategoryItemsByID(id));
         }
-        public ActionResult CategoryDetails(string _category)
-     {
-           IEnumerable<Prompt> _list = prompt.GetList(_category);
-           if (Request.IsAjaxRequest())
-           {
-                return PartialView(prompt.GetList(_category));
-           }
-           return View(_list);
-        }
-        public ActionResult PromptDetails(int? ID)
+        public ActionResult PromptDetails(int ID)
         {
-            return View(prompt.GetPrompt(ID));
+            return View(_promptrep.GetPromptDetails(ID));
         }
+        //public ActionResult ShowCategoryItems(int id)
+        //{
+        //    return View(_promptrep.GetCategoryItemsByID(id));
+        //}
     }
 }

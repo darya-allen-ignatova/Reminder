@@ -106,12 +106,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\28471edda08ca85da8487d5cd2db0243.jpg" />
     <Content Include="Content\3-Details-To-Keep-In-Mind-About-Orthodontic-Treatment-.jpeg" />
     <Content Include="Content\AllPages.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CategoriesSheet.css" />
     <Content Include="Content\iABCCXH53.jpg" />
+    <Content Include="Content\Images.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\solid-pink-iphone-clipart-4.jpg" />
@@ -158,12 +160,13 @@
     <Content Include="Views\Prompt\Home.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Prompt\Show.cshtml" />
-    <Content Include="Views\Prompt\CategoryDetails.cshtml" />
     <Content Include="Views\Prompt\PromptDetails.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />
     <Content Include="Views\Error\HttpError500.cshtml" />
     <Content Include="Views\Error\OtherErrors.cshtml" />
     <Content Include="Views\Service\Services.cshtml" />
+    <Content Include="Views\Prompt\ShowCategoryItems.cshtml" />
+    <Content Include="Views\Service\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -10,51 +10,19 @@
         <h3 class="widget-title title">Categories</h3>
         <ul class="widget-list title">
             <li>
-
-                @Ajax.ActionLink("All", "CategoryDetails", new AjaxOptions
-                {
-                    Url = Url.Action("CategoryDetails", new { _category = "All" }),
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "categoryDetails"
-                })
+                @Html.ActionLink("All","Show",new { id = 0 })
             </li>
             <li>
-                @Ajax.ActionLink("Important", "CategoryDetails", new AjaxOptions
-                {
-                    Url = Url.Action("CategoryDetails", new { _category = "Important" }),
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "categoryDetails"
-                })
+                @Html.ActionLink("Important", "Show", new { id = 1 })
             </li>
             <li>
-
-                @Ajax.ActionLink("Personal", "CategoryDetails", new AjaxOptions
-                {
-                    Url = Url.Action("CategoryDetails", new { Category = "Personal" }),
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "categoryDetails"
-                })
+                @Html.ActionLink("Personal", "Show", new { id = 2 })
             </li>
             <li>
-                @Ajax.ActionLink("Work", "CategoryDetails", new AjaxOptions
-                {
-                    Url = Url.Action("CategoryDetails", new { Category = "Work" }),
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "categoryDetails"
-                })
+                @Html.ActionLink("Work", "Show", new { id = 3 })
             </li>
             <li>
-                @Ajax.ActionLink("Others", "CategoryDetails", new AjaxOptions
-                {
-                    Url = Url.Action("CategoryDetails", new { Category = "Others" }),
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "categoryDetails"
-                })
+                @Html.ActionLink("Other", "Show", new { id = 4 })
             </li>
 
         </ul>
@@ -63,16 +31,7 @@
 @*<div id="categoryDetails"></div>*@
 <div class="vid-rigth-new">
     <div style=" width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
-        @foreach (var m in Model)
-        {
-            <div class="nam" >
-                @Html.DisplayFor(name => m.Name)
-                <div style="float:right; margin-right:800px"> @Html.ActionLink("Details", "PromptDetails", new {m.ID})</div>
-            </div>
-            <div>
-
-            </div>
-        }
+       @Html.Partial("ShowCategoryItems")
     </div>
 
 

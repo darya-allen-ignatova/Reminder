@@ -19,8 +19,6 @@
 namespace DI.Reminder.Web.DependencyResolution
 {
     using StructureMap;
-    using DI.Reminder.BL;
-    using DI.Reminder.Common;
     using DI.Reminder.Dependence;
 
     public static class IoC
@@ -31,11 +29,6 @@ namespace DI.Reminder.Web.DependencyResolution
             {
                 x.AddRegistry<AppRegistry>();
             });
-            //return new Container(x =>
-            //{
-            //    x.For<IPrompt>().Use<GetPrompts>();
-            //    x.For<ILogger>().Use<AppLogger>();
-            //});
         }
     }
 }

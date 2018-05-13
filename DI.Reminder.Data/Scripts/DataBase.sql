@@ -1,0 +1,1 @@
+CREATE DATABASE [DI.Reminder.Data]

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DI.Reminder.BL
+namespace DI.Reminder.Data
 {
-    public class Prompt
+    public class DataPrompt
     {
         public int ID { get; set; }
         public string Name { get; set; }

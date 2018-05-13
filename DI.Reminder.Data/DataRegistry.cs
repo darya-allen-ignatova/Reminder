@@ -1,4 +1,5 @@
 ﻿using StructureMap;
+using DI.Reminder.Data.DataBase;
 
 namespace DI.Reminder.Data
 {
@@ -7,6 +8,7 @@ namespace DI.Reminder.Data
         public DataRegistry()
         {
             For<IDataService>().Use<DataService>();
+            For<IGetData>().Use<AppDatabase>();
         }
     }
 }

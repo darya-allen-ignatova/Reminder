@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DI.Reminder.BL
+namespace DI.Reminder.Data
 {
-    public class Categories
+    public class DataCategories
     {
         public int ID { get; set; }
         public string Name { get; set; }

@@ -9,7 +9,7 @@
         <div class="widget">
             <h3 class="widget-title title">My reminders</h3>
             <ul class="widget-list">
-                <li><a class="title boton1" type="button" value="Prompts" href='@Url.Action("Show", "Prompt")'>Show</a></li>
+                <li><a class="title boton1" type="button" value="Prompts" href='@Url.Action("Show", "Prompt", new { id = 0 })'>Show</a></li>
                 <li> <a class="title boton1" type="button" value="Prompts" href='@Url.Action("Add", "Prompt")'>Add new</a> </li>
             </ul> 
             <div class="na">
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="vid-services">
-        @*@Html.Partial("Services","Service")*@
+        @*@Html.Action("Services", "Service")*@
     </div>
     
 </div>
