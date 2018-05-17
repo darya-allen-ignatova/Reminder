@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DI.Reminder.Data
 {
-    public class DataCategories
+    public class DataCategory
     {
         public int ID { get; set; }
         public string Name { get; set; }

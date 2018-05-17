@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DI.Reminder.BL.Prompt>
+﻿@model DI.Reminder.Web.Models.Ins
 @{
     ViewBag.Title = "Show";
 }
@@ -10,28 +10,28 @@
         <h3 class="widget-title title">Categories</h3>
         <ul class="widget-list title">
             <li>
-                @Html.ActionLink("All","Show",new { id = 0 })
+                @if (Model.CategoryList[0].ParentID == null)
+            {@Html.ActionLink($"All", "Show", new { id = 0 })}
             </li>
+            @foreach (var item in Model.CategoryList)
+        {
             <li>
-                @Html.ActionLink("Important", "Show", new { id = 1 })
+                @Html.ActionLink($"{item.Name}", "Show", new { id = item.ID })
             </li>
-            <li>
-                @Html.ActionLink("Personal", "Show", new { id = 2 })
-            </li>
-            <li>
-                @Html.ActionLink("Work", "Show", new { id = 3 })
-            </li>
-            <li>
-                @Html.ActionLink("Other", "Show", new { id = 4 })
-            </li>
+    }
 
         </ul>
+        @if (Model.CategoryList[0].ParentID != null)
+        { 
+           <a class="title" type="button" value="Prompts" href='@Url.Action("Show", "Prompt", new { id = 0 })'>Back to previous list</a>
+        }
     </div>
 </div>
-@*<div id="categoryDetails"></div>*@
 <div class="vid-rigth-new">
     <div style=" width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
-       @Html.Partial("ShowCategoryItems")
-    </div>
+    @if (Model.PromptList != null)
+    {  @Html.Partial("ShowCategoryItems", Model.PromptList)}
+    
+</div>
 
 

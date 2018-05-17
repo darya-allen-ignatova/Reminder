@@ -44,11 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLRegistry.cs" />
+    <Compile Include="Category\GetCategory.cs" />
+    <Compile Include="Category\IGetCategory.cs" />
     <Compile Include="Repository\IPromptRepository.cs" />
     <Compile Include="Repository\PromptRepository.cs" />
     <Compile Include="Service\BLService.cs" />
     <Compile Include="Service\IBLService.cs" />
-    <Compile Include="Categories.cs" />
+    <Compile Include="Category\Category.cs" />
     <Compile Include="Prompt\GetPrompts.cs" />
     <Compile Include="Prompt\IPrompt.cs" />
     <Compile Include="Prompt\Prompt.cs" />

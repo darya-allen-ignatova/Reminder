@@ -125,10 +125,22 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Images\104580Q3s1DJ2E4653k8cIOEca.jpg" />
+    <Content Include="Images\1302351072_city_0241_www.nevseoboi.com.ua.jpg" />
+    <Content Include="Images\25ba2ffca98649ed5d86e7dac07960da.jpg" />
+    <Content Include="Images\354748-admin_3840x2400.jpg" />
+    <Content Include="Images\529ddc6b8a64d.jpg" />
+    <Content Include="Images\56913492-programming-wallpapers.png" />
+    <Content Include="Images\a898855432e900db78cba5185074eb14_1.jpg" />
+    <Content Include="Images\alive-wallpaper-23.jpg" />
+    <Content Include="Images\apple-inc-steve-jobs-quotes-1736677-1920x1080.jpg" />
+    <Content Include="Images\d6cb67c556ba1c639c25f3bafe5117a9.jpg" />
+    <Content Include="Images\ed224eb757dc27a81e5ce542b8bf64e0.jpg" />
+    <Content Include="Images\hourglass-time-now.jpg" />
+    <Content Include="Images\Love_Memory_of_love_037454_.jpg" />
+    <Content Include="Images\wallls.com_68782.jpg" />
     <Content Include="Scripts\CreateCategoryTable.sql" />
     <Content Include="Scripts\CreatePromptTable.sql" />
     <Content Include="Scripts\DataBase.sql" />

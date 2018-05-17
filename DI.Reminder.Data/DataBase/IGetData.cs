@@ -8,7 +8,9 @@ namespace DI.Reminder.Data.DataBase
 {
     public interface IGetData
     {
-        IList<DataPrompt> GetItems(int id);
+        IList<DataPrompt> GetItems(int? id);
         DataPrompt GetPrompt(int id);
+        IList<DataCategory> GetCategories(int? id);
+        int? GetCategoryID(string Name);
     }
 }

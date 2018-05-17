@@ -145,6 +145,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ins.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DI.Reminder.BL\DI.Reminder.BL.csproj">
@@ -186,6 +186,10 @@
     <ProjectReference Include="..\DI.Reminder.Common\DI.Reminder.Common.csproj">
       <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
       <Name>DI.Reminder.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Reminder.Data\DI.Reminder.Data.csproj">
+      <Project>{56e8e502-6db9-467a-98bf-5550ad59fc79}</Project>
+      <Name>DI.Reminder.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\DI.Reminder.Dependence\DI.Reminder.Dependence.csproj">
       <Project>{e7f41fba-0942-4f39-86cc-005e3dd82fc9}</Project>

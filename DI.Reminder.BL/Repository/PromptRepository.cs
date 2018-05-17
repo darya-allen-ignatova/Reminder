@@ -17,18 +17,19 @@ namespace DI.Reminder.BL.Repository
             _getdata = getdata;
             _list = new List<Prompt>();
         }
-        public IEnumerable<Prompt> GetCategoryItemsByID(int id)
+        public IList<Prompt> GetCategoryItemsByID(int? id)
         {
             AppDatabase appd = new AppDatabase();
             var list=appd.GetItems(id);
+            if (list == null)
+                return null;
             for(int i=0; i<list.Count; i++)
             {
                 _list.Add(new Prompt()
                 {
                     ID = list[i].ID,
                   Name = list[i].Name,
-                  
-
+                  Category=list[i].Category
                 });
             }
             return _list;
@@ -47,6 +48,10 @@ namespace DI.Reminder.BL.Repository
                 Image = dataprompt.Image
             };
             return prompt;
+        }
+        public int? GetID(string name)
+        {
+            return _getdata.GetCategoryID(name);
         }
 
     
