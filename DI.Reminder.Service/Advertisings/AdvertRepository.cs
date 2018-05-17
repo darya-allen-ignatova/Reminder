@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace DI.Reminder.Service.Advertising
 {
@@ -15,15 +16,15 @@ namespace DI.Reminder.Service.Advertising
         {
             new AdvertItem
             {
-                ID=1,Title="Books", Url="https://oz.by/",Image=GetBytesFromImage(@"~Images/IMG_8839.jpg")
+                ID=1,Title="Books", Url="https://oz.by/",Image=GetImageByteArray(@"/Images/IMG_8839.jpg")
             },
             new AdvertItem
             {
-                ID=2,Title="TV series", Url="http://seasonvar.ru/",Image=GetBytesFromImage(@"~Images/_______________.jpg")
+                ID=2,Title="TV series", Url="http://seasonvar.ru/",Image=GetImageByteArray(@"/Images/_______________.png")
             },
             new AdvertItem
             {
-                ID=3,Title="Programming Site", Url="https://metanit.com/",Image=GetBytesFromImage(@"~Images/6LNrDidlao8.jpg")
+                ID=3,Title="Programming Site", Url="https://metanit.com/",Image=GetImageByteArray(@"/Images/6LNrDidlao8.jpg")
             }
         };
         }
@@ -35,7 +36,13 @@ namespace DI.Reminder.Service.Advertising
         {
             List<AdvertItem> list = new List<AdvertItem>();
             for (int i = 0; i < 3; i++)
-                list[i] = _list.FirstOrDefault(f => f.ID == RandomItem());
+            {
+                AdvertItem _advert = _list.FirstOrDefault(f => f.ID == RandomItem());
+                list.Add(new AdvertItem()
+                {
+                    ID = _advert.ID, Title = _advert.Title, Url = _advert.Url, Image = _advert.Image
+                });
+            }
             return list;
         }
         public int RandomItem()
@@ -45,10 +52,15 @@ namespace DI.Reminder.Service.Advertising
         }
         public byte[] GetBytesFromImage(string path)
         {
-            //get the physical path
             string physicalPath = HttpContext.Current.Server.MapPath(path);
-            //read and return byte[]
             return File.ReadAllBytes(physicalPath);
+        }
+        public byte[] GetImageByteArray(string imagePath)
+        {
+            string currentPath = HostingEnvironment.ApplicationPhysicalPath;
+            var byteArray = File.ReadAllBytes(currentPath + imagePath);
+            return byteArray;
+
         }
     }
 }

@@ -60,10 +60,6 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
             return View(_promptrep.GetPromptDetails(ID));
         }
-        //[ChildActionOnly]
-        //public ActionResult ShowCategoryItems(int id=0)
-        //{
-        //    return PartialView(_promptrep.GetCategoryItemsByID(id));
-        //}
+       
     }
 }

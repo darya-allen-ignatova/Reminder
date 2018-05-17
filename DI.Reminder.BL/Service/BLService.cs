@@ -12,7 +12,7 @@ namespace DI.Reminder.BL.Service
         IDataService _dataservice;
         public BLService(IDataService dataservice)
         {
-            dataservice = _dataservice;
+            _dataservice = dataservice;
         }
         public IEnumerable<ServiceItem> Get()
         {
