@@ -1,0 +1,37 @@
+﻿@model DI.Reminder.BL.Prompt
+
+@{
+    ViewBag.Title = "PromptDetails";
+}
+<link href="~/Content/AllPages.css" rel="stylesheet" />
+<h2 class="name">Additional information about prompt</h2>
+<hr/>
+<div style="height:500px">
+    <div class="vid" style="margin:10px;margin-left:20px;">
+        <div class="title" > @Html.DisplayFor(X => Model.Name)</div>
+        <div class="nam" style="margin-left:10px"> Category:@Html.DisplayFor(X => Model.Category)</div>
+        <div class="nam" style="margin-left:10px">Description:</div>
+        <div class="nam" style="margin-left:10px">@Html.DisplayFor(X => Model.Description)</div>
+    </div>
+    <div class="vid-rigth title">
+        <div> 
+        @Model.CreatingDate.ToShortDateString()
+        </div>
+        <div class="nam">
+            Время напоминания
+        </div>
+        <div> @Html.DisplayFor(X => Model.TimeOfPrompt)</div>
+        <div>
+            <img style="width:500px; height:300px" ; src="@Url.Content(Model.Image)" />
+        </div>
+    </div>
+   
+</div>       
+<div style="width:100%; height:300px; float:left">
+    <a class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Edit", "Prompt")'>Edit</a>
+    <a class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Show", "Prompt", new { id = 0 })'>Back to list</a>
+    <a class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Home", "Prompt")'>Back to start page</a>
+</div>
+     
+
+

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<DI.Reminder.BL.ServiceItem>
+@{
+    Layout = null;
+}
+
+
+
+@foreach (var item in Model)
+{
+    <div>
+        <a href="@item.Url">
+            @Html.DisplayFor(f => item.Title)
+        </a>
+        @*<img src="src=@item.Image" />*@
+
+    </div>
+    <img style="width:140px; height:200px" ; src="@item.Image" />
+}
+
+
