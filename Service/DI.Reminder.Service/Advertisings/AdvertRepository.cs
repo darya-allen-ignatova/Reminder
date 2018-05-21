@@ -23,7 +23,9 @@ namespace DI.Reminder.Service.Advertising
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 try
-                { connection.Open(); }
+                {
+                    connection.Open();
+                }
                 catch(SqlException)
                 {
 

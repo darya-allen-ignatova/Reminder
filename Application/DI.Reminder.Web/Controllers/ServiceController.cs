@@ -21,7 +21,18 @@ namespace DI.Reminder.Web.Controllers
         {
             IEnumerable<ServiceItem> advertising = _blservice.Get();
             if (advertising == null)
-                return Redirect("Error");
+            {
+                advertising = new List<ServiceItem>()
+                {
+                    new ServiceItem()
+                    {
+                        ID=0,
+                        Title="Против рекламы",
+                        Url=null,
+                        Image="/Images/0.jpg"
+                    }
+                };
+            }
             return View(advertising);
         }
     }

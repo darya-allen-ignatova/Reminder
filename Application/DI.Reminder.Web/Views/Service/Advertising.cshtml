@@ -2,19 +2,21 @@
 @{
     Layout = null;
 }
-
-
-
 @foreach (var item in Model)
 {
     <div>
         <a href="@item.Url">
             @Html.DisplayFor(f => item.Title)
         </a>
-        @*<img src="src=@item.Image" />*@
-
     </div>
-    <img style="width:140px; height:200px" ; src="@item.Image" />
+    if (item.Url == null)
+    {
+        <img style="width:230px; height:240px" ; src="@item.Image" />
+    }
+    else
+    {
+        <img style="width:140px; height:200px" ; src="@item.Image" />
+    }
 }
 
 

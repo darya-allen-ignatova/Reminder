@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using DI.Reminder.Data;
-using System.Drawing;
 using System;
-using System.IO;
+using DI.Reminder.Data.AppService;
 
 namespace DI.Reminder.BL.Service
 {
@@ -15,14 +14,28 @@ namespace DI.Reminder.BL.Service
         }
         public IEnumerable<ServiceItem> Get()
         {
-            var list = _dataservice.GetItems();
-            List<ServiceItem> _list = new List<ServiceItem>();
-            for(int i = 0; i<3; i++)
+            IList<AdvertItem> list = new List<AdvertItem>(); List<ServiceItem> _list;
+            try
             {
-                _list.Add(new ServiceItem() { ID = list[i].ID, Title = list[i].Title, Url = list[i].Url, Image = ConvertByteArrToString(list[i].Image)
+                list = _dataservice.GetItems();
+            }
+            catch (ArgumentNullException)
+            {
+                return null;
+            }
+            _list = new List<ServiceItem>();
+            for (int i = 0; i < 3; i++)
+            {
+                _list.Add(new ServiceItem()
+                {
+                    ID = list[i].ID,
+                    Title = list[i].Title,
+                    Url = list[i].Url,
+                    Image = ConvertByteArrToString(list[i].Image)
                 });
             }
             return _list;
+
         }
         public string ConvertByteArrToString(byte[] arr)
         {

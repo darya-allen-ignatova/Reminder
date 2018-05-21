@@ -9,7 +9,7 @@ namespace DI.Reminder.BL.Repository
     public interface IPromptRepository
     {
         IList<Prompt> GetCategoryItemsByID(int? id);
-        Prompt GetPromptDetails(int id);
+        Prompt GetPromptDetails(int? id);
         int? GetID(string name);
     }
 }

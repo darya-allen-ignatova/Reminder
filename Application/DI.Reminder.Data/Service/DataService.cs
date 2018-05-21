@@ -13,21 +13,29 @@ namespace DI.Reminder.Data
         public IList<AdvertItem> GetItems()
         {
             AdvertisingClient client = new AdvertisingClient();
-            IList<AdvertItem> list= client.GetItems();
+            IList<AdvertItem> list;
+            try
+            {
+                list = client.GetItems();
+            }
+            catch(ArgumentNullException)
+            {
+                throw new ArgumentNullException();
+            }
             try
             {
                 client.Close();
             }
-            catch (CommunicationException e)
+            catch (CommunicationException)
             {
                 
                 client.Abort();
             }
-            catch (TimeoutException e)
+            catch (TimeoutException)
             {
                 client.Abort();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 client.Abort();
                 throw;

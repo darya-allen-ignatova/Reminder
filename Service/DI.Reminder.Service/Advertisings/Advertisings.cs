@@ -17,7 +17,6 @@ namespace DI.Reminder.Service.Advertising
             if (list == null)
             {
                 throw new ArgumentNullException();
-                 
             }
             return list;
 

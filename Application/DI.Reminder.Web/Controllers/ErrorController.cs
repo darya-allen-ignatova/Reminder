@@ -12,21 +12,19 @@ namespace DI.Reminder.Web.Controllers
                 _logger = logger;
         }
         // GET: Error
-        public ActionResult HttpError404()
+        public ActionResult HttpError404(string message)
         {
-            //string message = Request.QueryString["message"];
-            //string stack = Request.QueryString["stack"];
-            //_logger.Error($"Error 404:\n{message}\n{stack}");
+            //_logger.Error("404:\n" + message);
             return View();
         }
-        public ActionResult HttpError500()
+        public ActionResult HttpError500(string message)
         {
-            _logger.Error("500:\n");
+            _logger.Error("500:\n"+message);
             return View();
         }
-        public ActionResult OtherErrors()
+        public ActionResult OtherErrors(string message)
         {
-            _logger.Error("Other:\n");
+            _logger.Error("Other:\n"+message);
             return View();
         }
     }

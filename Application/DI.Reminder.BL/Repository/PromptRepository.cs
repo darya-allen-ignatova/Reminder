@@ -34,8 +34,10 @@ namespace DI.Reminder.BL.Repository
             }
             return _list;
         }
-        public Prompt GetPromptDetails(int id)
+        public Prompt GetPromptDetails(int? id)
         {
+            if (id == null)
+                return null;
             DataPrompt dataprompt =_getdata.GetPrompt(id);
             Prompt prompt = new Prompt()
             {

@@ -20,6 +20,8 @@ namespace DI.Reminder.Web
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
+            if (exception == null)
+                return;
             Response.Clear();
             HttpException httpException = exception as HttpException;
             if (httpException != null)
@@ -27,21 +29,18 @@ namespace DI.Reminder.Web
                 string _action;
                 switch (httpException.GetHttpCode())
                 {
-                    case 404:
-                        _action = "HttpError404";
-                       break;
+                    //case 404:                       
+                    //    _action = "HttpError404";
+                    //   break;
                     case 500:
                         _action = "HttpError500";
                         break;
                     default:
                         _action = "OtherErrors";
                         break;
-                }
+                } 
                 Server.ClearError();
-                Response.Redirect( $"~/Error/{_action}");
-                //Response.Redirect( $"~/Error/{_action}?message={exception.Message}&stack={exception.StackTrace}");
-
-
+                Response.Redirect(String.Format("~/Error/{0}/?message={1}", _action, exception.Message));
             }
 
         }

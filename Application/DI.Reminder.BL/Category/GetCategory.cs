@@ -20,7 +20,10 @@ namespace DI.Reminder.BL.Category
             IList<DataCategory> datalist = _getData.GetCategories(id);
             List<Category> _list = new List<Category>();
             for (int i = 0; i < datalist.Count; i++)
-                _list.Add(new Category { ID = datalist[i].ID, Name = datalist[i].Name, ParentID = datalist[i].ParentID });
+                _list.Add(new Category {
+                    ID = datalist[i].ID,
+                    Name = datalist[i].Name,
+                    ParentID = datalist[i].ParentID });
             return _list;
         }
     }

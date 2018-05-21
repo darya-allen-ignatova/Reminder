@@ -15,11 +15,22 @@ namespace DI.Reminder.Data.DataBase
 
         public IList<DataPrompt> GetItems(int? id)
         {
+            if (id == null)
+              return null;
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
-                if (id == null)
-                    return null;
-                connection.Open();
+                //try {
+                    connection.Open();
+                //}
+                //catch(SqlException)
+                //{
+
+                //}
+                //catch(Exception ex)
+                //{
+                    
+                //}
+               
                 string sqlExpression;
                 if (id == 0)
                     sqlExpression = $"SELECT p.ID, p.Name, cat.Name AS Category FROM Prompts p INNER JOIN Categories cat ON p.CategoryID = cat.ID ";
@@ -51,7 +62,7 @@ namespace DI.Reminder.Data.DataBase
                 return _list;
             }
         }
-        public DataPrompt GetPrompt(int id)
+        public DataPrompt GetPrompt(int? id)
         {
             DataPrompt prompt = new DataPrompt();
             using (SqlConnection connection = new SqlConnection(GetConnection))
@@ -132,7 +143,7 @@ namespace DI.Reminder.Data.DataBase
             {
                 connection.Open();
                 string sqlExpression;
-                if (id == null)
+                if (id == null || id==0)
                     sqlExpression = $"SELECT * FROM Categories WHERE ParentID IS NULL ";
                 else
                 {
