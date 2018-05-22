@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Hosting;
 
 namespace DI.Reminder.Service.Advertising
@@ -61,7 +60,7 @@ namespace DI.Reminder.Service.Advertising
             List<AdvertItem> list = new List<AdvertItem>();
             for (int i = 0; i < 3; i++)
             {
-                AdvertItem _advert = _list.FirstOrDefault(f => f.ID == RandomItem(i*int.Parse(DateTime.Now.Second.ToString())));
+                AdvertItem _advert = _list.FirstOrDefault(f => f.ID == RandomItem(i*DateTime.Now.Second));
                 list.Add(new AdvertItem()
                 {
                     ID = _advert.ID, Title = _advert.Title, Url = _advert.Url, Image = _advert.Image

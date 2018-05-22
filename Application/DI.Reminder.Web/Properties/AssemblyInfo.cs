@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © HP Inc. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "./Config/Log4Net.config")]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = @"C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Common\Log4Net.config")]
 
 // Установка значения false в параметре ComVisible делает типы в этой сборке невидимыми 
 // для компонентов COM. Если требуется обратиться к типу в этой сборке через 

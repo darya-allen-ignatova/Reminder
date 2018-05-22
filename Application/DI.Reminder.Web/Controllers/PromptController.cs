@@ -4,7 +4,6 @@ using DI.Reminder.BL;
 using DI.Reminder.BL.Repository;
 using DI.Reminder.BL.Category;
 using DI.Reminder.Web.Models;
-using System;
 
 namespace DI.Reminder.Web.Controllers
 {

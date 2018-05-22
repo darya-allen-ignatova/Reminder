@@ -14,7 +14,7 @@ namespace DI.Reminder.Web.Controllers
         // GET: Error
         public ActionResult HttpError404(string message)
         {
-            //_logger.Error("404:\n" + message);
+            _logger.Error("404:\n" + message);
             return View();
         }
         public ActionResult HttpError500(string message)

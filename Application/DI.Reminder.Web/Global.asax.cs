@@ -29,9 +29,9 @@ namespace DI.Reminder.Web
                 string _action;
                 switch (httpException.GetHttpCode())
                 {
-                    //case 404:                       
-                    //    _action = "HttpError404";
-                    //   break;
+                    case 404:                       
+                        _action = "HttpError404";
+                       break;
                     case 500:
                         _action = "HttpError500";
                         break;
