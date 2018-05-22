@@ -16,51 +16,45 @@ namespace DI.Reminder.Service.Advertising
             set { }
         }
         string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        List<AdvertItem> _list = new List<AdvertItem>();
-        public AdvertRepository()
+        private List<AdvertItem> GetListOfAdvertisings()
         {
+            List<AdvertItem> _list = new List<AdvertItem>();
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 try
                 {
                     connection.Open();
                 }
-                catch(SqlException)
+                catch (SqlException)
                 {
 
                 }
                 string sqlExpression;
-                sqlExpression = $"SELECT *  FROM Advertising";
+                sqlExpression = $"GetAdvertisings";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    object objImage = reader["Image"];
+                    string Image = null;
+                    if (!Convert.IsDBNull(objImage))
                     {
-                        object objImage = reader["Image"];
-                        string Image = null;
-                        if (!Convert.IsDBNull(objImage))
-                        {
-                            Image = objImage.ToString();
-                        }
-                        _list.Add(new AdvertItem() { ID = int.Parse(reader["ID"].ToString()), Title = reader["Title"].ToString(), Url = reader["Url"].ToString(), Image = GetImageByteArray(Image) });
+                        Image = objImage.ToString();
                     }
-                    connection.Close();
+                    _list.Add(new AdvertItem() { ID = int.Parse(reader["ID"].ToString()), Title = reader["Title"].ToString(), Url = reader["Url"].ToString(), Image = GetImageByteArray(Image) });
                 }
+                connection.Close();
             }
-        }
-                
-        
-        public IEnumerable<AdvertItem> Items
-        {
-            get { return _list; }
+            return _list;
         }
         public IList<AdvertItem> GetItems()
         {
+            List<AdvertItem> itemsfromdatabase = GetListOfAdvertisings();
             List<AdvertItem> list = new List<AdvertItem>();
             for (int i = 0; i < 3; i++)
             {
-                AdvertItem _advert = _list.FirstOrDefault(f => f.ID == RandomItem(i*DateTime.Now.Second));
+                AdvertItem _advert = itemsfromdatabase.FirstOrDefault(f => f.ID == RandomItem(i*DateTime.Now.Second, itemsfromdatabase));
                 list.Add(new AdvertItem()
                 {
                     ID = _advert.ID, Title = _advert.Title, Url = _advert.Url, Image = _advert.Image
@@ -68,10 +62,10 @@ namespace DI.Reminder.Service.Advertising
             }
             return list;
         }
-        public int RandomItem(int t)
+        public int RandomItem(int t, List<AdvertItem> itemslist)
         {
             Random rnd = new Random(t);
-            return rnd.Next(1, _list.Count);
+            return rnd.Next(1, itemslist.Count);
         }
         public byte[] GetImageByteArray(string imagePath)
         {
