@@ -109,8 +109,9 @@ namespace DI.Reminder.Data.DataBase
                 connection.Open();
                 string sqlExpression;
                 int? parent = null;
-                sqlExpression = $"SELECT ParentID FROM Categories WHERE Name=@Name";
+                sqlExpression = $"GetCategoryID";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlParameter sqlparam = new SqlParameter()
                 {
                     ParameterName = "@Name",
@@ -118,9 +119,7 @@ namespace DI.Reminder.Data.DataBase
                 };
                 command.Parameters.Add(sqlparam);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
+                while (reader.Read())
                     {
                         object ParentID = reader["ParentID"];
                         if (!Convert.IsDBNull(ParentID))
@@ -129,7 +128,6 @@ namespace DI.Reminder.Data.DataBase
                         }
                     }
                     connection.Close();
-                }
                 return parent;
             }
         }
