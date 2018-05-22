@@ -33,21 +33,21 @@ namespace DI.Reminder.Data.DataBase
                
                 string sqlExpression;
                 if (id == 0)
-                    sqlExpression = $"SELECT p.ID, p.Name, cat.Name AS Category FROM Prompts p INNER JOIN Categories cat ON p.CategoryID = cat.ID ";
+                    sqlExpression = $"GetAllPrompts";
                 else
-                    sqlExpression = $"SELECT p.ID, p.Name, cat.Name AS Category FROM Prompts p INNER JOIN Categories cat ON p.CategoryID = cat.ID WHERE CategoryID = @id";
+                    sqlExpression = $"GetPromptsByID";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlParameter sqlparam = new SqlParameter()
                 {
                     ParameterName = "@id",
                     Value = id
                 };
+                if(sqlExpression== "GetPromptsByID")
                 command.Parameters.Add(sqlparam);
                 SqlDataReader reader = command.ExecuteReader();
                 List<DataPrompt> _list = new List<DataPrompt>();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
+                while (reader.Read())
                     {
                         object objcategory = reader["Category"];
                         string category = null;
@@ -58,7 +58,6 @@ namespace DI.Reminder.Data.DataBase
                         _list.Add(new DataPrompt() { ID = int.Parse(reader["ID"].ToString()), Name = reader["Name"].ToString(), Category=category});
                     }
                     connection.Close();
-                }
                 return _list;
             }
         }
