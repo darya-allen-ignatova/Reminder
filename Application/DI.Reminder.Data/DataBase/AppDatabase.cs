@@ -67,8 +67,9 @@ namespace DI.Reminder.Data.DataBase
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
-                string sqlExpression= $"SELECT p.ID, p.Name, cat.Name AS Category,p.DateOfCreating, p.TimeOfPrompt, p.Description, p.Image FROM Prompts p INNER JOIN Categories cat ON p.CategoryID = cat.ID WHERE p.ID = @id";
+                string sqlExpression= $"GetPrompt";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlParameter sqlparam = new SqlParameter()
                 {
                     ParameterName = "@id",
@@ -76,30 +77,26 @@ namespace DI.Reminder.Data.DataBase
                 };
                 command.Parameters.Add(sqlparam);
                 SqlDataReader reader = command.ExecuteReader();
-                
-                if (reader.HasRows)
+                while (reader.Read())
                 {
-                    while (reader.Read())
+
+                    object objimage = reader["Image"]; string image;
+                    if (Convert.IsDBNull(objimage))
+                        image = null;
+                    else
+                        image = objimage.ToString();
+                    prompt = new DataPrompt()
                     {
-                       
-                        object objimage = reader["Image"];string image;
-                        if (Convert.IsDBNull(objimage))
-                            image = null;
-                        else
-                            image = objimage.ToString();
-                        prompt = new DataPrompt()
-                        {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["Name"].ToString(),
-                            Category = reader["Category"].ToString(),
-                            CreatingDate = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
-                            TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
-                            Description = reader["Description"].ToString(),
-                            Image = image
-                    } ;
-                    }
-                    connection.Close();
+                        ID = int.Parse(reader["ID"].ToString()),
+                        Name = reader["Name"].ToString(),
+                        Category = reader["Category"].ToString(),
+                        CreatingDate = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
+                        TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
+                        Description = reader["Description"].ToString(),
+                        Image = image
+                    };
                 }
+                connection.Close();
             }
             return prompt;
         }
