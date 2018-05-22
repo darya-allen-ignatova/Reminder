@@ -138,13 +138,14 @@ namespace DI.Reminder.Data.DataBase
                 connection.Open();
                 string sqlExpression;
                 if (id == null || id==0)
-                    sqlExpression = $"SELECT * FROM Categories WHERE ParentID IS NULL ";
+                    sqlExpression = "GetCategories";
                 else
                 {
-                    sqlExpression = $"SELECT * FROM Categories WHERE ParentID=@id";
+                    sqlExpression = "GetUnderCategories";
                 }
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
-                if(id != null)
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                if (sqlExpression == "GetUnderCategories")
                 {
                     SqlParameter sqlparam = new SqlParameter()
                     {
@@ -155,7 +156,6 @@ namespace DI.Reminder.Data.DataBase
                 }
                 SqlDataReader reader = command.ExecuteReader();
                 List<DataCategory> _list = new List<DataCategory>();
-             
                 if (reader.HasRows)
                 {
                     while (reader.Read())
