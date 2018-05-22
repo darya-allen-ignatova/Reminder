@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace DI.Reminder.Data.DataBase
@@ -11,8 +12,7 @@ namespace DI.Reminder.Data.DataBase
             get { return connection; }
             set { }
         }
-        string connection = @"Data Source=LAPTOP-868QL38T\SQLEXPRESS;Initial Catalog=DI.Reminder.DataBase;Integrated Security=True";
-
+        string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         public IList<DataPrompt> GetItems(int? id)
         {
             if (id == null)

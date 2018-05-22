@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,7 @@ namespace DI.Reminder.Service.Advertising
             get { return connection; }
             set { }
         }
-        string connection = @"Data Source=LAPTOP-868QL38T\SQLEXPRESS;Initial Catalog=DI.Reminder.DataBase;Integrated Security=True";
-
+        string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         List<AdvertItem> _list = new List<AdvertItem>();
         public AdvertRepository()
         {
