@@ -13,3 +13,4 @@ C:\Users\ƒарь€\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 Ќе удалось найти общедоступный метод действи€ "Show" на контроллере "DI.Reminder.Web.Controllers.PromptController".
 2018-05-23 21:25:35,770 [7] ERROR - Error 404:
 Ќе удалось найти общедоступный метод действи€ "Show" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-05-23 22:53:04,237 [5] ERROR - Error 404:
