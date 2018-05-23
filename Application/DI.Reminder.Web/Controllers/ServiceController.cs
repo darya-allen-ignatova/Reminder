@@ -16,14 +16,27 @@ namespace DI.Reminder.Web.Controllers
             _logger = logger;
             
         }
+
         // GET: Service
         [ChildActionOnly]
         public ActionResult Advertising()
         {
+            return View(GetServiceItems());
+        }
+
+
+        private IEnumerable<ServiceItem> GetServiceItems()
+        {
             IEnumerable<ServiceItem> advertising = _blservice.Get();
             if (advertising == null)
             {
-                advertising = new List<ServiceItem>()
+                return GetDefaultServiceItem();
+            }
+            return advertising;
+        }
+        private IEnumerable<ServiceItem> GetDefaultServiceItem()
+        {
+            return new List<ServiceItem>()
                 {
                     new ServiceItem()
                     {
@@ -34,7 +47,5 @@ namespace DI.Reminder.Web.Controllers
                     }
                 };
             }
-            return View(advertising);
         }
     }
-}

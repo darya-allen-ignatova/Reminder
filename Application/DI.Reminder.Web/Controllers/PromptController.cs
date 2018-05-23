@@ -23,32 +23,37 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult ShowCategoryList(int? id=null)
         {
-            PromptViewModel ins = new PromptViewModel();
-            IList<Common.PromptModel.Prompt> _promptlist = _getprompt.GetCategoryItemsByID(id);
-            if (_promptlist == null || id == 0 || _promptlist.Count == 0)
-                {
-                    ins = new PromptViewModel()
-                    {
-                        CategoryList = _getcategory.GetCategories(id),
-                        PromptList = _promptlist
-                    };
-
-                }
-                else
-                {
-                    ins = new PromptViewModel()
-                    {
-                        CategoryList = _getcategory.GetCategories(_getcategory.GetCategoryID(_promptlist[0].Category)),
-                        PromptList = _promptlist
-                    };
-
-
-                }
-            if (ins.CategoryList.Count == 0)
+            PromptViewModel Model = GetViewModel(id);
+            if (Model.CategoryList.Count == 0)
                     return RedirectToAction("HttpError404", "Error");
-            return View(ins);
+            return View(Model);
             
         }
+        private PromptViewModel GetViewModel(int? id)
+        {
+            PromptViewModel promptModel = new PromptViewModel();
+            IList<Prompt> _promptlist = _getprompt.GetCategoryItemsByID(id); ;
+            if (_promptlist == null || id == 0 || _promptlist.Count == 0)
+            {
+                promptModel = new PromptViewModel()
+                {
+                    CategoryList = _getcategory.GetCategories(id),
+                    PromptList = _promptlist
+                };
+
+            }
+            else
+            {
+                promptModel = new PromptViewModel()
+                {
+                    CategoryList = _getcategory.GetCategories(_getcategory.GetCategoryID(_promptlist[0].Category)),
+                    PromptList = _promptlist
+                };
+
+            }
+            return promptModel;
+        }
+        
         public ActionResult Details(int? ID)
         {
             Common.PromptModel.Prompt prompt = _getprompt.GetPromptDetails(ID);
