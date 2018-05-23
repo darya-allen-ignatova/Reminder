@@ -1,7 +1,7 @@
 ﻿using log4net;
 using log4net.Config;
 
-namespace DI.Reminder.Common
+namespace DI.Reminder.Common.Logger
 {
     public class AppLogger:ILogger
     {

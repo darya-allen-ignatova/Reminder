@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using DI.Reminder.BL;
-using DI.Reminder.BL.Repository;
-using DI.Reminder.BL.Category;
+﻿using System.Web.Mvc;
+using DI.Reminder.BL.PromptStorage;
+using DI.Reminder.BL.Categories;
 using DI.Reminder.Web.Models;
+using DI.Reminder.Common.PromptModel;
+using System.Collections.Generic;
 
 namespace DI.Reminder.Web.Controllers
 {
     public class PromptController : Controller
     {
-        private readonly IPrompt prompt;
-        IPromptRepository _promptrep;
-        IGetCategory _getcategory;
-        public IList<Prompt> _promptlist {get;set;}
-        public PromptController(IPrompt _prompt, IPromptRepository promptrep, IGetCategory getcategory)
+        private IPrompt _getprompt;
+        private IGetCategories _getcategory;
+        public PromptController(IPrompt getprompt, IGetCategories getcategory)
         {
-            prompt = _prompt;
-            _promptrep = promptrep;
+            _getprompt = getprompt;
             _getcategory = getcategory;
         }
         // GET: Prompt
@@ -24,24 +21,24 @@ namespace DI.Reminder.Web.Controllers
         {
             return View();
         }
-        public ActionResult Show(int? id=null)
+        public ActionResult ShowCategoryList(int? id=null)
         {
-            Ins ins = new Ins();
-            _promptlist = _promptrep.GetCategoryItemsByID(id);
+            PromptViewModel ins = new PromptViewModel();
+            IList<Common.PromptModel.Prompt> _promptlist = _getprompt.GetCategoryItemsByID(id);
             if (_promptlist == null || id == 0 || _promptlist.Count == 0)
                 {
-                    ins = new Ins()
+                    ins = new PromptViewModel()
                     {
-                        CategoryList = _getcategory.Get(id),
+                        CategoryList = _getcategory.GetCategories(id),
                         PromptList = _promptlist
                     };
 
                 }
                 else
                 {
-                    ins = new Ins()
+                    ins = new PromptViewModel()
                     {
-                        CategoryList = _getcategory.Get(_promptrep.GetID(_promptlist[0].Category)),
+                        CategoryList = _getcategory.GetCategories(_getcategory.GetCategoryID(_promptlist[0].Category)),
                         PromptList = _promptlist
                     };
 
@@ -52,9 +49,9 @@ namespace DI.Reminder.Web.Controllers
             return View(ins);
             
         }
-        public ActionResult PromptDetails(int? ID)
+        public ActionResult Details(int? ID)
         {
-            Prompt prompt = _promptrep.GetPromptDetails(ID);
+            Common.PromptModel.Prompt prompt = _getprompt.GetPromptDetails(ID);
             if(prompt==null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);

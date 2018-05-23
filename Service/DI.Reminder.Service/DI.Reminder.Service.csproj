@@ -75,13 +75,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Advertisings\Advertisings.cs" />
-    <Compile Include="Advertisings\AdvertItem.cs" />
-    <Compile Include="Advertisings\IAdvertising.cs">
+    <Compile Include="Advertising\Advertisings.cs" />
+    <Compile Include="DataContract\AdvertisingItem.cs" />
+    <Compile Include="ServiceContract\IAdvertising.cs">
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Advertisings\AdvertRepository.cs" />
+    <Compile Include="Advertising\AdvertisingData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

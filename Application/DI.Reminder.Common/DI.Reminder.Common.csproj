@@ -46,10 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonRegistry.cs" />
+    <Compile Include="CategoryModel\Category.cs" />
+    <Compile Include="CommonRegistry\CommonRegistry.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\AppLogger.cs" />
+    <Compile Include="PromptModel\Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceModel\ServiceItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Log4Net.config" />

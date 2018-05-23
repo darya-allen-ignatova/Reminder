@@ -1,3 +1,15 @@
 
 2018-05-22 13:35:12,918 [7] ERROR - Error 404:
 Контроллер для пути "/ррр" не найден или не реализует интерфейс IController.
+2018-05-22 16:48:51,922 [7] ERROR - Error 404:
+
+2018-05-22 16:51:04,301 [7] ERROR - Error 500:
+C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\App_Web_promptdetails.cshtml.7920d8e4.kngcr3zw.0.cs(30): error CS0234: The type or namespace name 'Prompt' does not exist in the namespace 'DI.Reminder.BL' (are you missing an assembly reference?)
+2018-05-22 16:51:44,128 [8] ERROR - Error 500:
+C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\App_Web_promptdetails.cshtml.7920d8e4.l1r3bvjz.0.cs(30): error CS0234: The type or namespace name 'Prompt' does not exist in the namespace 'DI.Reminder.BL' (are you missing an assembly reference?)
+2018-05-23 21:23:40,064 [7] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "Show" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-05-23 21:24:38,490 [5] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "Show" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-05-23 21:25:35,770 [7] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "Show" на контроллере "DI.Reminder.Web.Controllers.PromptController".

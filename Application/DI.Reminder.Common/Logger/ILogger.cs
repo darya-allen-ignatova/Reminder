@@ -1,4 +1,4 @@
-﻿namespace DI.Reminder.Common
+﻿namespace DI.Reminder.Common.Logger
 {
     public interface ILogger
     {

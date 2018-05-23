@@ -61,18 +61,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connected Services\AppService\Reference.cs">
+    <Compile Include="Connected Services\AdvertisingService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\AppDatabase.cs" />
-    <Compile Include="DataBase\IGetData.cs" />
-    <Compile Include="DataCategories.cs" />
-    <Compile Include="DataRegistry.cs" />
-    <Compile Include="DataPrompt.cs" />
-    <Compile Include="Service\DataService.cs" />
-    <Compile Include="Service\IDataService.cs" />
+    <Compile Include="DataBase\PromptRepository.cs" />
+    <Compile Include="DataBase\CategoryRepository.cs" />
+    <Compile Include="DataBase\ICategoryRepository.cs" />
+    <Compile Include="DataBase\IPromptRepository.cs" />
+    <Compile Include="DataRegistry\DataRegistry.cs" />
+    <Compile Include="DService\DataService.cs" />
+    <Compile Include="DService\IDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,38 +80,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\AppService\Advertising.xsd">
+    <None Include="Connected Services\AdvertisingService\Advertising.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\AppService\Advertising1.xsd">
+    <None Include="Connected Services\AdvertisingService\Advertising1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\AppService\Advertising2.xsd">
+    <None Include="Connected Services\AdvertisingService\Advertising2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\AppService\Advertisings.wsdl" />
-    <None Include="Connected Services\AppService\DI.Reminder.Data.AppService.AdvertItem.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
+    <None Include="Connected Services\AdvertisingService\Advertisings.wsdl" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\AppService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AppService\Advertising.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AppService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AppService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\AppService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <None Include="Properties\DataSources\DI.Reminder.Service.DataContract.AdvertisingItem.datasource" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -125,8 +105,24 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\Service\DI.Reminder.Service\DI.Reminder.Service.csproj">
+      <Project>{EC374865-C57B-45D5-9875-9602FB86B619}</Project>
+      <Name>DI.Reminder.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Reminder.Common\DI.Reminder.Common.csproj">
+      <Project>{b0488789-ee32-4094-8daf-9e3c95efae0f}</Project>
+      <Name>DI.Reminder.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\AdvertisingService\Advertising.disco" />
+    <None Include="Connected Services\AdvertisingService\configuration91.svcinfo" />
+    <None Include="Connected Services\AdvertisingService\configuration.svcinfo" />
+    <None Include="Connected Services\AdvertisingService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Images\0.jpg" />
     <Content Include="Images\1.jpg" />
     <Content Include="Images\10.jpg" />
@@ -146,6 +142,9 @@
     <Content Include="Scripts\DataBase.sql" />
     <Content Include="Scripts\InfoForCategories.sql" />
     <Content Include="Scripts\InfoForPrompts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\AdvertisingService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

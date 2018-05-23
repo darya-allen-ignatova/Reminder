@@ -161,7 +161,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ins.cs" />
+    <Compile Include="Models\PromptViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,14 +176,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Prompt\Home.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Prompt\Show.cshtml" />
-    <Content Include="Views\Prompt\PromptDetails.cshtml" />
+    <None Include="Views\Prompt\ShowCategoryList.cshtml" />
+    <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />
     <Content Include="Views\Error\HttpError500.cshtml" />
     <Content Include="Views\Error\OtherErrors.cshtml" />
     <Content Include="Views\Service\Advertising.cshtml" />
-    <Content Include="Views\Prompt\ShowCategoryItems.cshtml" />
-    <Content Include="Views\Service\Error.cshtml" />
+    <Content Include="Views\Prompt\PartialCategoryItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

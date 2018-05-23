@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using DI.Reminder.BL;
-using DI.Reminder.BL.Service;
-using DI.Reminder.Common;
+using DI.Reminder.BL.Services;
+using DI.Reminder.Common.Logger;
+using DI.Reminder.Common.ServiceModel;
 
 namespace DI.Reminder.Web.Controllers
 {
     public class ServiceController : Controller
     {
-        IBLService _blservice;ILogger _logger;
+        private IBLService _blservice;
+        private ILogger _logger;
         public ServiceController(IBLService blservice, ILogger logger)
         {
             _blservice = blservice;

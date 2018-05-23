@@ -1,12 +1,12 @@
 ﻿using System.Web.Mvc;
-using DI.Reminder.Common;
+using DI.Reminder.Common.Logger;
 
 namespace DI.Reminder.Web.Controllers
 {
     
     public class ErrorController : Controller
     {
-        ILogger _logger;
+        private ILogger _logger;
         public ErrorController(ILogger logger)
         {
                 _logger = logger;
