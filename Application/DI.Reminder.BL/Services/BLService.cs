@@ -11,6 +11,8 @@ namespace DI.Reminder.BL.Services
         public BLService(IDataService dataservice)
         {
             _dataservice = dataservice;
+            if (_dataservice == null)
+                throw new ArgumentNullException();
         }
         public IEnumerable<ServiceItem> Get()
         {

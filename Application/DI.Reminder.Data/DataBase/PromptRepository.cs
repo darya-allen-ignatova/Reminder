@@ -18,8 +18,6 @@ namespace DI.Reminder.Data.DataBase
         
         public IList<Prompt> GetPromptsList(int? id)
         {
-            if (id == null)
-              return null;
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();

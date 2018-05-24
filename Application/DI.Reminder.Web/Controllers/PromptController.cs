@@ -27,7 +27,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult ShowCategoryList(int? id=null)
         {
             PromptViewModel Model = GetViewModel(id);
-            if (Model.CategoryList.Count == 0)
+            if (Model.CategoryList.Count == 0 || Model.CategoryList==null)
                     return RedirectToAction("HttpError404", "Error");
             return View(Model);
             
