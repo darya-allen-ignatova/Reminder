@@ -114,7 +114,6 @@ namespace DI.Reminder.Data.DataBase
                     {
                         ID = int.Parse(reader["ID"].ToString()),
                         Name = reader["ActionName"].ToString(),
-                        Details = reader["Details"].ToString()
                     });
                 }
                 connection.Close();
