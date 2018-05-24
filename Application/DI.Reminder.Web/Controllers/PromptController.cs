@@ -4,6 +4,7 @@ using DI.Reminder.BL.Categories;
 using DI.Reminder.Web.Models;
 using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
+using System;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -15,6 +16,8 @@ namespace DI.Reminder.Web.Controllers
         {
             _getprompt = getprompt;
             _getcategory = getcategory;
+            if (_getprompt == null || _getcategory == null)
+                throw new ArgumentNullException();
         }
         // GET: Prompt
         public ActionResult Home()

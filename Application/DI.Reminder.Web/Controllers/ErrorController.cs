@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using DI.Reminder.Common.Logger;
 
 namespace DI.Reminder.Web.Controllers
@@ -10,6 +11,8 @@ namespace DI.Reminder.Web.Controllers
         public ErrorController(ILogger logger)
         {
                 _logger = logger;
+            if ( _logger == null)
+                throw new ArgumentNullException();
         }
         // GET: Error
         public ActionResult HttpError404(string message)

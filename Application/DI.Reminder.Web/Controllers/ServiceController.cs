@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using DI.Reminder.BL.Services;
 using DI.Reminder.Common.Logger;
@@ -12,9 +13,10 @@ namespace DI.Reminder.Web.Controllers
         private ILogger _logger;
         public ServiceController(IBLService blservice, ILogger logger)
         {
-            _blservice = blservice;
+            _blservice = blservice; 
             _logger = logger;
-            
+            if (_blservice == null || _logger == null)
+                throw new ArgumentNullException();
         }
 
         // GET: Service

@@ -14,6 +14,7 @@ namespace DI.Reminder.BL.Categories
         }
         public IList<Category> GetCategories(int? id)
         {
+
             return _getCategory.GetCategories(id);
         }
         public int? GetCategoryID(string categoryName)
