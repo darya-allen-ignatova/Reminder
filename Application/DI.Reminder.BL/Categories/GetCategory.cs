@@ -35,7 +35,7 @@ namespace DI.Reminder.BL.Categories
             }
             catch
             {
-                throw
+                throw;
             }
 
         }
