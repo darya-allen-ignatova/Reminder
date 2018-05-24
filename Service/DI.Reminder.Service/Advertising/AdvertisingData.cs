@@ -28,7 +28,7 @@ namespace DI.Reminder.Service.Advertising
                 }
                 catch (SqlException)
                 {
-
+                    throw;
                 }
                 string sqlExpression;
                 sqlExpression = $"GetAdvertisings";

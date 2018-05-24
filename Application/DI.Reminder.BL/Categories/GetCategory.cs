@@ -18,11 +18,26 @@ namespace DI.Reminder.BL.Categories
         {
             if (id < 0)
                 return null;
-            return _getCategory.GetCategories(id);
+            try
+            {
+                return _getCategory.GetCategories(id);
+            }
+            catch
+            {
+                throw;
+            }
         }
         public int? GetCategoryID(string categoryName)
         {
-            return _getCategory.GetCategoryID(categoryName);
+            try
+            {
+                return _getCategory.GetCategoryID(categoryName);
+            }
+            catch
+            {
+                throw
+            }
+
         }
     }
 }

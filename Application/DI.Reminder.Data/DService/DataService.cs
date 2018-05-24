@@ -21,6 +21,10 @@ namespace DI.Reminder.Data.DService
             {
                 throw new ArgumentNullException();
             }
+            catch
+            {
+                throw new Exception();
+            }
             try
             {
                 client.Close();
