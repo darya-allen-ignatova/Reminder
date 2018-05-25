@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DI.Reminder.Data.DataBase
+namespace DI.Reminder.Data.CategoryDataBase
 {
     public interface ICategoryRepository
     {

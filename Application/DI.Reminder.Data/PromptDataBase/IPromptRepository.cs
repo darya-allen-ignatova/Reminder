@@ -2,7 +2,7 @@
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Common.PromptModel;
 
-namespace DI.Reminder.Data.DataBase
+namespace DI.Reminder.Data.PromptDataBase
 {
     public interface IPromptRepository
     {

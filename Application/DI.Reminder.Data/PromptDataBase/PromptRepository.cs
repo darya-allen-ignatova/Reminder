@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using DI.Reminder.Common.PromptModel;
 
-namespace DI.Reminder.Data.DataBase
+namespace DI.Reminder.Data.PromptDataBase
 {
     public class PromptRepository : IPromptRepository
     {

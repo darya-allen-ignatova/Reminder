@@ -46,6 +46,10 @@
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
     <Compile Include="Categories\GetCategory.cs" />
     <Compile Include="Categories\IGetCategories.cs" />
+    <Compile Include="LoginService\LoginModels\Account.cs" />
+    <Compile Include="LoginService\LoginModels\Roles.cs" />
+    <Compile Include="LoginService\UsersRepository\AccountRepository.cs" />
+    <Compile Include="LoginService\UsersRepository\IAccountRepository.cs" />
     <Compile Include="PromptStorage\IPrompt.cs" />
     <Compile Include="PromptStorage\Prompts.cs" />
     <Compile Include="Services\BLService.cs" />

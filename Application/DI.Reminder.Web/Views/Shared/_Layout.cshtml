@@ -7,8 +7,17 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="three" id="headerMain header">
-        <h1>  Reminder </h1>
+    <div>
+        <div class="three " id="headerMain header">
+            <h1>  Reminder </h1>
+            <ul>
+                <li  style=" float: right; width: 10%;"><h2 style="color: #855C6A;">@Html.ActionLink("Домашняя страница", "Index", "Home")</h2></li>
+                <li style=" float: right; width: 10%;"><h2 style="color: #855C6A;">@Html.ActionLink("О программе", "About", "Home")</h2></li>
+                <li  style=" float: right; width: 10%"><h2 style="color: #855C6A;">@Html.ActionLink("Контакт", "Contact", "Home")</h2></li>
+            </ul>
+            @*<a class="title vid-center" type="button" value="Prompts" href='@Url.Action("Registration", "Account")'>Registration</a>*@
+            @*<a class=" title vid-left" type="button" value="Prompts" href='@Url.Action("LogIn", "Account")'>Log In</a>*@
+        </div>
     </div>
     <div>
         @RenderBody()

@@ -30,7 +30,7 @@ div {
 .three {
     background: #855C6A;
     padding: 35px 20px;
-    text-align: center;
+    text-align: left;
 }
 
     .three h1 {
@@ -67,4 +67,30 @@ div {
         font-size: 1.5em;
         padding: 10px 30px;
     }
+}
+.vid-rigth {
+    float: left;
+    width: 48%;
+    height: 200px;
+}
+
+.vid-center {
+    float: right;
+    width: 40%;
+    height: 200px;
+}
+
+.vid-left {
+    float: right;
+    margin: 10px;
+    width: 10%;
+    height: 200px;
+}
+a.title {
+    color: #855C6A;
+    font-size: 300%;
+    font-family: ‘Rouge Script’, cursive;
+    margin: 10px 0 10px;
+    text-align: left;
+    text-shadow: 1px 1px 2px #082b34;
 }
