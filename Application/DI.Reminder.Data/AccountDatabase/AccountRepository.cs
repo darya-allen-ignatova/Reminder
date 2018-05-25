@@ -6,11 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DI.Reminder.Common.LoginModels;
+using DI.Reminder.Data.RolesRepository;
 
 namespace DI.Reminder.Data.AccountDatabase
 {
     class AccountRepository : IAccountRepository
     {
+        private IRoleRepository _rolerepository;
+        public AccountRepository(IRoleRepository rolerepository)
+        {
+            _rolerepository = rolerepository;
+        }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -116,7 +122,30 @@ namespace DI.Reminder.Data.AccountDatabase
         }
         public List<Account> GetAccountList()
         {
-            return new List<Account>();
+            List<Account> _accountlist;
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression="GetAllUsers";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+                _accountlist = new List<Account>();
+                while (reader.Read())
+                {
+                    List<Role> _rolelist = _rolerepository.GetRoleList();
+                    _accountlist.Add(new Account()
+                    {
+                        ID = int.Parse(reader["ID"].ToString()),
+                        Login = reader["Login"].ToString(),
+                        Password = reader["Password"].ToString(),
+                        roles = _rolelist
+                   });
+                }
+                connection.Close();
+               
+            }
+            return _accountlist;
         }
 
     }
