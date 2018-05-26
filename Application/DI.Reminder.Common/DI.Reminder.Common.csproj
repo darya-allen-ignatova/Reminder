@@ -37,6 +37,7 @@
       <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +51,8 @@
     <Compile Include="CommonRegistry\CommonRegistry.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\AppLogger.cs" />
+    <Compile Include="LoginModels\Account.cs" />
+    <Compile Include="LoginModels\Role.cs" />
     <Compile Include="PromptModel\Action.cs" />
     <Compile Include="PromptModel\Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

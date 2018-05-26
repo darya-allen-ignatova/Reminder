@@ -10,7 +10,7 @@ using DI.Reminder.Data.RolesRepository;
 
 namespace DI.Reminder.Data.AccountDatabase
 {
-    class AccountRepository : IAccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private IRoleRepository _rolerepository;
         public AccountRepository(IRoleRepository rolerepository)
@@ -133,10 +133,11 @@ namespace DI.Reminder.Data.AccountDatabase
                 _accountlist = new List<Account>();
                 while (reader.Read())
                 {
-                    List<Role> _rolelist = _rolerepository.GetRoleList();
+                    int id = int.Parse(reader["ID"].ToString());
+                    List<Role> _rolelist = _rolerepository.GetRoleList(id);
                     _accountlist.Add(new Account()
                     {
-                        ID = int.Parse(reader["ID"].ToString()),
+                        ID = id,
                         Login = reader["Login"].ToString(),
                         Password = reader["Password"].ToString(),
                         roles = _rolelist

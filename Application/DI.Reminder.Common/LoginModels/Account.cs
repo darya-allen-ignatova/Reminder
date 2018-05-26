@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,12 @@ namespace DI.Reminder.Common.LoginModels
     {
         public int ID { get; set; }
         public string Login { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Compare("Password", ErrorMessage = "Passwords aren't similar")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        public string PasswordConfirm { get; set; }
         public List<Role> roles { get; set; }
     }
 }

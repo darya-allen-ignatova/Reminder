@@ -46,10 +46,6 @@
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
     <Compile Include="Categories\GetCategory.cs" />
     <Compile Include="Categories\IGetCategories.cs" />
-    <Compile Include="LoginService\LoginModels\Account.cs" />
-    <Compile Include="LoginService\LoginModels\Roles.cs" />
-    <Compile Include="LoginService\UsersRepository\AccountRepository.cs" />
-    <Compile Include="LoginService\UsersRepository\IAccountRepository.cs" />
     <Compile Include="PromptStorage\IPrompt.cs" />
     <Compile Include="PromptStorage\Prompts.cs" />
     <Compile Include="Services\BLService.cs" />
@@ -70,6 +66,9 @@
       <Project>{56e8e502-6db9-467a-98bf-5550ad59fc79}</Project>
       <Name>DI.Reminder.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LoginService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
