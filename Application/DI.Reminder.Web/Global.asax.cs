@@ -1,6 +1,9 @@
-﻿using System;
+﻿using DI.Reminder.BL.LoginService.Authentication;
+using DI.Reminder.Common.LoginModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -15,7 +18,6 @@ namespace DI.Reminder.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();
-
         }
         protected void Application_Error(object sender, EventArgs e)
         {
@@ -44,6 +46,15 @@ namespace DI.Reminder.Web
             }
 
         }
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            IAuthentication _authentication = new AccountAuthentication(null, null, null);
+            IPrincipal currentUser = _authentication.CurrentUser;
+            //if (!currentUser.IsInRole())
+            //{
+                
+            //}
+        }
     }
-    
+
 }

@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+using DI.Reminder.BL.LoginService.Authentication;
+using DI.Reminder.BL.LoginService.UserProv;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Data.AccountDatabase;
 
 namespace DI.Reminder.BL.LoginService.UserIndent
 {
-    public class UserIdentity:IIdentity
+    public class UserIndentity:IIdentity, IUserProvider
     {
-        public Account _account { get; set; }
+        public Account account { get; set; }
         public string AuthenticationType
         {
             get
@@ -24,7 +22,7 @@ namespace DI.Reminder.BL.LoginService.UserIndent
         {
             get
             {
-                return _account != null;
+                return account != null;
             }
         }
 
@@ -32,8 +30,8 @@ namespace DI.Reminder.BL.LoginService.UserIndent
         {
             get
             {
-                if (_account != null)
-                    return _account.Login;
+                if (account != null)
+                    return account.Login;
                 return "anonym";
             }
 
@@ -43,7 +41,7 @@ namespace DI.Reminder.BL.LoginService.UserIndent
         {
             if(!string.IsNullOrEmpty(login))
             {
-                _account = accountRepository.GetAccount(login);
+                account = accountRepository.GetAccount(login);
             }
         }
     }

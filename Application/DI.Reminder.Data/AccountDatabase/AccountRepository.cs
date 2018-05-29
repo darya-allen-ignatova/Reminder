@@ -44,29 +44,39 @@ namespace DI.Reminder.Data.AccountDatabase
                 };
                 command.Parameters.Add(sqlparam2);
                 var result = command.ExecuteNonQuery();
-
-                for (int i = 0; i < account.roles.Count; i++)
+                AddRoleForUser(account);
+            }
+        }
+        private void AddRoleForUser(Account newaccount)
+        {
+            Account account = GetAccount(newaccount.Login);
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                for (int i = 0; i < newaccount.roles.Count; i++)
                 {
-                    sqlExpression = "AddConnection";
-                    command = new SqlCommand(sqlExpression, connection);
+
+                    string sqlExpression = "AddConnection";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    sqlparam1 = new SqlParameter()
+                    SqlParameter sqlparam1 = new SqlParameter()
                     {
                         ParameterName = "@role",
-                        Value = account.roles[i].Name
+                        Value = newaccount.roles[i].Name
                     };
                     command.Parameters.Add(sqlparam1);
-                    sqlparam2 = new SqlParameter()
+                    SqlParameter sqlparam2 = new SqlParameter()
                     {
                         ParameterName = "@userid",
                         Value = account.ID
                     };
                     command.Parameters.Add(sqlparam2);
-                    result = command.ExecuteNonQuery();
+                    var result = command.ExecuteNonQuery();
                 }
             }
         }
-        public Account GetAccount(string login, string password)
+        
+        public Account GetAccount(string login)
         {
             Account account = null;
             using (SqlConnection connection = new SqlConnection(GetConnection))

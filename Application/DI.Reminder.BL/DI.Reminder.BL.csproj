@@ -35,6 +35,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,11 @@
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
     <Compile Include="Categories\GetCategory.cs" />
     <Compile Include="Categories\IGetCategories.cs" />
+    <Compile Include="LoginService\Authentication\AccountAuthentication.cs" />
+    <Compile Include="LoginService\Authentication\IAuthentication.cs" />
+    <Compile Include="LoginService\UserIndent\UserIndentity.cs" />
+    <Compile Include="LoginService\UserProv\IUserProvider.cs" />
+    <Compile Include="LoginService\UserProv\UserProvider.cs" />
     <Compile Include="PromptStorage\IPrompt.cs" />
     <Compile Include="PromptStorage\Prompts.cs" />
     <Compile Include="Services\BLService.cs" />
@@ -67,8 +73,6 @@
       <Name>DI.Reminder.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LoginService\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

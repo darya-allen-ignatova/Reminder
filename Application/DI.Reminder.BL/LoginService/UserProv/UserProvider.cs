@@ -14,11 +14,13 @@ namespace DI.Reminder.BL.LoginService.UserProv
     {
         private IRoleRepository _roleRepository;
         private IAccountRepository _accountRepository;
-        public UserProvider(IRoleRepository roleRepository, string name, IAccountRepository accountRepository)
+        public UserProvider(IRoleRepository roleRepository, IAccountRepository accountRepository,string name )
         {
-            _accountRepository = accountRepository;
             userIndentity = new UserIndentity();
             userIndentity.Init(name,_accountRepository);
+
+
+            _accountRepository = accountRepository;
             _roleRepository = roleRepository;
         }
         private UserIndentity userIndentity { get; set; }
@@ -31,11 +33,11 @@ namespace DI.Reminder.BL.LoginService.UserProv
         }
         public bool IsInRole(string role)
         {
-            if (userIndentity._account == null || string.IsNullOrWhiteSpace(role))
+            if (userIndentity.account == null || string.IsNullOrWhiteSpace(role))
             {
                 return false;
             }
-            var UserRoles = _roleRepository.GetRoleList(userIndentity._account.ID);
+            var UserRoles = _roleRepository.GetRoleList(userIndentity.account.ID);
             var rolesArray = role.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var _role in rolesArray)
             {

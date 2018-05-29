@@ -56,7 +56,7 @@ namespace DI.Reminder.Web.Controllers
             }
             return promptModel;
         }
-        
+        [Authorize(Roles ="User")]
         public ActionResult Details(int? ID)
         {
             Common.PromptModel.Prompt prompt = _getprompt.GetPromptDetails(ID);
