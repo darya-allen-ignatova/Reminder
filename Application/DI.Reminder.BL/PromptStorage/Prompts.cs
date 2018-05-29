@@ -31,6 +31,7 @@ namespace DI.Reminder.BL.PromptStorage
             {
                 throw;
             }
+           
             return list;
         }
         public Prompt GetPromptDetails(int? id)

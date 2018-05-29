@@ -74,9 +74,12 @@ namespace DI.Reminder.Web.Controllers
             _prompt.InsertPrompt(prompt);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View(_prompt.GetPromptDetails(id));
+            Prompt prompt = _prompt.GetPromptDetails(id);
+            if (prompt == null || id == null)
+                return RedirectToAction("HttpError404", "Error");
+            return View(prompt);
         }
         [HttpPost]
         public ActionResult Delete(Prompt prompt)
@@ -86,7 +89,10 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult Edit(int? id)
         {
-             return View(_prompt.GetPromptDetails(id));
+            Prompt prompt = _prompt.GetPromptDetails(id);
+            if(prompt==null || id == null)
+                 return RedirectToAction("HttpError404", "Error");
+            return View(prompt);
         }
         [HttpPost]
         public ActionResult Edit(Prompt prompt)

@@ -52,7 +52,7 @@ namespace DI.Reminder.Data.DataBase
         }
         public Prompt GetPrompt(int? id)
         {
-            Prompt prompt = new Prompt();
+            Prompt prompt = null;
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();

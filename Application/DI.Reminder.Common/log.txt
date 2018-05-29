@@ -47,3 +47,8 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 
 2018-05-24 15:53:26,679 [7] ERROR - Error 404:
 Не удалось найти общедоступный метод действия "Add" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-05-29 21:44:30,091 [7] ERROR - Error 404:
+
+2018-05-29 21:51:23,468 [6] ERROR - Error 404:
+
+2018-05-29 21:56:30,355 [7] ERROR - Error 404:
