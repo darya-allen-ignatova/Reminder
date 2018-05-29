@@ -8,5 +8,7 @@ namespace DI.Reminder.Data.DataBase
     {
         IList<Prompt> GetPromptsList(int? id);
         Prompt GetPrompt(int? id);
+        void DeletePrompt(int? id);
+        void AddPrompt(Prompt prompt);
     }
 }

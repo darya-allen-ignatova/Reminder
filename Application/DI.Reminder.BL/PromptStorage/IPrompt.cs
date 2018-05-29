@@ -7,6 +7,7 @@ namespace DI.Reminder.BL.PromptStorage
     {
         IList<Prompt> GetCategoryItemsByID(int? id);
         Prompt GetPromptDetails(int? id);
-        
+        void DeletePrompt(int? id);
+        void InsertPrompt(Prompt newprompt);
     }
 }

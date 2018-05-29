@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DI.Reminder.Common.PromptModel
 {
@@ -7,9 +8,11 @@ namespace DI.Reminder.Common.PromptModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        [DataType(DataType.Date)]
         public DateTime CreatingDate { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
+        [DataType(DataType.Time)]
         public TimeSpan TimeOfPrompt { get; set; }
         public List<Action> Actions { get; set; }
         public string Image { get; set; }

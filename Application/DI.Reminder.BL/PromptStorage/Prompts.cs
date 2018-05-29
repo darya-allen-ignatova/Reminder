@@ -9,11 +9,11 @@ namespace DI.Reminder.BL.PromptStorage
 {
     public class Prompts:IPrompt
     {
-        private IPromptRepository _getprompts;
-        public Prompts(IPromptRepository getprompts)
+        private IPromptRepository _prompts;
+        public Prompts(IPromptRepository prompts)
         {
-            _getprompts = getprompts;
-            if (_getprompts == null)
+            _prompts = prompts;
+            if (_prompts == null)
                 throw new ArgumentNullException();
         }
         public IList<Prompt> GetCategoryItemsByID(int? id)
@@ -25,7 +25,7 @@ namespace DI.Reminder.BL.PromptStorage
             IList<Prompt> list;
             try
             {
-                list = _getprompts.GetPromptsList(id);
+                list = _prompts.GetPromptsList(id);
             }
             catch
             {
@@ -40,7 +40,7 @@ namespace DI.Reminder.BL.PromptStorage
             Prompt prompt;
             try
             {
-                 prompt = _getprompts.GetPrompt(id);
+                 prompt = _prompts.GetPrompt(id);
             }
             catch
             {
@@ -52,12 +52,13 @@ namespace DI.Reminder.BL.PromptStorage
         {
             if (id == null)
                 return;
-
+            _prompts.DeletePrompt(id);
         }
-        public void InsertPrompt(int? id)
+        public void InsertPrompt(Prompt newprompt)
         {
-            if (id == null)
+            if (newprompt == null)
                 return;
+            _prompts.AddPrompt(newprompt);
         }
 
     

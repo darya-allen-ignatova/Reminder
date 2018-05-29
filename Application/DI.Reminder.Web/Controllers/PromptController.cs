@@ -10,13 +10,13 @@ namespace DI.Reminder.Web.Controllers
 {
     public class PromptController : Controller
     {
-        private IPrompt _getprompt;
+        private IPrompt _prompt;
         private IGetCategories _getcategory;
-        public PromptController(IPrompt getprompt, IGetCategories getcategory)
+        public PromptController(IPrompt prompt, IGetCategories getcategory)
         {
-            _getprompt = getprompt;
+            _prompt = prompt;
             _getcategory = getcategory;
-            if (_getprompt == null || _getcategory == null)
+            if (_prompt == null || _getcategory == null)
                 throw new ArgumentNullException();
         }
         // GET: Prompt
@@ -35,7 +35,7 @@ namespace DI.Reminder.Web.Controllers
         private PromptViewModel GetViewModel(int? id)
         {
             PromptViewModel promptModel = new PromptViewModel();
-            IList<Prompt> _promptlist = _getprompt.GetCategoryItemsByID(id); ;
+            IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(id); ;
             if (_promptlist == null || id == 0 || _promptlist.Count == 0)
             {
                 promptModel = new PromptViewModel()
@@ -59,7 +59,7 @@ namespace DI.Reminder.Web.Controllers
         
         public ActionResult Details(int? ID)
         {
-            Common.PromptModel.Prompt prompt = _getprompt.GetPromptDetails(ID);
+            Common.PromptModel.Prompt prompt = _prompt.GetPromptDetails(ID);
             if(prompt==null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -71,19 +71,27 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Add(Prompt prompt)
         {
+            _prompt.InsertPrompt(prompt);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
         public ActionResult Delete(int id)
         {
-
-            return View();
+            return View(_prompt.GetPromptDetails(id));
         }
         [HttpPost]
         public ActionResult Delete(Prompt prompt)
         {
-
+            _prompt.DeletePrompt(prompt.ID);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
-
+        public ActionResult Edit(int? id)
+        {
+             return View(_prompt.GetPromptDetails(id));
+        }
+        [HttpPost]
+        public ActionResult Edit(Prompt prompt)
+        {
+            return View();
+        }
     }
 }

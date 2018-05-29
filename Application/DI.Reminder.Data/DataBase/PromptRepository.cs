@@ -119,7 +119,40 @@ namespace DI.Reminder.Data.DataBase
             return actions;
 
         }
-
+        public void AddPrompt(Prompt prompt)
+        {
+            ICategoryRepository categoryRepository = new CategoryRepository();
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"AddPrompt";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id", prompt.ID);
+                command.Parameters.AddWithValue("@name", prompt.Name);
+                command.Parameters.AddWithValue("@categoryid", categoryRepository.GetCategoryID(prompt.Category));
+                command.Parameters.AddWithValue("@dateofcreating", DateTime.Now.Date);
+                command.Parameters.AddWithValue("@description", prompt.Description);
+                command.Parameters.AddWithValue("@image", prompt.Image);
+                command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        public void DeletePrompt(int? id)
+        {
+            ICategoryRepository categoryRepository = new CategoryRepository();
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"DeletePrompt";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id", id);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
     }
 }
 
