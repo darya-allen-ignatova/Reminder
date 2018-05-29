@@ -64,6 +64,26 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
         }
-       
+       public ActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Add(Prompt prompt)
+        {
+            return RedirectToAction("ShowCategoryList", new { id = 0 });
+        }
+        public ActionResult Delete(int id)
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Delete(Prompt prompt)
+        {
+
+            return RedirectToAction("ShowCategoryList", new { id = 0 });
+        }
+
     }
 }

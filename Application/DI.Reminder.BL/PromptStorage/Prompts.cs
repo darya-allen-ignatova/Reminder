@@ -48,6 +48,17 @@ namespace DI.Reminder.BL.PromptStorage
             }
             return prompt;
         }
+        public void DeletePrompt(int? id)
+        {
+            if (id == null)
+                return;
+
+        }
+        public void InsertPrompt(int? id)
+        {
+            if (id == null)
+                return;
+        }
 
     
     }
