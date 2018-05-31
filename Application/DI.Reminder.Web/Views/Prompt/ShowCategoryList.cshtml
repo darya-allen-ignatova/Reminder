@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DI.Reminder.Common.CategoryModel.Category>
+﻿@model IList<DI.Reminder.Common.CategoryModel.Category>
 @{
     ViewBag.Title = "Show";
 }
@@ -10,9 +10,12 @@
     <div class="widget">
         <h3 class="widget-title title">Categories</h3>
         <ul class="widget-list title" id="widget">
-            <li>
+            @if(Model[0].ParentID==null)
+            {
+                <li>
                 <a id="b_0" name="0">All</a>
             </li>
+            }
             @foreach (var item in Model)
             {
                 <li>
@@ -22,10 +25,10 @@
             }
 
         </ul>
-        @if (Model != null)
+        @*@if (Model != null)
         {
             <a class="title" type="button" value="Prompts" href='@Url.Action("ShowCategoryList", "Prompt", new { id = 0 })'>Back to previous list</a>
-        }
+        }*@
 
     </div>
 </div>

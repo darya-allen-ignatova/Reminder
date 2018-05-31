@@ -42,9 +42,18 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
 
         }
-        public JsonResult GetCategoryPrompts(int id)
+        public ActionResult GetCategoryPrompts(int id)
         {
-            var jsondata = _prompt.GetCategoryItemsByID(id);
+            IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(id);
+            if (jsondata.Count == 0)
+            {
+                return Json(new
+                {
+                    ID=id,
+                    isRedirect = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            
             return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
         private PromptViewModel GetViewModel(int? id)
