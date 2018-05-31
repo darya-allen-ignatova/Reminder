@@ -5,6 +5,7 @@ using DI.Reminder.Web.Models;
 using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
 using System;
+using DI.Reminder.Common.CategoryModel;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -24,13 +25,27 @@ namespace DI.Reminder.Web.Controllers
         {
             return View();
         }
-        public ActionResult ShowCategoryList(int? id=null)
-        {
-            PromptViewModel Model = GetViewModel(id);
-            if (Model.CategoryList.Count == 0 || Model.CategoryList==null)
-                    return RedirectToAction("HttpError404", "Error");
-            return View(Model);
+        //public ActionResult ShowCategoryList(int? id=null)
+        //{
+        //    PromptViewModel Model = GetViewModel(id);
+        //    if (Model.CategoryList.Count == 0 || Model.CategoryList==null)
+        //            return RedirectToAction("HttpError404", "Error");
+        //    return View(Model);
             
+        //}
+        public ActionResult ShowCategoryList(int? id = null)
+        {
+            IList<Category> _categorylist = _getcategory.GetCategories(id);
+            if(_categorylist.Count!=0)
+            return View(_categorylist);
+            else
+                return RedirectToAction("HttpError404", "Error");
+
+        }
+        public JsonResult GetCategoryPrompts(int id)
+        {
+            var jsondata = _prompt.GetCategoryItemsByID(id);
+            return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
         private PromptViewModel GetViewModel(int? id)
         {
@@ -66,7 +81,7 @@ namespace DI.Reminder.Web.Controllers
         }
        public ActionResult Add()
         {
-            return View();
+            return View(new Prompt());
         }
         [HttpPost]
         public ActionResult Add(Prompt prompt)

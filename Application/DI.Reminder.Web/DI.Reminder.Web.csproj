@@ -129,6 +129,7 @@
     <Content Include="Images\2.jpg" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
+    <Content Include="Images\4c31429d41261851e548841f30738396-thumbnail.jpg" />
     <Content Include="Images\6.jpg" />
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
@@ -139,6 +140,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ClickFunction.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />

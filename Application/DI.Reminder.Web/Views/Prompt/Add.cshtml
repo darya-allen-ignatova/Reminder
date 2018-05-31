@@ -47,10 +47,10 @@
         <div class="boton1">
             Input image path   
         </div>
-            <div>
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.TimeOfPrompt, "", new { @class = "text-danger" })
-            </div>
+        <div>
+            <input class="input" type="file" name="Image" accept="image/jpeg, image/png"  />
+            @Html.ValidationMessageFor(model => model.TimeOfPrompt, "", new { @class = "text-danger" })
+        </div>
         </div>
     <div>
         <div>
@@ -67,6 +67,6 @@
         </div>
         <input value="Add" type="submit" class="button" />
     </div>
-}
+   
 
 

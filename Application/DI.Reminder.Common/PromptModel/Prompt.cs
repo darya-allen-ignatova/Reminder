@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web;
 namespace DI.Reminder.Common.PromptModel
 {
     public class Prompt
