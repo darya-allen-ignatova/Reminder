@@ -90,12 +90,18 @@ namespace DI.Reminder.Web.Controllers
         }
        public ActionResult Add()
         {
-            return View(new Prompt());
+            return View();
         }
         [HttpPost]
         public ActionResult Add(Prompt prompt)
         {
             _prompt.InsertPrompt(prompt);
+            return RedirectToAction("ShowCategoryList", new { id = 0 });
+        }
+        [HttpPost]
+        public ActionResult AddActions(List<Common.PromptModel.Action> action)
+        {
+           
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
         public ActionResult Delete(int? id)
