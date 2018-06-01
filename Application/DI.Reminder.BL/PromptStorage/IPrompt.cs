@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DI.Reminder.Common.PromptModel;
+using DI.Reminder.Data.DataBase;
 
 namespace DI.Reminder.BL.PromptStorage
 {
@@ -8,6 +9,6 @@ namespace DI.Reminder.BL.PromptStorage
         IList<Prompt> GetCategoryItemsByID(int? id);
         Prompt GetPromptDetails(int? id);
         void DeletePrompt(int? id);
-        void InsertPrompt(Prompt newprompt);
+        void InsertPrompt(Prompt newprompt, ICategoryRepository categoryRepository);
     }
 }

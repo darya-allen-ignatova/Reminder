@@ -6,6 +6,7 @@ using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
+using DI.Reminder.Data.DataBase;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -13,8 +14,10 @@ namespace DI.Reminder.Web.Controllers
     {
         private IPrompt _prompt;
         private IGetCategories _getcategory;
-        public PromptController(IPrompt prompt, IGetCategories getcategory)
+        private ICategoryRepository _categoryRepository;
+        public PromptController(IPrompt prompt, IGetCategories getcategory, ICategoryRepository categoryRepository)
         {
+            _categoryRepository = categoryRepository;
             _prompt = prompt;
             _getcategory = getcategory;
             if (_prompt == null || _getcategory == null)
@@ -73,7 +76,7 @@ namespace DI.Reminder.Web.Controllers
             {
                 promptModel = new PromptViewModel()
                 {
-                    CategoryList = _getcategory.GetCategories(_getcategory.GetCategoryID(_promptlist[0].Category)),
+                    CategoryList = _getcategory.GetCategories(_getcategory.GetCategoryParentID(_promptlist[0].Category)),
                     PromptList = _promptlist
                 };
 
@@ -93,17 +96,11 @@ namespace DI.Reminder.Web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Add(Prompt prompt)
+        public void Add(Prompt prompt)
         {
-            _prompt.InsertPrompt(prompt);
-            return RedirectToAction("ShowCategoryList", new { id = 0 });
+            _prompt.InsertPrompt(prompt, _categoryRepository);
         }
-        [HttpPost]
-        public ActionResult AddActions(List<Common.PromptModel.Action> action)
-        {
-           
-            return RedirectToAction("ShowCategoryList", new { id = 0 });
-        }
+       
         public ActionResult Delete(int? id)
         {
             Prompt prompt = _prompt.GetPromptDetails(id);

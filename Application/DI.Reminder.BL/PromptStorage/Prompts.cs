@@ -55,11 +55,11 @@ namespace DI.Reminder.BL.PromptStorage
                 return;
             _prompts.DeletePrompt(id);
         }
-        public void InsertPrompt(Prompt newprompt)
+        public void InsertPrompt(Prompt newprompt, ICategoryRepository categoryRepository)
         {
             if (newprompt == null)
                 return;
-            _prompts.AddPrompt(newprompt);
+            _prompts.AddPrompt(newprompt, categoryRepository);
         }
 
     

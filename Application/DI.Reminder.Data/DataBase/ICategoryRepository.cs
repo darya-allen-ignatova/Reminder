@@ -10,6 +10,7 @@ namespace DI.Reminder.Data.DataBase
     public interface ICategoryRepository
     {
         int? GetCategoryID(string Name);
+        int? GetCategoryParentID(string Name);
         IList<Category> GetCategories(int? id);
     }
 }
