@@ -81,3 +81,4 @@ C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Rem
 
 2018-05-31 14:20:11,754 [7] ERROR - Error 404:
 Не удалось найти общедоступный метод действия "Egit" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-06-01 22:44:49,626 [5] ERROR - Error 404:
