@@ -15,8 +15,8 @@ namespace DI.Reminder.Web.Controllers
         IAuthentication _authentication;
         public AccountController(IAuthentication authentication, IAccountRepository accountRepository)
         {
-            _accountRepository = accountRepository;
-            _authentication = authentication;
+            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+            _authentication = authentication ?? throw new ArgumentNullException(nameof(authentication));
         }
         // GET: Account
         public ActionResult Registration()
@@ -26,7 +26,6 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Registration(Account account)
         {
-            
             List<Role> role = new List<Role>()
             {
                 new Role()
@@ -37,11 +36,12 @@ namespace DI.Reminder.Web.Controllers
             account.roles = role;
             _accountRepository.InsertAccount(account);
             _authentication.httpContext = System.Web.HttpContext.Current;
-            _authentication.Login(account);
+            _authentication.Registration(account);
             return RedirectToAction("Home", "Prompt");
         }
         public ActionResult Аuthentication()
         {
+
             return View();
         }
         [HttpPost]

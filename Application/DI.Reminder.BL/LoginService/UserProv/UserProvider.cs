@@ -10,11 +10,11 @@ using DI.Reminder.Data.RolesRepository;
 
 namespace DI.Reminder.BL.LoginService.UserProv
 {
-    class UserProvider : IPrincipal
+    public class UserProvider : IPrincipal
     {
         private IRoleRepository _roleRepository;
         private IAccountRepository _accountRepository;
-        public UserProvider(IRoleRepository roleRepository, IAccountRepository accountRepository,string name )
+        public UserProvider(IRoleRepository roleRepository, IAccountRepository accountRepository, string name )
         {
             userIndentity = new UserIndentity();
             userIndentity.Init(name,_accountRepository);
