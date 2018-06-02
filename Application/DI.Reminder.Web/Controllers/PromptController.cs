@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Data.DataBase;
+using System.Web.UI;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -23,19 +24,11 @@ namespace DI.Reminder.Web.Controllers
             if (_prompt == null || _getcategory == null)
                 throw new ArgumentNullException();
         }
-        // GET: Prompt
         public ActionResult Home()
         {
             return View();
         }
-        //public ActionResult ShowCategoryList(int? id=null)
-        //{
-        //    PromptViewModel Model = GetViewModel(id);
-        //    if (Model.CategoryList.Count == 0 || Model.CategoryList==null)
-        //            return RedirectToAction("HttpError404", "Error");
-        //    return View(Model);
-            
-        //}
+        [OutputCache(CacheProfile ="cacheProfileForCategories")]
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Category> _categorylist = _getcategory.GetCategories(id);
@@ -56,7 +49,6 @@ namespace DI.Reminder.Web.Controllers
                     isRedirect = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            
             return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
         private PromptViewModel GetViewModel(int? id)
