@@ -53,7 +53,7 @@ namespace DI.Reminder.Data.AccountDatabase
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
-                for (int i = 0; i < newaccount.roles.Count; i++)
+                for (int i = 0; i < newaccount.Roles.Count; i++)
                 {
 
                     string sqlExpression = "AddConnection";
@@ -62,7 +62,7 @@ namespace DI.Reminder.Data.AccountDatabase
                     SqlParameter sqlparam1 = new SqlParameter()
                     {
                         ParameterName = "@role",
-                        Value = newaccount.roles[i].Name
+                        Value = newaccount.Roles[i].Name
                     };
                     command.Parameters.Add(sqlparam1);
                     SqlParameter sqlparam2 = new SqlParameter()
@@ -150,7 +150,7 @@ namespace DI.Reminder.Data.AccountDatabase
                         ID = id,
                         Login = reader["Login"].ToString(),
                         Password = reader["Password"].ToString(),
-                        roles = _rolelist
+                        Roles = _rolelist
                    });
                 }
                 connection.Close();

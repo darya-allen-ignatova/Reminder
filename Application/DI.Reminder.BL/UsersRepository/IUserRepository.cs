@@ -10,9 +10,10 @@ namespace DI.Reminder.BL.UsersRepository
     public interface IUserRepository
     {
         void InsertUser(Account account);
+        void EditUser(Account account);
         void DeleteUser(int? id);
-        void GetUserList();
-        void GetUser(string login);
+        IList<Account> GetUserList();
+        Account GetUser(string login);
 
     }
 }

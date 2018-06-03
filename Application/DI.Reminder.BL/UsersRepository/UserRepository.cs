@@ -22,16 +22,21 @@ namespace DI.Reminder.BL.UsersRepository
             _accountRepository.DeleteAccount((int)id);
         }
 
-        public void GetUser(string login)
+        public void EditUser(Account account)
         {
-            if (login == null)
-                return;
-            _accountRepository.GetAccount(login);
+            throw new NotImplementedException();
         }
 
-        public void GetUserList()
+        public Account GetUser(string login)
         {
-            _accountRepository.GetAccountList();
+            if (login == null)
+                return null;
+            return _accountRepository.GetAccount(login);
+        }
+
+        public IList<Account> GetUserList()
+        {
+            return _accountRepository.GetAccountList();
         }
 
         public void InsertUser(Account account)
