@@ -34,6 +34,13 @@ namespace DI.Reminder.BL.UsersRepository
             return _accountRepository.GetAccount(login);
         }
 
+        public Account GetUser(int? id)
+        {
+            if (id == null || id < 0)
+                return null;
+            return(_accountRepository.GetAccount((int)id));
+        }
+
         public IList<Account> GetUserList()
         {
             return _accountRepository.GetAccountList();

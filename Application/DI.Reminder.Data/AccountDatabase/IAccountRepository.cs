@@ -14,5 +14,6 @@ namespace DI.Reminder.Data.AccountDatabase
         void DeleteAccount(int id);
         void UpdateAccount();
         List<Account> GetAccountList();
+        Account GetAccount(int id);
     }
 }

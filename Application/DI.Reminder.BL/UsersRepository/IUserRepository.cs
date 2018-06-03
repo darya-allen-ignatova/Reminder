@@ -14,6 +14,7 @@ namespace DI.Reminder.BL.UsersRepository
         void DeleteUser(int? id);
         IList<Account> GetUserList();
         Account GetUser(string login);
+        Account GetUser(int? id);
 
     }
 }

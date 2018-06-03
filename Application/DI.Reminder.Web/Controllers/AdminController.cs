@@ -32,16 +32,18 @@ namespace DI.Reminder.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult DeleteUser()
+        public ActionResult DeleteUser(int? id)
         {
-            return View();
-
+            Account account = _userRepository.GetUser(id);
+            if (account == null)
+                return RedirectToAction("HttpError404", "Error");
+            return View(account);
         }
         [HttpPost]
         public ActionResult DeleteUser(Account account)
         {
             _userRepository.DeleteUser(account.ID);
-            return View();
+            return RedirectToAction("GetUserList");
         }
 
 
@@ -55,7 +57,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult EditUser(Account account)
         {
             _userRepository.EditUser(account);
-            return View();
+            return RedirectToAction("UserDetails");
         }
 
 
@@ -64,6 +66,13 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult GetUserList()
         {
             return View(_userRepository.GetUserList());
+        }
+        public ActionResult UserDetails(int? id)
+        {
+            Account account = _userRepository.GetUser(id);
+            if (account == null)
+                return RedirectToAction("HttpError404", "Error");
+            return View(account);
         }
     }
 }

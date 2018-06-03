@@ -82,7 +82,7 @@ namespace DI.Reminder.Data.AccountDatabase
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
-                string sqlExpression = $"GetUser";
+                string sqlExpression = $"GetUserByLogin";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlParameter sqlparam = new SqlParameter()
@@ -105,6 +105,39 @@ namespace DI.Reminder.Data.AccountDatabase
                 }
                 connection.Close();
 
+            }
+            return account;
+        }
+        public Account GetAccount(int id)
+        {
+            Account account = null;
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"GetUserByID";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter sqlparam = new SqlParameter()
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                command.Parameters.Add(sqlparam);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    account = new Account()
+                    {
+                        ID = int.Parse(reader["ID"].ToString()),
+                        Login = reader["Login"].ToString(),
+                        Password = reader["Password"].ToString()
+                    };
+
+                }
+                connection.Close();
+                if (account == null)
+                    return null;
+                account.Roles = _rolerepository.GetRoleList(id);
             }
             return account;
         }
