@@ -150,6 +150,7 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\RoleAdding.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -185,15 +186,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Prompt\Home.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-<<<<<<< HEAD
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Аuthentication.cshtml" />
     <Content Include="Views\Admin\AddUser.cshtml" />
-=======
     <Content Include="Views\Prompt\Add.cshtml" />
     <Content Include="Views\Prompt\Delete.cshtml" />
     <Content Include="Views\Prompt\Edit.cshtml" />
->>>>>>> re-7
     <None Include="Views\Prompt\ShowCategoryList.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />

@@ -6,7 +6,7 @@ using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
-using DI.Reminder.Data.DataBase;
+using DI.Reminder.Data.CategoryDataBase;
 
 namespace DI.Reminder.Web.Controllers
 {

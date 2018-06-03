@@ -33,7 +33,7 @@ namespace DI.Reminder.Web.Controllers
                     Name="User"
                 }
             };
-            account.roles = role;
+            account.Roles = role;
             _accountRepository.InsertAccount(account);
             _authentication.httpContext = System.Web.HttpContext.Current;
             _authentication.Registration(account);

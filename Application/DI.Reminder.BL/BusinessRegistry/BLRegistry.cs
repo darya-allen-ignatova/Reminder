@@ -5,6 +5,7 @@ using DI.Reminder.BL.PromptStorage;
 using DI.Reminder.BL.LoginService.Authentication;
 using System.Security.Principal;
 using DI.Reminder.BL.LoginService.UserProv;
+using DI.Reminder.BL.UsersRepository;
 
 namespace DI.Reminder.BL.BusinessRegistry
 {
@@ -17,6 +18,7 @@ namespace DI.Reminder.BL.BusinessRegistry
             For<IGetCategories>().Use<GetCategory>();
             For<IAuthentication>().Use<AccountAuthentication>();
             For<IPrincipal>().Use<UserProvider>();
+            For<IUserRepository>().Use<UserRepository>();
         }
     }
 }

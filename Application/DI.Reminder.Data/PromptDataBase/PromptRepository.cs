@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using DI.Reminder.Common.PromptModel;
+using DI.Reminder.Data.CategoryDataBase;
 
 namespace DI.Reminder.Data.PromptDataBase
 {

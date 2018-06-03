@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DI.Reminder.Common.PromptModel;
-using DI.Reminder.Data.DataBase;
+using DI.Reminder.Data.CategoryDataBase;
 
 namespace DI.Reminder.BL.PromptStorage
 {

@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace DI.Reminder.BL.LoginService.UserProv
 {
-<<<<<<< HEAD
-    public interface IUserProvider
-=======
     interface IUserProvider
->>>>>>> re-7
     {
         Account account { get; set; }
     }
