@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using DI.Reminder.Common.PromptModel;
 
@@ -8,6 +9,7 @@ namespace DI.Reminder.Data.PromptDataBase
 {
     public class PromptRepository : IPromptRepository
     {
+        
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -52,7 +54,7 @@ namespace DI.Reminder.Data.PromptDataBase
         }
         public Prompt GetPrompt(int? id)
         {
-            Prompt prompt = new Prompt();
+            Prompt prompt = null;
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
@@ -119,7 +121,59 @@ namespace DI.Reminder.Data.PromptDataBase
             return actions;
 
         }
-
+        public void AddPrompt(Prompt prompt, ICategoryRepository categoryRepository)
+        {
+            int? CategoryID = categoryRepository.GetCategoryID(prompt.Category);
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"AddPrompt";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@name", prompt.Name);
+                command.Parameters.AddWithValue("@categoryid", CategoryID);
+                command.Parameters.AddWithValue("@dataofcreating", DateTime.Now.Date);
+                command.Parameters.AddWithValue("@description", prompt.Description);
+                command.Parameters.AddWithValue("@Image", prompt.Image);
+                command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);
+                var result = command.ExecuteScalar();
+                prompt.ID = int.Parse(result.ToString());
+                connection.Close();
+            }
+           
+            AddActions(prompt);
+        }
+        public void DeletePrompt(int? id)
+        {
+            ICategoryRepository categoryRepository = new CategoryRepository();
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"DeletePrompt";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id", id);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        public void AddActions(Prompt prompt)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"AddAction";
+                for (int i = 0; i < prompt.Actions.Count; i++)
+                {
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Name", prompt.Actions[i].Name);
+                    command.Parameters.AddWithValue("@PromptID",prompt.ID);
+                    var result = command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
     }
 }
 

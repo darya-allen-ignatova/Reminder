@@ -132,16 +132,19 @@
     <Content Include="Images\2.jpg" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
+    <Content Include="Images\4c31429d41261851e548841f30738396-thumbnail.jpg" />
     <Content Include="Images\6.jpg" />
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
+    <Content Include="Scripts\ActionAdding.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ClickFunction.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -182,9 +185,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Prompt\Home.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+<<<<<<< HEAD
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Аuthentication.cshtml" />
     <Content Include="Views\Admin\AddUser.cshtml" />
+=======
+    <Content Include="Views\Prompt\Add.cshtml" />
+    <Content Include="Views\Prompt\Delete.cshtml" />
+    <Content Include="Views\Prompt\Edit.cshtml" />
+>>>>>>> re-7
     <None Include="Views\Prompt\ShowCategoryList.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />

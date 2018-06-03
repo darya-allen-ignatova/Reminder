@@ -1,37 +1,43 @@
-﻿@model DI.Reminder.Web.Models.PromptViewModel
+﻿@model IList<DI.Reminder.Common.CategoryModel.Category>
 @{
     ViewBag.Title = "Show";
 }
+@using DI.Reminder.BL.Categories;
 
 <link href="~/Content/CategoriesSheet.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/AllPages.css" rel="stylesheet" />
 <div class="vid">
+
+
     <div class="widget">
         <h3 class="widget-title title">Categories</h3>
-        <ul class="widget-list title">
-            <li>
-                @if (Model.CategoryList[0].ParentID == null)
-            {@Html.ActionLink($"All", "ShowCategoryList", new { id = 0 })}
+        <ul class="widget-list title" id="widget">
+            @if(Model[0].ParentID==null)
+            {
+                <li>
+                <a id="b_0" name="0">All</a>
             </li>
-            @foreach (var item in Model.CategoryList)
-        {
-            <li>
-                @Html.ActionLink($"{item.Name}", "ShowCategoryList", new { id = item.ID })
-            </li>
-    }
+            }
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a id="b_@item.ID" name="@item.ID">@item.Name</a>
+                   
+                </li>
+            }
 
         </ul>
-        @if (Model.CategoryList[0].ParentID != null)
-        { 
-           <a class="title" type="button" value="Prompts" href='@Url.Action("ShowCategoryList", "Prompt", new { id = 0 })'>Back to previous list</a>
+        @if (Model[0].ParentID != null)
+        {
+            <a class="title" type="button" value="Prompts" href='@Url.Action("ShowCategoryList", "Prompt", new { id = 0 })'>Back to previous list</a>
         }
+
     </div>
 </div>
 <div class="vid-rigth-new">
     <div style=" width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
-    @if (Model.PromptList != null)
-    {  @Html.Partial("PartialCategoryItems", Model.PromptList)}
-    
-</div>
+    <div class="nam" id="JSON">
 
+    </div>
+</div>
 

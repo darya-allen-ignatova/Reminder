@@ -47,6 +47,7 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 
 2018-05-24 15:53:26,679 [7] ERROR - Error 404:
 Не удалось найти общедоступный метод действия "Add" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+<<<<<<< HEAD
 2018-05-24 16:38:46,491 [7] ERROR - Error 404:
 Контроллер для пути "/Account/LogIn" не найден или не реализует интерфейс IController.
 2018-05-24 16:40:16,135 [7] ERROR - Error 404:
@@ -97,3 +98,40 @@ C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Rem
 C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
 2018-05-24 16:47:17,329 [7] ERROR - Error 500:
 C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+=======
+2018-05-29 21:44:30,091 [7] ERROR - Error 404:
+
+2018-05-29 21:51:23,468 [6] ERROR - Error 404:
+
+2018-05-29 21:56:30,355 [7] ERROR - Error 404:
+
+2018-05-29 23:06:58,489 [7] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Prompt\ShowCategoryList.cshtml(39): error CS1002: ; expected
+2018-05-30 21:29:18,804 [7] ERROR - Error 404:
+Путь '/Views/Prompt/Details.cshtml' не найден.
+2018-05-30 21:34:30,023 [6] ERROR - Error 404:
+
+2018-05-30 21:34:34,216 [5] ERROR - Error 404:
+
+2018-05-31 13:25:45,743 [7] ERROR - Error 404:
+
+2018-05-31 13:25:48,113 [6] ERROR - Error 404:
+
+2018-05-31 13:32:48,544 [7] ERROR - Error 404:
+
+2018-05-31 13:33:06,840 [5] ERROR - Error 404:
+
+2018-05-31 13:33:06,860 [6] ERROR - Error 404:
+
+2018-05-31 13:51:24,116 [7] ERROR - Error 404:
+
+2018-05-31 13:51:45,237 [6] ERROR - Error 404:
+
+2018-05-31 13:51:45,258 [6] ERROR - Error 404:
+
+2018-05-31 14:19:56,876 [7] ERROR - Error 404:
+
+2018-05-31 14:20:11,754 [7] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "Egit" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-06-01 22:44:49,626 [5] ERROR - Error 404:
+>>>>>>> re-7

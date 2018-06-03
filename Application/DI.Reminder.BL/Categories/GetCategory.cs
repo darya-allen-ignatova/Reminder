@@ -27,11 +27,11 @@ namespace DI.Reminder.BL.Categories
                 throw;
             }
         }
-        public int? GetCategoryID(string categoryName)
+        public int? GetCategoryParentID(string categoryName)
         {
             try
             {
-                return _getCategory.GetCategoryID(categoryName);
+                return _getCategory.GetCategoryParentID(categoryName);
             }
             catch
             {

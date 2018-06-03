@@ -165,7 +165,26 @@ a.button {
     width: 33%;
     height: 200px;
 }
+<<<<<<< HEAD
 
+=======
+.vid1 {
+    float: left;
+    width:20%;
+    height:200px;
+}
+.vid1-rigth {
+    float: left;
+    width: 20%;
+    height: 200px;
+}
+.vid1-services {
+    float: right;
+    color: #855C6A;
+    width: 38%;
+    height: 200px;
+}
+>>>>>>> re-7
 
 
 

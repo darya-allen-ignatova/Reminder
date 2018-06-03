@@ -6,6 +6,6 @@ namespace DI.Reminder.BL.Categories
     public interface IGetCategories
     {
         IList<Category> GetCategories(int? id);
-        int? GetCategoryID(string categoryName);
+        int? GetCategoryParentID(string categoryName);
     }
 }

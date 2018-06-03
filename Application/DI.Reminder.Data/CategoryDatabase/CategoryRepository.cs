@@ -23,6 +23,31 @@ namespace DI.Reminder.Data.CategoryDataBase
             {
                 connection.Open();
                 string sqlExpression;
+                int? ID = null;
+                sqlExpression = $"GetCategoryID";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter sqlparam = new SqlParameter()
+                {
+                    ParameterName = "@Name",
+                    Value = Name
+                };
+                command.Parameters.Add(sqlparam);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ID = int.Parse(reader["ID"].ToString());
+                }
+                connection.Close();
+                return ID;
+            }
+        }
+        public int? GetCategoryParentID(string Name)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression;
                 int? parent = null;
                 sqlExpression = $"GetCategoryID";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);

@@ -141,11 +141,6 @@
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
-    <Content Include="Scripts\CreateCategoryTable.sql" />
-    <Content Include="Scripts\CreatePromptTable.sql" />
-    <Content Include="Scripts\DataBase.sql" />
-    <Content Include="Scripts\InfoForCategories.sql" />
-    <Content Include="Scripts\InfoForPrompts.sql" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\AdvertisingService\" />
