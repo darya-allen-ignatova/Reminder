@@ -2,27 +2,25 @@
 @{
     ViewBag.Title = "Show";
 }
-@using DI.Reminder.BL.Categories;
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/Content/SearchSheet.css" rel="stylesheet" />
 <link href="~/Content/CategoriesSheet.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/AllPages.css" rel="stylesheet" />
 <div class="vid">
-
-
     <div class="widget">
         <h3 class="widget-title title">Categories</h3>
         <ul class="widget-list title" id="widget">
-            @if(Model[0].ParentID==null)
+            @if (Model[0].ParentID == null)
             {
                 <li>
-                <a id="b_0" name="0">All</a>
-            </li>
+                    <a id="b_0" name="0">All</a>
+                </li>
             }
             @foreach (var item in Model)
             {
                 <li>
                     <a id="b_@item.ID" name="@item.ID">@item.Name</a>
-                   
+
                 </li>
             }
 
@@ -35,8 +33,22 @@
     </div>
 </div>
 <div class="vid-rigth-new">
-    <div style=" width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
-    <div class="nam" id="JSON">
+    <div class="search-wrapper">
+        <div class="input-holder">
+            <input type="text" class="search-input" placeholder="Type to search" />
+            <button class="search-icon" onclick="searchToggle(this, event);"><span  id="search"> </span></button>
+        </div>
+        <div style="padding-top:50px">
+    <p style="width:150px; float:left; color:#855C6A"><input type="radio" value="1" name="search" />By category</p>
+    <p style="width:150px; float:left; color:#855C6A"><input type="radio" value="2" name="search"/>By prompt</p>
+    <p style="width:100px; float:left; color:#855C6A"><input type="radio" value="3" name="search"  />By date</p>
+</div>
+        
+        
+    </div>
+    
+    <div style=" padding-top:30px; width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
+    <div class="nam" id="JSON" style="margin-top:20px">
 
     </div>
 </div>

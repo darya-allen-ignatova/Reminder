@@ -3,15 +3,17 @@ using System;
 using DI.Reminder.Data.DataBase;
 using DI.Reminder.Data;
 using DI.Reminder.Common.PromptModel;
-using System;
+using DI.Reminder.Data.Searching;
 
 namespace DI.Reminder.BL.PromptStorage
 {
     public class Prompts:IPrompt
     {
+        private ISearch _search;
         private IPromptRepository _prompts;
-        public Prompts(IPromptRepository prompts)
+        public Prompts(IPromptRepository prompts, ISearch search)
         {
+            _search = search;
             _prompts = prompts;
             if (_prompts == null)
                 throw new ArgumentNullException();
@@ -62,6 +64,12 @@ namespace DI.Reminder.BL.PromptStorage
             _prompts.AddPrompt(newprompt, categoryRepository);
         }
 
+        public IList<Prompt> GetSearchingPrompts(int id, string value)
+        {
+            if (value == null)
+                return null;
+            return _search.GetSearchItems(id, value);
+        }
     
     }
 }

@@ -74,6 +74,8 @@
     <Compile Include="DService\DataService.cs" />
     <Compile Include="DService\IDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Searching\ISearch.cs" />
+    <Compile Include="Searching\Search.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

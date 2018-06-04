@@ -28,14 +28,6 @@ namespace DI.Reminder.Web.Controllers
         {
             return View();
         }
-        //public ActionResult ShowCategoryList(int? id=null)
-        //{
-        //    PromptViewModel Model = GetViewModel(id);
-        //    if (Model.CategoryList.Count == 0 || Model.CategoryList==null)
-        //            return RedirectToAction("HttpError404", "Error");
-        //    return View(Model);
-            
-        //}
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Category> _categorylist = _getcategory.GetCategories(id);
@@ -57,6 +49,20 @@ namespace DI.Reminder.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             
+            return Json(jsondata, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetItemsForSearch(int id, string value)
+        {
+            IList<Prompt> jsondata = _prompt.GetSearchingPrompts(id, value);
+            if (jsondata.Count == 0)
+            {
+                return Json(new
+                {
+                    ID = id,
+                    isRedirect = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
         private PromptViewModel GetViewModel(int? id)

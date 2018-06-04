@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\RegistrationSheet.css" />
+    <Content Include="Content\SearchSheet.css" />
     <Content Include="Images\0.jpg" />
     <Content Include="Content\3-Details-To-Keep-In-Mind-About-Orthodontic-Treatment-.jpeg" />
     <Content Include="Content\AllPages.css" />
@@ -147,6 +148,8 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Search.js" />
+    <Content Include="Scripts\SearchClick.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
