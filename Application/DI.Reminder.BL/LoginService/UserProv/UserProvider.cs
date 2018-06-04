@@ -41,7 +41,7 @@ namespace DI.Reminder.BL.LoginService.UserProv
             var rolesArray = role.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var _role in rolesArray)
             {
-                var hasRole = UserRoles.Any(p => string.Compare(p.Name, role, true) == 0);
+                var hasRole = UserRoles.Any(p => string.Compare(_role, role, true) == 0);
                 if (hasRole)
                 {
                     return true;

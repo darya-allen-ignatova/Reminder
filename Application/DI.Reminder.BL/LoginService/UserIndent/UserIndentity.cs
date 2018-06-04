@@ -7,7 +7,7 @@ using DI.Reminder.Data.AccountDatabase;
 
 namespace DI.Reminder.BL.LoginService.UserIndent
 {
-    public class UserIndentity:IIdentity, IUserProvider
+    public class UserIndentity:IIdentity
     {
         public Account account { get; set; }
         public string AuthenticationType

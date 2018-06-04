@@ -95,7 +95,7 @@ namespace DI.Reminder.BL.LoginService.Authentication
         {
             get
             {
-                if (_currentUser == null)
+                if (_currentUser == null || _currentUser.Identity.Name=="anonym")
                 {
                     try
                     {

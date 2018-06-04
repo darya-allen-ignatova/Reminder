@@ -51,26 +51,22 @@ namespace DI.Reminder.Web
             }
 
         }
-        //protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-        //{
-        //    IAuthentication authentication = new AccountAuthentication();
-        //    Context.User = authentication.CurrentUser;
-        //    //Context.User.IsInRole("User");
-        //    string[] roles = new string[] { "User" };
-        //    if (Context.User != null)
-        //        Context.User = new GenericPrincipal(Context.User.Identity, roles);
-
-        //}
-        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
+
             authentication.httpContext = System.Web.HttpContext.Current;
             IRoleRepository roleRepository = IoC.Initialize().GetInstance<IRoleRepository>();
             IAccountRepository accountRepository = IoC.Initialize().GetInstance<IAccountRepository>();
-            ILogger  logger = IoC.Initialize().GetInstance<ILogger>();
+            ILogger logger = IoC.Initialize().GetInstance<ILogger>();
             authentication._accountRepository = accountRepository;
             authentication._logger = logger;
             authentication._roleRepository = roleRepository;
-            IPrincipal current = authentication.CurrentUser;
+            HttpContext.Current.User = authentication.CurrentUser;
+
+        }
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            
             //bool isAuthorised = authentication.httpContext.User.IsInRole(HttpContext.RequestContext.HttpContext.User.Identity);
 
             //HttpContext.Current.User;

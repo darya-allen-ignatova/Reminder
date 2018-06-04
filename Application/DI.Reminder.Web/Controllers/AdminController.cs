@@ -1,5 +1,6 @@
 ﻿using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.Common.LoginModels;
+using DI.Reminder.Web.Filters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Admin]
     public class AdminController : Controller
     {
         IUserRepository _userRepository;

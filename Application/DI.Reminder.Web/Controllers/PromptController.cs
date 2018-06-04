@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Data.CategoryDataBase;
+using DI.Reminder.Web.Filters;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -114,6 +115,7 @@ namespace DI.Reminder.Web.Controllers
             _prompt.DeletePrompt(prompt.ID);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
+        
         public ActionResult Edit(int? id)
         {
             Prompt prompt = _prompt.GetPromptDetails(id);
