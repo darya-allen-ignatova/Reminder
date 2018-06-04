@@ -16,12 +16,12 @@ namespace DI.Reminder.BL.LoginService.UserProv
         private IAccountRepository _accountRepository;
         public UserProvider(IRoleRepository roleRepository, IAccountRepository accountRepository, string name )
         {
-            userIndentity = new UserIndentity();
-            userIndentity.Init(name,_accountRepository);
-
-
             _accountRepository = accountRepository;
             _roleRepository = roleRepository;
+
+
+            userIndentity = new UserIndentity();
+            userIndentity.Init(name,_accountRepository);
         }
         private UserIndentity userIndentity { get; set; }
         public IIdentity Identity

@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\RegistrationSheet.css" />
+    <Content Include="Content\SearchSheet.css" />
     <Content Include="Images\0.jpg" />
     <Content Include="Content\3-Details-To-Keep-In-Mind-About-Orthodontic-Treatment-.jpeg" />
     <Content Include="Content\AllPages.css" />

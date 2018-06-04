@@ -7,6 +7,7 @@ using DI.Reminder.Web.DependencyResolution;
 using DI.Reminder.Data.RolesRepository;
 using DI.Reminder.Data.AccountDatabase;
 using DI.Reminder.Common.Logger;
+using System.Security.Principal;
 
 namespace DI.Reminder.Web
 {
@@ -62,7 +63,17 @@ namespace DI.Reminder.Web
         //}
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
         {
-            HttpContext.Current.User = authentication.CurrentUser;
+            authentication.httpContext = System.Web.HttpContext.Current;
+            IRoleRepository roleRepository = IoC.Initialize().GetInstance<IRoleRepository>();
+            IAccountRepository accountRepository = IoC.Initialize().GetInstance<IAccountRepository>();
+            ILogger  logger = IoC.Initialize().GetInstance<ILogger>();
+            authentication._accountRepository = accountRepository;
+            authentication._logger = logger;
+            authentication._roleRepository = roleRepository;
+            IPrincipal current = authentication.CurrentUser;
+            //bool isAuthorised = authentication.httpContext.User.IsInRole(HttpContext.RequestContext.HttpContext.User.Identity);
+
+            //HttpContext.Current.User;
             //if (cookie != null)
             //{
             //var decryptedCookie = FormsAuthentication.Decrypt(cookie.Value);

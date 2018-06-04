@@ -25,10 +25,9 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td class="boton2">
-            @Html.ActionLink("Delete", "DeleteUser", new { id = item.ID} )
-            @Html.ActionLink("Edit", "EditUser", "Admin", new { id=item.ID }) 
-            @Html.ActionLink("Details", "UserDetails", "Admin", new { id=item.ID }) 
-            @Html.ActionLink("Delete", "DeleteUser", "Admin", new { id=item.ID })
+            @Html.ActionLink("Edit", "EditUser",  new { id=item.ID }) 
+            @Html.ActionLink("Details", "UserDetails",  new { id=item.ID }) 
+            @Html.ActionLink("Delete", "DeleteUser",  new { id=item.ID })
         </td>
     </tr>
 }

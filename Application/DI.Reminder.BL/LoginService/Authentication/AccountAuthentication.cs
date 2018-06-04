@@ -18,9 +18,9 @@ namespace DI.Reminder.BL.LoginService.Authentication
     public class AccountAuthentication:IAuthentication
     {
         string cookiename = "authcookie";
-        IRoleRepository _roleRepository;
-        IAccountRepository _accountRepository;
-        ILogger _logger;
+        public IRoleRepository _roleRepository { get; set; }
+        public IAccountRepository _accountRepository { get; set; }
+        public ILogger _logger { get; set; }
         public AccountAuthentication(IRoleRepository roleRepository, IAccountRepository accountRepository, ILogger logger)
         {
             _roleRepository = roleRepository;
@@ -36,10 +36,12 @@ namespace DI.Reminder.BL.LoginService.Authentication
                 CreateCookie(account);
             }
         }
-        public Account Login(string userName, string Password, bool isPersistent)
+        public Account Authentication(Account newaccount, bool isPersistent=false)
         {
-            Account account = _accountRepository.GetAccount(userName);
-            if (account != null && account.Password==Password)
+            if (newaccount == null || newaccount.Login == null || newaccount.Password == null)
+                return null;
+            Account account = _accountRepository.GetAccount(newaccount.Login);
+            if (account != null && account.Password.Replace(" ", string.Empty)==newaccount.Password)
             {
                 CreateCookie(account, isPersistent);
             }

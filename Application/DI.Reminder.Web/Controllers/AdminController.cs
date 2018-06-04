@@ -2,12 +2,14 @@
 using DI.Reminder.Common.LoginModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         IUserRepository _userRepository;
@@ -15,9 +17,6 @@ namespace DI.Reminder.Web.Controllers
         {
             _userRepository = userRepository;
         }
-
-
-
         [HttpPost]
         public ActionResult AddUser(Account account)
         {

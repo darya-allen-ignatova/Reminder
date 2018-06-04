@@ -41,13 +41,14 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult Аuthentication()
         {
-
             return View();
         }
         [HttpPost]
         public ActionResult Аuthentication(Account account)
         {
-            return View();
+            _authentication.httpContext= System.Web.HttpContext.Current;
+            _authentication.Authentication(account);
+            return RedirectToAction("Home", "Prompt");
         }
     }
 }
