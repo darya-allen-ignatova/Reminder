@@ -14,5 +14,7 @@ namespace DI.Reminder.Data.CategoryDataBase
         IList<Category> GetCategories(int? id);
         void AddCategory(Category category);
         void DeleteCategory(int id);
+        Category GetCategory(int id);
+        IList<Category> GetAllCategories();
     }
 }

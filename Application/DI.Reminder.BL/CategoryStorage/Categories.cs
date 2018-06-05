@@ -22,6 +22,11 @@ namespace DI.Reminder.BL.CategoryStorage
             _category.DeleteCategory((int)id);
         }
 
+        public IList<Category> GetAllCategories()
+        {
+            return _category.GetAllCategories();
+        }
+
         public IList<Category> GetCategories(int? id)
         {
             if (id < 0)
@@ -35,6 +40,14 @@ namespace DI.Reminder.BL.CategoryStorage
                 throw;
             }
         }
+
+        public Category GetCategory(int? id)
+        {
+            if (id < 0 || id == null)
+                return null;
+            return _category.GetCategory((int)id);
+        }
+
         public int? GetCategoryParentID(string categoryName)
         {
             try

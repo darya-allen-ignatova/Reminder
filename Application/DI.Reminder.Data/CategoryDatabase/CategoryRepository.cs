@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DI.Reminder.Data.CategoryDataBase
 {
-    public class CategoryRepository:ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
@@ -154,6 +154,74 @@ namespace DI.Reminder.Data.CategoryDataBase
                 command.Parameters.Add(sqlparam1);
                 var result = command.ExecuteNonQuery();
 
+            }
+        }
+        public Category GetCategory(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                Category category = null;
+                string sqlExpression= $"GetCategory";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter sqlparam = new SqlParameter()
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                command.Parameters.Add(sqlparam);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int? parent = null;
+                    object ParentID = reader.GetValue(2);
+                    if (!Convert.IsDBNull(ParentID))
+                    {
+                        parent = int.Parse(ParentID.ToString());
+                    }
+                    category = new Category()
+                    {
+                        ID = int.Parse(reader["ID"].ToString()),
+                        Name = reader["Name"].ToString(),
+                        ParentID = parent
+                    };
+                }
+                connection.Close();
+                return category;
+            }
+        }
+        public IList<Category> GetAllCategories()
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression;
+                sqlExpression = "GetAllCategories";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+                List<Category> _list = new List<Category>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int? parent = null;
+                        object ParentID = reader.GetValue(2);
+                        if (!Convert.IsDBNull(ParentID))
+                        {
+                            parent = int.Parse(ParentID.ToString());
+                        }
+                        _list.Add(new Category()
+                        {
+                            ID = int.Parse(reader.GetValue(0).ToString()),
+                            Name = reader.GetValue(1).ToString(),
+                            ParentID = parent
+                        });
+                    }
+                    connection.Close();
+                }
+                return _list;
             }
         }
     }
