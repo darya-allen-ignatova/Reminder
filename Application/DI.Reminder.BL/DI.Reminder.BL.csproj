@@ -48,8 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
-    <Compile Include="Categories\GetCategory.cs" />
-    <Compile Include="Categories\IGetCategories.cs" />
+    <Compile Include="CategoryStorage\GetCategory.cs" />
+    <Compile Include="CategoryStorage\IGetCategories.cs" />
     <Compile Include="LoginService\Authentication\AccountAuthentication.cs" />
     <Compile Include="LoginService\Authentication\IAuthentication.cs" />
     <Compile Include="LoginService\UserIndent\UserIndentity.cs" />

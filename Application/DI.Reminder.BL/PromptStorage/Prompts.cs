@@ -7,7 +7,7 @@ using DI.Reminder.Data.CategoryDataBase;
 
 namespace DI.Reminder.BL.PromptStorage
 {
-    public class Prompts:IPrompt
+    public class Prompts:IPrompts
     {
         private ICategoryRepository _categoryRepository;
         private IPromptRepository _promptRepository;

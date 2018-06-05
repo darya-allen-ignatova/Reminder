@@ -113,5 +113,48 @@ namespace DI.Reminder.Data.CategoryDataBase
                 return _list;
             }
         }
+
+        public void AddCategory(Category category)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = "AddCategory";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@Name",
+                    Value = category.Name
+                };
+                command.Parameters.Add(sqlparam1);
+                SqlParameter sqlparam2 = new SqlParameter()
+                {
+                    ParameterName = "@ParentID",
+                    Value = category.ParentID
+                };
+                command.Parameters.Add(sqlparam2);
+                var result = command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteCategory(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = "DeleteCategory";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                command.Parameters.Add(sqlparam1);
+                var result = command.ExecuteNonQuery();
+
+            }
+        }
     }
 }

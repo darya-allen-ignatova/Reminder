@@ -4,7 +4,7 @@ using DI.Reminder.Data.CategoryDataBase;
 
 namespace DI.Reminder.BL.PromptStorage
 {
-    public interface IPrompt
+    public interface IPrompts
     {
         IList<Prompt> GetCategoryItemsByID(int? id);
         Prompt GetPromptDetails(int? id);

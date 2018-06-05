@@ -1,6 +1,6 @@
 ﻿using DI.Reminder.BL.Services;
 using StructureMap;
-using DI.Reminder.BL.Categories;
+using DI.Reminder.BL.CategoryStorage;
 using DI.Reminder.BL.PromptStorage;
 using DI.Reminder.BL.LoginService.Authentication;
 using System.Security.Principal;

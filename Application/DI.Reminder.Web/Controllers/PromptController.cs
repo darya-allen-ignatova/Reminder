@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using DI.Reminder.BL.PromptStorage;
-using DI.Reminder.BL.Categories;
+using DI.Reminder.BL.CategoryStorage;
 using DI.Reminder.Web.Models;
 using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;

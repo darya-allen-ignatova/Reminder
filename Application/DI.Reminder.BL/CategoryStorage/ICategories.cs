@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DI.Reminder.Common.CategoryModel;
 
-namespace DI.Reminder.BL.Categories
+namespace DI.Reminder.BL.CategoryStorage
 {
     public interface IGetCategories
     {
