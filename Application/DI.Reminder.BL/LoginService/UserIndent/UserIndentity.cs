@@ -9,6 +9,11 @@ namespace DI.Reminder.BL.LoginService.UserIndent
 {
     public class UserIndentity:IIdentity
     {
+        private IAccountRepository _accountRepository;
+        public UserIndentity(IAccountRepository accountRepository)
+        {
+            _accountRepository = accountRepository;
+        }
         public Account account { get; set; }
         public string AuthenticationType
         {
@@ -37,11 +42,11 @@ namespace DI.Reminder.BL.LoginService.UserIndent
 
         }
         
-        public void Init(string login, IAccountRepository accountRepository)
+        public void Init(string login)
         {
             if(!string.IsNullOrEmpty(login))
             {
-                account = accountRepository.GetAccount(login);
+                account = _accountRepository.GetAccount(login);
             }
         }
     }

@@ -46,8 +46,6 @@ namespace DI.Reminder.Web.Controllers
             return RedirectToAction("GetUserList");
         }
 
-
-
         [HttpGet]
         public ActionResult EditUser()
         {
@@ -59,10 +57,7 @@ namespace DI.Reminder.Web.Controllers
             _userRepository.EditUser(account);
             return RedirectToAction("UserDetails");
         }
-
-
-
-
+        
         public ActionResult GetUserList()
         {
             return View(_userRepository.GetUserList());

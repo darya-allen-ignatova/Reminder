@@ -10,7 +10,11 @@ namespace DI.Reminder.Data.PromptDataBase
 {
     public class PromptRepository : IPromptRepository
     {
-        
+        private ICategoryRepository _categoryRepository;
+        public PromptRepository(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -122,9 +126,9 @@ namespace DI.Reminder.Data.PromptDataBase
             return actions;
 
         }
-        public void AddPrompt(Prompt prompt, ICategoryRepository categoryRepository)
+        public void AddPrompt(Prompt prompt)
         {
-            int? CategoryID = categoryRepository.GetCategoryID(prompt.Category);
+            int? CategoryID = _categoryRepository.GetCategoryID(prompt.Category);
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();

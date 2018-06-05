@@ -10,6 +10,6 @@ namespace DI.Reminder.Data.PromptDataBase
         IList<Prompt> GetPromptsList(int? id);
         Prompt GetPrompt(int? id);
         void DeletePrompt(int? id);
-        void AddPrompt(Prompt prompt, ICategoryRepository categoryRepository);
+        void AddPrompt(Prompt prompt);
     }
 }

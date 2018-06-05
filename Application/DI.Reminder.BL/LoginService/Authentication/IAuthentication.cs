@@ -10,9 +10,6 @@ namespace DI.Reminder.BL.LoginService.Authentication
 {
     public interface IAuthentication
     {
-        IRoleRepository _roleRepository { get; set; }
-        IAccountRepository _accountRepository { get; set; }
-        ILogger _logger { get; set; }
         HttpContext httpContext { get; set; }
         Account Authentication(Account account, bool isPersistent = false);
         Account Login(string login);

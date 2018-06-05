@@ -20,8 +20,8 @@ namespace DI.Reminder.BL.LoginService.UserProv
             _roleRepository = roleRepository;
 
 
-            userIndentity = new UserIndentity();
-            userIndentity.Init(name,_accountRepository);
+            userIndentity = new UserIndentity(_accountRepository);
+            userIndentity.Init(name);
         }
         private UserIndentity userIndentity { get; set; }
         public IIdentity Identity
@@ -38,10 +38,9 @@ namespace DI.Reminder.BL.LoginService.UserProv
                 return false;
             }
             var UserRoles = _roleRepository.GetRoleList(userIndentity.account.ID);
-            var rolesArray = role.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var _role in rolesArray)
+            foreach (var _role in UserRoles)
             {
-                var hasRole = UserRoles.Any(p => string.Compare(_role, role, true) == 0);
+                var hasRole = UserRoles.Any(p => string.Compare(_role.Name.Replace(" ", string.Empty), role, true) == 0);
                 if (hasRole)
                 {
                     return true;

@@ -13,9 +13,6 @@ namespace DI.Reminder.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        IRoleRepository roleRepository = IoC.Initialize().GetInstance<IRoleRepository>();
-        IAccountRepository accountrepository = IoC.Initialize().GetInstance<IAccountRepository>();
-        ILogger logger = IoC.Initialize().GetInstance<ILogger>();
         IAuthentication authentication = IoC.Initialize().GetInstance<IAuthentication>();
        
         protected void Application_Start()
@@ -53,30 +50,10 @@ namespace DI.Reminder.Web
         }
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-
             authentication.httpContext = System.Web.HttpContext.Current;
-            IRoleRepository roleRepository = IoC.Initialize().GetInstance<IRoleRepository>();
-            IAccountRepository accountRepository = IoC.Initialize().GetInstance<IAccountRepository>();
-            ILogger logger = IoC.Initialize().GetInstance<ILogger>();
-            authentication._accountRepository = accountRepository;
-            authentication._logger = logger;
-            authentication._roleRepository = roleRepository;
             HttpContext.Current.User = authentication.CurrentUser;
-
         }
-        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
-        {
-            
-            //bool isAuthorised = authentication.httpContext.User.IsInRole(HttpContext.RequestContext.HttpContext.User.Identity);
-
-            //HttpContext.Current.User;
-            //if (cookie != null)
-            //{
-            //var decryptedCookie = FormsAuthentication.Decrypt(cookie.Value);
-            //var _account = JsonConvert.DeserializeObject<Account>(decryptedCookie.UserData);
-            //IAuthentication 
-            //HttpContext.Current.User = _account;
-        }
+        
 
     }
 

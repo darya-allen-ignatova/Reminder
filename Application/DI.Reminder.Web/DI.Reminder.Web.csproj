@@ -164,12 +164,14 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PromptController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\StartController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
     <Compile Include="Filters\Admin.cs" />
+    <Compile Include="Filters\Editor.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,7 +188,6 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Prompt\Home.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Аuthentication.cshtml" />
@@ -203,6 +204,7 @@
     <Content Include="Views\Error\OtherErrors.cshtml" />
     <Content Include="Views\Service\Advertising.cshtml" />
     <Content Include="Views\Prompt\PartialCategoryItems.cshtml" />
+    <Content Include="Views\Start\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
