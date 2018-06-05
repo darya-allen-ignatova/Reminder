@@ -37,7 +37,7 @@ namespace DI.Reminder.Web.Controllers
             _accountRepository.InsertAccount(account);
             _authentication.httpContext = System.Web.HttpContext.Current;
             _authentication.Registration(account);
-            return RedirectToAction("Home", "Prompt");
+            return RedirectToAction("Home", "Start");
         }
         public ActionResult Аuthentication()
         {
@@ -48,7 +48,7 @@ namespace DI.Reminder.Web.Controllers
         {
             _authentication.httpContext= System.Web.HttpContext.Current;
             _authentication.Authentication(account);
-            return RedirectToAction("Home", "Prompt");
+            return RedirectToAction("Home", "Start");
         }
     }
 }

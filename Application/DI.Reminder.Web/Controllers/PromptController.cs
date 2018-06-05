@@ -35,8 +35,6 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
 
         }
-
-        [ChildActionOnly]
         public ActionResult GetCategoryPrompts(int id)
         {
             IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(id);
