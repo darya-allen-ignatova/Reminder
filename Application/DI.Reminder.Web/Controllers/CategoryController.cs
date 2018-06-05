@@ -1,13 +1,12 @@
 ﻿using DI.Reminder.BL.CategoryStorage;
 using DI.Reminder.Common.CategoryModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using DI.Reminder.Web.Filters;
 using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
 {
+    [Admin]
+    [Editor]
     public class CategoryController : Controller
     {
         ICategories _categoriesStorage;

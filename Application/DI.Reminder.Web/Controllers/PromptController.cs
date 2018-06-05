@@ -14,10 +14,10 @@ namespace DI.Reminder.Web.Controllers
     [Authorize]
     public class PromptController : Controller
     {
-        private IPrompt _prompt;
-        private IGetCategories _getcategory;
+        private IPrompts _prompt;
+        private ICategories _getcategory;
         private ICategoryRepository _categoryRepository;
-        public PromptController(IPrompt prompt, IGetCategories getcategory, ICategoryRepository categoryRepository)
+        public PromptController(IPrompts prompt, ICategories getcategory, ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
             _prompt = prompt;

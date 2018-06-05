@@ -5,7 +5,7 @@ using DI.Reminder.Common.LoginModels;
 
 namespace DI.Reminder.Data.RolesRepository
 {
-    public class RoleRepository:IRoleRepository
+    public class RoleRepository : IRoleRepository
     {
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
@@ -88,6 +88,29 @@ namespace DI.Reminder.Data.RolesRepository
 
             }
             return _rolelist;
+        }
+
+        public IList<Role> GetAllRoles()
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = "GetAllRoles";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+                List<Role> _list = new List<Role>();
+                while (reader.Read())
+                {
+                    _list.Add(new Role()
+                    {
+                        ID = int.Parse(reader["ID"].ToString()),
+                        Name = reader["Name"].ToString()
+                    });
+                }
+                connection.Close();
+                return _list;
+            }
         }
     }
 }

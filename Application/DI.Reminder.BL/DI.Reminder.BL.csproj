@@ -48,13 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
-    <Compile Include="CategoryStorage\GetCategory.cs" />
-    <Compile Include="CategoryStorage\IGetCategories.cs" />
+    <Compile Include="CategoryStorage\Categories.cs" />
+    <Compile Include="CategoryStorage\ICategories.cs" />
     <Compile Include="LoginService\Authentication\AccountAuthentication.cs" />
     <Compile Include="LoginService\Authentication\IAuthentication.cs" />
     <Compile Include="LoginService\UserIndent\UserIndentity.cs" />
     <Compile Include="LoginService\UserProv\UserProvider.cs" />
-    <Compile Include="PromptStorage\IPrompt.cs" />
+    <Compile Include="PromptStorage\IPrompts.cs" />
     <Compile Include="PromptStorage\Prompts.cs" />
     <Compile Include="Services\BLService.cs" />
     <Compile Include="Services\IBLService.cs" />

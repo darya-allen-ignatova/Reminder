@@ -1,11 +1,6 @@
 ﻿using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Web.Filters;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers

@@ -13,9 +13,9 @@ namespace DI.Reminder.BL.BusinessRegistry
     {
         public BLRegistry()
         {
-            For<IPrompt>().Use<Prompts>();
+            For<IPrompts>().Use<Prompts>();
             For<IBLService>().Use<BLService>();
-            For<IGetCategories>().Use<GetCategory>();
+            For<ICategories>().Use<Categories>();
             For<IAuthentication>().Use<AccountAuthentication>();
             For<IPrincipal>().Use<UserProvider>();
             For<IUserRepository>().Use<UserRepository>();
