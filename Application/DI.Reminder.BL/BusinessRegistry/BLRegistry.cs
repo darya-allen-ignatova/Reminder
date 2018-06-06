@@ -6,6 +6,7 @@ using DI.Reminder.BL.LoginService.Authentication;
 using System.Security.Principal;
 using DI.Reminder.BL.LoginService.UserProv;
 using DI.Reminder.BL.UsersRepository;
+using DI.Reminder.BL.RoleStorage;
 
 namespace DI.Reminder.BL.BusinessRegistry
 {
@@ -19,6 +20,7 @@ namespace DI.Reminder.BL.BusinessRegistry
             For<IAuthentication>().Use<AccountAuthentication>();
             For<IPrincipal>().Use<UserProvider>();
             For<IUserRepository>().Use<UserRepository>();
+            For<IRoles>().Use<Roles>();
         }
     }
 }

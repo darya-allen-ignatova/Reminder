@@ -207,6 +207,7 @@
     <Content Include="Views\Service\Advertising.cshtml" />
     <Content Include="Views\Prompt\PartialCategoryItems.cshtml" />
     <Content Include="Views\Start\Home.cshtml" />
+    <Content Include="Views\Role\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -217,7 +218,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Category\" />
-    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DI.Reminder.BL\DI.Reminder.BL.csproj">

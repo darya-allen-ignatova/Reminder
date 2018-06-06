@@ -56,6 +56,8 @@
     <Compile Include="LoginService\UserProv\UserProvider.cs" />
     <Compile Include="PromptStorage\IPrompts.cs" />
     <Compile Include="PromptStorage\Prompts.cs" />
+    <Compile Include="RoleStorage\IRoles.cs" />
+    <Compile Include="RoleStorage\Roles.cs" />
     <Compile Include="Services\BLService.cs" />
     <Compile Include="Services\IBLService.cs" />
     <Compile Include="PromptStor\GetPrompts.cs" />
