@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DI.Reminder.Common.LoginModels.Role>
+
+@{
+    ViewBag.Title = "ShowAllRoles";
+}
+<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
+<h2 class="title">Roles</h2>
+
+<table>
+    <tr>
+        <th class="newtitle">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="boton1">
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td style="float:left; padding-left:50px; color:#855C6A; font-size:150%; padding-top:20px">
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+<div style="color:#855C6A; font-size:150%; padding-top:50px; padding-left:22px">
+    @Html.ActionLink("Add", "Add")
+</div>
