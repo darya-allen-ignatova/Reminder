@@ -6,9 +6,9 @@ namespace DI.Reminder.BL.PromptStorage
 {
     public interface IPrompts
     {
-        IList<Prompt> GetCategoryItemsByID(int? id);
-        Prompt GetPromptDetails(int? id);
-        void DeletePrompt(int? id);
-        void InsertPrompt(Prompt newprompt);
+        IList<Prompt> GetCategoryItemsByID(int userID,int? id);
+        Prompt GetPromptDetails(int userID,int? id);
+        void DeletePrompt(int userID,int? id);
+        void InsertPrompt(int userID, Prompt newprompt);
     }
 }

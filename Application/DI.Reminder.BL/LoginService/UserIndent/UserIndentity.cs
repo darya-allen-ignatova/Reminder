@@ -30,7 +30,7 @@ namespace DI.Reminder.BL.LoginService.UserIndent
                 return account != null;
             }
         }
-
+        
         public string Name
         {
             get

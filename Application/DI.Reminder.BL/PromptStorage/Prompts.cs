@@ -18,7 +18,7 @@ namespace DI.Reminder.BL.PromptStorage
             if (_promptRepository == null)
                 throw new ArgumentNullException();
         }
-        public IList<Prompt> GetCategoryItemsByID(int? id)
+        public IList<Prompt> GetCategoryItemsByID(int userID,int? id)
         {
             if (id == null)
                 return null;
@@ -27,7 +27,7 @@ namespace DI.Reminder.BL.PromptStorage
             IList<Prompt> list;
             try
             {
-                list = _promptRepository.GetPromptsList(id);
+                list = _promptRepository.GetPromptsList(userID,id);
             }
             catch
             {
@@ -36,14 +36,14 @@ namespace DI.Reminder.BL.PromptStorage
            
             return list;
         }
-        public Prompt GetPromptDetails(int? id)
+        public Prompt GetPromptDetails(int userID, int? id)
         {
             if (id == null || id<0)
                 return null;
             Prompt prompt;
             try
             {
-                 prompt = _promptRepository.GetPrompt(id);
+                 prompt = _promptRepository.GetPrompt(userID,id);
             }
             catch
             {
@@ -51,17 +51,17 @@ namespace DI.Reminder.BL.PromptStorage
             }
             return prompt;
         }
-        public void DeletePrompt(int? id)
+        public void DeletePrompt(int userID, int? id)
         {
             if (id == null)
                 return;
-            _promptRepository.DeletePrompt(id);
+            _promptRepository.DeletePrompt(userID,id);
         }
-        public void InsertPrompt(Prompt newprompt)
+        public void InsertPrompt(int userID, Prompt newprompt)
         {
             if (newprompt == null)
                 return;
-            _promptRepository.AddPrompt(newprompt);
+            _promptRepository.AddPrompt(userID,newprompt);
         }
 
     

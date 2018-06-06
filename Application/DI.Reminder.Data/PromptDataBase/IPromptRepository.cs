@@ -7,9 +7,9 @@ namespace DI.Reminder.Data.PromptDataBase
 {
     public interface IPromptRepository
     {
-        IList<Prompt> GetPromptsList(int? id);
-        Prompt GetPrompt(int? id);
-        void DeletePrompt(int? id);
-        void AddPrompt(Prompt prompt);
+        IList<Prompt> GetPromptsList(int userID, int? id);
+        Prompt GetPrompt(int userID,int? id);
+        void DeletePrompt(int userID, int? id);
+        void AddPrompt(int userID,Prompt prompt);
     }
 }
