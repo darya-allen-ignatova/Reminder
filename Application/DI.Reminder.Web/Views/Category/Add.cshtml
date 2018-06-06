@@ -1,4 +1,4 @@
-﻿@model DI.Reminder.Common.CategoryModel.Category
+﻿@model DI.Reminder.Common.CategoryModel.CategoriesModel
 
 @{
     ViewBag.Title = "Add";
@@ -21,10 +21,10 @@
         </div>
 
         <div>
-            @Html.LabelFor(model => model.ParentID, htmlAttributes: new { @class = "boton1" })
+            @Html.LabelFor(model => model.ParentCategory, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.ParentID, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ParentCategory, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.ParentCategory, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -35,7 +35,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

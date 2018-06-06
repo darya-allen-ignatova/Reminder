@@ -201,6 +201,7 @@
     <Content Include="Views\Admin\GetUserList.cshtml" />
     <Content Include="Views\Category\Add.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\ShowAll.cshtml" />
     <None Include="Views\Prompt\ShowCategoryList.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />

@@ -1,4 +1,4 @@
-﻿@model DI.Reminder.Common.CategoryModel.Category
+﻿@model DI.Reminder.Common.CategoryModel.CategoriesModel
 
 @{
     ViewBag.Title = "Delete";
@@ -7,21 +7,25 @@
 <h3 class="title">Are you sure you want to delete this?</h3>
 <div>
     <dl>
-        <dt class="newtitle">
+        <dt class="title">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
-        <dd class="boton2">
+        <dd class="boton1">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt class="newtitle">
-            @Html.DisplayNameFor(model => model.ParentID)
+        <dt class="title">
+            @Html.DisplayNameFor(model => model.ParentCategory)
         </dt>
-
-        <dd class="boton2">
-            @Html.DisplayFor(model => model.ParentID)
-        </dd>
+        @if (Model.ParentCategory == null)
+        {
+        <dd class="boton1"> It is root category</dd>
+        }
+        else
+        {<dd class="boton1">
+            @Html.DisplayFor(model => model.ParentCategory)
+        </dd>}
 
     </dl>
 

@@ -58,13 +58,22 @@ namespace DI.Reminder.BL.CategoryStorage
             {
                 throw;
             }
-
+            
         }
         public void InsertCategory(Category category)
         {
             if (category == null)
                 return;
             _category.AddCategory(category);
+        }
+        public int? GetCategoryIDByName(string Name)
+        {
+            if (Name != null)
+            {
+                return _category.GetCategoryID(Name);
+            }
+            else
+                return null; 
         }
     }
 }
