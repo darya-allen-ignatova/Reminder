@@ -208,6 +208,7 @@
     <Content Include="Views\Prompt\PartialCategoryItems.cshtml" />
     <Content Include="Views\Start\Home.cshtml" />
     <Content Include="Views\Role\Add.cshtml" />
+    <Content Include="Views\Role\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,6 +8,6 @@ namespace DI.Reminder.BL.RoleStorage
         void InsertRole(Role role);
         void DeleteRole(int? id);
         IList<Role> GetAllRoles();
-
+        Role GetRole(int? id);
     }
 }

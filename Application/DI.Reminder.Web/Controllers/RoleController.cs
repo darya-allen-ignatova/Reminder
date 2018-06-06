@@ -24,14 +24,17 @@ namespace DI.Reminder.Web.Controllers
             _roles.InsertRole(role);
             return RedirectToAction("ShowAllCategories");
         }
-        public ActionResult Delete()
-        {
-            return View();
-        }
-        [HttpPost]
         public ActionResult Delete(int? id)
         {
-            _roles.DeleteRole(id);
+            var role = _roles.GetRole(id);
+            if(role==null)
+                return RedirectToAction("HttpError404", "Error");
+            return View(role);
+        }
+        [HttpPost]
+        public ActionResult Delete(Role role)
+        {
+            _roles.DeleteRole(role.ID);
             return View();
         }
        
