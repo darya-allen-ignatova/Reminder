@@ -8,16 +8,13 @@
 </head>
 <body>
     <div>
-        <div class="three " id="headerMain header">
+        <header class="three">
             <h1>  Reminder </h1>
-            <ul>
-                <li style=" float: right; width: 10%;"><h2 style="color: #855C6A;">@Html.ActionLink("Домашняя страница", "Index", "Home")</h2></li>
-                <li style=" float: right; width: 10%;"><h2 style="color: #855C6A;">@Html.ActionLink("О программе", "About", "Home")</h2></li>
-                <li style=" float: right; width: 10%"><h2 style="color: #855C6A;">@Html.ActionLink("Контакт", "Contact", "Home")</h2></li>
-            </ul>
-            @*<a class="title vid-center" type="button" value="Prompts" href='@Url.Action("Registration", "Account")'>Registration</a>*@
-            @*<a class=" title vid-left" type="button" value="Prompts" href='@Url.Action("LogIn", "Account")'>Log In</a>*@
-        </div>
+            <div style="padding-top:50px;margin-right:50px; font-size:350%;float:right;color: #FCF2E5;">
+                @Html.ActionLink("StartPage", "Home", "Start")
+                @Html.ActionLink("Registration", "Registration", "Account")
+                @Html.ActionLink("Log On", "Registration", "Аuthentication")
+            </div></header>
     </div>
     <div>
         @RenderBody()

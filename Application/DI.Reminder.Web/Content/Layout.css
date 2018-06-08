@@ -29,8 +29,11 @@ div {
 
 .three {
     background: #855C6A;
+    width: 100%;
+    height: 100px;
     padding: 35px 20px;
     text-align: left;
+    position:unset;
 }
 
     .three h1 {
@@ -52,7 +55,6 @@ div {
             width: 100%;
             height: 4px;
             left: 0;
-            bottom: -15px;
             background: #FCF2E5;
         }
 
