@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
 {
-    [Admin, Editor]
+    [Editor]
     public class CategoryController : Controller
     {
         ICategories _categoriesStorage;

@@ -11,7 +11,7 @@ namespace DI.Reminder.Web.Filters
 
             if (currentUser != null)
             {
-                return currentUser.IsInRole("Editor") || currentUser.IsInRole("User");
+                return currentUser.IsInRole("Editor") || currentUser.IsInRole("Admin");
             }
             return false;
         }

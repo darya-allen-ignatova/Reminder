@@ -88,6 +88,7 @@ namespace DI.Reminder.BL.LoginService.Authentication
 
         public void LogOut()
         {
+            _currentUser = null;
             FormsAuthentication.SignOut();
         }
 

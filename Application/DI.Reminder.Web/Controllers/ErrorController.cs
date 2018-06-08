@@ -30,5 +30,9 @@ namespace DI.Reminder.Web.Controllers
             _logger.Error("Other:\n"+message);
             return View();
         }
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
     }
 }

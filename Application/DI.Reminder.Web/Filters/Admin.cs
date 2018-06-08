@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DI.Reminder.Web.Filters
 {
@@ -11,10 +12,10 @@ namespace DI.Reminder.Web.Filters
 
            if (currentUser != null)
            {
-                return currentUser.IsInRole("Admin") || currentUser.IsInRole("User") || currentUser.IsInRole("Editor");
+                return currentUser.IsInRole("Admin");
            }
-
            return false;
        }
+        
     }
 }

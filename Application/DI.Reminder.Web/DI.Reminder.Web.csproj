@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ErrorSheet.css" />
     <Content Include="Content\RegistrationSheet.css" />
     <Content Include="Content\SearchSheet.css" />
     <Content Include="Images\0.jpg" />
@@ -202,6 +203,7 @@
     <Content Include="Views\Category\Add.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\ShowAll.cshtml" />
+    <Content Include="Views\Error\Unauthorized.cshtml" />
     <None Include="Views\Prompt\ShowCategoryList.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />
