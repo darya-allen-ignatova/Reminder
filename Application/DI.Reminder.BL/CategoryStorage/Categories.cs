@@ -3,18 +3,18 @@ using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.Data;
 using DI.Reminder.Common.CategoryModel;
 using System;
-using DI.Reminder.BL.CachedRepository.Categories;
+using DI.Reminder.BL.CachedRepository;
 
 namespace DI.Reminder.BL.CategoryStorage
 {
     public class Categories:ICategories
     {
         private ICategoryRepository _category;
-        private ICategoryCache _categoryCache;
-        public Categories(ICategoryRepository category, ICategoryCache categoryCache)
+        private ICacheRepository _cacheRepository;
+        public Categories(ICategoryRepository category, ICacheRepository cacheRepository)
         {
             _category = category;
-            _categoryCache = categoryCache;
+            _cacheRepository = cacheRepository;
             if (_category == null)
                 throw new ArgumentNullException();
         }
@@ -24,7 +24,7 @@ namespace DI.Reminder.BL.CategoryStorage
             if (id == null || id<0)
                 return;
             _category.DeleteCategory((int)id);
-            _categoryCache.DeleteCache((int)id);
+            _cacheRepository.DeleteCache((int)id);
         }
 
         public IList<Category> GetAllCategories()
@@ -50,11 +50,11 @@ namespace DI.Reminder.BL.CategoryStorage
         {
             if (id < 0 || id == null)
                 return null;
-            var category = _categoryCache.GetValueOfCache((int)id);
+            var category = _cacheRepository.GetValueOfCache<Category>((int)id);
             if (category == null)
             {
                 category = _category.GetCategory((int)id);
-                _categoryCache.AddCache(category);
+                _cacheRepository.AddCache(category, category.ID);
             }
             return category;
         }
@@ -76,7 +76,7 @@ namespace DI.Reminder.BL.CategoryStorage
             if (category == null)
                 return;
             _category.AddCategory(category);
-            _categoryCache.AddCache(category);
+            _cacheRepository.AddCache(category, category.ID);
         }
         public int? GetCategoryIDByName(string Name)
         {

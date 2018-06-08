@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using DI.Reminder.BL.LoginService.UserIndent;
 using DI.Reminder.Data.AccountDatabase;
 using DI.Reminder.Data.RolesRepository;
