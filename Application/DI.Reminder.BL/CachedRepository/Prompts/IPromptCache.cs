@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DI.Reminder.BL.CachedRepository
+namespace DI.Reminder.BL.CachedRepository.Prompts
 {
-    public interface ICacheRepository
+    public interface IPromptCache
     {
         Prompt GetValueOfCache(int id);
         bool AddCache(Prompt value);

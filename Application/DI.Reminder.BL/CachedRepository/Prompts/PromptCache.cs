@@ -2,9 +2,9 @@
 using System;
 using System.Runtime.Caching;
 
-namespace DI.Reminder.BL.CachedRepository
+namespace DI.Reminder.BL.CachedRepository.Prompts
 {
-    public class CacheRepository:ICacheRepository
+    public class PromptCache:IPromptCache
     {
         public Prompt GetValueOfCache(int id)
         {

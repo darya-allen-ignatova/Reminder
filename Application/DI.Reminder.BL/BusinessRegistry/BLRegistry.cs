@@ -8,6 +8,8 @@ using System.Security.Principal;
 using DI.Reminder.BL.LoginService.UserProv;
 using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.BL.RoleStorage;
+using DI.Reminder.BL.CachedRepository.Prompts;
+using DI.Reminder.BL.CachedRepository.Categories;
 
 namespace DI.Reminder.BL.BusinessRegistry
 {
@@ -17,7 +19,8 @@ namespace DI.Reminder.BL.BusinessRegistry
         {
             For<IPrompt>().Use<Prompts>();
             For<IBLService>().Use<BLService>();
-            For<ICacheRepository>().Use<CacheRepository>();
+            For<IPromptCache>().Use<PromptCache>();
+            For<ICategoryCache>().Use<CategoryCache>();
             For<ICategories>().Use<Categories>();
             For<IAuthentication>().Use<AccountAuthentication>();
             For<IPrincipal>().Use<UserProvider>();

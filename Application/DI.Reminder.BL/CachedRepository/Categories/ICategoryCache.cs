@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DI.Reminder.BL.CachedRepository.Categories
 {
-    interface ICategoryCache
+    public interface ICategoryCache
     {
         Category GetValueOfCache(int id);
         bool AddCache(Category value);
