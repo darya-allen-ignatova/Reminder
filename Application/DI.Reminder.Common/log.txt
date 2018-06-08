@@ -47,6 +47,58 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 
 2018-05-24 15:53:26,679 [7] ERROR - Error 404:
 Не удалось найти общедоступный метод действия "Add" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+<<<<<<< HEAD
+2018-05-24 16:38:46,491 [7] ERROR - Error 404:
+Контроллер для пути "/Account/LogIn" не найден или не реализует интерфейс IController.
+2018-05-24 16:40:16,135 [7] ERROR - Error 404:
+Контроллер для пути "/Account/LogIn" не найден или не реализует интерфейс IController.
+2018-05-24 16:40:17,927 [7] ERROR - Error 404:
+Контроллер для пути "/Account/Registration" не найден или не реализует интерфейс IController.
+2018-05-24 16:41:24,230 [5] ERROR - Error 404:
+
+2018-05-24 16:44:53,923 [8] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "ShowCategoryListgg" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-05-24 16:47:17,151 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,203 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,212 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,219 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,223 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,232 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,239 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,249 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,249 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,259 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,272 [7] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,279 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,282 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,289 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,299 [7] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,309 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,309 [7] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,319 [5] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,319 [6] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+2018-05-24 16:47:17,329 [7] ERROR - Error 500:
+C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Web\Views\Shared\_Layout.cshtml(4): error CS0103: The name 'Styles' does not exist in the current context
+=======
 2018-05-29 21:44:30,091 [7] ERROR - Error 404:
 
 2018-05-29 21:51:23,468 [6] ERROR - Error 404:
@@ -82,3 +134,4 @@ C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Rem
 2018-05-31 14:20:11,754 [7] ERROR - Error 404:
 Не удалось найти общедоступный метод действия "Egit" на контроллере "DI.Reminder.Web.Controllers.PromptController".
 2018-06-01 22:44:49,626 [5] ERROR - Error 404:
+>>>>>>> re-7

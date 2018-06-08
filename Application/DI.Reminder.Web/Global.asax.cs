@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DI.Reminder.BL.LoginService.Authentication;
+using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DI.Reminder.Web.DependencyResolution;
+using DI.Reminder.Data.RolesRepository;
+using DI.Reminder.Data.AccountDatabase;
+using DI.Reminder.Common.Logger;
+using System.Security.Principal;
 
 namespace DI.Reminder.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        
+        IAuthentication authentication = IoC.Initialize().GetInstance<IAuthentication>();
+       
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();
-
         }
         protected void Application_Error(object sender, EventArgs e)
         {
@@ -29,21 +33,30 @@ namespace DI.Reminder.Web
                 string _action;
                 switch (httpException.GetHttpCode())
                 {
-                    case 404:                       
+                    case 404:
                         _action = "HttpError404";
-                       break;
+                        break;
                     case 500:
                         _action = "HttpError500";
                         break;
                     default:
                         _action = "OtherErrors";
                         break;
-                } 
+                }
                 Server.ClearError();
                 Response.Redirect(String.Format("~/Error/{0}/?message={1}", _action, exception.Message));
             }
 
         }
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            authentication.httpContext = System.Web.HttpContext.Current;
+            HttpContext.Current.User = authentication.CurrentUser;
+        }
+        
+
     }
-    
+
+
+
 }

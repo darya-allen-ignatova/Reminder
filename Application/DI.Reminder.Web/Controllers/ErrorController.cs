@@ -14,7 +14,6 @@ namespace DI.Reminder.Web.Controllers
             if ( _logger == null)
                 throw new ArgumentNullException();
         }
-        // GET: Error
         public ActionResult HttpError404(string message)
         {
             _logger.Error("404:\n" + message);
@@ -28,6 +27,10 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult OtherErrors(string message)
         {
             _logger.Error("Other:\n"+message);
+            return View();
+        }
+        public ActionResult Unauthorized()
+        {
             return View();
         }
     }

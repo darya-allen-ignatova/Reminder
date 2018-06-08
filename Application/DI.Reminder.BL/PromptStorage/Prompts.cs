@@ -1,49 +1,61 @@
 ﻿using System.Collections.Generic;
 using System;
-using DI.Reminder.Data.DataBase;
-using DI.Reminder.Data;
+using DI.Reminder.Data.PromptDataBase;
 using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Data.Searching;
+using DI.Reminder.Data.CategoryDataBase;
+using DI.Reminder.Common.CategoryModel;
 
 namespace DI.Reminder.BL.PromptStorage
 {
-    public class Prompts:IPrompt
+    public class Prompts:IPrompts
     {
         private ISearch _search;
-        private IPromptRepository _prompts;
-        public Prompts(IPromptRepository prompts, ISearch search)
+        private IPromptRepository _promptRepository;
+        private ICategoryRepository _categoryRepository;
+        public Prompts(IPromptRepository promptRepository, ICategoryRepository categoryRepository, ISearch search)
         {
+            _categoryRepository = categoryRepository;
             _search = search;
-            _prompts = prompts;
-            if (_prompts == null)
+            _promptRepository = promptRepository;
+            if (_promptRepository == null)
                 throw new ArgumentNullException();
         }
-        public IList<Prompt> GetCategoryItemsByID(int? id)
+        public IList<Prompt> GetCategoryItemsByID(int userID,int? id)
         {
             if (id == null)
                 return null;
             else if (id < 0)
                 return null;
-            IList<Prompt> list;
+            IList<Prompt> promptList;
+            IList<Category> categoryList;
             try
             {
-                list = _prompts.GetPromptsList(id);
+                promptList = _promptRepository.GetPromptsList(userID,id);
+                categoryList = _categoryRepository.GetCategories(id);
             }
             catch
             {
                 throw;
             }
-           
-            return list;
+            if (promptList == null & categoryList == null)
+                return null;
+            else if (promptList == null & categoryList!= null)
+            {
+                promptList = new List<Prompt>();
+                return promptList;
+            }
+            else
+                return promptList;
         }
-        public Prompt GetPromptDetails(int? id)
+        public Prompt GetPromptDetails(int userID, int? id)
         {
             if (id == null || id<0)
                 return null;
             Prompt prompt;
             try
             {
-                 prompt = _prompts.GetPrompt(id);
+                 prompt = _promptRepository.GetPrompt(userID,id);
             }
             catch
             {
@@ -51,24 +63,25 @@ namespace DI.Reminder.BL.PromptStorage
             }
             return prompt;
         }
-        public void DeletePrompt(int? id)
+        public void DeletePrompt(int userID, int? id)
         {
             if (id == null)
                 return;
-            _prompts.DeletePrompt(id);
+            _promptRepository.DeletePrompt(userID,id);
         }
-        public void InsertPrompt(Prompt newprompt, ICategoryRepository categoryRepository)
+        public void InsertPrompt(int userID, Prompt newprompt)
         {
             if (newprompt == null)
                 return;
-            _prompts.AddPrompt(newprompt, categoryRepository);
+            _promptRepository.AddPrompt(userID,newprompt);
         }
 
-        public IList<Prompt> GetSearchingPrompts(int id, string value)
+        public IList<Prompt> GetSearchingPrompts(int userID,int id, string value)
         {
+
             if (value == null)
                 return null;
-            return _search.GetSearchItems(id, value);
+            return _search.GetSearchItems(userID,id, value);
         }
     
     }

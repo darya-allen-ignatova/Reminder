@@ -47,10 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryModel\CategoriesModel.cs" />
     <Compile Include="CategoryModel\Category.cs" />
     <Compile Include="CommonRegistry\CommonRegistry.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\AppLogger.cs" />
+    <Compile Include="LoginModels\Account.cs" />
+    <Compile Include="LoginModels\Role.cs" />
     <Compile Include="PromptModel\Action.cs" />
     <Compile Include="PromptModel\Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,45 +1,54 @@
 ﻿using System.Web.Mvc;
 using DI.Reminder.BL.PromptStorage;
-using DI.Reminder.BL.Categories;
+using DI.Reminder.BL.CategoryStorage;
 using DI.Reminder.Web.Models;
 using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
-using DI.Reminder.Data.DataBase;
+using DI.Reminder.Data.CategoryDataBase;
+using DI.Reminder.Web.Filters;
+using System.Web;
+using DI.Reminder.BL.UsersRepository;
 
 namespace DI.Reminder.Web.Controllers
 {
+    [Authorize]
     public class PromptController : Controller
     {
-        private IPrompt _prompt;
-        private IGetCategories _getcategory;
+        private IUserRepository _userRepository;
+        private IPrompts _prompt;
+        private ICategories _getcategory;
         private ICategoryRepository _categoryRepository;
-        public PromptController(IPrompt prompt, IGetCategories getcategory, ICategoryRepository categoryRepository)
+        public PromptController(IPrompts prompt, ICategories getcategory, ICategoryRepository categoryRepository, IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _categoryRepository = categoryRepository;
             _prompt = prompt;
             _getcategory = getcategory;
             if (_prompt == null || _getcategory == null)
                 throw new ArgumentNullException();
         }
-        // GET: Prompt
-        public ActionResult Home()
-        {
-            return View();
-        }
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Category> _categorylist = _getcategory.GetCategories(id);
             if(_categorylist.Count!=0)
             return View(_categorylist);
+          
             else
                 return RedirectToAction("HttpError404", "Error");
 
         }
         public ActionResult GetCategoryPrompts(int id)
         {
-            IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(id);
+            IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(UserID,id);
+            if(jsondata==null)
+            {
+                return Json(new
+                {
+                    message = "There are no prompts", isEmpty = true  },
+                JsonRequestBehavior.AllowGet);
+            }
             if (jsondata.Count == 0)
             {
                 return Json(new
@@ -53,7 +62,7 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult GetItemsForSearch(int id, string value)
         {
-            IList<Prompt> jsondata = _prompt.GetSearchingPrompts(id, value);
+            IList<Prompt> jsondata = _prompt.GetSearchingPrompts(UserID, id, value);
             if (jsondata.Count == 0)
             {
                 return Json(new
@@ -65,34 +74,10 @@ namespace DI.Reminder.Web.Controllers
 
             return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
-        private PromptViewModel GetViewModel(int? id)
-        {
-            PromptViewModel promptModel = new PromptViewModel();
-            IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(id); ;
-            if (_promptlist == null || id == 0 || _promptlist.Count == 0)
-            {
-                promptModel = new PromptViewModel()
-                {
-                    CategoryList = _getcategory.GetCategories(id),
-                    PromptList = _promptlist
-                };
-
-            }
-            else
-            {
-                promptModel = new PromptViewModel()
-                {
-                    CategoryList = _getcategory.GetCategories(_getcategory.GetCategoryParentID(_promptlist[0].Category)),
-                    PromptList = _promptlist
-                };
-
-            }
-            return promptModel;
-        }
-        
+       
         public ActionResult Details(int? ID)
         {
-            Common.PromptModel.Prompt prompt = _prompt.GetPromptDetails(ID);
+            Common.PromptModel.Prompt prompt = _prompt.GetPromptDetails(UserID,ID);
             if(prompt==null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -104,12 +89,11 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public void Add(Prompt prompt)
         {
-            _prompt.InsertPrompt(prompt, _categoryRepository);
+            _prompt.InsertPrompt(UserID,prompt);
         }
-       
         public ActionResult Delete(int? id)
         {
-            Prompt prompt = _prompt.GetPromptDetails(id);
+            Prompt prompt = _prompt.GetPromptDetails(UserID,id);
             if (prompt == null || id == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -117,12 +101,13 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Prompt prompt)
         {
-            _prompt.DeletePrompt(prompt.ID);
+            _prompt.DeletePrompt(UserID,prompt.ID);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
+        
         public ActionResult Edit(int? id)
         {
-            Prompt prompt = _prompt.GetPromptDetails(id);
+            Prompt prompt = _prompt.GetPromptDetails(UserID,id);
             if(prompt==null || id == null)
                  return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -131,6 +116,14 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult Edit(Prompt prompt)
         {
             return View();
+        }
+        private int UserID
+        {
+           get
+            {
+                var currentUser = System.Web.HttpContext.Current.User;
+                return _userRepository.GetUser(currentUser.Identity.Name).ID;
+            }
         }
     }
 }

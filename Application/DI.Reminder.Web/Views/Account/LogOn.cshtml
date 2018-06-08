@@ -1,0 +1,38 @@
+﻿@model DI.Reminder.Common.LoginModels.Account
+
+@{
+    ViewBag.Title = "Аuthentication";
+}
+<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
+<h2 class="title">Аuthentication</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "boton1" })
+            <div>
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "boton1" })
+            <div>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <input type="submit" value="Log In" class="button" src="@Url.Action("Authentication")"/>
+            </div>
+        </div>
+    </div>
+}
+

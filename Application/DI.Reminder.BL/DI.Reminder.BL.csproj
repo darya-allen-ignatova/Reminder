@@ -30,11 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.6.1\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,15 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
-    <Compile Include="Categories\GetCategory.cs" />
-    <Compile Include="Categories\IGetCategories.cs" />
-    <Compile Include="PromptStorage\IPrompt.cs" />
+    <Compile Include="CategoryStorage\Categories.cs" />
+    <Compile Include="CategoryStorage\ICategories.cs" />
+    <Compile Include="LoginService\Authentication\AccountAuthentication.cs" />
+    <Compile Include="LoginService\Authentication\IAuthentication.cs" />
+    <Compile Include="LoginService\UserIndent\UserIndentity.cs" />
+    <Compile Include="LoginService\UserProv\UserProvider.cs" />
+    <Compile Include="PromptStorage\IPrompts.cs" />
     <Compile Include="PromptStorage\Prompts.cs" />
+    <Compile Include="RoleStorage\IRoles.cs" />
+    <Compile Include="RoleStorage\Roles.cs" />
     <Compile Include="Services\BLService.cs" />
     <Compile Include="Services\IBLService.cs" />
     <Compile Include="PromptStor\GetPrompts.cs" />
     <Compile Include="PromptStor\IPrompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersRepository\IUserRepository.cs" />
+    <Compile Include="UsersRepository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -67,5 +79,6 @@
       <Name>DI.Reminder.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using DI.Reminder.Common.PromptModel;
+using DI.Reminder.Data.CategoryDataBase;
 
-namespace DI.Reminder.Data.DataBase
+namespace DI.Reminder.Data.PromptDataBase
 {
     public class PromptRepository : IPromptRepository
     {
-        
+        private ICategoryRepository _categoryRepository;
+        public PromptRepository(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -17,7 +21,7 @@ namespace DI.Reminder.Data.DataBase
             set { }
         }
 
-        public IList<Prompt> GetPromptsList(int? id)
+        public IList<Prompt> GetPromptsList(int userID,int? id)
         {
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
@@ -36,8 +40,16 @@ namespace DI.Reminder.Data.DataBase
                 };
                 if (sqlExpression == "GetPromptsByID")
                     command.Parameters.Add(sqlparam);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@userId",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam1);
                 SqlDataReader reader = command.ExecuteReader();
-                List<Prompt> _list = new List<Prompt>();
+                List<Prompt> _list = null;
+                if(reader.HasRows)
+                    _list = new List<Prompt>();
                 while (reader.Read())
                 {
                     object objcategory = reader["Category"];
@@ -52,7 +64,7 @@ namespace DI.Reminder.Data.DataBase
                 return _list;
             }
         }
-        public Prompt GetPrompt(int? id)
+        public Prompt GetPrompt(int userID, int? id)
         {
             Prompt prompt = null;
             using (SqlConnection connection = new SqlConnection(GetConnection))
@@ -67,6 +79,12 @@ namespace DI.Reminder.Data.DataBase
                     Value = id
                 };
                 command.Parameters.Add(sqlparam);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@userId",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam1);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -94,7 +112,7 @@ namespace DI.Reminder.Data.DataBase
         }
         private List<Common.PromptModel.Action> GetActions(int id)
         {
-            List<Common.PromptModel.Action> actions = new List<Common.PromptModel.Action>();
+            List<Common.PromptModel.Action> actions = null;
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
@@ -108,6 +126,8 @@ namespace DI.Reminder.Data.DataBase
                 };
                 command.Parameters.Add(sqlparam);
                 SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    actions = new List<Common.PromptModel.Action>();
                 while (reader.Read())
                 {
                     actions.Add(new Common.PromptModel.Action
@@ -121,9 +141,9 @@ namespace DI.Reminder.Data.DataBase
             return actions;
 
         }
-        public void AddPrompt(Prompt prompt, ICategoryRepository categoryRepository)
+        public void AddPrompt(int userID,Prompt prompt)
         {
-            int? CategoryID = categoryRepository.GetCategoryID(prompt.Category);
+            int? CategoryID = _categoryRepository.GetCategoryID(prompt.Category);
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
@@ -131,6 +151,7 @@ namespace DI.Reminder.Data.DataBase
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@name", prompt.Name);
+                command.Parameters.AddWithValue("@userId", userID);
                 command.Parameters.AddWithValue("@categoryid", CategoryID);
                 command.Parameters.AddWithValue("@dataofcreating", DateTime.Now.Date);
                 command.Parameters.AddWithValue("@description", prompt.Description);
@@ -143,7 +164,7 @@ namespace DI.Reminder.Data.DataBase
            
             AddActions(prompt);
         }
-        public void DeletePrompt(int? id)
+        public void DeletePrompt(int userID,int? id)
         {
             ICategoryRepository categoryRepository = new CategoryRepository();
             using (SqlConnection connection = new SqlConnection(GetConnection))
@@ -153,6 +174,12 @@ namespace DI.Reminder.Data.DataBase
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@id", id);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@userId",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam1);
                 var result = command.ExecuteNonQuery();
                 connection.Close();
             }

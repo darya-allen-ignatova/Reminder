@@ -9,6 +9,6 @@ namespace DI.Reminder.Data.Searching
 {
     public interface ISearch
     {
-        IList<Prompt> GetSearchItems(int id, string value);
+        IList<Prompt> GetSearchItems(int userID,int id, string value);
     }
 }

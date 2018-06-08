@@ -1,12 +1,9 @@
 ﻿using DI.Reminder.Common.PromptModel;
-using DI.Reminder.Data.DataBase;
+using DI.Reminder.Data.CategoryDataBase;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DI.Reminder.Data.Searching
 {
@@ -24,19 +21,19 @@ namespace DI.Reminder.Data.Searching
             _categoryRepository = categoryRepository;
         }
         
-        public IList<Prompt> GetSearchItems(int id, string value)
+        public IList<Prompt> GetSearchItems(int userID,int id, string value)
         {
             IList<Prompt> SearchingItems = null;
             switch (id)
             {
-                case 1:  SearchingItems = GetByCategory(value);break;
-                case 2: SearchingItems = GetByPrompt(value); break;
-                case 3: SearchingItems = GetByDate(value); break;
+                case 1:  SearchingItems = GetByCategory(value, userID);break;
+                case 2: SearchingItems = GetByPrompt(value, userID); break;
+                case 3: SearchingItems = GetByDate(value, userID); break;
             }
             return SearchingItems;
         }
         
-        private IList<Prompt> GetByCategory(string value)
+        private IList<Prompt> GetByCategory(string value, int userID)
         {
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
@@ -51,6 +48,12 @@ namespace DI.Reminder.Data.Searching
                     Value = ID
                 };
                 command.Parameters.Add(sqlparam);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@userId",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam1);
                 SqlDataReader reader = command.ExecuteReader();
                 List<Prompt> _list = new List<Prompt>();
                 while (reader.Read())
@@ -63,7 +66,7 @@ namespace DI.Reminder.Data.Searching
                 return _list;
             }
         }
-        private IList<Prompt> GetByPrompt(string value)
+        private IList<Prompt> GetByPrompt(string value,  int userID)
         {
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
@@ -77,6 +80,12 @@ namespace DI.Reminder.Data.Searching
                     Value = value
                 };
                 command.Parameters.Add(sqlparam);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@userId",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam1);
                 SqlDataReader reader = command.ExecuteReader();
                 List<Prompt> _list = new List<Prompt>();
                 while (reader.Read())
@@ -90,7 +99,7 @@ namespace DI.Reminder.Data.Searching
                 return _list;
             }
         }
-        private IList<Prompt> GetByDate(string value)
+        private IList<Prompt> GetByDate(string value,  int userID)
         {
             DateTime dateTime;
             try
@@ -114,6 +123,12 @@ namespace DI.Reminder.Data.Searching
                     Value = dateTime
                 };
                 command.Parameters.Add(sqlparam);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@userId",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam1);
                 SqlDataReader reader = command.ExecuteReader();
                 List<Prompt> _list = new List<Prompt>();
                 while (reader.Read())
