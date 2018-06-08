@@ -6,18 +6,18 @@ using DI.Reminder.Data.Searching;
 using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.BL.CachedRepository.Prompts;
+using DI.Reminder.BL.CachedRepository;
 
 namespace DI.Reminder.BL.PromptStorage
 {
     public class Prompts:IPrompt
     {
+        private ICacheRepository _cacheRepository;
         private ISearch _search;
         private IPromptRepository _promptRepository;
         private ICategoryRepository _categoryRepository;
-        private IPromptCache _cacheRepository;
-        public Prompts(IPromptRepository promptRepository, ICategoryRepository categoryRepository, ISearch search,  IPromptCache cacheRepository)
+        public Prompts(IPromptRepository promptRepository, ICategoryRepository categoryRepository, ISearch search, ICacheRepository cacheRepository)
         {
-           
             _cacheRepository = cacheRepository;
             _categoryRepository = categoryRepository;
             _search = search;
@@ -56,12 +56,12 @@ namespace DI.Reminder.BL.PromptStorage
         {
             if (id == null || id<0)
                 return null;
-            Prompt prompt = _cacheRepository.GetValueOfCache((int)id);
+            Prompt prompt = _cacheRepository.GetValueOfCache<Prompt>((int)id);
             if (prompt == null)
             try
             {
                  prompt = _promptRepository.GetPrompt(userID,id);
-                _cacheRepository.AddCache(prompt);
+                _cacheRepository.AddCache<Prompt>(prompt, prompt.ID);
             }
             catch
             {
@@ -83,7 +83,7 @@ namespace DI.Reminder.BL.PromptStorage
             if (newprompt == null)
                 return;
             _promptRepository.AddPrompt(userID,newprompt);
-            _cacheRepository.AddCache(newprompt);
+            _cacheRepository.AddCache<Prompt>(newprompt, newprompt.ID);
         }
 
         public IList<Prompt> GetSearchingPrompts(int userID,int id, string value)

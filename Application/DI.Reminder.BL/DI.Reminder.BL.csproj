@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
+    <Compile Include="CachedRepository\CacheRepository.cs" />
     <Compile Include="CachedRepository\Categories\CategoryCache.cs" />
     <Compile Include="CachedRepository\Categories\ICategoryCache.cs" />
+    <Compile Include="CachedRepository\ICacheRepository.cs" />
     <Compile Include="CachedRepository\Prompts\PromptCache.cs" />
     <Compile Include="CachedRepository\Prompts\IPromptCache.cs" />
     <Compile Include="PromptStorage\IPrompt.cs" />

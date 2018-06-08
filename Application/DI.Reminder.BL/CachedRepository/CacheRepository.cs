@@ -4,17 +4,15 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Text;
 using System.Threading.Tasks;
-using DI.Reminder.Common.CategoryModel;
 
-namespace DI.Reminder.BL.CachedRepository.Categories
+namespace DI.Reminder.BL.CachedRepository
 {
-    public class CategoryCache : ICategoryCache
+    public class CacheRepository:ICacheRepository
     {
-      
-        public bool AddCache(Category value)
+        public bool AddCache<T>(T value, int id)where T:class
         {
             MemoryCache memoryCache = MemoryCache.Default;
-            return memoryCache.Add(value.ID.ToString(), value, DateTime.Now.AddMinutes(15));
+            return memoryCache.Add(id.ToString(), value, DateTime.Now.AddMinutes(15));
         }
 
         public void DeleteCache(int id)
@@ -26,16 +24,16 @@ namespace DI.Reminder.BL.CachedRepository.Categories
             }
         }
 
-        public Category GetValueOfCache(int id)
+        public T GetValueOfCache<T>(int id) where T:class
         {
             MemoryCache memoryCache = MemoryCache.Default;
-            return memoryCache.Get(id.ToString()) as Category;
+            return memoryCache.Get(id.ToString()) as T;
         }
 
-        public void UpdateCache(Category value)
+        public void UpdateCache<T>(T value, int id) where T: class
         {
             MemoryCache memoryCache = MemoryCache.Default;
-            memoryCache.Set(value.ID.ToString(), value, DateTime.Now.AddMinutes(15));
+            memoryCache.Set(id.ToString(), value, DateTime.Now.AddMinutes(15));
         }
     }
 }

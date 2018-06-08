@@ -7,7 +7,7 @@ namespace DI.Reminder.Common.CommonRegistry
     {
         public CommonRegistry()
         {
-            For<ILogger>().Use<AppLogger>();
+            For<ILogger>().Singleton().Use<AppLogger>();
         }
     }
 }

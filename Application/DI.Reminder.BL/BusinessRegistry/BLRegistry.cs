@@ -10,6 +10,7 @@ using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.BL.RoleStorage;
 using DI.Reminder.BL.CachedRepository.Prompts;
 using DI.Reminder.BL.CachedRepository.Categories;
+using DI.Reminder.Common.PromptModel;
 
 namespace DI.Reminder.BL.BusinessRegistry
 {
@@ -17,6 +18,7 @@ namespace DI.Reminder.BL.BusinessRegistry
     {
         public BLRegistry()
         {
+            For<ICacheRepository>().Use<CacheRepository>();
             For<IPrompt>().Use<Prompts>();
             For<IBLService>().Use<BLService>();
             For<IPromptCache>().Use<PromptCache>();
