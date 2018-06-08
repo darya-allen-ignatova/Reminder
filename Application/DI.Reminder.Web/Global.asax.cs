@@ -20,6 +20,12 @@ namespace DI.Reminder.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();
+            String connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(connStr);
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Prompts");
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Categories");
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Users");
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Roles");
         }
         protected void Application_Error(object sender, EventArgs e)
         {
@@ -53,7 +59,7 @@ namespace DI.Reminder.Web
             authentication.httpContext = System.Web.HttpContext.Current;
             HttpContext.Current.User = authentication.CurrentUser;
         }
-        
+
 
     }
 

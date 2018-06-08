@@ -5,7 +5,6 @@ using DI.Reminder.Data.PromptDataBase;
 using DI.Reminder.Data.Searching;
 using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.Common.CategoryModel;
-using DI.Reminder.BL.CachedRepository.Prompts;
 using DI.Reminder.BL.CachedRepository;
 
 namespace DI.Reminder.BL.PromptStorage

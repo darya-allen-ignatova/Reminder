@@ -57,6 +57,7 @@ namespace DI.Reminder.Web.Controllers
             else
                 return RedirectToAction("HttpError404", "Error");
         }
+        [OutputCache(CacheProfile = "cacheProfileForCategories")]
         public ActionResult ShowAll()
         {
             var allCategories = _categoriesStorage.GetAllCategories();

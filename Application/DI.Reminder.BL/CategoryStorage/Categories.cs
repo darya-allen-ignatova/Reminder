@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using DI.Reminder.Data.CategoryDataBase;
-using DI.Reminder.Data;
 using DI.Reminder.Common.CategoryModel;
 using System;
 using DI.Reminder.BL.CachedRepository;

@@ -52,7 +52,8 @@ namespace DI.Reminder.Web.Controllers
             _userRepository.EditUser(account);
             return RedirectToAction("UserDetails");
         }
-        
+
+        [OutputCache(CacheProfile = "cacheProfileForUsers")]
         public ActionResult GetUserList()
         {
             return View(_userRepository.GetUserList());

@@ -50,11 +50,7 @@
   <ItemGroup>
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
     <Compile Include="CachedRepository\CacheRepository.cs" />
-    <Compile Include="CachedRepository\Categories\CategoryCache.cs" />
-    <Compile Include="CachedRepository\Categories\ICategoryCache.cs" />
     <Compile Include="CachedRepository\ICacheRepository.cs" />
-    <Compile Include="CachedRepository\Prompts\PromptCache.cs" />
-    <Compile Include="CachedRepository\Prompts\IPromptCache.cs" />
     <Compile Include="PromptStorage\IPrompt.cs" />
     <Compile Include="CategoryStorage\Categories.cs" />
     <Compile Include="CategoryStorage\ICategories.cs" />
@@ -86,9 +82,6 @@
       <Name>DI.Reminder.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CachedRepository\Roles\" />
-    <Folder Include="CachedRepository\Users\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

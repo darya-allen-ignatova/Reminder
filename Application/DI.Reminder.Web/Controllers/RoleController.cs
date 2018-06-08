@@ -36,7 +36,8 @@ namespace DI.Reminder.Web.Controllers
             _roles.DeleteRole(role.ID);
             return View();
         }
-       
+
+        [OutputCache(CacheProfile = "cacheProfileForRoles")]
         public ActionResult ShowAllRoles()
         {
             var allCategories = _roles.GetAllRoles();

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Security.Principal;
-using DI.Reminder.BL.LoginService.Authentication;
-using DI.Reminder.BL.LoginService.UserProv;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Data.AccountDatabase;
 

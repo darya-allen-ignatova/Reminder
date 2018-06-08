@@ -1,10 +1,6 @@
-
-﻿using DI.Reminder.Common.LoginModels;
-﻿using System.Web;
+using DI.Reminder.Common.LoginModels;
+using System.Web;
 using System.Security.Principal;
-using DI.Reminder.Data.RolesRepository;
-using DI.Reminder.Data.AccountDatabase;
-using DI.Reminder.Common.Logger;
 
 namespace DI.Reminder.BL.LoginService.Authentication
 {
