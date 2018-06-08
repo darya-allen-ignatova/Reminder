@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DI.Reminder.Common.LoginModels.Account>
+
+@{
+    ViewBag.Title = "GetUserList";
+}
+
+<h2  class="title">List of Users</h2>
+<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
+<table>
+    <tr class="title">
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="boton1">
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td class="boton2">
+            @Html.ActionLink("Edit", "EditUser",  new { id=item.ID }) 
+            @Html.ActionLink("Details", "UserDetails",  new { id=item.ID }) 
+            @Html.ActionLink("Delete", "DeleteUser",  new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -5,7 +5,7 @@ using DI.Reminder.Common.PromptModel;
 
 namespace DI.Reminder.BL.PromptStor
 {
-    public class GetPrompts : IPrompt
+    public class GetPrompts : IGetPrompt
     {
         public List<Prompt> _list = new List<Prompt>
         {

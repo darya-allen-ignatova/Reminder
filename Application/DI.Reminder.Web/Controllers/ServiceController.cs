@@ -18,8 +18,7 @@ namespace DI.Reminder.Web.Controllers
             if (_blservice == null || _logger == null)
                 throw new ArgumentNullException();
         }
-
-        // GET: Service
+        
         [ChildActionOnly]
         public ActionResult Advertising()
         {

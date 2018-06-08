@@ -7,8 +7,14 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="three" id="headerMain header">
-        <h1>  Reminder </h1>
+    <div>
+        <header class="three">
+            <h1>  Reminder </h1>
+            <div style="padding-top:50px;margin-right:50px; font-size:350%;float:right;color: #FCF2E5;">
+                @Html.ActionLink("StartPage", "Home", "Start")
+                @Html.ActionLink("Registration", "Registration", "Account")
+                @Html.ActionLink("Log On", "LogOn", "Account")
+            </div></header>
     </div>
     <div>
         @RenderBody()
@@ -18,5 +24,8 @@
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/ClickFunction.js"></script>
     <script src="~/Scripts/ActionAdding.js"></script>
+    <script src="~/Scripts/Search.js"></script>
+    <script src="~/Scripts/SearchClick.js"></script>
+    <script src="~/Scripts/RoleAdding.js"></script>
 </body>
 </html>

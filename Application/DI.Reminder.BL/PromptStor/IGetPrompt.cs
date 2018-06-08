@@ -3,7 +3,7 @@ using DI.Reminder.Common.PromptModel;
 
 namespace DI.Reminder.BL.PromptStor
 {
-    public interface IPrompt
+    public interface IGetPrompt
     {
         IEnumerable<Prompt> GetAllPrompts();
         IEnumerable<Prompt> GetPromptsByCategory(string _category);
