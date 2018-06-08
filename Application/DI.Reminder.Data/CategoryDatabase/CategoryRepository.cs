@@ -92,10 +92,12 @@ namespace DI.Reminder.Data.CategoryDataBase
                     command.Parameters.Add(sqlparam);
                 }
                 SqlDataReader reader = command.ExecuteReader();
-                List<Category> _list = new List<Category>();
+                List<Category> _list = null;
                 if (reader.HasRows)
                 {
-                    while (reader.Read())
+                    _list = new List<Category>();
+                }
+                while (reader.Read())
                     {
                         int? parent = null;
                         object ParentID = reader.GetValue(2);
@@ -105,8 +107,7 @@ namespace DI.Reminder.Data.CategoryDataBase
                         }
                         _list.Add(new Category() { ID = int.Parse(reader.GetValue(0).ToString()), Name = reader.GetValue(1).ToString(), ParentID = parent });
                     }
-                    connection.Close();
-                }
+                connection.Close();
                 return _list;
             }
         }
@@ -198,10 +199,12 @@ namespace DI.Reminder.Data.CategoryDataBase
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader reader = command.ExecuteReader();
-                List<Category> _list = new List<Category>();
+                List<Category> _list=null;
                 if (reader.HasRows)
                 {
-                    while (reader.Read())
+                    _list = new List<Category>();
+                }
+                while (reader.Read())
                     {
                         int? parent = null;
                         object ParentID = reader.GetValue(2);
@@ -216,8 +219,8 @@ namespace DI.Reminder.Data.CategoryDataBase
                             ParentID = parent
                         });
                     }
-                    connection.Close();
-                }
+                connection.Close();
+               
                 return _list;
             }
         }

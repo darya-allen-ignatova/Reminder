@@ -4,6 +4,7 @@ using DI.Reminder.Data.PromptDataBase;
 using DI.Reminder.Data;
 using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Data.CategoryDataBase;
+using DI.Reminder.Common.CategoryModel;
 
 namespace DI.Reminder.BL.PromptStorage
 {
@@ -24,17 +25,26 @@ namespace DI.Reminder.BL.PromptStorage
                 return null;
             else if (id < 0)
                 return null;
-            IList<Prompt> list;
+            IList<Prompt> promptList;
+            IList<Category> categoryList;
             try
             {
-                list = _promptRepository.GetPromptsList(userID,id);
+                promptList = _promptRepository.GetPromptsList(userID,id);
+                categoryList = _categoryRepository.GetCategories(id);
             }
             catch
             {
                 throw;
             }
-           
-            return list;
+            if (promptList == null & categoryList == null)
+                return null;
+            else if (promptList == null & categoryList!= null)
+            {
+                promptList = new List<Prompt>();
+                return promptList;
+            }
+            else
+                return promptList;
         }
         public Prompt GetPromptDetails(int userID, int? id)
         {

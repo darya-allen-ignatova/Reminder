@@ -37,12 +37,12 @@ namespace DI.Reminder.Web.Controllers
             _authentication.Registration(account);
             return RedirectToAction("Home", "Start");
         }
-        public ActionResult Аuthentication()
+        public ActionResult LogOn()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Аuthentication(Account account)
+        public ActionResult LogOn(Account account)
         {
             _authentication.httpContext= System.Web.HttpContext.Current;
             _authentication.Authentication(account);

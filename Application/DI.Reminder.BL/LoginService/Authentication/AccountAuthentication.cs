@@ -98,15 +98,38 @@ namespace DI.Reminder.BL.LoginService.Authentication
         {
             get
             {
-                if (_currentUser == null || _currentUser.Identity.Name=="anonym")
+                if (_currentUser == null || _currentUser.Identity.Name == "anonym")
                 {
                     try
                     {
-                        HttpCookie authCookie =httpContext.Request.Cookies.Get(cookiename);
+                        HttpCookie authCookie = httpContext.Request.Cookies.Get(cookiename);
                         if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
                         {
                             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                            _currentUser = new UserProvider(_roleRepository,_accountRepository,ticket.Name);
+                            _currentUser = new UserProvider(_roleRepository, _accountRepository, ticket.Name);
+                        }
+                        else
+                        {
+                            _currentUser = new UserProvider(null, null, null);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error("Failed authentication: " + ex.Message);
+                        _currentUser = new UserProvider(null, null, null);
+                    }
+                }
+                
+                else if (_currentUser != null)
+                {
+                    try
+                    {
+                        HttpCookie authCookie = httpContext.Request.Cookies.Get(cookiename);
+                        if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
+                        {
+                            var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                            if (ticket.Name != _currentUser.Identity.Name)
+                                _currentUser = new UserProvider(null, null, null);
                         }
                         else
                         {
