@@ -317,6 +317,7 @@ namespace DI.Reminder.BL.Tests.Prompts
         }
         #endregion
         #region GetSearchingPrompts
+
         [TestMethod]
         public void GetSearchingPrompts_InvalidInputdata_Null()
         {
