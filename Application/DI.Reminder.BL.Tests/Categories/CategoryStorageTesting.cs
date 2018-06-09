@@ -158,5 +158,45 @@ namespace DI.Reminder.BL.Tests.Categories
         }
 
         #endregion
+        #region GetCategoryParentID
+        [TestMethod]
+        public void GetCategoryParentID_validInputData_ParentID()
+        {
+            //
+            //Arrange
+            //
+            string Name="Work";
+            _categoryRepository.Setup(m => m.GetCategoryParentID(It.IsAny<string>())).Returns(_testingListOfCategories.FirstOrDefault( m => m.Name==Name).ParentID);
+            //
+            //Act
+            //
+            int? result = _categories.GetCategoryParentID(Name);
+            //
+            //Assert
+            //
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result);
+            _categoryRepository.Verify(m => m.GetCategoryParentID(It.IsAny<string>()), Times.Once);
+
+        }
+        [TestMethod]
+        public void GetCategoryParentID_InvalidInputData_Null()
+        {
+            //
+            //Arrange
+            //
+            string Name = null;
+            //
+            //Act
+            //
+            int? result = _categories.GetCategoryParentID(Name);
+            //
+            //Assert
+            //
+            Assert.IsNull(result);
+            _categoryRepository.Verify(m => m.GetCategoryParentID(It.IsAny<string>()), Times.Never);
+
+        }
+        #endregion
     }
 }

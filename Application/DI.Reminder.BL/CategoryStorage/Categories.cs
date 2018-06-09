@@ -60,6 +60,8 @@ namespace DI.Reminder.BL.CategoryStorage
 
         public int? GetCategoryParentID(string categoryName)
         {
+            if (categoryName == null)
+                return null;
             try
             {
                 return _category.GetCategoryParentID(categoryName);
