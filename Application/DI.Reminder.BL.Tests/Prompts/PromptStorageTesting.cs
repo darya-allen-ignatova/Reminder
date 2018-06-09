@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Common.CategoryModel;
 using System.Linq;
+using DI.Reminder.BL.CategoryStorage;
 
 namespace DI.Reminder.BL.Tests.Prompts
 {
@@ -21,6 +22,9 @@ namespace DI.Reminder.BL.Tests.Prompts
         private Mock<ICategoryRepository> _categoryRepository;
         private List<Prompt> _testingListOfPrompts;
         private List<Category> _testingListOfCategories;
+
+
+        #region TestInitialize
         [TestInitialize]
         public void TestInitialize()
         {
@@ -145,29 +149,107 @@ namespace DI.Reminder.BL.Tests.Prompts
 
 
         }
-        //[TestMethod]
-        //public void GetCategoryItemsByID_validIDAndUserID_ListOfCategoryPrompts()
-        //{
-        //    //
-        //    //Arrange
-        //    //
-        //    int UserID = 2;
-        //    int ID = 1;
+        #endregion
 
-        //    Category category = _categoryRepository.(m => m.GetCategory(ID)).Returns(_testingListOfCategories.Where(m => m.ID == ID).FirstOrDefault);
-        //    _promptRepository.Setup(m => m.GetPromptsList(UserID, ID)).Returns(_testingListOfPrompts.Where(m => m.Category==category.Name && m.userID == UserID).ToList);
+        #region GetCategoryItemsByID
+
+        [TestMethod]
+        public void GetCategoryItemsByID_validInputDataNoUnderCategories_ListOfCategoryPrompts()
+        {
+            //
+            //Arrange
+            //
+            int UserID = 2;
+            int ID = 2;
+            
+            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns<IList<Category>>(null);
+            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.Category=="Work").ToList);
 
 
-        //    //
-        //    //Act
-        //    //
-        //    IList<Prompt> result = _prompts.GetCategoryItemsByID(UserID, ID);
+            //
+            //Act
+            //
+            IList<Prompt> result = _prompts.GetCategoryItemsByID(UserID, ID);
 
-        //    //
-        //    //Assert
-        //    //
+            //
+            //Assert
+            //
+            Assert.AreEqual(_testingListOfPrompts[0].ID, result[0].ID);
+            _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Once);
+            _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
+        }
+        [TestMethod]
+        public void GetCategoryItemsByID_validInputDataWithUnderCategories_ListOfCategoryPrompts()
+        {
+            //
+            //Arrange
+            //
+            int UserID = 2;
+            int ID = 2;
 
-        //}
+            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ParentID==1).ToList);
+            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns<Prompt>(null);
+            
+            //
+            //Act
+            //
+            IList<Prompt> result = _prompts.GetCategoryItemsByID(UserID, ID);
+
+            //
+            //Assert
+            //
+            Assert.AreEqual(0, result.Count);
+            _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Once);
+            _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
+        }
+        [TestMethod]
+        public void GetCategoryItemsByID_validInputDataBothNullLists_Null()
+        {
+            //
+            //Arrange
+            //
+            int UserID = 2;
+            int ID = 5;
+
+            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns<Category>(null);
+            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns<Prompt>(null);
+
+            //
+            //Act
+            //
+            IList<Prompt> result = _prompts.GetCategoryItemsByID(UserID, ID);
+
+            //
+            //Assert
+            //
+            Assert.AreEqual(null, result);
+            _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Once);
+            _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
+        }
+        [TestMethod]
+        public void GetCategoryItemsByID_InvalidInputData_Null()
+        {
+            //
+            //Arrange
+            //
+            int UserID = -1;
+            int ID = 0;
+            //
+            //Act
+            //
+            IList<Prompt> result = _prompts.GetCategoryItemsByID(UserID, ID);
+            //
+            //Assert
+            //
+            Assert.AreEqual(null, result);
+            _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Never);
+            _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+
+        }
+        #endregion
+
+        #region GetPromptDetails
+
         [TestMethod]
         public void GetPromptDetails_InvalidID_Null()
         {
@@ -184,7 +266,56 @@ namespace DI.Reminder.BL.Tests.Prompts
             //Assert
             //
             Assert.AreEqual(result, null);
+            _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Never);
+            _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+
         }
+        [TestMethod]
+        public void GetPromptDetils_ValidIDWithNoCache_Prompt()
+        {
+            //
+            //Arrange
+            //
+            int userID = 2;
+            int ID = 2;
+            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts[1]);
+            _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns<Prompt>(null);
+            //
+            //Act
+            //
+            Prompt result = _prompts.GetPromptDetails(userID, ID);
+            //
+            //Assert
+            //
+            Assert.AreEqual(result.Name, _testingListOfPrompts[1].Name);
+            _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
+            _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(),It.IsAny<int>()), Times.Once);
+            _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
+        }
+        [TestMethod]
+        public void GetPromptDetails_ValidIDWithCache_Prompt()
+        {
+            //
+            //Arrange
+            //
+            int userID = 2;
+            int ID = 3;
+            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts[2]);
+            _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns(_testingListOfPrompts[2]);
+            //
+            //Act
+            //
+            Prompt result = _prompts.GetPromptDetails(userID, ID);
+            //
+            //Assert
+            //
+            Assert.AreEqual(result.Name, _testingListOfPrompts[2].Name);
+            _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
+            _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(), It.IsAny<int>()), Times.Never);
+            _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+
+        }
+        #endregion
 
     }
 }
