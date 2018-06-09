@@ -185,7 +185,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             //Arrange
             //
             int UserID = 2;
-            int ID = 2;
+            int ID = 1;
 
             _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ParentID==1).ToList);
             _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns<Prompt>(null);
@@ -265,7 +265,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(result, null);
+            Assert.AreEqual(null,result );
             _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Never);
             _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
 
@@ -277,8 +277,8 @@ namespace DI.Reminder.BL.Tests.Prompts
             //Arrange
             //
             int userID = 2;
-            int ID = 2;
-            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts[1]);
+            int ID = 1;
+            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID==ID).FirstOrDefault);
             _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns<Prompt>(null);
             //
             //Act
@@ -287,7 +287,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(result.Name, _testingListOfPrompts[1].Name);
+            Assert.AreEqual(_testingListOfPrompts[1].Name,result.Name);
             _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
             _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(),It.IsAny<int>()), Times.Once);
             _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
@@ -300,8 +300,8 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             int userID = 2;
             int ID = 3;
-            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts[2]);
-            _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns(_testingListOfPrompts[2]);
+            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID==ID).FirstOrDefault);
+            _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID == ID).FirstOrDefault);
             //
             //Act
             //
@@ -309,13 +309,53 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(result.Name, _testingListOfPrompts[2].Name);
+            Assert.AreEqual(_testingListOfPrompts[2].Name,result.Name);
             _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
             _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(), It.IsAny<int>()), Times.Never);
             _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
 
         }
         #endregion
-
+        #region GetSearchingPrompts
+        [TestMethod]
+        public void GetSearchingPrompts_InvalidInputdata_Null()
+        {
+            //
+            //Arrange
+            //
+            string value = null;
+            int userID = 2;
+            int ID = 3;
+            //
+            //Act
+            //
+            var result = _prompts.GetSearchingPrompts(userID, ID, value);
+            //
+            //Assert
+            //
+            Assert.AreEqual(null, result);
+            _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+        }
+        [TestMethod]
+        public void GetSearchingPrompts_validInputdata_List()
+        {
+            //
+            //Arrange
+            //
+            string value = "site";
+            int userID = 2;
+            int ID = 2;
+            _search.Setup(m => m.GetSearchItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_testingListOfPrompts.Where(m => m.Name.Contains(value)& m.userID==userID).ToList);
+            //
+            //Act
+            //
+            var result = _prompts.GetSearchingPrompts(userID, ID, value);
+            //
+            //Assert
+            //
+            Assert.AreEqual(1, result[0].ID);
+            _search.Verify(r => r.GetSearchItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), Times.Once);
+        }
+        #endregion
     }
 }
