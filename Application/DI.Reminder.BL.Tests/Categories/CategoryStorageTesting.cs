@@ -57,7 +57,7 @@ namespace DI.Reminder.BL.Tests.Categories
         #endregion
         #region GetCategories
         [TestMethod]
-        public void GetCategories_InvalidData_Null()
+        public void GetCategories_InvalidInputData_Null()
         {
             //
             //Arrange
@@ -93,6 +93,70 @@ namespace DI.Reminder.BL.Tests.Categories
             Assert.AreEqual(_testingListOfCategories[1].Name, result.FirstOrDefault(m => m.ParentID == 1).Name);
             _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int?>()), Times.Once);
         }
+        #endregion
+        #region GetCategory
+        [TestMethod]
+        public void GetCategory_InvalidInputData_Null()
+        {
+            //
+            //Arrange
+            //
+            int? id = -1;
+            //
+            //Act
+            //
+            var result = _categories.GetCategory(id);
+            //
+            //Assert
+            //
+            Assert.AreEqual(null, result);
+            _categoryRepository.Verify(m => m.GetAllCategories(), Times.Never);
+        }
+        [TestMethod]
+        public void GetCategory_validInputDataNoCache_Category()
+        {
+            //
+            //Arrange
+            //
+            int ID = 3;
+            _categoryRepository.Setup(m => m.GetCategory(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ID == ID).FirstOrDefault);
+            _cacheRepository.Setup(m => m.GetValueOfCache<Category>(It.IsAny<int>())).Returns<Category>(null);
+            //
+            //Act
+            //
+            Category result = _categories.GetCategory(ID);
+            //
+            //Assert
+            //
+            Assert.AreEqual(_testingListOfCategories[2].Name, result.Name);
+            _cacheRepository.Verify(c => c.GetValueOfCache<Category>(It.IsAny<int>()), Times.Once);
+            _cacheRepository.Verify(c => c.AddCache<Category>(It.IsAny<Category>(), It.IsAny<int>()), Times.Once);
+            _categoryRepository.Verify(m => m.GetCategory(It.IsAny<int>()), Times.Once);
+
+        }
+        [TestMethod]
+        public void GetCategory_validInputDataWithCache_Category()
+        {
+            //
+            //Arrange
+            //
+            int ID = 3;
+            _categoryRepository.Setup(m => m.GetCategory(It.IsAny<int>())).Returns<Category>(null);
+            _cacheRepository.Setup(m => m.GetValueOfCache<Category>(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ID==ID).FirstOrDefault);
+            //
+            //Act
+            //
+            Category result = _categories.GetCategory(ID);
+            //
+            //Assert
+            //
+            Assert.AreEqual(_testingListOfCategories[2].Name, result.Name);
+            _cacheRepository.Verify(c => c.GetValueOfCache<Category>(It.IsAny<int>()), Times.Once);
+            _cacheRepository.Verify(c => c.AddCache<Category>(It.IsAny<Category>(), It.IsAny<int>()), Times.Never);
+            _categoryRepository.Verify(m => m.GetCategory(It.IsAny<int>()), Times.Never);
+
+        }
+
         #endregion
     }
 }
