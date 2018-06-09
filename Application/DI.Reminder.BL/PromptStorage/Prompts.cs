@@ -28,7 +28,7 @@ namespace DI.Reminder.BL.PromptStorage
         {
             if (id == null)
                 return null;
-            else if (id < 0)
+            else if (id < 0 || userID<1)
                 return null;
             IList<Prompt> promptList;
             IList<Category> categoryList;

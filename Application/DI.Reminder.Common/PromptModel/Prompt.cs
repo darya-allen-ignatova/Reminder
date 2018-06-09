@@ -8,6 +8,7 @@ namespace DI.Reminder.Common.PromptModel
     public class Prompt
     {
         public int ID { get; set; }
+        public int userID { get; set; }
         public string Name { get; set; }
         [DataType(DataType.Date)]
         public DateTime CreatingDate { get; set; }
