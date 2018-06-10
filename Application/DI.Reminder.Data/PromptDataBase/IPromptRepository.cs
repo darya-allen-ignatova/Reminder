@@ -11,5 +11,6 @@ namespace DI.Reminder.Data.PromptDataBase
         Prompt GetPrompt(int userID,int? id);
         void DeletePrompt(int userID, int? id);
         void AddPrompt(int userID,Prompt prompt);
+        void EditPrompt(Prompt prompt);
     }
 }

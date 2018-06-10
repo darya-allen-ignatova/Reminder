@@ -161,8 +161,10 @@ namespace DI.Reminder.Data.PromptDataBase
                 prompt.ID = int.Parse(result.ToString());
                 connection.Close();
             }
-           
-            AddActions(prompt);
+            for (int i = 0; i < prompt.Actions.Count; i++)
+            {
+                AddActions(prompt.Actions[i], prompt.ID);
+            }
         }
         public void DeletePrompt(int userID,int? id)
         {
@@ -184,22 +186,80 @@ namespace DI.Reminder.Data.PromptDataBase
                 connection.Close();
             }
         }
-        public void AddActions(Prompt prompt)
+        public void AddActions(Common.PromptModel.Action action, int id)
         {
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
                 string sqlExpression = $"AddAction";
-                for (int i = 0; i < prompt.Actions.Count; i++)
-                {
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Name", prompt.Actions[i].Name);
-                    command.Parameters.AddWithValue("@PromptID",prompt.ID);
+                    command.Parameters.AddWithValue("@Name", action.Name);
+                    command.Parameters.AddWithValue("@PromptID",id);
                     var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        public void EditPrompt(Prompt prompt)
+        {
+            int? CategoryID = _categoryRepository.GetCategoryID(prompt.Category);
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"UpdatingPrompt";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@name", prompt.Name);
+                command.Parameters.AddWithValue("@categoryid", CategoryID);
+                command.Parameters.AddWithValue("@dateofcreating", DateTime.Now.Date);
+                command.Parameters.AddWithValue("@description", prompt.Description);
+                command.Parameters.AddWithValue("@image", prompt.Image);
+                command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);
+                command.Parameters.AddWithValue("@id", prompt.ID);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+            List<int> IDs = GetIDOfActions(prompt.ID);
+            for (int i = 0; i < IDs.Count; i++)
+                {
+                    using (SqlConnection connection = new SqlConnection(GetConnection))
+                    {
+                        connection.Open();
+                        string sqlExpression = $"UpdatingAction";
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@id", IDs[i]);
+                        command.Parameters.AddWithValue("@name", prompt.Actions[i].Name);
+                        var result = command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            if(IDs.Count<prompt.Actions.Count)
+            {
+                for(int i = IDs.Count; i< prompt.Actions.Count; i++)
+                {
+                    AddActions(prompt.Actions[i], prompt.ID);
+                }
+            }
+        }
+        private List<int> GetIDOfActions(int id)
+        {
+            List<int> IDs = new List<int>();
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"GetAllIDOfPromptActions";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    IDs.Add(int.Parse(reader["ID"].ToString()));
                 }
                 connection.Close();
             }
+            return IDs;
         }
     }
 }

@@ -17,11 +17,9 @@ namespace DI.Reminder.Web.Controllers
         private IUserRepository _userRepository;
         private IPrompt _prompt;
         private ICategories _getcategory;
-        private ICategoryRepository _categoryRepository;
-        public PromptController(IPrompt prompt, ICategories getcategory, ICategoryRepository categoryRepository, IUserRepository userRepository)
+        public PromptController(IPrompt prompt, ICategories getcategory, IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _categoryRepository = categoryRepository;
             _prompt = prompt;
             _getcategory = getcategory;
             if (_prompt == null || _getcategory == null)
@@ -113,7 +111,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Prompt prompt)
         {
-            return View();
+            _prompt.EditPrompt(prompt);
+            return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
         private int UserID
         {

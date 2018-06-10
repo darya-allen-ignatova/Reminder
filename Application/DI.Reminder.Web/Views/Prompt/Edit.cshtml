@@ -68,7 +68,7 @@
                 <input type="submit" value="Save" class="button" />
             </div>
         </div>
-        
+
 
     </div>
 
@@ -77,19 +77,26 @@
             Actions
         </div>
         @if (Model.Actions.Count != 0)
+    {
+        //foreach (var m in Model.Actions)
+        for (int i = 0; i < Model.Actions.Count; i++)
         {
-            foreach (var m in Model.Actions)
-            {
-                <div>
-                    @Html.EditorFor(action => m.Name, new { htmlAttributes = new { @class = "input" } })
-                </div>
-            }
-        }
+            <div>
+                @Html.EditorFor(model => model.Actions[i].Name, new { htmlAttributes = new { @class = "input" } })
+            </div>
+    }
+}
 
         <div id="textBox">
 
         </div>
-        <input value="Add" type="button" class="button" id="AddingButton" />
+        @if (Model.Actions != null)
+    {
+        <input value="Add" type="button" class="button" id="AddingButton" col="@Model.Actions.Count" />
+}
+else
+{
+    <input value="Add" type="button" class="button" id="AddingButton" col="0" />
+}
     </div>
 }
-

@@ -89,6 +89,13 @@ namespace DI.Reminder.BL.PromptStorage
                 return null;
             return _search.GetSearchItems(userID, id, value);
         }
+        public void EditPrompt(Prompt prompt)
+        {
+            if (prompt == null)
+                return;
+            _promptRepository.EditPrompt(prompt);
+            _cacheRepository.UpdateCache(prompt, prompt.ID);
+        }
     
     }
 }
