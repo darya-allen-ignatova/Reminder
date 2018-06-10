@@ -82,6 +82,22 @@ namespace DI.Reminder.Web.Controllers
             else
                 return RedirectToAction("HttpError404", "Error");
         }
+        public ActionResult Edit(int? ID)
+        {
+            var categoryDetails = _categoriesStorage.GetCategory(ID);
+            CategoriesModel categoriesModel = GetModel(categoryDetails);
+            if (categoriesModel != null)
+                return View(categoriesModel);
+            else
+                return RedirectToAction("HttpError404", "Error");
+        }
+        [HttpPost]
+        public ActionResult Edit(Category category)
+        {
+            _categoriesStorage.EditCategory(category);
+            return RedirectToAction("ShowAll");
+        }
+
         private CategoriesModel GetModel(Category category)
         {
             CategoriesModel categoriesModel = null;

@@ -12,5 +12,6 @@ namespace DI.Reminder.BL.CategoryStorage
         IList<Category> GetAllCategories();
         Category GetCategory(int? id);
         int? GetCategoryIDByName(string Name);
+        void EditCategory(Category category);
     }
 }

@@ -88,5 +88,10 @@ namespace DI.Reminder.BL.CategoryStorage
             else
                 return null; 
         }
+        public void EditCategory(Category category)
+        {
+            _category.EditCategory(category);
+            _cacheRepository.UpdateCache(category, category.ID);
+        }
     }
 }

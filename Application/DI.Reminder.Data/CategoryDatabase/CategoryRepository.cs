@@ -224,5 +224,21 @@ namespace DI.Reminder.Data.CategoryDataBase
                 return _list;
             }
         }
+        public void EditCategory(Category category)
+        {
+            int? ParentID = GetCategoryParentID(category.Name);
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"UpdatingCategoryWithNull";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@name", category.Name);
+                //command.Parameters.AddWithValue("@parentID", ParentID);
+                command.Parameters.AddWithValue("@id", category.ID);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
     }
 }
