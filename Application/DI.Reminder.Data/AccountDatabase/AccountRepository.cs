@@ -8,6 +8,7 @@ namespace DI.Reminder.Data.AccountDatabase
 {
     public class AccountRepository : IAccountRepository
     {
+        
         private IRoleRepository _rolerepository;
         public AccountRepository(IRoleRepository rolerepository)
         {
@@ -95,7 +96,8 @@ namespace DI.Reminder.Data.AccountDatabase
                     {
                         ID = int.Parse(reader["ID"].ToString()),
                         Login = reader["Login"].ToString(),
-                        Password = reader["Password"].ToString()
+                        Password = reader["Password"].ToString(),
+                        Email = reader["Email"].ToString()
                     };
 
                 }
@@ -155,10 +157,80 @@ namespace DI.Reminder.Data.AccountDatabase
 
             }
         }
-        public void UpdateAccount()
+        public void UpdateAccount(Account account)
         {
-
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"UpdatingUser";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@login", account.Login);
+                command.Parameters.AddWithValue("@password", account.Password);
+                command.Parameters.AddWithValue("@email", account.Email);
+                command.Parameters.AddWithValue("@id", account.ID);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+            if(account.Roles==null)
+            account.Roles = _rolerepository.GetRoleList(account.ID);
+            List<int> IDs = GetIDOfRoles(account.ID);
+            for (int i = 0; i < IDs.Count; i++)
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = $"UpdatingUserRole";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@roleid", IDs[i]);
+                    command.Parameters.AddWithValue("@name", account.Roles[i].Name);
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            if (IDs.Count < account.Roles.Count)
+            {
+                for (int i = IDs.Count; i < account.Roles.Count; i++)
+                {
+                    AddRolesForUser(account.Roles[i].Name, account.ID);
+                }
+            }
         }
+        private void AddRolesForUser(string roleName, int userid)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"AddRolesForUser";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@userid", userid);
+                command.Parameters.AddWithValue("@name", roleName);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+        private List<int> GetIDOfRoles(int id)
+        {
+            List<int> IDs = new List<int>();
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = $"GetUserRoles";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    IDs.Add(int.Parse(reader["ID"].ToString()));
+                }
+                connection.Close();
+            }
+            return IDs;
+        }
+    
         public List<Account> GetAccountList()
         {
             List<Account> _accountlist;

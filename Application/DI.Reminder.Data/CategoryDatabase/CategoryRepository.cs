@@ -230,11 +230,16 @@ namespace DI.Reminder.Data.CategoryDataBase
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
-                string sqlExpression = $"UpdatingCategoryWithNull";
+                string sqlExpression = null;
+                if (ParentID==null)
+                sqlExpression = $"UpdatingCategoryWithNull";
+                else
+                    sqlExpression = $"UpdatingCategory";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@name", category.Name);
-                //command.Parameters.AddWithValue("@parentID", ParentID);
+                if(ParentID!=null)
+                command.Parameters.AddWithValue("@parentID", ParentID);
                 command.Parameters.AddWithValue("@id", category.ID);
                 var result = command.ExecuteNonQuery();
                 connection.Close();

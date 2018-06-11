@@ -207,6 +207,8 @@
     <Content Include="Views\Category\ShowAll.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
     <None Include="Views\Prompt\ShowCategoryList.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />

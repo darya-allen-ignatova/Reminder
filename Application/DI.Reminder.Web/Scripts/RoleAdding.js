@@ -1,6 +1,6 @@
-﻿$('#AddButton').data('counter', 0)
+﻿$('#AddingButtonRole').data('counter', $('#AddingButtonRole').attr("col"))
     .click(function () {
-        var counter = $(this).data('counter');
+        var counter = Number($(this).data('counter'));
         $(this).data('counter', counter + 1);
-        $("#text").append('<input type="text" style="input" name="Roles[' + counter + '].Name"/> ');
+        $("#textBoxRole").append('<input type="text" style="input" name="Roles[' + counter + '].Name"/> ');
     });

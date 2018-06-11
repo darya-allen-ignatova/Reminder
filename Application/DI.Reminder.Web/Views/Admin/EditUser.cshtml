@@ -1,0 +1,76 @@
+﻿@model DI.Reminder.Common.LoginModels.Account
+
+@{
+    ViewBag.Title = "EditUser";
+}
+<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
+<h2 class="title">Edit User</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="float:left; width:45%">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div>
+            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "boton1" })
+            <div>
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "boton1" })
+            <div>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "boton1" })
+            <div style="font-size:200%; color:#855C6A">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div >
+            <div >
+                <input type="submit" value="Save" class="button" />
+            </div>
+        </div>
+    </div>
+
+
+    <div style="float:right; width:45%">
+        <div class="boton1">
+            Roles
+        </div>
+        @if (Model.Roles.Count != 0)
+        {
+            for (int i = 0; i < Model.Roles.Count; i++)
+            {
+                <div>
+                    @Html.EditorFor(model => model.Roles[i].Name, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            }
+        }
+
+        <div id="textBoxRole">
+
+        </div>
+        @if (Model.Roles != null)
+        {
+            <input value="Add" type="button" class="button" id="AddingButtonRole" col="@Model.Roles.Count" />
+        }
+        else
+        {
+            <input value="Add" type="button" class="button" id="AddingButtonRole" col="0" />
+        }
+    </div>
+
+}

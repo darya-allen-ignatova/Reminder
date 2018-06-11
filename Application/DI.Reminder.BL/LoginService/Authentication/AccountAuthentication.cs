@@ -25,13 +25,14 @@ namespace DI.Reminder.BL.LoginService.Authentication
         }
         public HttpContext httpContext { get; set; }
 
-        public void Registration(Account account)
+        public Account Registration(Account account)
         {
             LogOut();
             if (account != null)
             {
                 CreateCookie(account);
             }
+            return GetAccount(account.Login);
         }
         public Account Authentication(Account newaccount, bool isPersistent=false)
         {

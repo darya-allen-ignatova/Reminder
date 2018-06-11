@@ -1,5 +1,6 @@
 ﻿using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.Common.LoginModels;
+using DI.Reminder.Data.AccountDatabase;
 using DI.Reminder.Web.Filters;
 using System.Web.Mvc;
 
@@ -42,15 +43,19 @@ namespace DI.Reminder.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditUser()
+        public ActionResult EditUser(int? id)
         {
-            return View();
+            Account _account = _userRepository.GetUser(id);
+            if (_account == null)
+                return RedirectToAction("HttpError404", "Error");
+            return View(_account);
+
         }
         [HttpPost]
         public ActionResult EditUser(Account account)
         {
             _userRepository.EditUser(account);
-            return RedirectToAction("UserDetails");
+            return RedirectToAction("GetUserList");
         }
 
         [OutputCache(CacheProfile = "cacheProfileForUsers")]

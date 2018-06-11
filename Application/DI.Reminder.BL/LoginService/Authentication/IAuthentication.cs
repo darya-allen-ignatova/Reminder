@@ -9,7 +9,7 @@ namespace DI.Reminder.BL.LoginService.Authentication
         HttpContext httpContext { get; set; }
         Account Authentication(Account account, bool isPersistent = false);
         Account Login(string login);
-        void Registration(Account account);
+        Account Registration(Account account);
         void LogOut();
         IPrincipal CurrentUser { get; }
     }

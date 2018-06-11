@@ -25,7 +25,9 @@ namespace DI.Reminder.BL.UsersRepository
 
         public void EditUser(Account account)
         {
-            throw new NotImplementedException();
+            if (account == null)
+                return;
+            _accountRepository.UpdateAccount(account);
         }
 
         public Account GetUser(string login)

@@ -8,7 +8,7 @@ namespace DI.Reminder.Data.AccountDatabase
         void InsertAccount(Account account);
         Account GetAccount(string login);
         void DeleteAccount(int id);
-        void UpdateAccount();
+        void UpdateAccount(Account account);
         List<Account> GetAccountList();
         Account GetAccount(int id);
     }

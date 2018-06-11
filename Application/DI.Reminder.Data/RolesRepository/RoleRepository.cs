@@ -48,10 +48,6 @@ namespace DI.Reminder.Data.RolesRepository
 
             }
         }
-        public void UpdateRole()
-        {
-
-        }
         public List<Role> GetRoleList(int? id)
         {
             List<Role> _rolelist;
