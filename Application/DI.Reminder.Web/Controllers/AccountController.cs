@@ -37,12 +37,12 @@ namespace DI.Reminder.Web.Controllers
             _authentication.Registration(account);
             return RedirectToAction("Home", "Start");
         }
-        public ActionResult LogOn()
+        public ActionResult LogIn()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult LogOn(Account account)
+        public ActionResult Login(Account account)
         {
             _authentication.httpContext= System.Web.HttpContext.Current;
             _authentication.Authentication(account);
@@ -53,7 +53,7 @@ namespace DI.Reminder.Web.Controllers
             _authentication.httpContext = System.Web.HttpContext.Current;
             Account _account = _userRepository.GetUser(_authentication.CurrentUser.Identity.Name);
             if(_account==null)
-                return RedirectToAction("LogOn");
+                return RedirectToAction("Login");
             _account.Password = _account.Password.Replace(" ", string.Empty);
             _account.PasswordConfirm = _account.Password;
             return View(_account);

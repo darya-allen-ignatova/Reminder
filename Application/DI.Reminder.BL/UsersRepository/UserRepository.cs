@@ -28,6 +28,7 @@ namespace DI.Reminder.BL.UsersRepository
             if (account == null)
                 return;
             _accountRepository.UpdateAccount(account);
+            _cacheRepository.UpdateCache(account, account.ID);
         }
 
         public Account GetUser(string login)

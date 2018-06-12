@@ -32,7 +32,7 @@
 
         <div>
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "boton1" })
-            <div style="font-size:200%; color:#855C6A">
+            <div style="font-size:200%; color:#855C6A; padding-left:10px">
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>

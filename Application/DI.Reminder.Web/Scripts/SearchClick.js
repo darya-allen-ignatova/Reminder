@@ -7,6 +7,7 @@
             { id: counter, value:val },
             function (jsonData) {
                 if (jsonData.isRedirect) {
+                    $("#JSON").text("");
                     $("#JSON").append('<div class="boton1" style="padding-top:20px">There are no any items like you want to find. Sorry<div>');
                 }
                 else

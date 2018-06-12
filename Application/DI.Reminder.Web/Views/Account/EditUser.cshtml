@@ -15,7 +15,7 @@
         @Html.HiddenFor(model => model.ID)
 
         <div >
-            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "boton1" })
             <div >
                 @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "input" } })
                 @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })

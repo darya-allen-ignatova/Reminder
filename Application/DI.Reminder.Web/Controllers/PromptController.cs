@@ -59,7 +59,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult GetItemsForSearch(int id, string value)
         {
             IList<Prompt> jsondata = _prompt.GetSearchingPrompts(UserID, id, value);
-            if (jsondata.Count == 0)
+            if (jsondata == null || jsondata.Count==0)
             {
                 return Json(new
                 {

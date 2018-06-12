@@ -46,6 +46,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult EditUser(int? id)
         {
             Account _account = _userRepository.GetUser(id);
+            _account.Password = _account.Password.Replace(" ", string.Empty);
             if (_account == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(_account);
