@@ -8,6 +8,7 @@ using System;
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.BL.UsersRepository;
+using System.Linq;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -80,7 +81,21 @@ namespace DI.Reminder.Web.Controllers
         }
        public ActionResult Add()
         {
-            return View();
+            var CategoryList = GetAllCategories();
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            for(int i=0; i< CategoryList.Count; i++)
+            {
+                selectList.Add(new SelectListItem()
+                {
+                    Value = CategoryList[i].ID.ToString(),
+                    Text = CategoryList[i].Name
+                });
+            }
+            PromptViewModel promptViewModel = new PromptViewModel()
+            {
+                CategoryList = selectList
+            };
+            return View(promptViewModel);
         }
         [HttpPost]
         public void Add(Prompt prompt)
@@ -103,10 +118,30 @@ namespace DI.Reminder.Web.Controllers
         
         public ActionResult Edit(int? id)
         {
+            var CategoryList = GetAllCategories();
             Prompt prompt = _prompt.GetPromptDetails(UserID,id);
-            if(prompt==null || id == null)
+            if(id == null || prompt==null  )
                  return RedirectToAction("HttpError404", "Error");
-            return View(prompt);
+            int? ID =_getcategory.GetCategoryIDByName(prompt.Category);
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            for (int i = 0; i < CategoryList.Count; i++)
+            {
+                selectList.Add(new SelectListItem()
+                {
+                    Value = CategoryList[i].ID.ToString(),
+                    Text = CategoryList[i].Name
+                });
+                selectList[i].Selected = (selectList[i].Text == prompt.Category);
+            }
+
+            PromptViewModel promptViewModel = new PromptViewModel()
+            {
+                CategoryList = selectList,
+                Prompt = prompt,
+                Property = ID.ToString()
+            };
+            
+            return View(promptViewModel);
         }
         [HttpPost]
         public ActionResult Edit(Prompt prompt)
@@ -121,6 +156,10 @@ namespace DI.Reminder.Web.Controllers
                 var currentUser = System.Web.HttpContext.Current.User;
                 return _userRepository.GetUser(currentUser.Identity.Name).ID;
             }
+        }
+        private IList<Category> GetAllCategories()
+        {
+            return _getcategory.GetAllCategories();
         }
     }
 }

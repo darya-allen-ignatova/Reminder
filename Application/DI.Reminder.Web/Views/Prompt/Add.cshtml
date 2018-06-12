@@ -1,5 +1,4 @@
-﻿@model DI.Reminder.Common.PromptModel.Prompt
-
+﻿@model DI.Reminder.Web.Models.PromptViewModel
 @{
     ViewBag.Title = "Add";
 }
@@ -14,34 +13,34 @@
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div>
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "boton1" })
+                    @Html.LabelFor(model => model.Prompt.Name, htmlAttributes: new { @class = "boton1" })
                     <div>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Prompt.Name, new { htmlAttributes = new { @class = "input" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div>
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "boton1" })
+                    @Html.LabelFor(model => model.Prompt.Description, htmlAttributes: new { @class = "boton1" })
                     <div>
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "input" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Prompt.Description, new { htmlAttributes = new { @class = "input" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div >
+                    @Html.LabelFor(model => model.Prompt.Category, htmlAttributes: new { @class = "boton1" })
+                    <div>
+                        @Html.DropDownListFor(model => model.Prompt.Category, Model.CategoryList, htmlAttributes: new { @style = " width: 300px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 28px; padding:0px 10px 20px  10px;"  })
+                        @Html.ValidationMessageFor(model => model.CategoryList, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div>
-                    @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "boton1" })
+                    @Html.LabelFor(model => model.Prompt.TimeOfPrompt, htmlAttributes: new { @class = "boton1" })
                     <div>
-                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "input" } })
-                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div>
-                    @Html.LabelFor(model => model.TimeOfPrompt, htmlAttributes: new { @class = "boton1" })
-                    <div>
-                        @Html.EditorFor(model => model.TimeOfPrompt, new { htmlAttributes = new { @class = "input" } })
-                        @Html.ValidationMessageFor(model => model.TimeOfPrompt, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Prompt.TimeOfPrompt, new { htmlAttributes = new { @class = "input" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.TimeOfPrompt, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div>
@@ -50,7 +49,7 @@
                     </div>
                     <div>
                         <input class="input" type="file" name="Image" accept="image/jpeg, image/png" />
-                        @Html.ValidationMessageFor(model => model.TimeOfPrompt, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Prompt.TimeOfPrompt, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div>

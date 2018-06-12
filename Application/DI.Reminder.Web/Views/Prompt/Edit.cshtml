@@ -1,4 +1,4 @@
-﻿@model DI.Reminder.Common.PromptModel.Prompt
+﻿@model DI.Reminder.Web.Models.PromptViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -10,92 +10,92 @@
 {
     @Html.AntiForgeryToken()
 
-    <div style="float:left; width:45%">
+<div style="float:left; width:45%">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Prompt.ID)
 
+    <div>
+        @Html.LabelFor(model => model.Prompt.Name, htmlAttributes: new { @class = "boton1" })
         <div>
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
+            @Html.EditorFor(model => model.Prompt.Name, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Prompt.Name, "", new { @class = "text-danger" })
         </div>
-
-        <div>
-            @Html.LabelFor(model => model.CreatingDate, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.CreatingDate, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.CreatingDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            @Html.LabelFor(model => model.TimeOfPrompt, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.TimeOfPrompt, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.TimeOfPrompt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div>
-            <div class="boton1">  Image</div>
-            <div> <img style="width:500px; height:300px; margin:2px" ; src="@Url.Content(Model.Image)" /></div>
-            <div>
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <input type="submit" value="Save" class="button" />
-            </div>
-        </div>
-
-
     </div>
+
+    <div>
+        @Html.LabelFor(model => model.Prompt.CreatingDate, htmlAttributes: new { @class = "boton1" })
+        <div>
+            @Html.EditorFor(model => model.Prompt.CreatingDate, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Prompt.CreatingDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Prompt.Description, htmlAttributes: new { @class = "boton1" })
+        <div>
+            @Html.EditorFor(model => model.Prompt.Description, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Prompt.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Prompt.Category, htmlAttributes: new { @class = "boton1" })
+        <div>
+            @Html.DropDownListFor(model => model.Property, Model.CategoryList, htmlAttributes: new { @style = " width: 300px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 28px; padding:0px 10px 20px  10px;" })
+            @Html.ValidationMessageFor(model => model.CategoryList, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Prompt.TimeOfPrompt, htmlAttributes: new { @class = "boton1" })
+        <div>
+            @Html.EditorFor(model => model.Prompt.TimeOfPrompt, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Prompt.TimeOfPrompt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div>
+        <div class="boton1">  Image</div>
+        <div> <img style="width:500px; height:300px; margin:2px" ; src="@Url.Content(Model.Prompt.Image)" /></div>
+        <div>
+            @Html.EditorFor(model => model.Prompt.Image, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Prompt.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <input type="submit" value="Save" class="button" />
+        </div>
+    </div>
+
+
+</div>
 
     <div style="float:right; width:45%">
         <div class="boton1">
             Actions
         </div>
-        @if (Model.Actions.Count != 0)
-    {
-        for (int i = 0; i < Model.Actions.Count; i++)
+        @if (Model.Prompt.Actions.Count != 0)
         {
-            <div>
-                @Html.EditorFor(model => model.Actions[i].Name, new { htmlAttributes = new { @class = "input" } })
-            </div>
-    }
-}
+            for (int i = 0; i < Model.Prompt.Actions.Count; i++)
+            {
+                <div>
+                    @Html.EditorFor(model => model.Prompt.Actions[i].Name, new { htmlAttributes = new { @class = "input" } })
+                </div>
+            }
+        }
 
         <div id="textBox">
 
         </div>
-        @if (Model.Actions != null)
-    {
-        <input value="Add" type="button" class="button" id="AddingButton" col="@Model.Actions.Count" />
-}
-else
-{
-    <input value="Add" type="button" class="button" id="AddingButton" col="0" />
-}
+        @if (Model.Prompt.Actions != null)
+        {
+            <input value="Add" type="button" class="button" id="AddingButton" col="@Model.Prompt.Actions.Count" />
+        }
+        else
+        {
+            <input value="Add" type="button" class="button" id="AddingButton" col="0" />
+        }
     </div>
 }
