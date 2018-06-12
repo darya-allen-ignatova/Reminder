@@ -8,7 +8,7 @@
 @using (Html.BeginForm())
 {
             @Html.AntiForgeryToken()
-
+    
             <div style="width:45%; float:left">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })

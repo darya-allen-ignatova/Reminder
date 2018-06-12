@@ -4,11 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DI.Reminder.Web.DependencyResolution;
-using DI.Reminder.Data.RolesRepository;
-using DI.Reminder.Data.AccountDatabase;
-using DI.Reminder.Common.Logger;
-using System.Security.Principal;
-
 namespace DI.Reminder.Web
 {
     public class MvcApplication : System.Web.HttpApplication

@@ -1,4 +1,4 @@
-﻿@model DI.Reminder.Common.CategoryModel.CategoriesModel
+﻿@model DI.Reminder.Web.Models.CategoryViewModel
 
 @{
     ViewBag.Title = "Add";
@@ -13,23 +13,23 @@
     <div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "boton1" })
+            @Html.LabelFor(model => model.category.Name, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.category.Name, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.category.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div>
-            @Html.LabelFor(model => model.ParentCategory, htmlAttributes: new { @class = "boton1" })
+            @Html.Label("ParentCategory", htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.ParentCategory, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.ParentCategory, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.category.ParentID, Model.AllCategories, htmlAttributes: new { @style = " width: 280px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 28px; padding:0px 10px 20px  10px;" })
+                @Html.ValidationMessageFor(model => model.category.ParentID, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+        <div >
+            <div >
                 <input type="submit" value="Create" class="button" />
             </div>
         </div>

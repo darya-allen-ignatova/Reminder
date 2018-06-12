@@ -26,32 +26,34 @@ namespace DI.Reminder.Web.Controllers
             if (_prompt == null || _getcategory == null)
                 throw new ArgumentNullException();
         }
-        [OutputCache(CacheProfile ="cacheProfileForCategories")]
+        [OutputCache(CacheProfile = "cacheProfileForCategories")]
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Category> _categorylist = _getcategory.GetCategories(id);
-            if(_categorylist.Count!=0)
-            return View(_categorylist);
-          
+            if (_categorylist.Count != 0)
+                return View(_categorylist);
+
             else
                 return RedirectToAction("HttpError404", "Error");
 
         }
         public ActionResult GetCategoryPrompts(int id)
         {
-            IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(UserID,id);
-            if(jsondata==null)
+            IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(UserID, id);
+            if (jsondata == null)
             {
                 return Json(new
                 {
-                    message = "There are no prompts", isEmpty = true  },
+                    message = "There are no prompts",
+                    isEmpty = true
+                },
                 JsonRequestBehavior.AllowGet);
             }
             if (jsondata.Count == 0)
             {
                 return Json(new
                 {
-                    ID=id,
+                    ID = id,
                     isRedirect = true
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -60,7 +62,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult GetItemsForSearch(int id, string value)
         {
             IList<Prompt> jsondata = _prompt.GetSearchingPrompts(UserID, id, value);
-            if (jsondata == null || jsondata.Count==0)
+            if (jsondata == null || jsondata.Count == 0)
             {
                 return Json(new
                 {
@@ -71,26 +73,17 @@ namespace DI.Reminder.Web.Controllers
 
             return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
-       
+
         public ActionResult Details(int? ID)
         {
-            Common.PromptModel.Prompt prompt = _prompt.GetPromptDetails(UserID,ID);
-            if(prompt==null)
+            Prompt prompt = _prompt.GetPromptDetails(UserID, ID);
+            if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
         }
-       public ActionResult Add()
+        public ActionResult Add()
         {
-            var CategoryList = GetAllCategories();
-            List<SelectListItem> selectList = new List<SelectListItem>();
-            for(int i=0; i< CategoryList.Count; i++)
-            {
-                selectList.Add(new SelectListItem()
-                {
-                    Value = CategoryList[i].ID.ToString(),
-                    Text = CategoryList[i].Name
-                });
-            }
+            var selectList = GetAllCategories();
             PromptViewModel promptViewModel = new PromptViewModel()
             {
                 CategoryList = selectList
@@ -100,11 +93,11 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public void Add(Prompt prompt)
         {
-            _prompt.InsertPrompt(UserID,prompt);
+            _prompt.InsertPrompt(UserID, prompt);
         }
         public ActionResult Delete(int? id)
         {
-            Prompt prompt = _prompt.GetPromptDetails(UserID,id);
+            Prompt prompt = _prompt.GetPromptDetails(UserID, id);
             if (prompt == null || id == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -112,35 +105,22 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Prompt prompt)
         {
-            _prompt.DeletePrompt(UserID,prompt.ID);
+            _prompt.DeletePrompt(UserID, prompt.ID);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
-        
+
         public ActionResult Edit(int? id)
         {
-            var CategoryList = GetAllCategories();
-            Prompt prompt = _prompt.GetPromptDetails(UserID,id);
-            if(id == null || prompt==null  )
-                 return RedirectToAction("HttpError404", "Error");
-            int? ID =_getcategory.GetCategoryIDByName(prompt.Category);
-            List<SelectListItem> selectList = new List<SelectListItem>();
-            for (int i = 0; i < CategoryList.Count; i++)
-            {
-                selectList.Add(new SelectListItem()
-                {
-                    Value = CategoryList[i].ID.ToString(),
-                    Text = CategoryList[i].Name
-                });
-                selectList[i].Selected = (selectList[i].Text == prompt.Category);
-            }
-
+            Prompt prompt = _prompt.GetPromptDetails(UserID, id);
+            if (id == null || prompt == null)
+                return RedirectToAction("HttpError404", "Error");
+            var selectList = GetAllCategories();
             PromptViewModel promptViewModel = new PromptViewModel()
             {
                 CategoryList = selectList,
-                Prompt = prompt,
-                Property = ID.ToString()
+                Prompt = prompt
             };
-            
+
             return View(promptViewModel);
         }
         [HttpPost]
@@ -151,15 +131,30 @@ namespace DI.Reminder.Web.Controllers
         }
         private int UserID
         {
-           get
+            get
             {
                 var currentUser = System.Web.HttpContext.Current.User;
                 return _userRepository.GetUser(currentUser.Identity.Name).ID;
             }
         }
-        private IList<Category> GetAllCategories()
+        private List<SelectListItem> GetAllCategories()
         {
-            return _getcategory.GetAllCategories();
+            var listOfCategories = _getcategory.GetAllCategories();
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            selectList.Add(new SelectListItem()
+            {
+                Value = "0",
+                Text = "Root category"
+            });
+            for (int i = 0; i < listOfCategories.Count; i++)
+            {
+                selectList.Add(new SelectListItem()
+                {
+                    Value = listOfCategories[i].ID.ToString(),
+                    Text = listOfCategories[i].Name
+                });
+            }
+            return selectList;
         }
     }
 }

@@ -52,13 +52,7 @@ namespace DI.Reminder.Data.PromptDataBase
                     _list = new List<Prompt>();
                 while (reader.Read())
                 {
-                    object objcategory = reader["Category"];
-                    string category = null;
-                    if (!Convert.IsDBNull(objcategory))
-                    {
-                        category = objcategory.ToString();
-                    }
-                    _list.Add(new Prompt() { ID = int.Parse(reader["ID"].ToString()), Name = reader["Name"].ToString(), Category = category });
+                    _list.Add(new Prompt() { ID = int.Parse(reader["ID"].ToString()), Name = reader["Name"].ToString(), Category = int.Parse(reader["CategoryID"].ToString()) });
                 }
                 connection.Close();
                 return _list;
@@ -98,7 +92,7 @@ namespace DI.Reminder.Data.PromptDataBase
                     {
                         ID = Id,
                         Name = reader["Name"].ToString(),
-                        Category = reader["Category"].ToString(),
+                        Category = int.Parse(reader["CategoryID"].ToString()),
                         CreatingDate = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
                         TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
                         Description = reader["Description"].ToString(),
@@ -143,7 +137,6 @@ namespace DI.Reminder.Data.PromptDataBase
         }
         public void AddPrompt(int userID,Prompt prompt)
         {
-            int? CategoryID = _categoryRepository.GetCategoryID(prompt.Category);
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
@@ -152,7 +145,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@name", prompt.Name);
                 command.Parameters.AddWithValue("@userId", userID);
-                command.Parameters.AddWithValue("@categoryid", CategoryID);
+                command.Parameters.AddWithValue("@categoryid", prompt.Category);
                 command.Parameters.AddWithValue("@dataofcreating", DateTime.Now.Date);
                 command.Parameters.AddWithValue("@description", prompt.Description);
                 command.Parameters.AddWithValue("@Image", prompt.Image);
@@ -202,7 +195,6 @@ namespace DI.Reminder.Data.PromptDataBase
         }
         public void EditPrompt(Prompt prompt)
         {
-            int? CategoryID = _categoryRepository.GetCategoryID(prompt.Category);
             using (SqlConnection connection = new SqlConnection(GetConnection))
             {
                 connection.Open();
@@ -210,7 +202,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@name", prompt.Name);
-                command.Parameters.AddWithValue("@categoryid", CategoryID);
+                command.Parameters.AddWithValue("@categoryid", prompt.Category);
                 command.Parameters.AddWithValue("@dateofcreating", DateTime.Now.Date);
                 command.Parameters.AddWithValue("@description", prompt.Description);
                 command.Parameters.AddWithValue("@image", prompt.Image);

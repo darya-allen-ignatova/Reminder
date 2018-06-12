@@ -3,5 +3,5 @@
     {
         var count = Number($(this).data('count'));
         $(this).data('count', count + 1); 
-        $("#textBox").append('<input type="text" class="input" name="Actions[' + count + '].Name"/> ');
+        $("#textBox").append('<input type="text" class="input" name="Prompt.Actions[' + count + '].Name"/> ');
     });

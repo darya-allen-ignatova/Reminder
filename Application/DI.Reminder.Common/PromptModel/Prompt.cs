@@ -13,7 +13,7 @@ namespace DI.Reminder.Common.PromptModel
         [DataType(DataType.Date)]
         public DateTime CreatingDate { get; set; }
         public string Description { get; set; }
-        public string Category { get; set; }
+        public int Category { get; set; }
         [DataType(DataType.Time)]
         public TimeSpan TimeOfPrompt { get; set; }
         public List<Action> Actions { get; set; }

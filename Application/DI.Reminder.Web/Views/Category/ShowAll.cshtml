@@ -22,19 +22,26 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         @if (item.ParentCategory == null)
-        {
+    {
         <td class="boton2"> It is root category</td>
-        }
-        else
-        {
+}
+else
+{
 
+    <td style="padding-left:20px">
+        @Html.DisplayFor(modelItem => item.ParentCategory)
+    </td>}
         <td style="padding-left:20px">
-            @Html.DisplayFor(modelItem => item.ParentCategory)
-        </td>}
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+        </td>
         <td style="padding-left:20px">
             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
+        
     </tr>
 }
 
 </table>
+<div style="margin-top:30px;color: #855C6A;font-family: ‘Rouge Script’, cursive; font-size: 200%;">
+    @Html.ActionLink("Add new category", "Add")
+</div>
