@@ -13,15 +13,15 @@ namespace DI.Reminder.BL.LoginService.Authentication
 {
     public class AccountAuthentication:IAuthentication
     {
-        string cookiename = "authcookie";
+        string cookiename = "authCookie";
         public IRoleRepository _roleRepository;
         public IAccountRepository _accountRepository;
         public ILogger _logger;
         public AccountAuthentication(IRoleRepository roleRepository, IAccountRepository accountRepository, ILogger logger)
         {
-            _roleRepository = roleRepository;
-            _accountRepository = accountRepository;
-            _logger = logger;
+            _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
+            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         public HttpContext httpContext { get; set; }
 
@@ -46,18 +46,9 @@ namespace DI.Reminder.BL.LoginService.Authentication
             }
             return account;
         }
-        public Account GetAccount(string login)
+        private Account GetAccount(string login)
         {
             return _accountRepository.GetAccount(login);
-        }
-        public Account Login(string login)
-        {
-            Account account = GetAccount(login);
-            if (account != null)
-            {
-                CreateCookie(account);
-            }
-            return account;
         }
 
         private void CreateCookie(Account account, bool isPersistent = false)
@@ -73,7 +64,6 @@ namespace DI.Reminder.BL.LoginService.Authentication
 
             var encTicket = FormsAuthentication.Encrypt(ticket);
 
-            // Create the cookie.
             var AuthCookie = new HttpCookie(cookiename)
             {
                 Value = encTicket,
@@ -85,7 +75,6 @@ namespace DI.Reminder.BL.LoginService.Authentication
 
         public void LogOut()
         {
-            _currentUser = null;
             FormsAuthentication.SignOut();
         }
 

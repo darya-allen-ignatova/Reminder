@@ -25,8 +25,6 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Registration(Account account)
         {
-            if (account.Login == null)
-                return View(account);
             List<Role> role = new List<Role>()
             {
                 new Role()
@@ -40,7 +38,7 @@ namespace DI.Reminder.Web.Controllers
             _authentication.Registration(account);
             return RedirectToAction("Home", "Start");
         }
-        public ActionResult LogIn()
+        public ActionResult Login()
         {
             return View();
         }
@@ -60,7 +58,6 @@ namespace DI.Reminder.Web.Controllers
             _account.Password = _account.Password.Replace(" ", string.Empty);
             _account.PasswordConfirm = _account.Password;
             return View(_account);
-            
         }
         [HttpPost]
         public ActionResult EditUser(Account account)

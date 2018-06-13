@@ -13,14 +13,16 @@ namespace DI.Reminder.BL.LoginService.UserProv
         private IAccountRepository _accountRepository;
         public UserProvider(IRoleRepository roleRepository, IAccountRepository accountRepository, string name )
         {
-            _accountRepository = accountRepository;
-            _roleRepository = roleRepository;
+            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+            _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
 
 
             userIndentity = new UserIndentity(_accountRepository);
             userIndentity.Init(name);
         }
+
         private UserIndentity userIndentity { get; set; }
+
         public IIdentity Identity
         {
             get
@@ -30,7 +32,7 @@ namespace DI.Reminder.BL.LoginService.UserProv
         }
         public bool IsInRole(string role)
         {
-            if (userIndentity.account == null || string.IsNullOrWhiteSpace(role))
+            if (userIndentity.IsAuthenticated || string.IsNullOrWhiteSpace(role))
             {
                 return false;
             }
