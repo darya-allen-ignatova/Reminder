@@ -13,10 +13,8 @@ namespace DI.Reminder.Web.Controllers
         private ILogger _logger;
         public ServiceController(IBLService blservice, ILogger logger)
         {
-            _blservice = blservice; 
-            _logger = logger;
-            if (_blservice == null || _logger == null)
-                throw new ArgumentNullException();
+            _blservice = blservice?? throw new ArgumentNullException(nameof(blservice));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         
         [ChildActionOnly]
@@ -24,8 +22,7 @@ namespace DI.Reminder.Web.Controllers
         {
             return View(GetServiceItems());
         }
-
-
+        
         private IEnumerable<ServiceItem> GetServiceItems()
         {
             IEnumerable<ServiceItem> advertising = _blservice.Get();
@@ -35,6 +32,7 @@ namespace DI.Reminder.Web.Controllers
             }
             return advertising;
         }
+
         private IEnumerable<ServiceItem> GetDefaultServiceItem()
         {
             return new List<ServiceItem>()

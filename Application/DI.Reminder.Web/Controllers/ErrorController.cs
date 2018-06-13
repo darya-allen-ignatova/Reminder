@@ -10,9 +10,7 @@ namespace DI.Reminder.Web.Controllers
         private ILogger _logger;
         public ErrorController(ILogger logger)
         {
-                _logger = logger;
-            if ( _logger == null)
-                throw new ArgumentNullException();
+                _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         public ActionResult HttpError404(string message)
         {

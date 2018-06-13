@@ -1,6 +1,7 @@
 ﻿using DI.Reminder.BL.RoleStorage;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Web.Filters;
+using System;
 using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
@@ -8,11 +9,13 @@ namespace DI.Reminder.Web.Controllers
     [Editor]
     public class RoleController : Controller
     {
-        IRoles _roles;
+        private IRoles _roles;
         public RoleController(IRoles roles)
         {
-            _roles = roles;
+            _roles = roles ?? throw new ArgumentNullException(nameof(roles));
         }
+
+
         public ActionResult Add()
         {
             return View();
@@ -23,6 +26,8 @@ namespace DI.Reminder.Web.Controllers
             _roles.InsertRole(role);
             return RedirectToAction("ShowAll");
         }
+
+
         public ActionResult Delete(int? id)
         {
             var role = _roles.GetRole(id);
@@ -36,6 +41,8 @@ namespace DI.Reminder.Web.Controllers
             _roles.DeleteRole(role.ID);
             return View();
         }
+
+
 
         [OutputCache(CacheProfile = "cacheProfileForRoles")]
         public ActionResult ShowAll()

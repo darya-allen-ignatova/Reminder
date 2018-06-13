@@ -6,9 +6,7 @@ using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
-using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.BL.UsersRepository;
-using System.Linq;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -20,19 +18,17 @@ namespace DI.Reminder.Web.Controllers
         private ICategories _getcategory;
         public PromptController(IPrompt prompt, ICategories getcategory, IUserRepository userRepository)
         {
-            _userRepository = userRepository;
-            _prompt = prompt;
-            _getcategory = getcategory;
-            if (_prompt == null || _getcategory == null)
-                throw new ArgumentNullException();
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
+            _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
+
         [OutputCache(CacheProfile = "cacheProfileForCategories")]
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Category> _categorylist = _getcategory.GetCategories(id);
             if (_categorylist.Count != 0)
                 return View(_categorylist);
-
             else
                 return RedirectToAction("HttpError404", "Error");
 
@@ -81,6 +77,8 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
         }
+
+
         public ActionResult Add()
         {
             var selectList = GetAllCategories();
@@ -95,10 +93,15 @@ namespace DI.Reminder.Web.Controllers
         {
             _prompt.InsertPrompt(UserID, prompt);
         }
+
+
+
         public ActionResult Delete(int? id)
         {
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
             Prompt prompt = _prompt.GetPromptDetails(UserID, id);
-            if (prompt == null || id == null)
+            if (prompt == null )
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
         }
@@ -109,10 +112,15 @@ namespace DI.Reminder.Web.Controllers
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
 
+
+
+
         public ActionResult Edit(int? id)
         {
+            if(id==null )
+                return RedirectToAction("HttpError404", "Error");
             Prompt prompt = _prompt.GetPromptDetails(UserID, id);
-            if (id == null || prompt == null)
+            if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
             var selectList = GetAllCategories();
             PromptViewModel promptViewModel = new PromptViewModel()
@@ -120,7 +128,6 @@ namespace DI.Reminder.Web.Controllers
                 CategoryList = selectList,
                 Prompt = prompt
             };
-
             return View(promptViewModel);
         }
         [HttpPost]
@@ -129,6 +136,8 @@ namespace DI.Reminder.Web.Controllers
             _prompt.EditPrompt(prompt);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
+
+
         private int UserID
         {
             get
@@ -137,6 +146,9 @@ namespace DI.Reminder.Web.Controllers
                 return _userRepository.GetUser(currentUser.Identity.Name).ID;
             }
         }
+
+
+        
         private List<SelectListItem> GetAllCategories()
         {
             var listOfCategories = _getcategory.GetAllCategories();

@@ -9,8 +9,8 @@ namespace DI.Reminder.Web.Controllers
 {
     public class AccountController : Controller
     {
-        IUserRepository _userRepository;
-        IAuthentication _authentication;
+        private IUserRepository _userRepository;
+        private IAuthentication _authentication;
         public AccountController(IAuthentication authentication, IUserRepository userRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));

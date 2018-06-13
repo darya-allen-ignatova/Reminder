@@ -13,10 +13,10 @@ namespace DI.Reminder.BL.LoginService.Authentication
 {
     public class AccountAuthentication:IAuthentication
     {
-        string cookiename = "authCookie";
-        public IRoleRepository _roleRepository;
-        public IAccountRepository _accountRepository;
-        public ILogger _logger;
+        private string cookiename = "authCookie";
+        private IRoleRepository _roleRepository;
+        private IAccountRepository _accountRepository;
+        private ILogger _logger;
         public AccountAuthentication(IRoleRepository roleRepository, IAccountRepository accountRepository, ILogger logger)
         {
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));

@@ -8,8 +8,8 @@ namespace DI.Reminder.BL.UsersRepository
 {
     public class UserRepository : IUserRepository
     {
-        ICacheRepository _cacheRepository;
-        IAccountRepository _accountRepository;
+        private ICacheRepository _cacheRepository;
+        private IAccountRepository _accountRepository;
         public UserRepository(IAccountRepository accountRepository, ICacheRepository cacheRepository)
         {
             _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));

@@ -9,7 +9,7 @@ namespace DI.Reminder.Web.Controllers
     [Admin]
     public class AdminController : Controller
     {
-        IUserRepository _userRepository;
+        private IUserRepository _userRepository;
         public AdminController(IUserRepository userRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
