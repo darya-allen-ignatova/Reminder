@@ -12,15 +12,13 @@ namespace DI.Reminder.BL.CategoryStorage
         private ICacheRepository _cacheRepository;
         public Categories(ICategoryRepository category, ICacheRepository cacheRepository)
         {
-            _category = category;
-            _cacheRepository = cacheRepository;
-            if (_category == null)
-                throw new ArgumentNullException();
+            _category = category ?? throw new ArgumentNullException(nameof(category));
+            _cacheRepository = cacheRepository?? throw new ArgumentNullException(nameof(cacheRepository));
         }
 
         public void DeleteCategory(int? id)
         {
-            if (id == null || id<0)
+            if (id == null || id<1)
                 return;
             _category.DeleteCategory((int)id);
             _cacheRepository.DeleteCache((int)id);
@@ -35,19 +33,12 @@ namespace DI.Reminder.BL.CategoryStorage
         {
             if (id < 0)
                 return null;
-            try
-            {
-                return _category.GetCategories(id);
-            }
-            catch
-            {
-                throw;
-            }
+            return _category.GetCategories(id);
         }
 
         public Category GetCategory(int? id)
         {
-            if (id < 0 || id == null)
+            if (id < 1 || id == null)
                 return null;
             var category = _cacheRepository.GetValueOfCache<Category>((int)id);
             if (category == null)
@@ -62,16 +53,10 @@ namespace DI.Reminder.BL.CategoryStorage
         {
             if (categoryName == null)
                 return null;
-            try
-            {
-                return _category.GetCategoryParentID(categoryName);
-            }
-            catch
-            {
-                throw;
-            }
-            
+            return _category.GetCategoryParentID(categoryName);
         }
+
+
         public void InsertCategory(Category category)
         {
             if (category == null)

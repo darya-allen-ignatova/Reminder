@@ -2,6 +2,7 @@
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Web.Filters;
 using DI.Reminder.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -10,11 +11,13 @@ namespace DI.Reminder.Web.Controllers
     [Editor]
     public class CategoryController : Controller
     {
-        ICategories _categoriesStorage;
+        private ICategories _categoriesStorage;
         public CategoryController(ICategories categoriesStorage)
         {
-            _categoriesStorage = categoriesStorage;
+            _categoriesStorage = categoriesStorage ?? throw new ArgumentNullException(nameof(categoriesStorage));
         }
+
+
         public ActionResult Add()
         {
             var allCategories = GetCategoriesList();
@@ -25,24 +28,20 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Add(CategoryViewModel categoryModel)
         {
-            Category category = null;
             if (categoryModel != null)
             {
-                category = new Category() {
-                    ID=categoryModel.category.ID,
-                    Name=categoryModel.category.Name,
-                    ParentID=categoryModel.category.ParentID
-                };
-                _categoriesStorage.InsertCategory(category);
+                _categoriesStorage.InsertCategory(GetFromModel(categoryModel));
             }
             return RedirectToAction("ShowAllCategories");
         }
+
+
         public ActionResult Delete(int? id)
         {
             var category = _categoriesStorage.GetCategory(id);
-            CategoriesModel categoriesModel = GetModel(category);
-            if (categoriesModel != null)
-                return View(categoriesModel);
+            CategoriesModel categoryModel = GetModel(category);
+            if (categoryModel != null)
+                return View(categoryModel);
             else
                 return RedirectToAction("HttpError404", "Error");
         }
@@ -52,6 +51,8 @@ namespace DI.Reminder.Web.Controllers
             _categoriesStorage.DeleteCategory(category.ID);
             return View();
         }
+
+
         public ActionResult Details(int? id)
         {
             var categoryDetails = _categoriesStorage.GetCategory(id);
@@ -61,6 +62,8 @@ namespace DI.Reminder.Web.Controllers
             else
                 return RedirectToAction("HttpError404", "Error");
         }
+
+
         [OutputCache(CacheProfile = "cacheProfileForCategories")]
         public ActionResult ShowAll()
         {
@@ -70,21 +73,14 @@ namespace DI.Reminder.Web.Controllers
             {
                 for (int i = 0; i < allCategories.Count; i++)
                 {
-                    string parentCategory = null;
-                    if (allCategories[i].ParentID != null)
-                        parentCategory = _categoriesStorage.GetCategory(allCategories[i].ParentID).Name;
-                    categoriesModel.Add(new CategoriesModel()
-                    {
-                        ID = allCategories[i].ID,
-                        Name = allCategories[i].Name,
-                        ParentCategory = parentCategory
-                    });
+                    categoriesModel.Add(GetModel(allCategories[i]));
                 }
-            
-            return View(categoriesModel);
+                return View(categoriesModel);
             }
             else
+            {
                 return RedirectToAction("HttpError404", "Error");
+            }
         }
         public ActionResult Edit(int? ID)
         {
@@ -94,16 +90,11 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
             CategoryViewModel categoryViewModel = new CategoryViewModel()
             {
-                category = new Category()
-                {
-                    ID = categoryDetails.ID,
-                    Name = categoryDetails.Name,
-                    ParentID = categoryDetails.ParentID
-                },
-                AllCategories=CategoryList
+                category =categoryDetails,
+                AllCategories = CategoryList
             };
             return View(categoryViewModel);
-               
+
         }
         [HttpPost]
         public ActionResult Edit(Category category)
@@ -149,6 +140,15 @@ namespace DI.Reminder.Web.Controllers
                 });
             }
             return selectlist;
+        }
+        private Category GetFromModel(CategoryViewModel categoryModel)
+        {
+            return new Category()
+            {
+                ID = categoryModel.category.ID,
+                Name = categoryModel.category.Name,
+                ParentID = categoryModel.category.ParentID
+            };
         }
     }
 }
