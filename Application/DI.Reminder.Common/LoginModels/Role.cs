@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DI.Reminder.Common.LoginModels
 {
     public class Role
     {
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "Field must be filled")]
         public string Name { get; set; }
     }
 }
