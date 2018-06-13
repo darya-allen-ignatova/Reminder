@@ -12,12 +12,12 @@ namespace DI.Reminder.BL.UsersRepository
         IAccountRepository _accountRepository;
         public UserRepository(IAccountRepository accountRepository, ICacheRepository cacheRepository)
         {
-            _cacheRepository = cacheRepository;
-            _accountRepository = accountRepository;
+            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
+            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
         }
         public void DeleteUser(int? id)
         {
-            if (id == null || id < 0)
+            if (id == null || id < 1)
                 return;
             _accountRepository.DeleteAccount((int)id);
             _cacheRepository.DeleteCache((int)id);
@@ -40,7 +40,7 @@ namespace DI.Reminder.BL.UsersRepository
 
         public Account GetUser(int? id)
         {
-            if (id == null || id < 0)
+            if (id == null || id < 1)
                 return null;
             var account = _cacheRepository.GetValueOfCache<Account>((int)id);
             if(account==null)

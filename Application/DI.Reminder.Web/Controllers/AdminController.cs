@@ -1,7 +1,7 @@
 ﻿using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.Common.LoginModels;
-using DI.Reminder.Data.AccountDatabase;
 using DI.Reminder.Web.Filters;
+using System;
 using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
@@ -12,7 +12,14 @@ namespace DI.Reminder.Web.Controllers
         IUserRepository _userRepository;
         public AdminController(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+        }
+
+
+        [HttpGet]
+        public ActionResult AddUser()
+        {
+            return View();
         }
         [HttpPost]
         public ActionResult AddUser(Account account)
@@ -20,11 +27,7 @@ namespace DI.Reminder.Web.Controllers
             _userRepository.InsertUser(account);
             return RedirectToAction("GetUserList");
         }
-        [HttpGet]
-        public ActionResult AddUser()
-        {
-            return View();
-        }
+        
 
 
         [HttpGet]
@@ -41,6 +44,8 @@ namespace DI.Reminder.Web.Controllers
             _userRepository.DeleteUser(account.ID);
             return RedirectToAction("GetUserList");
         }
+
+
 
         [HttpGet]
         public ActionResult EditUser(int? id)
@@ -59,11 +64,15 @@ namespace DI.Reminder.Web.Controllers
             return RedirectToAction("GetUserList");
         }
 
+
+
         [OutputCache(CacheProfile = "cacheProfileForUsers")]
         public ActionResult GetUserList()
         {
             return View(_userRepository.GetUserList());
         }
+
+
         public ActionResult UserDetails(int? id)
         {
             Account account = _userRepository.GetUser(id);
