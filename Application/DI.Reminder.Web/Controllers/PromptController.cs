@@ -75,6 +75,8 @@ namespace DI.Reminder.Web.Controllers
             Prompt prompt = _prompt.GetPromptDetails(UserID, ID);
             if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
+            var category = _getcategory.GetCategory(prompt.Category);
+            prompt.CategoryName = category.Name;
             return View(prompt);
         }
 
@@ -103,6 +105,8 @@ namespace DI.Reminder.Web.Controllers
             Prompt prompt = _prompt.GetPromptDetails(UserID, id);
             if (prompt == null )
                 return RedirectToAction("HttpError404", "Error");
+            var category = _getcategory.GetCategory(prompt.Category);
+            prompt.CategoryName = category.Name;
             return View(prompt);
         }
         [HttpPost]

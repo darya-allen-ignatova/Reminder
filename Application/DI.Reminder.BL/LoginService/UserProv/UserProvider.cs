@@ -13,8 +13,8 @@ namespace DI.Reminder.BL.LoginService.UserProv
         private IAccountRepository _accountRepository;
         public UserProvider(IRoleRepository roleRepository, IAccountRepository accountRepository, string name )
         {
-            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
-            _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
+            _accountRepository = accountRepository;
+            _roleRepository = roleRepository;
 
 
             userIndentity = new UserIndentity(_accountRepository);

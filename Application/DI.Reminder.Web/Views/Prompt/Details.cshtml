@@ -1,5 +1,4 @@
 ﻿@model DI.Reminder.Common.PromptModel.Prompt
-
 @{
     ViewBag.Title = "PromptDetails";
 }
@@ -10,7 +9,7 @@
 
     <div class="vid1" style="margin:10px;margin-left:20px;">
         <div class="title"> @Html.DisplayFor(X => Model.Name)</div>
-        <div class="nam" style="margin-left:10px"> Category:@Html.DisplayFor(X => Model.Category)</div>
+        <div class="nam" style="margin-left:10px"> Category:@Html.DisplayFor(X => Model.CategoryName)</div>
         <div class="nam" style="margin-left:10px">Description:</div>
         <div class="nam" style="margin-left:10px">@Html.DisplayFor(X => Model.Description)</div>
     </div>
@@ -45,7 +44,7 @@
             Время напоминания: @Html.DisplayFor(X => Model.TimeOfPrompt)
         </div>
         <div>
-            <img style="width:500px; height:300px; margin:5px" ; src="@Url.Content(Model.Image)" />
+            <img style="width:500px; height:300px; margin:10px" ; src="@Url.Content(Model.Image)" />
         </div>
     </div>
 

@@ -15,121 +15,178 @@ namespace DI.Reminder.Data.RolesRepository
         }
         public void InsertRole(string Role)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = "AddRole";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam = new SqlParameter()
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    ParameterName = "@name",
-                    Value = Role
-                };
-                command.Parameters.Add(sqlparam);
-                var result = command.ExecuteNonQuery();
+                    connection.Open();
+                    string sqlExpression = "AddRole";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter sqlparam = new SqlParameter()
+                    {
+                        ParameterName = "@name",
+                        Value = Role
+                    };
+                    command.Parameters.Add(sqlparam);
+                    var result = command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
         }
         public void DeleteRole(int id)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = "DeleteRole";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam = new SqlParameter()
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    ParameterName = "@id",
-                    Value = id
-                };
-                command.Parameters.Add(sqlparam);
-                var result = command.ExecuteNonQuery();
-
-            }
-        }
-        public List<Role> GetRoleList(int? id)
-        {
-            List<Role> _rolelist;
-            using (SqlConnection connection = new SqlConnection(GetConnection))
-            {
-                connection.Open();
-                string sqlExpression;
-                if (id == null)
-                    sqlExpression = "GetAllRoles";
-                else
-                    sqlExpression = "GetUserRoles";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                if (id != null)
-                {
+                    connection.Open();
+                    string sqlExpression = "DeleteRole";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam = new SqlParameter()
                     {
                         ParameterName = "@id",
                         Value = id
                     };
                     command.Parameters.Add(sqlparam);
-                }
-                SqlDataReader reader = command.ExecuteReader();
-                _rolelist = new List<Role>();
-                while (reader.Read())
-                {
-                    _rolelist.Add(new Role
-                    {
-                        ID = int.Parse(reader["ID"].ToString()),
-                        Name = reader["Name"].ToString()
-                    });
-                }
-                connection.Close();
+                    var result = command.ExecuteNonQuery();
 
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public List<Role> GetRoleList(int? id)
+        {
+            List<Role> _rolelist = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression;
+                    if (id == null)
+                        sqlExpression = "GetAllRoles";
+                    else
+                        sqlExpression = "GetUserRoles";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    if (id != null)
+                    {
+                        SqlParameter sqlparam = new SqlParameter()
+                        {
+                            ParameterName = "@id",
+                            Value = id
+                        };
+                        command.Parameters.Add(sqlparam);
+                    }
+                    SqlDataReader reader = command.ExecuteReader();
+                    _rolelist = new List<Role>();
+                    while (reader.Read())
+                    {
+                        _rolelist.Add(new Role
+                        {
+                            ID = int.Parse(reader["ID"].ToString()),
+                            Name = reader["Name"].ToString()
+                        });
+                    }
+                    connection.Close();
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
             return _rolelist;
         }
 
         public IList<Role> GetAllRoles()
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            List<Role> _list = null;
+            try
             {
-                connection.Open();
-                string sqlExpression = "GetAllRoles";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlDataReader reader = command.ExecuteReader();
-                List<Role> _list = new List<Role>();
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    _list.Add(new Role()
+                    connection.Open();
+                    string sqlExpression = "GetAllRoles";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlDataReader reader = command.ExecuteReader();
+                    _list = new List<Role>();
+                    while (reader.Read())
                     {
-                        ID = int.Parse(reader["ID"].ToString()),
-                        Name = reader["Name"].ToString()
-                    });
+                        _list.Add(new Role()
+                        {
+                            ID = int.Parse(reader["ID"].ToString()),
+                            Name = reader["Name"].ToString()
+                        });
+                    }
+                    connection.Close();
+
                 }
-                connection.Close();
-                return _list;
             }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
+            }
+            return _list;
         }
         public void DeleteUserRole(int roleID, int userID)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = "DeleteUserRole";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam = new SqlParameter()
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    ParameterName = "@userID",
-                    Value = userID
-                };
-                command.Parameters.Add(sqlparam);
-                SqlParameter sqlparam1 = new SqlParameter()
-                {
-                    ParameterName = "@id",
-                    Value = roleID
-                };
-                command.Parameters.Add(sqlparam1);
-                var result = command.ExecuteNonQuery();
+                    connection.Open();
+                    string sqlExpression = "DeleteUserRole";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter sqlparam = new SqlParameter()
+                    {
+                        ParameterName = "@userID",
+                        Value = userID
+                    };
+                    command.Parameters.Add(sqlparam);
+                    SqlParameter sqlparam1 = new SqlParameter()
+                    {
+                        ParameterName = "@id",
+                        Value = roleID
+                    };
+                    command.Parameters.Add(sqlparam1);
+                    var result = command.ExecuteNonQuery();
 
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
         }
     }

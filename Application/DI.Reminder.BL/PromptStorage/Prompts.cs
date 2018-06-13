@@ -29,13 +29,13 @@ namespace DI.Reminder.BL.PromptStorage
         {
             if (id == null || id < 0 || userID < 1)
                 return null;
-            IList<Prompt> promptList;
-            IList<Category> categoryList;
-            promptList = _promptRepository.GetPromptsList(userID,id);
-            categoryList = _categoryRepository.GetCategories(id);
+            IList<Prompt> promptList= _promptRepository.GetPromptsList(userID,id);
+            IList<Category> categoryList= _categoryRepository.GetCategories(id);
 
             if (promptList == null & categoryList == null)
+            {
                 return null;
+            }
             else if (promptList == null & categoryList != null)
             {
                 promptList = new List<Prompt>();
@@ -48,12 +48,14 @@ namespace DI.Reminder.BL.PromptStorage
         }
         public Prompt GetPromptDetails(int userID, int? id)
         {
-            if (id == null || id<1 || userID<1)
+            if (id == null || id < 1 || userID < 1)
                 return null;
             Prompt prompt = _cacheRepository.GetValueOfCache<Prompt>((int)id);
             if (prompt == null)
-            prompt = _promptRepository.GetPrompt(userID,id);
-            _cacheRepository.AddCache<Prompt>(prompt, prompt.ID);
+            {
+                prompt = _promptRepository.GetPrompt(userID, id);
+                _cacheRepository.AddCache<Prompt>(prompt, prompt.ID);
+            }
             return prompt;
         }
         public void DeletePrompt(int userID, int? id)
@@ -75,7 +77,7 @@ namespace DI.Reminder.BL.PromptStorage
 
         public IList<Prompt> GetSearchingPrompts(int userID, int id, string value)
         {
-            if (value == null || id<1 || userID<1)
+            if (value == null || id < 1 || userID < 1)
                 return null;
             return _search.GetSearchItems(userID, id, value);
         }

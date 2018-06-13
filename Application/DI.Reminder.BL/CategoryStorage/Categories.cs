@@ -6,19 +6,19 @@ using DI.Reminder.BL.CachedRepository;
 
 namespace DI.Reminder.BL.CategoryStorage
 {
-    public class Categories:ICategories
+    public class Categories : ICategories
     {
         private ICategoryRepository _category;
         private ICacheRepository _cacheRepository;
         public Categories(ICategoryRepository category, ICacheRepository cacheRepository)
         {
             _category = category ?? throw new ArgumentNullException(nameof(category));
-            _cacheRepository = cacheRepository?? throw new ArgumentNullException(nameof(cacheRepository));
+            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
         }
 
         public void DeleteCategory(int? id)
         {
-            if (id == null || id<1)
+            if (id == null || id < 1)
                 return;
             _category.DeleteCategory((int)id);
             _cacheRepository.DeleteCache((int)id);
@@ -71,7 +71,9 @@ namespace DI.Reminder.BL.CategoryStorage
                 return _category.GetCategoryID(Name);
             }
             else
-                return null; 
+            {
+                return null;
+            }
         }
         public void EditCategory(Category category)
         {

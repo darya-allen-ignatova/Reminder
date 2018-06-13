@@ -9,7 +9,7 @@ namespace DI.Reminder.Data.Searching
 {
     public class Search:ISearch
     {
-        ICategoryRepository _categoryRepository;
+        private ICategoryRepository _categoryRepository;
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -18,7 +18,7 @@ namespace DI.Reminder.Data.Searching
         }
         public Search(ICategoryRepository categoryRepository)
         {
-            _categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
         
         public IList<Prompt> GetSearchItems(int userID,int id, string value)

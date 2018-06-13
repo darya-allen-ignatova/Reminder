@@ -10,7 +10,7 @@ namespace DI.Reminder.BL.LoginService.UserIndent
         private IAccountRepository _accountRepository;
         public UserIndentity(IAccountRepository accountRepository)
         {
-            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+            _accountRepository = accountRepository;
         }
         public Account account { get; set; }
         public string AuthenticationType

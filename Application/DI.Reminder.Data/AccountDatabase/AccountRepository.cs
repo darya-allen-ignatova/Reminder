@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using DI.Reminder.Common.LoginModels;
@@ -8,11 +9,11 @@ namespace DI.Reminder.Data.AccountDatabase
 {
     public class AccountRepository : IAccountRepository
     {
-        
+
         private IRoleRepository _rolerepository;
         public AccountRepository(IRoleRepository rolerepository)
         {
-            _rolerepository = rolerepository;
+            _rolerepository = rolerepository ?? throw new ArgumentNullException(nameof(rolerepository));
         }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
@@ -22,255 +23,357 @@ namespace DI.Reminder.Data.AccountDatabase
         }
         public void InsertAccount(Account account)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = "AddUser";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam1 = new SqlParameter()
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    ParameterName = "@login",
-                    Value = account.Login
-                };
-                command.Parameters.Add(sqlparam1);
-                SqlParameter sqlparam2 = new SqlParameter()
-                {
-                    ParameterName = "@password",
-                    Value = account.Password
-                };
-                
-                command.Parameters.Add(sqlparam2);
-                SqlParameter sqlparam3 = new SqlParameter()
-                {
-                    ParameterName = "@email",
-                    Value = account.Email
-                };
-
-                command.Parameters.Add(sqlparam3);
-                var result = command.ExecuteNonQuery();
-                AddRoleForUser(account);
-            }
-        }
-        private void AddRoleForUser(Account newaccount)
-        {
-            Account account = GetAccount(newaccount.Login);
-            using (SqlConnection connection = new SqlConnection(GetConnection))
-            {
-                connection.Open();
-                for (int i = 0; i < newaccount.Roles.Count; i++)
-                {
-
-                    string sqlExpression = "AddConnection";
+                    connection.Open();
+                    string sqlExpression = "AddUser";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam1 = new SqlParameter()
                     {
-                        ParameterName = "@role",
-                        Value = newaccount.Roles[i].Name
+                        ParameterName = "@login",
+                        Value = account.Login
                     };
                     command.Parameters.Add(sqlparam1);
                     SqlParameter sqlparam2 = new SqlParameter()
                     {
-                        ParameterName = "@userid",
-                        Value = account.ID
+                        ParameterName = "@password",
+                        Value = account.Password
                     };
+
                     command.Parameters.Add(sqlparam2);
+                    SqlParameter sqlparam3 = new SqlParameter()
+                    {
+                        ParameterName = "@email",
+                        Value = account.Email
+                    };
+
+                    command.Parameters.Add(sqlparam3);
                     var result = command.ExecuteNonQuery();
+                    AddRoleForUser(account);
                 }
             }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
+            }
         }
-        
+        private void AddRoleForUser(Account newaccount)
+        {
+            try
+            {
+                Account account = GetAccount(newaccount.Login);
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    for (int i = 0; i < newaccount.Roles.Count; i++)
+                    {
+
+                        string sqlExpression = "AddConnection";
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        SqlParameter sqlparam1 = new SqlParameter()
+                        {
+                            ParameterName = "@role",
+                            Value = newaccount.Roles[i].Name
+                        };
+                        command.Parameters.Add(sqlparam1);
+                        SqlParameter sqlparam2 = new SqlParameter()
+                        {
+                            ParameterName = "@userid",
+                            Value = account.ID
+                        };
+                        command.Parameters.Add(sqlparam2);
+                        var result = command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public Account GetAccount(string login)
         {
             Account account = null;
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = $"GetUserByLogin";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam = new SqlParameter()
+
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    ParameterName = "@login",
-                    Value = login
-                };
-                command.Parameters.Add(sqlparam);
-                SqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                    account = new Account()
+                    connection.Open();
+                    string sqlExpression = $"GetUserByLogin";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter sqlparam = new SqlParameter()
                     {
-                        ID = int.Parse(reader["ID"].ToString()),
-                        Login = reader["Login"].ToString(),
-                        Password = reader["Password"].ToString(),
-                        Email = reader["Email"].ToString()
+                        ParameterName = "@login",
+                        Value = login
                     };
+                    command.Parameters.Add(sqlparam);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        account = new Account()
+                        {
+                            ID = int.Parse(reader["ID"].ToString()),
+                            Login = reader["Login"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Email = reader["Email"].ToString()
+                        };
+
+                    }
+                    connection.Close();
 
                 }
-                connection.Close();
 
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
             return account;
         }
         public Account GetAccount(int id)
         {
-            Account account = null;
-            using (SqlConnection connection = new SqlConnection(GetConnection))
-            {
-                connection.Open();
-                string sqlExpression = $"GetUserByID";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam = new SqlParameter()
-                {
-                    ParameterName = "@id",
-                    Value = id
-                };
-                command.Parameters.Add(sqlparam);
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    account = new Account()
-                    {
-                        ID = int.Parse(reader["ID"].ToString()),
-                        Login = reader["Login"].ToString(),
-                        Password = reader["Password"].ToString()
-                    };
 
+            Account account = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = $"GetUserByID";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter sqlparam = new SqlParameter()
+                    {
+                        ParameterName = "@id",
+                        Value = id
+                    };
+                    command.Parameters.Add(sqlparam);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        account = new Account()
+                        {
+                            ID = int.Parse(reader["ID"].ToString()),
+                            Login = reader["Login"].ToString(),
+                            Password = reader["Password"].ToString()
+                        };
+
+                    }
+                    connection.Close();
+                    if (account == null)
+                        return null;
+                    account.Roles = _rolerepository.GetRoleList(id);
                 }
-                connection.Close();
-                if (account == null)
-                    return null;
-                account.Roles = _rolerepository.GetRoleList(id);
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
             return account;
         }
         public void DeleteAccount(int id)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = "DeleteUser";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlParameter sqlparam1 = new SqlParameter()
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    ParameterName = "@id",
-                    Value = id
-                };
-                command.Parameters.Add(sqlparam1);
-                var result = command.ExecuteNonQuery();
+                    connection.Open();
+                    string sqlExpression = "DeleteUser";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter sqlparam1 = new SqlParameter()
+                    {
+                        ParameterName = "@id",
+                        Value = id
+                    };
+                    command.Parameters.Add(sqlparam1);
+                    var result = command.ExecuteNonQuery();
 
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
         }
         public void UpdateAccount(Account account)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = $"UpdatingUser";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@login", account.Login);
-                command.Parameters.AddWithValue("@password", account.Password);
-                command.Parameters.AddWithValue("@email", account.Email);
-                command.Parameters.AddWithValue("@id", account.ID);
-                var result = command.ExecuteNonQuery();
-                connection.Close();
-            }
-            if(account.Roles==null)
-            account.Roles = _rolerepository.GetRoleList(account.ID);
-            List<int> IDs = GetIDOfRoles(account.ID);
-            for (int i = 0; i < IDs.Count; i++)
-            {
-                if (account.Roles[i].Name.Replace(" ", string.Empty)==string.Empty)
-                    _rolerepository.DeleteUserRole(IDs[i], account.ID);
-                else
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    using (SqlConnection connection = new SqlConnection(GetConnection))
+                    connection.Open();
+                    string sqlExpression = $"UpdatingUser";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@login", account.Login);
+                    command.Parameters.AddWithValue("@password", account.Password);
+                    command.Parameters.AddWithValue("@email", account.Email);
+                    command.Parameters.AddWithValue("@id", account.ID);
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                if (account.Roles == null)
+                    account.Roles = _rolerepository.GetRoleList(account.ID);
+                List<int> IDs = GetIDOfRoles(account.ID);
+                for (int i = 0; i < IDs.Count; i++)
+                {
+                    if (account.Roles[i].Name.Replace(" ", string.Empty) == string.Empty)
+                        _rolerepository.DeleteUserRole(IDs[i], account.ID);
+                    else
                     {
-                        connection.Open();
-                        string sqlExpression = $"UpdatingUserRole";
-                        SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@roleid", IDs[i]);
-                        command.Parameters.AddWithValue("@name", account.Roles[i].Name);
-                        var result = command.ExecuteNonQuery();
-                        connection.Close();
+                        using (SqlConnection connection = new SqlConnection(GetConnection))
+                        {
+                            connection.Open();
+                            string sqlExpression = $"UpdatingUserRole";
+                            SqlCommand command = new SqlCommand(sqlExpression, connection);
+                            command.CommandType = System.Data.CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@roleid", IDs[i]);
+                            command.Parameters.AddWithValue("@name", account.Roles[i].Name);
+                            var result = command.ExecuteNonQuery();
+                            connection.Close();
+                        }
+                    }
+                }
+                if (IDs.Count < account.Roles.Count)
+                {
+                    for (int i = IDs.Count; i < account.Roles.Count; i++)
+                    {
+                        if (account.Roles[i].Name.Replace(" ", string.Empty) == string.Empty)
+                            continue;
+                        AddRolesForUser(account.Roles[i].Name, account.ID);
                     }
                 }
             }
-            if (IDs.Count < account.Roles.Count)
+            catch (SqlException)
             {
-                for (int i = IDs.Count; i < account.Roles.Count; i++)
-                {
-                    if (account.Roles[i].Name.Replace(" ", string.Empty) == string.Empty)
-                        continue;
-                    AddRolesForUser(account.Roles[i].Name, account.ID);
-                }
+                throw;
+            }
+            catch
+            {
+                throw;
             }
         }
         private void AddRolesForUser(string roleName, int userid)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = $"AddRolesForUser";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@userid", userid);
-                command.Parameters.AddWithValue("@name", roleName);
-                var result = command.ExecuteNonQuery();
-                connection.Close();
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = $"AddRolesForUser";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@userid", userid);
+                    command.Parameters.AddWithValue("@name", roleName);
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
         }
         private List<int> GetIDOfRoles(int id)
         {
             List<int> IDs = new List<int>();
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                connection.Open();
-                string sqlExpression = $"GetUserRoles";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id", id);
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    IDs.Add(int.Parse(reader["ID"].ToString()));
+                    connection.Open();
+                    string sqlExpression = $"GetUserRoles";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        IDs.Add(int.Parse(reader["ID"].ToString()));
+                    }
+                    connection.Close();
                 }
-                connection.Close();
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
             return IDs;
         }
-    
+
         public List<Account> GetAccountList()
         {
-            List<Account> _accountlist;
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            List<Account> _accountlist = null;
+            try
             {
-                connection.Open();
-                string sqlExpression="GetAllUsers";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlDataReader reader = command.ExecuteReader();
-                _accountlist = new List<Account>();
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    int id = int.Parse(reader["ID"].ToString());
-                    List<Role> _rolelist = _rolerepository.GetRoleList(id);
-                    _accountlist.Add(new Account()
+                    connection.Open();
+                    string sqlExpression = "GetAllUsers";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlDataReader reader = command.ExecuteReader();
+                    _accountlist = new List<Account>();
+                    while (reader.Read())
                     {
-                        ID = id,
-                        Login = reader["Login"].ToString(),
-                        Password = reader["Password"].ToString(),
-                        Roles = _rolelist
-                   });
+                        int id = int.Parse(reader["ID"].ToString());
+                        List<Role> _rolelist = _rolerepository.GetRoleList(id);
+                        _accountlist.Add(new Account()
+                        {
+                            ID = id,
+                            Login = reader["Login"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Roles = _rolelist
+                        });
+                    }
+                    connection.Close();
+
                 }
-                connection.Close();
-               
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
             return _accountlist;
         }

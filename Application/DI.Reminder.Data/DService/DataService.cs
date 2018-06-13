@@ -31,7 +31,6 @@ namespace DI.Reminder.Data.DService
             }
             catch (CommunicationException)
             {
-                
                 client.Abort();
             }
             catch (TimeoutException)
