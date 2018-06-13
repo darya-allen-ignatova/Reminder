@@ -19,7 +19,7 @@ namespace DI.Reminder.BL.Services
             {
                 list = _dataservice.GetItems();
             }
-            catch (ArgumentNullException)
+            catch
             {
                 return null;
             }
