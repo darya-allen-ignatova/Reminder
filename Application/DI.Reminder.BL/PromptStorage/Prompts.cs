@@ -17,53 +17,43 @@ namespace DI.Reminder.BL.PromptStorage
         private ICategoryRepository _categoryRepository;
         public Prompts(IPromptRepository promptRepository, ICategoryRepository categoryRepository, ISearch search, ICacheRepository cacheRepository)
         {
-            _cacheRepository = cacheRepository;
-            _categoryRepository = categoryRepository;
-            _search = search;
-            _promptRepository = promptRepository;
-            if (_promptRepository == null)
-                throw new ArgumentNullException();
+            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _search = search ?? throw new ArgumentNullException(nameof(search));
+            _promptRepository = promptRepository ?? throw new ArgumentNullException(nameof(promptRepository));
         }
+
+
+
         public IList<Prompt> GetCategoryItemsByID(int userID,int? id)
         {
             if (id == null || id < 0 || userID < 1)
                 return null;
             IList<Prompt> promptList;
             IList<Category> categoryList;
-            try
-            {
-                promptList = _promptRepository.GetPromptsList(userID,id);
-                categoryList = _categoryRepository.GetCategories(id);
-            }
-            catch
-            {
-                throw;
-            }
+            promptList = _promptRepository.GetPromptsList(userID,id);
+            categoryList = _categoryRepository.GetCategories(id);
+
             if (promptList == null & categoryList == null)
                 return null;
-            else if (promptList == null & categoryList!= null)
+            else if (promptList == null & categoryList != null)
             {
                 promptList = new List<Prompt>();
                 return promptList;
             }
             else
+            {
                 return promptList;
+            }
         }
         public Prompt GetPromptDetails(int userID, int? id)
         {
-            if (id == null || id<0 || userID<1)
+            if (id == null || id<1 || userID<1)
                 return null;
             Prompt prompt = _cacheRepository.GetValueOfCache<Prompt>((int)id);
             if (prompt == null)
-            try
-            {
-                 prompt = _promptRepository.GetPrompt(userID,id);
-                _cacheRepository.AddCache<Prompt>(prompt, prompt.ID);
-            }
-            catch
-            {
-                
-            }
+            prompt = _promptRepository.GetPrompt(userID,id);
+            _cacheRepository.AddCache<Prompt>(prompt, prompt.ID);
             return prompt;
         }
         public void DeletePrompt(int userID, int? id)

@@ -10,9 +10,7 @@ namespace DI.Reminder.BL.Services
         private IDataService _dataservice;
         public BLService(IDataService dataservice)
         {
-            _dataservice = dataservice;
-            if (_dataservice == null)
-                throw new ArgumentNullException();
+            _dataservice = dataservice ?? throw new ArgumentNullException(nameof(dataservice));
         }
         public IEnumerable<ServiceItem> Get()
         {
@@ -26,7 +24,6 @@ namespace DI.Reminder.BL.Services
                 return null;
             }
             return list;
-
         }
        
     }

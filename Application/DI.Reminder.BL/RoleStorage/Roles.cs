@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DI.Reminder.BL.CachedRepository;
 using DI.Reminder.Common.LoginModels;
@@ -8,16 +9,16 @@ namespace DI.Reminder.BL.RoleStorage
 {
     public class Roles : IRoles
     {
-        ICacheRepository _cacheRepository;
-        IRoleRepository _roleRepository;
+        private ICacheRepository _cacheRepository;
+        private IRoleRepository _roleRepository;
         public Roles(IRoleRepository roleRepository, ICacheRepository cacheRepository)
         {
-            _cacheRepository = cacheRepository;
-            _roleRepository = roleRepository;
+            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
+            _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
         public void DeleteRole(int? id)
         {
-            if (id < 0 || id == null)
+            if (id < 1 || id == null)
                 return;
             _roleRepository.DeleteRole((int)id);
             _cacheRepository.DeleteCache((int)id);
@@ -37,7 +38,7 @@ namespace DI.Reminder.BL.RoleStorage
         }
         public Role GetRole(int? id)
         {
-            if (id < 0 || id == null)
+            if (id < 1 || id == null)
                 return null;
             var role = _cacheRepository.GetValueOfCache<Role>((int)id);
             if(role==null)
