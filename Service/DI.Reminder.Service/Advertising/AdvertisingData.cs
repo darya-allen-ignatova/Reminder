@@ -20,32 +20,43 @@ namespace DI.Reminder.Service.Advertising
         private IList<AdvertisingItem> GetListOfAdvertisings()
         {
             List<AdvertisingItem> _list = new List<AdvertisingItem>();
-            using (SqlConnection connection = new SqlConnection(GetConnection))
+            try
             {
-                try
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    connection.Open();
-                }
-                catch (SqlException)
-                {
-                    throw;
-                }
-                string sqlExpression;
-                sqlExpression = $"GetAdvertisings";
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    object objImage = reader["Image"];
-                    string Image = null;
-                    if (!Convert.IsDBNull(objImage))
+                    try
                     {
-                        Image = objImage.ToString();
+                        connection.Open();
                     }
-                    _list.Add(new AdvertisingItem() { ID = int.Parse(reader["ID"].ToString()), Title = reader["Title"].ToString(), Url = reader["Url"].ToString(), Image = GetImageByteArray(Image) });
+                    catch (SqlException)
+                    {
+                        throw;
+                    }
+                    string sqlExpression;
+                    sqlExpression = $"GetAdvertisings";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        object objImage = reader["Image"];
+                        string Image = null;
+                        if (!Convert.IsDBNull(objImage))
+                        {
+                            Image = objImage.ToString();
+                        }
+                        _list.Add(new AdvertisingItem() { ID = int.Parse(reader["ID"].ToString()), Title = reader["Title"].ToString(), Url = reader["Url"].ToString(), Image = GetImageByteArray(Image) });
+                    }
+                    connection.Close();
                 }
-                connection.Close();
+            }
+            catch(SqlException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
             }
             return _list;
         }

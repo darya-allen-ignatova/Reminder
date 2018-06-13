@@ -12,11 +12,6 @@ namespace DI.Reminder.Service.Advertising
             AdvertisingData data = new AdvertisingData();
 
             IList<AdvertisingItem> list = data.GetItems();
-            
-            if (list == null)
-            {
-                throw new ArgumentNullException();
-            }
             return list;
 
         }
