@@ -1,9 +1,16 @@
-﻿namespace DI.Reminder.Common.CategoryModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DI.Reminder.Common.CategoryModel
 {
     public class Category
     {
+        [Key]
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "Field must be filled")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Field must be filled")]
         public int? ParentID { get; set; }
     }
 }
