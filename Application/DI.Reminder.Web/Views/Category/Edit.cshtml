@@ -25,7 +25,7 @@
         <div >
             @Html.LabelFor(model => model.category.ParentID, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.DropDownListFor(model => model.category.ParentID, Model.AllCategories, htmlAttributes: new { @style = " width: 300px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 28px; padding:0px 10px 20px  10px;" })
+                @Html.DropDownListFor(model => model.category.ParentID, Model.AllCategories, htmlAttributes: new { @style = " width: 312px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 25px; padding:0px 10px 20px  10px;" })
                 @Html.ValidationMessageFor(model => model.category.ParentID, "", new { @class = "text-danger" })
             </div>
         </div>

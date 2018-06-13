@@ -108,5 +108,29 @@ namespace DI.Reminder.Data.RolesRepository
                 return _list;
             }
         }
+        public void DeleteUserRole(int roleID, int userID)
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnection))
+            {
+                connection.Open();
+                string sqlExpression = "DeleteUserRole";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter sqlparam = new SqlParameter()
+                {
+                    ParameterName = "@userID",
+                    Value = userID
+                };
+                command.Parameters.Add(sqlparam);
+                SqlParameter sqlparam1 = new SqlParameter()
+                {
+                    ParameterName = "@id",
+                    Value = roleID
+                };
+                command.Parameters.Add(sqlparam1);
+                var result = command.ExecuteNonQuery();
+
+            }
+        }
     }
 }

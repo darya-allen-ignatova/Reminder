@@ -11,9 +11,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Login)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -21,10 +18,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Login)
         </td>
-        <td class="boton2">
-            @Html.ActionLink("Edit", "EditUser",  new { id=item.ID }) 
-            @Html.ActionLink("Details", "UserDetails",  new { id=item.ID }) 
-            @Html.ActionLink("Delete", "DeleteUser",  new { id=item.ID })
+        <td class="boton2" style="margin-left:20px">
+                @Html.ActionLink("Edit", "EditUser", new { id = item.ID })
+                @Html.ActionLink("Details", "UserDetails", new { id = item.ID })
+                @Html.ActionLink("Delete", "DeleteUser", new { id = item.ID })
+           
         </td>
     </tr>
 }

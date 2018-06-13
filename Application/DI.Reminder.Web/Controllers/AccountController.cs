@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using DI.Reminder.BL.LoginService.Authentication;
 using DI.Reminder.BL.UsersRepository;
 using DI.Reminder.Common.LoginModels;
-using DI.Reminder.Data.AccountDatabase;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -17,13 +16,17 @@ namespace DI.Reminder.Web.Controllers
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _authentication = authentication ?? throw new ArgumentNullException(nameof(authentication));
         }
+
         public ActionResult Registration()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Registration(Account account)
         {
+            if (account.Login == null)
+                return View(account);
             List<Role> role = new List<Role>()
             {
                 new Role()
@@ -48,7 +51,7 @@ namespace DI.Reminder.Web.Controllers
             _authentication.Authentication(account);
             return RedirectToAction("Home", "Start");
         }
-        public ActionResult EditUser()
+        public ActionResult EditAccount()
         {
             _authentication.httpContext = System.Web.HttpContext.Current;
             Account _account = _userRepository.GetUser(_authentication.CurrentUser.Identity.Name);

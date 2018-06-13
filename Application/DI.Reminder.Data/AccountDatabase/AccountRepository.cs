@@ -39,7 +39,15 @@ namespace DI.Reminder.Data.AccountDatabase
                     ParameterName = "@password",
                     Value = account.Password
                 };
+                
                 command.Parameters.Add(sqlparam2);
+                SqlParameter sqlparam3 = new SqlParameter()
+                {
+                    ParameterName = "@email",
+                    Value = account.Email
+                };
+
+                command.Parameters.Add(sqlparam3);
                 var result = command.ExecuteNonQuery();
                 AddRoleForUser(account);
             }
@@ -177,22 +185,29 @@ namespace DI.Reminder.Data.AccountDatabase
             List<int> IDs = GetIDOfRoles(account.ID);
             for (int i = 0; i < IDs.Count; i++)
             {
-                using (SqlConnection connection = new SqlConnection(GetConnection))
+                if (account.Roles[i].Name.Replace(" ", string.Empty)==string.Empty)
+                    _rolerepository.DeleteUserRole(IDs[i], account.ID);
+                else
                 {
-                    connection.Open();
-                    string sqlExpression = $"UpdatingUserRole";
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@roleid", IDs[i]);
-                    command.Parameters.AddWithValue("@name", account.Roles[i].Name);
-                    var result = command.ExecuteNonQuery();
-                    connection.Close();
+                    using (SqlConnection connection = new SqlConnection(GetConnection))
+                    {
+                        connection.Open();
+                        string sqlExpression = $"UpdatingUserRole";
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@roleid", IDs[i]);
+                        command.Parameters.AddWithValue("@name", account.Roles[i].Name);
+                        var result = command.ExecuteNonQuery();
+                        connection.Close();
+                    }
                 }
             }
             if (IDs.Count < account.Roles.Count)
             {
                 for (int i = IDs.Count; i < account.Roles.Count; i++)
                 {
+                    if (account.Roles[i].Name.Replace(" ", string.Empty) == string.Empty)
+                        continue;
                     AddRolesForUser(account.Roles[i].Name, account.ID);
                 }
             }

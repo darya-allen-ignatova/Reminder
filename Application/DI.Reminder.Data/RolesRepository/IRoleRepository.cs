@@ -9,5 +9,6 @@ namespace DI.Reminder.Data.RolesRepository
         void DeleteRole(int id);
         void InsertRole(string Role);
         IList<Role> GetAllRoles();
+        void DeleteUserRole(int roleID, int userID);
     }
 }

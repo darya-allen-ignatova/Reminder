@@ -21,7 +21,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult Add(Role role)
         {
             _roles.InsertRole(role);
-            return RedirectToAction("ShowAllCategories");
+            return RedirectToAction("ShowAll");
         }
         public ActionResult Delete(int? id)
         {
@@ -38,7 +38,7 @@ namespace DI.Reminder.Web.Controllers
         }
 
         [OutputCache(CacheProfile = "cacheProfileForRoles")]
-        public ActionResult ShowAllRoles()
+        public ActionResult ShowAll()
         {
             var allCategories = _roles.GetAllRoles();
             if (allCategories != null)

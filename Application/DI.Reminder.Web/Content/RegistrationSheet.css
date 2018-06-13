@@ -83,7 +83,9 @@ input {
     
 }
 .text-danger {
-    background-color: red;
+    color: #d14e4e;
+    font-family: ‘Rouge Script’, cursive;
+    padding-left:20px;
 }
 .newtitle {
     color: #FCF2E5;
