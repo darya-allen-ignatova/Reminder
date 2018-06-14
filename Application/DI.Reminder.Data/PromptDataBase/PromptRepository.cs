@@ -108,7 +108,7 @@ namespace DI.Reminder.Data.PromptDataBase
                             ID = Id,
                             Name = reader["Name"].ToString(),
                             Category = int.Parse(reader["CategoryID"].ToString()),
-                            CreatingDate = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
+                            Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
                             TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
                             Description = reader["Description"].ToString(),
                             Image = image,
@@ -183,7 +183,7 @@ namespace DI.Reminder.Data.PromptDataBase
                     command.Parameters.AddWithValue("@name", prompt.Name);
                     command.Parameters.AddWithValue("@userId", userID);
                     command.Parameters.AddWithValue("@categoryid", prompt.Category);
-                    command.Parameters.AddWithValue("@dataofcreating", DateTime.Now.Date);
+                    command.Parameters.AddWithValue("@dataofcreating", prompt.Date);
                     command.Parameters.AddWithValue("@description", prompt.Description);
                     command.Parameters.AddWithValue("@Image", prompt.Image);
                     command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);
@@ -273,7 +273,7 @@ namespace DI.Reminder.Data.PromptDataBase
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@name", prompt.Name);
                     command.Parameters.AddWithValue("@categoryid", prompt.Category);
-                    command.Parameters.AddWithValue("@dateofcreating", DateTime.Now.Date);
+                    command.Parameters.AddWithValue("@dateofcreating", prompt.Date);
                     command.Parameters.AddWithValue("@description", prompt.Description);
                     command.Parameters.AddWithValue("@image", prompt.Image);
                     command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);

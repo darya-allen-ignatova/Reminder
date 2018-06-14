@@ -24,10 +24,10 @@
     </div>
 
     <div>
-        @Html.LabelFor(model => model.Prompt.CreatingDate, htmlAttributes: new { @class = "boton1" })
+        @Html.LabelFor(model => model.Prompt.Date, htmlAttributes: new { @class = "boton1" })
         <div>
-            @Html.EditorFor(model => model.Prompt.CreatingDate, new { htmlAttributes = new { @class = "input" } })
-            @Html.ValidationMessageFor(model => model.Prompt.CreatingDate, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Prompt.Date, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Prompt.Date, "", new { @class = "text-danger" })
         </div>
     </div>
 

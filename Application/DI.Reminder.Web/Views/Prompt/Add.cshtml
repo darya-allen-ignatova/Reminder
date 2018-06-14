@@ -63,14 +63,21 @@
             </div>
         
 
-<div style="width:45%; float:right">
-    <div class="boton1">
-       Actions
-    </div>
-    <div id="textBox">
+            <div style="width:45%; float:right">
+                <div>
+                    @Html.LabelFor(model => model.Prompt.Date, htmlAttributes: new { @class = "boton1" })
+                    <div>
+                        @Html.EditorFor(model => model.Prompt.Date, new { htmlAttributes = new { @class = "input" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="boton1">
+                    Actions
+                </div>
+                <div id="textBox">
 
-    </div>
-    <input value="Add" type="button" class="button" id="AddingButton" col="0"/>
-</div>
+                </div>
+                <input value="Add" type="button" class="button" id="AddingButton" col="0" />
+            </div>
 
 }
