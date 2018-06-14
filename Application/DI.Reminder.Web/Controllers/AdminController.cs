@@ -66,7 +66,7 @@ namespace DI.Reminder.Web.Controllers
 
 
 
-        [OutputCache(CacheProfile = "cacheProfileForUsers")]
+        //[OutputCache(CacheProfile = "cacheProfileForUsers")]
         public ActionResult UserList()
         {
             return View(_userRepository.GetUserList());

@@ -44,7 +44,7 @@ namespace DI.Reminder.Web.Controllers
 
 
 
-        [OutputCache(CacheProfile = "cacheProfileForRoles")]
+        //[OutputCache(CacheProfile = "cacheProfileForRoles")]
         public ActionResult ShowAll()
         {
             var allCategories = _roles.GetAllRoles();

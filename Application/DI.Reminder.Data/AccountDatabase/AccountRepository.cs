@@ -205,6 +205,9 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Open();
                     string sqlExpression = "DeleteUser";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    //command.Notification = null;
+                    //var dependency = new SqlDependency(command);
+                    //dependency.OnChange += new OnChangeEventHandler(OnDatabaseChange);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam1 = new SqlParameter()
                     {
@@ -378,6 +381,17 @@ namespace DI.Reminder.Data.AccountDatabase
             }
             return _accountlist;
         }
+        //private void OnDatabaseChange(object sender, SqlNotificationEventArgs args)
+        //{
+        //    SqlNotificationInfo info = args.Info;
+        //    if (SqlNotificationInfo.Insert.Equals(info)
+        //        || SqlNotificationInfo.Update.Equals(info)
+        //        || SqlNotificationInfo.Delete.Equals(info))
+        //    {
+
+        //    }
+
+        //}
 
     }
 }

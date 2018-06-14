@@ -4,6 +4,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DI.Reminder.Web.DependencyResolution;
+using System.Data.SqlClient;
+
 namespace DI.Reminder.Web
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -16,11 +18,13 @@ namespace DI.Reminder.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();
             String connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            
             System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(connStr);
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Prompts");
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Categories");
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Users");
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Roles");
+            SqlDependency.Start(connStr);
         }
         protected void Application_Error(object sender, EventArgs e)
         {

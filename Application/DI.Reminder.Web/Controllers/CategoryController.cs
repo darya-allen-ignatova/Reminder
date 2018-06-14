@@ -64,7 +64,7 @@ namespace DI.Reminder.Web.Controllers
         }
 
 
-        [OutputCache(CacheProfile = "cacheProfileForCategories")]
+        //[OutputCache(CacheProfile = "cacheProfileForCategories")]
         public ActionResult ShowAll()
         {
             var allCategories = _categoriesStorage.GetAllCategories();

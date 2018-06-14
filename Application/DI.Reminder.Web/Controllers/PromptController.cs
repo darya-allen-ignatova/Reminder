@@ -23,7 +23,7 @@ namespace DI.Reminder.Web.Controllers
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
 
-        [OutputCache(CacheProfile = "cacheProfileForCategories")]
+        //[OutputCache(CacheProfile = "cacheProfileForCategories")]
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Category> _categorylist = _getcategory.GetCategories(id);
