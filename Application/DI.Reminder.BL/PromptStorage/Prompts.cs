@@ -9,7 +9,7 @@ using DI.Reminder.BL.CachedRepository;
 
 namespace DI.Reminder.BL.PromptStorage
 {
-    public class Prompts:IPrompt
+    public class Prompts : IPrompt
     {
         private ICacheRepository _cacheRepository;
         private ISearch _search;
@@ -25,12 +25,20 @@ namespace DI.Reminder.BL.PromptStorage
 
 
 
-        public IList<Prompt> GetCategoryItemsByID(int userID,int? id)
+        public IList<Prompt> GetCategoryItemsByID(int userID, int? id)
         {
             if (id == null || id < 0 || userID < 1)
                 return null;
-            IList<Prompt> promptList= _promptRepository.GetPromptsList(userID,id);
-            IList<Category> categoryList= _categoryRepository.GetCategories(id);
+            IList<Prompt> promptList = _promptRepository.GetPromptsList(userID, id);
+            IList<Category> categoryList = null;
+            if (id == 0)
+            {
+                categoryList = null;
+            }
+            else
+            {
+                categoryList = _categoryRepository.GetCategories(id);
+            }
 
             if (promptList == null & categoryList == null)
             {
@@ -60,18 +68,18 @@ namespace DI.Reminder.BL.PromptStorage
         }
         public void DeletePrompt(int userID, int? id)
         {
-            if (id == null || userID<1 || id<1)
+            if (id == null || userID < 1 || id < 1)
                 return;
-            _promptRepository.DeletePrompt(userID,id);
+            _promptRepository.DeletePrompt(userID, id);
             _cacheRepository.DeleteCache((int)id);
 
         }
 
         public void InsertPrompt(int userID, Prompt newprompt)
         {
-            if (newprompt == null || userID<1)
+            if (newprompt == null || userID < 1)
                 return;
-            _promptRepository.AddPrompt(userID,newprompt);
+            _promptRepository.AddPrompt(userID, newprompt);
             _cacheRepository.AddCache<Prompt>(newprompt, newprompt.ID);
         }
 
@@ -88,6 +96,6 @@ namespace DI.Reminder.BL.PromptStorage
             _promptRepository.EditPrompt(prompt);
             _cacheRepository.UpdateCache(prompt, prompt.ID);
         }
-    
+
     }
 }

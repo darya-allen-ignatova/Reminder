@@ -25,26 +25,24 @@ namespace DI.Reminder.BL.LoginService.Authentication
         }
         public HttpContext httpContext { get; set; }
 
-        public Account Registration(Account account)
+        public void Registration(Account account)
         {
             LogOut();
             if (account != null)
             {
                 CreateCookie(account);
             }
-            return GetAccount(account.Login);
         }
-        public Account Authentication(Account newaccount, bool isPersistent=false)
+        public void Authentication(Account newaccount, bool isPersistent=false)
         {
             LogOut();
             if (newaccount == null || newaccount.Login == null || newaccount.Password == null)
-                return null;
+                return;
             Account account = _accountRepository.GetAccount(newaccount.Login);
             if (account != null && account.Password.Replace(" ", string.Empty)==newaccount.Password)
             {
                 CreateCookie(account, isPersistent);
             }
-            return account;
         }
         private Account GetAccount(string login)
         {

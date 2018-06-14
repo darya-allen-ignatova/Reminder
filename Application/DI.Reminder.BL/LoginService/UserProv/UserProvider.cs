@@ -32,7 +32,7 @@ namespace DI.Reminder.BL.LoginService.UserProv
         }
         public bool IsInRole(string role)
         {
-            if (userIndentity.IsAuthenticated || string.IsNullOrWhiteSpace(role))
+            if (!userIndentity.IsAuthenticated || string.IsNullOrWhiteSpace(role))
             {
                 return false;
             }

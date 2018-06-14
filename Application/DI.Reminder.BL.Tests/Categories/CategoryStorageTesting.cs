@@ -55,6 +55,8 @@ namespace DI.Reminder.BL.Tests.Categories
 
         }
         #endregion
+
+
         #region GetCategories
         [TestMethod]
         public void GetCategories_InvalidInputData_Null()
@@ -94,6 +96,8 @@ namespace DI.Reminder.BL.Tests.Categories
             _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int?>()), Times.Once);
         }
         #endregion
+
+
         #region GetCategory
         [TestMethod]
         public void GetCategory_InvalidInputData_Null()
@@ -158,6 +162,8 @@ namespace DI.Reminder.BL.Tests.Categories
         }
 
         #endregion
+
+
         #region GetCategoryParentID
         [TestMethod]
         public void GetCategoryParentID_validInputData_ParentID()
@@ -198,6 +204,8 @@ namespace DI.Reminder.BL.Tests.Categories
 
         }
         #endregion
+
+
         #region GetCategoryIDByName
         [TestMethod]
         public void GetCategoryIDByName_InvalidInputData_Null()

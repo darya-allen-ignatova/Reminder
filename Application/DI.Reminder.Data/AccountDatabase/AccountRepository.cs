@@ -175,7 +175,8 @@ namespace DI.Reminder.Data.AccountDatabase
                         {
                             ID = int.Parse(reader["ID"].ToString()),
                             Login = reader["Login"].ToString(),
-                            Password = reader["Password"].ToString()
+                            Password = reader["Password"].ToString(),
+                            Email = reader["Email"].ToString()
                         };
 
                     }

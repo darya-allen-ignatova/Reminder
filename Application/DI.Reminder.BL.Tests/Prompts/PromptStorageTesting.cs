@@ -42,7 +42,7 @@ namespace DI.Reminder.BL.Tests.Prompts
                     ID=1,
                     userID=2,
                     Name="Make site start page",
-                    Category="Work",
+                    Category=2,
                     CreatingDate=new System.DateTime(2018,06,15),
                     Description="Until it is June,15",
                     Actions=new List<Action>()
@@ -71,7 +71,7 @@ namespace DI.Reminder.BL.Tests.Prompts
                     ID=2,
                     userID=2,
                     Name="Buy clocks for father",
-                    Category="Family",
+                    Category=3,
                     CreatingDate=new System.DateTime(2018,01,06),
                     Description="Now",
                     Actions=new List<Action>()
@@ -95,7 +95,7 @@ namespace DI.Reminder.BL.Tests.Prompts
                     ID =3,
                     userID=2,
                     Name="Paint picture",
-                    Category="Other",
+                    Category=4,
                     CreatingDate=new System.DateTime(2018,10,06),
                     Description="For dining room",
                     Actions=new List<Action>()
@@ -151,6 +151,7 @@ namespace DI.Reminder.BL.Tests.Prompts
         }
         #endregion
 
+
         #region GetCategoryItemsByID
 
         [TestMethod]
@@ -163,7 +164,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             int ID = 2;
             
             _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns<IList<Category>>(null);
-            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.Category=="Work").ToList);
+            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.Category==ID).ToList);
 
 
             //
@@ -174,7 +175,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(_testingListOfPrompts[0].ID, result[0].ID);
+            Assert.AreEqual(_testingListOfPrompts[0].Name, result[0].Name);
             _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Once);
             _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
@@ -248,7 +249,10 @@ namespace DI.Reminder.BL.Tests.Prompts
         }
         #endregion
 
+
         #region GetPromptDetails
+
+
 
         [TestMethod]
         public void GetPromptDetails_InvalidID_Null()
@@ -287,7 +291,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(_testingListOfPrompts[1].Name,result.Name);
+            Assert.AreEqual(_testingListOfPrompts[0].Name,result.Name);
             _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
             _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(),It.IsAny<int>()), Times.Once);
             _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
@@ -315,7 +319,12 @@ namespace DI.Reminder.BL.Tests.Prompts
             _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
 
         }
+
+
+
         #endregion
+
+
         #region GetSearchingPrompts
 
         [TestMethod]

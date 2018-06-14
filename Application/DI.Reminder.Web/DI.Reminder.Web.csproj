@@ -207,13 +207,13 @@
     <Content Include="Views\Prompt\Delete.cshtml" />
     <Content Include="Views\Prompt\Edit.cshtml" />
     <Content Include="Views\Admin\DeleteUser.cshtml" />
-    <Content Include="Views\Admin\GetUserList.cshtml" />
+    <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Category\Add.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\ShowAll.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\Account\EditAccount.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
     <None Include="Views\Prompt\ShowCategoryList.cshtml" />

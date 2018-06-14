@@ -25,7 +25,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult AddUser(Account account)
         {
             _userRepository.InsertUser(account);
-            return RedirectToAction("GetUserList");
+            return RedirectToAction("UserList");
         }
         
 
@@ -42,7 +42,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult DeleteUser(Account account)
         {
             _userRepository.DeleteUser(account.ID);
-            return RedirectToAction("GetUserList");
+            return RedirectToAction("UserList");
         }
 
 
@@ -61,13 +61,13 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult EditUser(Account account)
         {
             _userRepository.EditUser(account);
-            return RedirectToAction("GetUserList");
+            return RedirectToAction("UserList");
         }
 
 
 
         [OutputCache(CacheProfile = "cacheProfileForUsers")]
-        public ActionResult GetUserList()
+        public ActionResult UserList()
         {
             return View(_userRepository.GetUserList());
         }

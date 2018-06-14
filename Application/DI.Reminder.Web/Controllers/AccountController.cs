@@ -49,7 +49,7 @@ namespace DI.Reminder.Web.Controllers
             _authentication.Authentication(account);
             return RedirectToAction("Home", "Start");
         }
-        public ActionResult EditAccount()
+        public ActionResult Edit()
         {
             _authentication.httpContext = System.Web.HttpContext.Current;
             Account _account = _userRepository.GetUser(_authentication.CurrentUser.Identity.Name);
@@ -60,7 +60,7 @@ namespace DI.Reminder.Web.Controllers
             return View(_account);
         }
         [HttpPost]
-        public ActionResult EditUser(Account account)
+        public ActionResult Edit(Account account)
         {
             _userRepository.EditUser(account);
             return RedirectToAction("Home", "Start");

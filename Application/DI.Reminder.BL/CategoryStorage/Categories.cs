@@ -66,14 +66,9 @@ namespace DI.Reminder.BL.CategoryStorage
         }
         public int? GetCategoryIDByName(string Name)
         {
-            if (Name != null)
-            {
-                return _category.GetCategoryID(Name);
-            }
-            else
-            {
+            if (Name == null)
                 return null;
-            }
+            return _category.GetCategoryID(Name);
         }
         public void EditCategory(Category category)
         {

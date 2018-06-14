@@ -44,7 +44,13 @@ namespace DI.Reminder.Data.Searching
                     string sqlExpression = "SearchByCategory";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    int? ID = _categoryRepository.GetCategoryID(value);
+                    int? ID = null;
+                    if (value.Replace(" ", string.Empty).ToLower() == "all")
+                        ID = 0;
+                    else
+                    {
+                        ID = _categoryRepository.GetCategoryID(value);
+                    }
                     SqlParameter sqlparam = new SqlParameter()
                     {
                         ParameterName = "@id",

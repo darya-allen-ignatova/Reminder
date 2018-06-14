@@ -7,8 +7,8 @@ namespace DI.Reminder.BL.LoginService.Authentication
     public interface IAuthentication
     {
         HttpContext httpContext { get; set; }
-        Account Authentication(Account account, bool isPersistent = false);
-        Account Registration(Account account);
+        void Authentication(Account account, bool isPersistent = false);
+        void Registration(Account account);
         void LogOut();
         IPrincipal CurrentUser { get; }
     }
