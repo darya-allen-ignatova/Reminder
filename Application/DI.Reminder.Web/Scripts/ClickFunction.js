@@ -10,7 +10,7 @@
                 }
                 else if (jsonData.isEmpty) {
                     $("#JSON").text("");
-                    $("#JSON").append('<div>' + jsonData.message + '</div>');
+                    $("#JSON").append('<div> There are no any prompts in chosen category</div>');
                     $("#JSON").append('<a style="padding-top:20px" href="/Prompt/Add"> Add new </a>');
                 }
                 else {

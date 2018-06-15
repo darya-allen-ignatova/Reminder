@@ -24,28 +24,41 @@ namespace DI.Reminder.Web.Controllers
         }
 
         //[OutputCache(CacheProfile = "cacheProfileForCategories")]
+        //public ActionResult ShowCategoryList(int? id = null)
+        //{
+        //    IList<Category> _categorylist = _getcategory.GetCategories(id);
+        //    if (_categorylist.Count != 0)
+        //        return View(_categorylist);
+        //    else
+        //        return RedirectToAction("HttpError404", "Error");
+
+        //}
         public ActionResult ShowCategoryList(int? id = null)
         {
+            IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
             IList<Category> _categorylist = _getcategory.GetCategories(id);
+            ModelCategoriesWithPrompts modelCategoriesWithPrompts = new ModelCategoriesWithPrompts();
             if (_categorylist.Count != 0)
-                return View(_categorylist);
+            {
+                modelCategoriesWithPrompts.CategoryList = _categorylist;
+                modelCategoriesWithPrompts.PromptList = _promptlist;
+            }
             else
                 return RedirectToAction("HttpError404", "Error");
-
+            return View(modelCategoriesWithPrompts);
         }
         public ActionResult GetCategoryPrompts(int id)
         {
-            IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(UserID, id);
-            if (jsondata == null)
+            IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID, id);
+            IList<Category> _categorylist = _getcategory.GetCategories(id);
+            if((_categorylist!=null && _promptlist==null) || (_categorylist == null && _promptlist == null))
             {
                 return Json(new
                 {
-                    message = "There are no prompts",
-                    isEmpty = true
-                },
-                JsonRequestBehavior.AllowGet);
+                   isEmpty = true
+                }, JsonRequestBehavior.AllowGet);
             }
-            if (jsondata.Count == 0)
+            else if (_categorylist != null)
             {
                 return Json(new
                 {
@@ -53,8 +66,34 @@ namespace DI.Reminder.Web.Controllers
                     isRedirect = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            return Json(jsondata, JsonRequestBehavior.AllowGet);
+            else 
+            {
+                return Json(_promptlist, JsonRequestBehavior.AllowGet);
+            }
         }
+        //public ActionResult GetCategoryPrompts(int id)
+        //{
+        //    IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(UserID, id);
+        //    if (jsondata == null)
+        //    {
+        //        return Json(new
+        //        {
+        //            message = "There are no prompts",
+        //            isEmpty = true
+        //        },
+        //        JsonRequestBehavior.AllowGet);
+        //    }
+        //    if (jsondata.Count == 0)
+        //    {
+        //        return Json(new
+        //        {
+        //            ID = id,
+        //            isRedirect = true
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json(jsondata, JsonRequestBehavior.AllowGet);
+        //}
+
         public ActionResult GetItemsForSearch(int id, string value)
         {
             IList<Prompt> jsondata = _prompt.GetSearchingPrompts(UserID, id, value);
