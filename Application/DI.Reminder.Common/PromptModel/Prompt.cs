@@ -11,6 +11,7 @@ namespace DI.Reminder.Common.PromptModel
         [Required(ErrorMessage = "Field must be filled")]
         public string Name { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Field must be filled")]
         public DateTime Date { get; set; }
         public string Description { get; set; }

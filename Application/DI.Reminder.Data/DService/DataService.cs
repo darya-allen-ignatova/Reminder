@@ -4,43 +4,51 @@ using System.ServiceModel;
 using DI.Reminder.Data.AdvertisingService;
 using DI.Reminder.Common.ServiceModel;
 using DI.Reminder.Service.DataContract;
+using DI.Reminder.Common.Logger;
 
 namespace DI.Reminder.Data.DService
 {
     public class DataService:IDataService
     {
+        ILogger _logger;
+        public DataService(ILogger logger)
+        {
+            _logger = logger;
+        }
         public IList<ServiceItem> GetItems()
         {
             AdvertisingClient client = new AdvertisingClient();
-            IList<AdvertisingItem> list;
+            IList<AdvertisingItem> list = null;
             try
             {
                 list = client.GetItems();
             }
-            catch(ArgumentNullException)
+            catch(ArgumentNullException argnullexc)
             {
-                throw new ArgumentNullException();
+                _logger.Error("ServiceException:   "+ argnullexc.Message);
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception();
+                _logger.Error("ServiceException:   " + ex.Message);
             }
             try
             {
                 client.Close();
             }
-            catch (CommunicationException)
+            catch (CommunicationException comExc)
             {
+                _logger.Error("ServiceException:   " + comExc.Message);
                 client.Abort();
             }
-            catch (TimeoutException)
+            catch (TimeoutException timeExc)
             {
+                _logger.Error("ServiceException:   " + timeExc.Message);
                 client.Abort();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.Error("ServiceException:   " + ex.Message);
                 client.Abort();
-                throw;
             }
             List<ServiceItem>_list = new List<ServiceItem>();
             for (int i = 0; i < 3; i++)

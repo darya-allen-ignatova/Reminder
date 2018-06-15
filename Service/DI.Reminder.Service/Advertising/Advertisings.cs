@@ -10,7 +10,6 @@ namespace DI.Reminder.Service.Advertising
         public IList<AdvertisingItem> GetItems()
         {
             AdvertisingData data = new AdvertisingData();
-
             IList<AdvertisingItem> list = data.GetItems();
             return list;
 

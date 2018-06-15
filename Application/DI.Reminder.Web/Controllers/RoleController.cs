@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
 {
-    [Editor]
+    [Admin]
     public class RoleController : Controller
     {
         private IRoles _roles;
