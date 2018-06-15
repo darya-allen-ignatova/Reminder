@@ -1,4 +1,5 @@
 ﻿using DI.Reminder.Common.CategoryModel;
+using DI.Reminder.Common.Logger;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,6 +9,11 @@ namespace DI.Reminder.Data.CategoryDataBase
 {
     public class CategoryRepository : ICategoryRepository
     {
+        ILogger _logger;
+        public CategoryRepository(ILogger logger)
+        {
+            _logger = logger;
+        }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -42,13 +48,13 @@ namespace DI.Reminder.Data.CategoryDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return ID;
         }
@@ -84,13 +90,13 @@ namespace DI.Reminder.Data.CategoryDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return parent;
         }
@@ -145,13 +151,13 @@ namespace DI.Reminder.Data.CategoryDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
@@ -181,13 +187,13 @@ namespace DI.Reminder.Data.CategoryDataBase
                     var result = command.ExecuteNonQuery();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
 
@@ -211,13 +217,13 @@ namespace DI.Reminder.Data.CategoryDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public Category GetCategory(int id)
@@ -258,13 +264,13 @@ namespace DI.Reminder.Data.CategoryDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return category;
         }
@@ -306,13 +312,13 @@ namespace DI.Reminder.Data.CategoryDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
@@ -339,13 +345,13 @@ namespace DI.Reminder.Data.CategoryDataBase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
     }
