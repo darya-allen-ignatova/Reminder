@@ -1,4 +1,5 @@
-﻿using DI.Reminder.Common.PromptModel;
+﻿using DI.Reminder.Common.Logger;
+using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Data.CategoryDataBase;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,17 @@ namespace DI.Reminder.Data.Searching
     public class Search : ISearch
     {
         private ICategoryRepository _categoryRepository;
+        private ILogger _logger;
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
             get { return connection; }
             set { }
         }
-        public Search(ICategoryRepository categoryRepository)
+        public Search(ICategoryRepository categoryRepository, ILogger logger)
         {
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public IList<Prompt> GetSearchItems(int userID, int id, string value)
@@ -77,19 +80,19 @@ namespace DI.Reminder.Data.Searching
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
         private IList<Prompt> GetByPrompt(string value, int userID)
         {
-            List<Prompt> _list;
+            List<Prompt> _list = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(GetConnection))
@@ -124,13 +127,13 @@ namespace DI.Reminder.Data.Searching
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
@@ -181,13 +184,13 @@ namespace DI.Reminder.Data.Searching
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
