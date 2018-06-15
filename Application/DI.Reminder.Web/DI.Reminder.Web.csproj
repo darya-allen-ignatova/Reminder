@@ -139,7 +139,6 @@
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
-    <Content Include="Scripts\Action.js" />
     <Content Include="Scripts\ActionAdding.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
