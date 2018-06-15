@@ -9,10 +9,10 @@ namespace DI.Reminder.Data.CategoryDataBase
 {
     public class CategoryRepository : ICategoryRepository
     {
-        ILogger _logger;
+        private ILogger _logger;
         public CategoryRepository(ILogger logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection

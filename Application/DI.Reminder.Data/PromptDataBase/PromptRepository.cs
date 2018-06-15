@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using DI.Reminder.Common.Logger;
 using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Data.CategoryDataBase;
 
@@ -9,9 +10,11 @@ namespace DI.Reminder.Data.PromptDataBase
 {
     public class PromptRepository : IPromptRepository
     {
+        private ILogger _logger;
         private ICategoryRepository _categoryRepository;
-        public PromptRepository(ICategoryRepository categoryRepository)
+        public PromptRepository(ICategoryRepository categoryRepository, ILogger logger)
         {
+            _logger=logger ?? throw new ArgumentNullException(nameof(logger));
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -61,13 +64,13 @@ namespace DI.Reminder.Data.PromptDataBase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
@@ -118,14 +121,15 @@ namespace DI.Reminder.Data.PromptDataBase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
+            
             return prompt;
         }
         private List<Common.PromptModel.Action> GetActions(int id)
@@ -159,13 +163,13 @@ namespace DI.Reminder.Data.PromptDataBase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return actions;
 
@@ -196,20 +200,19 @@ namespace DI.Reminder.Data.PromptDataBase
                     AddActions(prompt.Actions[i], prompt.ID);
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public void DeletePrompt(int userID, int? id)
         {
             try
             {
-                ICategoryRepository categoryRepository = new CategoryRepository();
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -227,13 +230,13 @@ namespace DI.Reminder.Data.PromptDataBase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public void AddActions(Common.PromptModel.Action action, int id)
@@ -252,13 +255,13 @@ namespace DI.Reminder.Data.PromptDataBase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public void EditPrompt(Prompt prompt)
@@ -304,13 +307,13 @@ namespace DI.Reminder.Data.PromptDataBase
                     }
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         private List<int> GetIDOfActions(int id)
@@ -333,13 +336,13 @@ namespace DI.Reminder.Data.PromptDataBase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return IDs;
         }
