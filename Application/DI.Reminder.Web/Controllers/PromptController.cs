@@ -22,17 +22,6 @@ namespace DI.Reminder.Web.Controllers
             _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
-
-        //[OutputCache(CacheProfile = "cacheProfileForCategories")]
-        //public ActionResult ShowCategoryList(int? id = null)
-        //{
-        //    IList<Category> _categorylist = _getcategory.GetCategories(id);
-        //    if (_categorylist.Count != 0)
-        //        return View(_categorylist);
-        //    else
-        //        return RedirectToAction("HttpError404", "Error");
-
-        //}
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
@@ -71,28 +60,6 @@ namespace DI.Reminder.Web.Controllers
                 return Json(_promptlist, JsonRequestBehavior.AllowGet);
             }
         }
-        //public ActionResult GetCategoryPrompts(int id)
-        //{
-        //    IList<Prompt> jsondata = _prompt.GetCategoryItemsByID(UserID, id);
-        //    if (jsondata == null)
-        //    {
-        //        return Json(new
-        //        {
-        //            message = "There are no prompts",
-        //            isEmpty = true
-        //        },
-        //        JsonRequestBehavior.AllowGet);
-        //    }
-        //    if (jsondata.Count == 0)
-        //    {
-        //        return Json(new
-        //        {
-        //            ID = id,
-        //            isRedirect = true
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(jsondata, JsonRequestBehavior.AllowGet);
-        //}
 
         public ActionResult GetItemsForSearch(int id, string value)
         {
@@ -114,8 +81,6 @@ namespace DI.Reminder.Web.Controllers
             Prompt prompt = _prompt.GetPromptDetails(UserID, ID);
             if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
-            var category = _getcategory.GetCategory(prompt.Category);
-            prompt.CategoryName = category.Name;
             return View(prompt);
         }
 
@@ -144,8 +109,6 @@ namespace DI.Reminder.Web.Controllers
             Prompt prompt = _prompt.GetPromptDetails(UserID, id);
             if (prompt == null )
                 return RedirectToAction("HttpError404", "Error");
-            var category = _getcategory.GetCategory(prompt.Category);
-            prompt.CategoryName = category.Name;
             return View(prompt);
         }
         [HttpPost]

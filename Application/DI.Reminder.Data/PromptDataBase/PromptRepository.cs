@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Data.CategoryDataBase;
 
@@ -50,12 +51,17 @@ namespace DI.Reminder.Data.PromptDataBase
                     };
                     command.Parameters.Add(sqlparam1);
                     SqlDataReader reader = command.ExecuteReader();
-
+                    Category category = null;
                     if (reader.HasRows)
+                    {
                         _list = new List<Prompt>();
+                    }
                     while (reader.Read())
                     {
-                        _list.Add(new Prompt() { ID = int.Parse(reader["ID"].ToString()), Name = reader["Name"].ToString(), Category = int.Parse(reader["CategoryID"].ToString()) });
+                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                        category = _categoryRepository.GetCategory(IDCategory);
+                        _list.Add(new Prompt() { ID = int.Parse(reader["ID"].ToString()), Name = reader["Name"].ToString(),
+                            Category = category });
                     }
                     connection.Close();
 
@@ -95,8 +101,11 @@ namespace DI.Reminder.Data.PromptDataBase
                     };
                     command.Parameters.Add(sqlparam1);
                     SqlDataReader reader = command.ExecuteReader();
+                    Category category = null;
                     while (reader.Read())
                     {
+                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                        category = _categoryRepository.GetCategory(IDCategory);
                         int Id = int.Parse(reader["ID"].ToString());
                         object objimage = reader["Image"]; string image;
                         if (Convert.IsDBNull(objimage))
@@ -105,9 +114,9 @@ namespace DI.Reminder.Data.PromptDataBase
                             image = objimage.ToString();
                         prompt = new Prompt()
                         {
-                            ID = Id,
+                            ID = int.Parse(reader["ID"].ToString()),
                             Name = reader["Name"].ToString(),
-                            Category = int.Parse(reader["CategoryID"].ToString()),
+                            Category = category,
                             Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
                             TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
                             Description = reader["Description"].ToString(),
@@ -174,6 +183,7 @@ namespace DI.Reminder.Data.PromptDataBase
         {
             try
             {
+                prompt.Category.ID = (int)_categoryRepository.GetCategoryID(prompt.Category.Name);
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -182,7 +192,7 @@ namespace DI.Reminder.Data.PromptDataBase
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@name", prompt.Name);
                     command.Parameters.AddWithValue("@userId", userID);
-                    command.Parameters.AddWithValue("@categoryid", prompt.Category);
+                    command.Parameters.AddWithValue("@categoryid", prompt.Category.ID);
                     command.Parameters.AddWithValue("@dataofcreating", prompt.Date);
                     command.Parameters.AddWithValue("@description", prompt.Description);
                     command.Parameters.AddWithValue("@Image", prompt.Image);
@@ -209,7 +219,6 @@ namespace DI.Reminder.Data.PromptDataBase
         {
             try
             {
-                ICategoryRepository categoryRepository = new CategoryRepository();
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -265,6 +274,7 @@ namespace DI.Reminder.Data.PromptDataBase
         {
             try
             {
+                prompt.Category.ID = (int)_categoryRepository.GetCategoryID(prompt.Category.Name);
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -272,7 +282,7 @@ namespace DI.Reminder.Data.PromptDataBase
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@name", prompt.Name);
-                    command.Parameters.AddWithValue("@categoryid", prompt.Category);
+                    command.Parameters.AddWithValue("@categoryid", prompt.Category.ID);
                     command.Parameters.AddWithValue("@dateofcreating", prompt.Date);
                     command.Parameters.AddWithValue("@description", prompt.Description);
                     command.Parameters.AddWithValue("@image", prompt.Image);
