@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: log4net.Config.XmlConfigurator( Watch = true)]
+
 // Установка значения false в параметре ComVisible делает типы в этой сборке невидимыми 
 // для компонентов COM. Если требуется обратиться к типу в этой сборке через 
 // COM, задайте атрибуту ComVisible значение true для требуемого типа.
