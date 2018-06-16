@@ -28,6 +28,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Add(CategoryViewModel categoryModel)
         {
+            if (categoryModel == null)
+                throw new ArgumentNullException();
             if (categoryModel != null)
             {
                 _categoriesStorage.InsertCategory(GetFromModel(categoryModel));
@@ -38,6 +40,8 @@ namespace DI.Reminder.Web.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
             var category = _categoriesStorage.GetCategory(id);
             CategoriesModel categoryModel = GetModel(category);
             if (categoryModel != null)
@@ -48,6 +52,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Category category)
         {
+            if (category == null)
+                throw new ArgumentNullException();
             _categoriesStorage.DeleteCategory(category.ID);
             return View();
         }
@@ -55,6 +61,8 @@ namespace DI.Reminder.Web.Controllers
 
         public ActionResult Details(int? id)
         {
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
             var categoryDetails = _categoriesStorage.GetCategory(id);
             CategoriesModel categoriesModel = GetModel(categoryDetails);
             if (categoriesModel != null)
@@ -84,6 +92,8 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult Edit(int? ID)
         {
+            if(ID==null)
+                return RedirectToAction("HttpError404", "Error");
             var CategoryList = GetCategoriesList();
             var categoryDetails = _categoriesStorage.GetCategory(ID);
             if (categoryDetails == null)
@@ -99,6 +109,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Category category)
         {
+            if (category == null)
+                throw new ArgumentNullException();
             _categoriesStorage.EditCategory(category);
             return RedirectToAction("ShowAll");
         }
