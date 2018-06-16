@@ -16,12 +16,12 @@ namespace DI.Reminder.BL.CategoryStorage
             _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
         }
 
-        public void DeleteCategory(int? id)
+        public void DeleteCategory(int id)
         {
-            if (id == null || id < 1)
+            if (id < 1)
                 return;
-            _category.DeleteCategory((int)id);
-            _cacheService.DeleteCache((int)id);
+            _category.DeleteCategory(id);
+            _cacheService.DeleteCache(id);
         }
 
         public IList<Category> GetAllCategories()
@@ -29,21 +29,21 @@ namespace DI.Reminder.BL.CategoryStorage
             return _category.GetAllCategories();
         }
 
-        public IList<Category> GetCategories(int? id)
+        public IList<Category> GetCategories(int id)
         {
             if (id < 0)
                 return null;
             return _category.GetCategories(id);
         }
 
-        public Category GetCategory(int? id)
+        public Category GetCategory(int id)
         {
-            if (id < 1 || id == null)
+            if (id < 1)
                 return null;
-            var category = _cacheService.GetValueOfCache<Category>((int)id);
+            var category = _cacheService.GetValueOfCache<Category>(id);
             if (category == null)
             {
-                category = _category.GetCategory((int)id);
+                category = _category.GetCategory(id);
                 _cacheService.AddCache(category, category.ID);
             }
             return category;

@@ -34,7 +34,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
-            var role = _roles.GetRole(id);
+            var role = _roles.GetRole((int)id);
             if(role==null)
                 return RedirectToAction("HttpError404", "Error");
             return View(role);

@@ -37,7 +37,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
-            Account account = _userService.GetUser(id);
+            Account account = _userService.GetUser((int)id);
             if (account == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(account);
@@ -58,7 +58,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
-            Account _account = _userService.GetUser(id);
+            Account _account = _userService.GetUser((int)id);
             _account.Password = _account.Password.Replace(" ", string.Empty);
             if (_account == null)
                 return RedirectToAction("HttpError404", "Error");
@@ -87,7 +87,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (id == null)
                 return RedirectToAction("HttpError404", "Error");
-            Account account = _userService.GetUser(id);
+            Account account = _userService.GetUser((int)id);
             if (account == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(account);

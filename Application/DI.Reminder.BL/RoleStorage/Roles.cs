@@ -16,12 +16,12 @@ namespace DI.Reminder.BL.RoleStorage
             _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
-        public void DeleteRole(int? id)
+        public void DeleteRole(int id)
         {
-            if (id < 1 || id == null)
+            if (id < 1)
                 return;
-            _roleRepository.DeleteRole((int)id);
-            _cacheService.DeleteCache((int)id);
+            _roleRepository.DeleteRole(id);
+            _cacheService.DeleteCache(id);
         }
 
         public IList<Role> GetAllRoles()
@@ -31,16 +31,16 @@ namespace DI.Reminder.BL.RoleStorage
 
         public void InsertRole(Role role)
         {
-            if (role == null || role.Name == null)
+            if (role.Name == null)
                 return;
             _roleRepository.InsertRole(role.Name);
             _cacheService.AddCache(role, role.ID);
         }
-        public Role GetRole(int? id)
+        public Role GetRole(int id)
         {
-            if (id < 1 || id == null)
+            if (id < 1)
                 return null;
-            var role = _cacheService.GetValueOfCache<Role>((int)id);
+            var role = _cacheService.GetValueOfCache<Role>(id);
             if(role==null)
             {
                 IList<Role> list = _roleRepository.GetAllRoles();

@@ -15,37 +15,33 @@ namespace DI.Reminder.BL.UsersService
             _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
             _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
         }
-        public void DeleteUser(int? id)
+        public void DeleteUser(int id)
         {
-            if (id == null || id < 1)
+            if (id < 1)
                 return;
-            _accountRepository.DeleteAccount((int)id);
-            _cacheService.DeleteCache((int)id);
+            _accountRepository.DeleteAccount(id);
+            _cacheService.DeleteCache(id);
         }
 
         public void EditUser(Account account)
         {
-            if (account == null)
-                return;
             _accountRepository.UpdateAccount(account);
             _cacheService.UpdateCache(account, account.ID);
         }
 
         public Account GetUser(string login)
         {
-            if (login == null)
-                return null;
             return _accountRepository.GetAccount(login);
         }
 
-        public Account GetUser(int? id)
+        public Account GetUser(int id)
         {
-            if (id == null || id < 1)
+            if (id < 1)
                 return null;
-            var account = _cacheService.GetValueOfCache<Account>((int)id);
+            var account = _cacheService.GetValueOfCache<Account>(id);
             if(account==null)
             {
-                account = _accountRepository.GetAccount((int)id);
+                account = _accountRepository.GetAccount(id);
                 _cacheService.AddCache<Account>(account, account.ID);
             }
             return account;
@@ -58,8 +54,6 @@ namespace DI.Reminder.BL.UsersService
 
         public void InsertUser(Account account)
         {
-            if (account == null)
-                return;
             _accountRepository.InsertAccount(account);
             _cacheService.AddCache<Account>(account, account.ID);
         }

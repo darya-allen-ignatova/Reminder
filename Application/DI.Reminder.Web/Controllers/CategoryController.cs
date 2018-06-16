@@ -42,7 +42,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
-            var category = _categoriesStorage.GetCategory(id);
+            var category = _categoriesStorage.GetCategory((int)id);
             CategoriesModel categoryModel = GetModel(category);
             if (categoryModel != null)
                 return View(categoryModel);
@@ -63,7 +63,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
-            var categoryDetails = _categoriesStorage.GetCategory(id);
+            var categoryDetails = _categoriesStorage.GetCategory((int)id);
             CategoriesModel categoriesModel = GetModel(categoryDetails);
             if (categoriesModel != null)
                 return View(categoriesModel);
@@ -95,7 +95,7 @@ namespace DI.Reminder.Web.Controllers
             if(ID==null)
                 return RedirectToAction("HttpError404", "Error");
             var CategoryList = GetCategoriesList();
-            var categoryDetails = _categoriesStorage.GetCategory(ID);
+            var categoryDetails = _categoriesStorage.GetCategory((int)ID);
             if (categoryDetails == null)
                 return RedirectToAction("HttpError404", "Error");
             CategoryViewModel categoryViewModel = new CategoryViewModel()
@@ -122,7 +122,7 @@ namespace DI.Reminder.Web.Controllers
             {
                 string parentCategory = null;
                 if (category.ParentID != null)
-                    parentCategory = _categoriesStorage.GetCategory(category.ParentID).Name;
+                    parentCategory = _categoriesStorage.GetCategory((int)category.ParentID).Name;
 
                 categoriesModel = new CategoriesModel()
                 {

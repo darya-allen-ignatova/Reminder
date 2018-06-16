@@ -25,7 +25,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult ShowCategoryList(int? id = null)
         {
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
-            IList<Category> _categorylist = _getcategory.GetCategories(id);
+            IList<Category> _categorylist = _getcategory.GetCategories((int)id);
             ModelCategoriesWithPrompts modelCategoriesWithPrompts = new ModelCategoriesWithPrompts();
             if (_categorylist.Count != 0)
             {
@@ -41,7 +41,7 @@ namespace DI.Reminder.Web.Controllers
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID, id);
-            IList<Category> _categorylist = _getcategory.GetCategories(id);
+            IList<Category> _categorylist = _getcategory.GetCategories((int)id);
             if((_categorylist!=null && _promptlist==null) || (_categorylist == null && _promptlist == null))
             {
                 return Json(new
@@ -84,7 +84,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(ID==null)
                 return RedirectToAction("HttpError404", "Error");
-            Prompt prompt = _prompt.GetPromptDetails(UserID, ID);
+            Prompt prompt = _prompt.GetPromptDetails(UserID, (int)ID);
             if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -114,7 +114,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
-            Prompt prompt = _prompt.GetPromptDetails(UserID, id);
+            Prompt prompt = _prompt.GetPromptDetails(UserID, (int)id);
             if (prompt == null )
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
@@ -135,7 +135,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(id==null )
                 return RedirectToAction("HttpError404", "Error");
-            Prompt prompt = _prompt.GetPromptDetails(UserID, id);
+            Prompt prompt = _prompt.GetPromptDetails(UserID, (int)id);
             if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
             var selectList = GetAllCategories();

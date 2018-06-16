@@ -7,10 +7,10 @@ namespace DI.Reminder.BL.UsersService
     {
         void InsertUser(Account account);
         void EditUser(Account account);
-        void DeleteUser(int? id);
+        void DeleteUser(int id);
         IList<Account> GetUserList();
         Account GetUser(string login);
-        Account GetUser(int? id);
+        Account GetUser(int id);
 
     }
 }
