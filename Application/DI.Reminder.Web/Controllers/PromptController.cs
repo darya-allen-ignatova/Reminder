@@ -36,8 +36,10 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
             return View(modelCategoriesWithPrompts);
         }
-        public ActionResult GetCategoryPrompts(int id)
+        public ActionResult GetCategoryPrompts(int? id)
         {
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID, id);
             IList<Category> _categorylist = _getcategory.GetCategories(id);
             if((_categorylist!=null && _promptlist==null) || (_categorylist == null && _promptlist == null))
@@ -63,6 +65,8 @@ namespace DI.Reminder.Web.Controllers
 
         public ActionResult GetItemsForSearch(int id, string value)
         {
+            if(value==null)
+                return RedirectToAction("HttpError404", "Error");
             IList<Prompt> jsondata = _prompt.GetSearchingPrompts(UserID, id, value);
             if (jsondata == null || jsondata.Count == 0)
             {
@@ -78,6 +82,8 @@ namespace DI.Reminder.Web.Controllers
 
         public ActionResult Details(int? ID)
         {
+            if(ID==null)
+                return RedirectToAction("HttpError404", "Error");
             Prompt prompt = _prompt.GetPromptDetails(UserID, ID);
             if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
@@ -97,6 +103,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public void Add(Prompt prompt)
         {
+            if (prompt == null)
+                throw new ArgumentNullException();
             _prompt.InsertPrompt(UserID, prompt);
         }
 
@@ -114,6 +122,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Prompt prompt)
         {
+            if (prompt == null)
+                throw new ArgumentNullException();
             _prompt.DeletePrompt(UserID, prompt.ID);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
@@ -139,6 +149,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Prompt prompt)
         {
+            if (prompt == null)
+                throw new ArgumentNullException();
             _prompt.EditPrompt(prompt);
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
