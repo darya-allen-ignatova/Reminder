@@ -2,18 +2,18 @@
 using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.Common.CategoryModel;
 using System;
-using DI.Reminder.BL.CachedRepository;
+using DI.Reminder.BL.Cache;
 
 namespace DI.Reminder.BL.CategoryStorage
 {
     public class Categories : ICategories
     {
         private ICategoryRepository _category;
-        private ICacheRepository _cacheRepository;
-        public Categories(ICategoryRepository category, ICacheRepository cacheRepository)
+        private ICacheService _cacheService;
+        public Categories(ICategoryRepository category, ICacheService cacheService)
         {
             _category = category ?? throw new ArgumentNullException(nameof(category));
-            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
         }
 
         public void DeleteCategory(int? id)
@@ -21,7 +21,7 @@ namespace DI.Reminder.BL.CategoryStorage
             if (id == null || id < 1)
                 return;
             _category.DeleteCategory((int)id);
-            _cacheRepository.DeleteCache((int)id);
+            _cacheService.DeleteCache((int)id);
         }
 
         public IList<Category> GetAllCategories()
@@ -40,11 +40,11 @@ namespace DI.Reminder.BL.CategoryStorage
         {
             if (id < 1 || id == null)
                 return null;
-            var category = _cacheRepository.GetValueOfCache<Category>((int)id);
+            var category = _cacheService.GetValueOfCache<Category>((int)id);
             if (category == null)
             {
                 category = _category.GetCategory((int)id);
-                _cacheRepository.AddCache(category, category.ID);
+                _cacheService.AddCache(category, category.ID);
             }
             return category;
         }
@@ -62,7 +62,7 @@ namespace DI.Reminder.BL.CategoryStorage
             if (category == null)
                 return;
             _category.AddCategory(category);
-            _cacheRepository.AddCache(category, category.ID);
+            _cacheService.AddCache(category, category.ID);
         }
         public int? GetCategoryIDByName(string Name)
         {
@@ -73,7 +73,7 @@ namespace DI.Reminder.BL.CategoryStorage
         public void EditCategory(Category category)
         {
             _category.EditCategory(category);
-            _cacheRepository.UpdateCache(category, category.ID);
+            _cacheService.UpdateCache(category, category.ID);
         }
     }
 }

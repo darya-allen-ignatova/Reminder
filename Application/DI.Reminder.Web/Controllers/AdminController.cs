@@ -1,4 +1,4 @@
-﻿using DI.Reminder.BL.UsersRepository;
+﻿using DI.Reminder.BL.UsersService;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Web.Filters;
 using System;
@@ -9,10 +9,10 @@ namespace DI.Reminder.Web.Controllers
     [Admin]
     public class AdminController : Controller
     {
-        private IUserRepository _userRepository;
-        public AdminController(IUserRepository userRepository)
+        private IUserService _userService;
+        public AdminController(IUserService userService)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
 
@@ -24,7 +24,9 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult AddUser(Account account)
         {
-            _userRepository.InsertUser(account);
+            if (account == null)
+                throw new ArgumentNullException();
+            _userService.InsertUser(account);
             return RedirectToAction("UserList");
         }
         
@@ -33,7 +35,9 @@ namespace DI.Reminder.Web.Controllers
         [HttpGet]
         public ActionResult DeleteUser(int? id)
         {
-            Account account = _userRepository.GetUser(id);
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
+            Account account = _userService.GetUser(id);
             if (account == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(account);
@@ -41,7 +45,9 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult DeleteUser(Account account)
         {
-            _userRepository.DeleteUser(account.ID);
+            if (account == null)
+                throw new ArgumentNullException();
+            _userService.DeleteUser(account.ID);
             return RedirectToAction("UserList");
         }
 
@@ -50,7 +56,9 @@ namespace DI.Reminder.Web.Controllers
         [HttpGet]
         public ActionResult EditUser(int? id)
         {
-            Account _account = _userRepository.GetUser(id);
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
+            Account _account = _userService.GetUser(id);
             _account.Password = _account.Password.Replace(" ", string.Empty);
             if (_account == null)
                 return RedirectToAction("HttpError404", "Error");
@@ -60,7 +68,9 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult EditUser(Account account)
         {
-            _userRepository.EditUser(account);
+            if (account == null)
+                throw new ArgumentNullException();
+            _userService.EditUser(account);
             return RedirectToAction("UserList");
         }
 
@@ -69,13 +79,15 @@ namespace DI.Reminder.Web.Controllers
         //[OutputCache(CacheProfile = "cacheProfileForUsers")]
         public ActionResult UserList()
         {
-            return View(_userRepository.GetUserList());
+            return View(_userService.GetUserList());
         }
 
 
         public ActionResult UserDetails(int? id)
         {
-            Account account = _userRepository.GetUser(id);
+            if (id == null)
+                return RedirectToAction("HttpError404", "Error");
+            Account account = _userService.GetUser(id);
             if (account == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(account);

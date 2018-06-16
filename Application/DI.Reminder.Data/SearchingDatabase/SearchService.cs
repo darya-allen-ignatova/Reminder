@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace DI.Reminder.Data.Searching
+namespace DI.Reminder.Data.SearchingDatabase
 {
-    public class Search : ISearch
+    public class SearchService : ISearchService
     {
         private ICategoryRepository _categoryRepository;
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -16,7 +16,7 @@ namespace DI.Reminder.Data.Searching
             get { return connection; }
             set { }
         }
-        public Search(ICategoryRepository categoryRepository)
+        public SearchService(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }

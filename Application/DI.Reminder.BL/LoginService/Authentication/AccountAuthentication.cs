@@ -2,7 +2,7 @@
 using DI.Reminder.Common.Logger;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Data.AccountDatabase;
-using DI.Reminder.Data.RolesRepository;
+using DI.Reminder.Data.RoleDatabase;
 using System;
 using System.Security.Principal;
 using System.Web;

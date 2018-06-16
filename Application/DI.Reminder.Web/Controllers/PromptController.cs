@@ -6,19 +6,19 @@ using DI.Reminder.Common.PromptModel;
 using System.Collections.Generic;
 using System;
 using DI.Reminder.Common.CategoryModel;
-using DI.Reminder.BL.UsersRepository;
+using DI.Reminder.BL.UsersService;
 
 namespace DI.Reminder.Web.Controllers
 {
     [Authorize]
     public class PromptController : Controller
     {
-        private IUserRepository _userRepository;
+        private IUserService _userService;
         private IPrompt _prompt;
         private ICategories _getcategory;
-        public PromptController(IPrompt prompt, ICategories getcategory, IUserRepository userRepository)
+        public PromptController(IPrompt prompt, ICategories getcategory, IUserService userService)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
@@ -149,7 +149,7 @@ namespace DI.Reminder.Web.Controllers
             get
             {
                 var currentUser = System.Web.HttpContext.Current.User;
-                return _userRepository.GetUser(currentUser.Identity.Name).ID;
+                return _userService.GetUser(currentUser.Identity.Name).ID;
             }
         }
 

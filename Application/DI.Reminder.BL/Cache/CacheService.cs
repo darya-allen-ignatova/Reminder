@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace DI.Reminder.BL.CachedRepository
+namespace DI.Reminder.BL.Cache
 {
-    public class CacheRepository:ICacheRepository
+    public class CacheService:ICacheService
     {
         private MemoryCache memoryCache
         {

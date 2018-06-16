@@ -49,8 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessRegistry\BLRegistry.cs" />
-    <Compile Include="CachedRepository\CacheRepository.cs" />
-    <Compile Include="CachedRepository\ICacheRepository.cs" />
+    <Compile Include="Cache\CacheService.cs" />
+    <Compile Include="Cache\ICacheService.cs" />
     <Compile Include="PromptStorage\IPrompt.cs" />
     <Compile Include="CategoryStorage\Categories.cs" />
     <Compile Include="CategoryStorage\ICategories.cs" />
@@ -64,8 +64,8 @@
     <Compile Include="Services\BLService.cs" />
     <Compile Include="Services\IBLService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersRepository\IUserRepository.cs" />
-    <Compile Include="UsersRepository\UserRepository.cs" />
+    <Compile Include="UsersService\IUserService.cs" />
+    <Compile Include="UsersService\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

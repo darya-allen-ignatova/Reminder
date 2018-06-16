@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using DI.Reminder.Common.LoginModels;
 
-namespace DI.Reminder.Data.RolesRepository
+namespace DI.Reminder.Data.RoleDatabase
 {
     public class RoleRepository : IRoleRepository
     {

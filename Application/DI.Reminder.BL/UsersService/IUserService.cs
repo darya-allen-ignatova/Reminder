@@ -1,9 +1,9 @@
 ﻿using DI.Reminder.Common.LoginModels;
 using System.Collections.Generic;
 
-namespace DI.Reminder.BL.UsersRepository
+namespace DI.Reminder.BL.UsersService
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         void InsertUser(Account account);
         void EditUser(Account account);

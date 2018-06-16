@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DI.Reminder.Data.Searching
+namespace DI.Reminder.Data.SearchingDatabase
 {
-    public interface ISearch
+    public interface ISearchService
     {
         IList<Prompt> GetSearchItems(int userID,int id, string value);
     }

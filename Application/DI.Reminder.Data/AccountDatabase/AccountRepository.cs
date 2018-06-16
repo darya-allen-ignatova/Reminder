@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using DI.Reminder.Common.LoginModels;
-using DI.Reminder.Data.RolesRepository;
+using DI.Reminder.Data.RoleDatabase;
 
 namespace DI.Reminder.Data.AccountDatabase
 {

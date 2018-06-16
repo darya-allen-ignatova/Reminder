@@ -1,18 +1,18 @@
-﻿using DI.Reminder.BL.CachedRepository;
+﻿using DI.Reminder.BL.Cache;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Data.AccountDatabase;
 using System;
 using System.Collections.Generic;
 
-namespace DI.Reminder.BL.UsersRepository
+namespace DI.Reminder.BL.UsersService
 {
-    public class UserRepository : IUserRepository
+    public class UserService : IUserService
     {
-        private ICacheRepository _cacheRepository;
+        private ICacheService _cacheService;
         private IAccountRepository _accountRepository;
-        public UserRepository(IAccountRepository accountRepository, ICacheRepository cacheRepository)
+        public UserService(IAccountRepository accountRepository, ICacheService cacheService)
         {
-            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
             _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
         }
         public void DeleteUser(int? id)
@@ -20,7 +20,7 @@ namespace DI.Reminder.BL.UsersRepository
             if (id == null || id < 1)
                 return;
             _accountRepository.DeleteAccount((int)id);
-            _cacheRepository.DeleteCache((int)id);
+            _cacheService.DeleteCache((int)id);
         }
 
         public void EditUser(Account account)
@@ -28,7 +28,7 @@ namespace DI.Reminder.BL.UsersRepository
             if (account == null)
                 return;
             _accountRepository.UpdateAccount(account);
-            _cacheRepository.UpdateCache(account, account.ID);
+            _cacheService.UpdateCache(account, account.ID);
         }
 
         public Account GetUser(string login)
@@ -42,11 +42,11 @@ namespace DI.Reminder.BL.UsersRepository
         {
             if (id == null || id < 1)
                 return null;
-            var account = _cacheRepository.GetValueOfCache<Account>((int)id);
+            var account = _cacheService.GetValueOfCache<Account>((int)id);
             if(account==null)
             {
                 account = _accountRepository.GetAccount((int)id);
-                _cacheRepository.AddCache<Account>(account, account.ID);
+                _cacheService.AddCache<Account>(account, account.ID);
             }
             return account;
         }
@@ -61,7 +61,7 @@ namespace DI.Reminder.BL.UsersRepository
             if (account == null)
                 return;
             _accountRepository.InsertAccount(account);
-            _cacheRepository.AddCache<Account>(account, account.ID);
+            _cacheService.AddCache<Account>(account, account.ID);
         }
     }
 }

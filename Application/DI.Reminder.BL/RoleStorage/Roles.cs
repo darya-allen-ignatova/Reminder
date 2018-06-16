@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DI.Reminder.BL.CachedRepository;
+using DI.Reminder.BL.Cache;
 using DI.Reminder.Common.LoginModels;
-using DI.Reminder.Data.RolesRepository;
+using DI.Reminder.Data.RoleDatabase;
 
 namespace DI.Reminder.BL.RoleStorage
 {
     public class Roles : IRoles
     {
-        private ICacheRepository _cacheRepository;
+        private ICacheService _cacheService;
         private IRoleRepository _roleRepository;
-        public Roles(IRoleRepository roleRepository, ICacheRepository cacheRepository)
+        public Roles(IRoleRepository roleRepository, ICacheService cacheService)
         {
-            _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
         public void DeleteRole(int? id)
@@ -21,7 +21,7 @@ namespace DI.Reminder.BL.RoleStorage
             if (id < 1 || id == null)
                 return;
             _roleRepository.DeleteRole((int)id);
-            _cacheRepository.DeleteCache((int)id);
+            _cacheService.DeleteCache((int)id);
         }
 
         public IList<Role> GetAllRoles()
@@ -34,18 +34,18 @@ namespace DI.Reminder.BL.RoleStorage
             if (role == null || role.Name == null)
                 return;
             _roleRepository.InsertRole(role.Name);
-            _cacheRepository.AddCache(role, role.ID);
+            _cacheService.AddCache(role, role.ID);
         }
         public Role GetRole(int? id)
         {
             if (id < 1 || id == null)
                 return null;
-            var role = _cacheRepository.GetValueOfCache<Role>((int)id);
+            var role = _cacheService.GetValueOfCache<Role>((int)id);
             if(role==null)
             {
                 IList<Role> list = _roleRepository.GetAllRoles();
                 role=list.FirstOrDefault(t => t.ID == id);
-                _cacheRepository.AddCache(role, role.ID);
+                _cacheService.AddCache(role, role.ID);
             }
             return role;
         }

@@ -1,7 +1,7 @@
 ﻿using DI.Reminder.Common.LoginModels;
 using System.Collections.Generic;
 
-namespace DI.Reminder.Data.RolesRepository
+namespace DI.Reminder.Data.RoleDatabase
 {
     public interface IRoleRepository
     {

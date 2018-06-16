@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using DI.Reminder.BL.LoginService.Authentication;
-using DI.Reminder.BL.UsersRepository;
+using DI.Reminder.BL.UsersService;
 using DI.Reminder.Common.LoginModels;
 
 namespace DI.Reminder.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private IUserRepository _userRepository;
+        private IUserService _userService;
         private IAuthentication _authentication;
-        public AccountController(IAuthentication authentication, IUserRepository userRepository)
+        public AccountController(IAuthentication authentication, IUserService userService)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _authentication = authentication ?? throw new ArgumentNullException(nameof(authentication));
         }
 
@@ -33,7 +33,7 @@ namespace DI.Reminder.Web.Controllers
                 }
             };
             account.Roles = role;
-            _userRepository.InsertUser(account);
+            _userService.InsertUser(account);
             _authentication.httpContext = System.Web.HttpContext.Current;
             _authentication.Registration(account);
             return RedirectToAction("Home", "Start");
@@ -52,7 +52,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult Edit()
         {
             _authentication.httpContext = System.Web.HttpContext.Current;
-            Account _account = _userRepository.GetUser(_authentication.CurrentUser.Identity.Name);
+            Account _account = _userService.GetUser(_authentication.CurrentUser.Identity.Name);
             if(_account==null)
                 return RedirectToAction("Login");
             _account.Password = _account.Password.Replace(" ", string.Empty);
@@ -62,7 +62,7 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Account account)
         {
-            _userRepository.EditUser(account);
+            _userService.EditUser(account);
             return RedirectToAction("Home", "Start");
         }
     }

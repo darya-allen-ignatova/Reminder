@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Principal;
 using DI.Reminder.BL.LoginService.UserIndent;
 using DI.Reminder.Data.AccountDatabase;
-using DI.Reminder.Data.RolesRepository;
+using DI.Reminder.Data.RoleDatabase;
 
 namespace DI.Reminder.BL.LoginService.UserProv
 {

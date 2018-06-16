@@ -2,20 +2,20 @@
 using System;
 using DI.Reminder.Common.PromptModel;
 using DI.Reminder.Data.PromptDataBase;
-using DI.Reminder.Data.Searching;
+using DI.Reminder.Data.SearchingDatabase;
 using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.Common.CategoryModel;
-using DI.Reminder.BL.CachedRepository;
+using DI.Reminder.BL.Cache;
 
 namespace DI.Reminder.BL.PromptStorage
 {
     public class Prompts : IPrompt
     {
-        private ICacheRepository _cacheRepository;
-        private ISearch _search;
+        private ICacheService _cacheRepository;
+        private ISearchService _search;
         private IPromptRepository _promptRepository;
         private ICategoryRepository _categoryRepository;
-        public Prompts(IPromptRepository promptRepository, ICategoryRepository categoryRepository, ISearch search, ICacheRepository cacheRepository)
+        public Prompts(IPromptRepository promptRepository, ICategoryRepository categoryRepository, ISearchService search, ICacheService cacheRepository)
         {
             _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
