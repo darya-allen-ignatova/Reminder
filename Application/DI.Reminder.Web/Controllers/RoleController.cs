@@ -23,6 +23,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Add(Role role)
         {
+            if (role == null)
+                throw new ArgumentNullException();
             _roles.InsertRole(role);
             return RedirectToAction("ShowAll");
         }
@@ -30,6 +32,8 @@ namespace DI.Reminder.Web.Controllers
 
         public ActionResult Delete(int? id)
         {
+            if(id==null)
+                return RedirectToAction("HttpError404", "Error");
             var role = _roles.GetRole(id);
             if(role==null)
                 return RedirectToAction("HttpError404", "Error");
@@ -38,6 +42,8 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Role role)
         {
+            if (role == null)
+                throw new ArgumentNullException();
             _roles.DeleteRole(role.ID);
             return View();
         }
