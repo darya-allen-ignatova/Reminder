@@ -31,7 +31,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 {
                     connection.Open();
                     string sqlExpression;
-                    if (id == 0)
+                    if (id == 0 || id==null)
                         sqlExpression = $"GetAllPrompts";
                     else
                         sqlExpression = $"GetPromptsByID";

@@ -5,7 +5,7 @@ namespace DI.Reminder.BL.CategoryStorage
 {
     public interface ICategories
     {
-        IList<Category> GetCategories(int id);
+        IList<Category> GetCategories(int? id);
         int? GetCategoryParentID(string categoryName);
         void InsertCategory(Category category);
         void DeleteCategory(int id);

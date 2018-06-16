@@ -217,7 +217,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
-    <None Include="Views\Prompt\ShowCategoryList.cshtml" />
+    <None Include="Views\Prompt\Navigation.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />
     <Content Include="Views\Error\HttpError500.cshtml" />

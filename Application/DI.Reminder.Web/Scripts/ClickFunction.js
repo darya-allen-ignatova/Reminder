@@ -6,7 +6,7 @@
             data: { id: thebuttonclicked },
             success: function (jsonData) {
                 if (jsonData.isRedirect) {
-                    window.location.href = "/Prompt/ShowCategoryList/" + jsonData.ID;
+                    window.location.href = "/Prompt/Navigation/" + jsonData.ID;
                 }
                 else if (jsonData.isEmpty) {
                     $("#JSON").text("");

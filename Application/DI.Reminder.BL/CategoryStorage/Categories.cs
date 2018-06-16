@@ -29,7 +29,7 @@ namespace DI.Reminder.BL.CategoryStorage
             return _category.GetAllCategories();
         }
 
-        public IList<Category> GetCategories(int id)
+        public IList<Category> GetCategories(int? id)
         {
             if (id < 0)
                 return null;

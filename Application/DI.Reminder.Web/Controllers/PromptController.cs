@@ -22,10 +22,10 @@ namespace DI.Reminder.Web.Controllers
             _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
-        public ActionResult ShowCategoryList(int? id = null)
+        public ActionResult Navigation(int? id = null)
         {
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
-            IList<Category> _categorylist = _getcategory.GetCategories((int)id);
+            IList<Category> _categorylist = _getcategory.GetCategories(id);
             ModelCategoriesWithPrompts modelCategoriesWithPrompts = new ModelCategoriesWithPrompts();
             if (_categorylist.Count != 0)
             {
