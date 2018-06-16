@@ -28,7 +28,7 @@
             </ul>
             @if (Model.CategoryList[0].ParentID != null)
             {
-                <a class="title" type="button" value="Prompts" href='@Url.Action("ShowCategoryList", "Prompt", new { id = 0 })'>Back to previous list</a>
+                <a class="title" type="button" value="Prompts" href='@Url.Action("Navigation", "Prompt", new { id = 0 })'>Back to previous list</a>
             }
 
         </div>

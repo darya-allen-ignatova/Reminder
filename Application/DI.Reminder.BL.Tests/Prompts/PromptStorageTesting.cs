@@ -1,8 +1,8 @@
 ﻿using Moq;
-using DI.Reminder.BL.CachedRepository;
+using DI.Reminder.BL.Cache;
 using DI.Reminder.Data.CategoryDataBase;
 using DI.Reminder.Data.PromptDataBase;
-using DI.Reminder.Data.Searching;
+using DI.Reminder.Data.SearchingDatabase;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using DI.Reminder.Common.PromptModel;
@@ -16,8 +16,8 @@ namespace DI.Reminder.BL.Tests.Prompts
     public class PromptStorageTesting
     {
         private PromptStorage.Prompts _prompts;
-        private Mock<ICacheRepository> _cacheRepository;
-        private Mock<ISearch> _search;
+        private Mock<ICacheService> _cacheRepository;
+        private Mock<ISearchService> _search;
         private Mock<IPromptRepository> _promptRepository;
         private Mock<ICategoryRepository> _categoryRepository;
         private List<Prompt> _testingListOfPrompts;
@@ -28,97 +28,12 @@ namespace DI.Reminder.BL.Tests.Prompts
         [TestInitialize]
         public void TestInitialize()
         {
-            _cacheRepository = new Mock<ICacheRepository>();
-            _search = new Mock<ISearch>();
+            _cacheRepository = new Mock<ICacheService>();
+            _search = new Mock<ISearchService>();
             _promptRepository = new Mock<IPromptRepository>();
             _categoryRepository = new Mock<ICategoryRepository>();
 
             _prompts = new PromptStorage.Prompts(_promptRepository.Object, _categoryRepository.Object, _search.Object, _cacheRepository.Object);
-
-            _testingListOfPrompts = new List<Prompt>()
-            {
-                new Prompt()
-                {
-                    ID=1,
-                    userID=2,
-                    Name="Make site start page",
-                    Category=2,
-                    CreatingDate=new System.DateTime(2018,06,15),
-                    Description="Until it is June,15",
-                    Actions=new List<Action>()
-                    {
-                        new Action()
-                        {
-                            ID=1,
-                            Name="Make html"
-                        },
-                        new Action()
-                        {
-                            ID=2,
-                            Name="Make css"
-                        },
-                        new Action()
-                        {
-                            ID=3,
-                            Name="Make js"
-                        }
-                    },
-                    Image="ImagePath1",
-                    TimeOfPrompt=new System.TimeSpan(12,12,0)
-                },
-                new Prompt()
-                {
-                    ID=2,
-                    userID=2,
-                    Name="Buy clocks for father",
-                    Category=3,
-                    CreatingDate=new System.DateTime(2018,01,06),
-                    Description="Now",
-                    Actions=new List<Action>()
-                    {
-                        new Action()
-                        {
-                            ID=1,
-                            Name="Find shop"
-                        },
-                        new Action()
-                        {
-                            ID=2,
-                            Name="Buy"
-                        }
-                    },
-                    Image="ImagePath2",
-                    TimeOfPrompt=new System.TimeSpan(16,0,0)
-                },
-                new Prompt()
-                {
-                    ID =3,
-                    userID=2,
-                    Name="Paint picture",
-                    Category=4,
-                    CreatingDate=new System.DateTime(2018,10,06),
-                    Description="For dining room",
-                    Actions=new List<Action>()
-                    {
-                        new Action()
-                        {
-                            ID=1,
-                            Name="Buy layout"
-                        },
-                        new Action()
-                        {
-                            ID=2,
-                            Name="Paint something wonderful"
-                        }
-                    },
-                    Image="ImagePath3",
-                    TimeOfPrompt=new System.TimeSpan(15,30,0)
-
-                },
-            };
-
-
-
             _testingListOfCategories = new List<Category>()
             {
                 new Category()
@@ -146,6 +61,91 @@ namespace DI.Reminder.BL.Tests.Prompts
                     ParentID=null
                 }
             };
+            _testingListOfPrompts = new List<Prompt>()
+            {
+                new Prompt()
+                {
+                    ID=1,
+                    userID=2,
+                    Name="Make site start page",
+                    Category=_testingListOfCategories[1],
+                    Date=new System.DateTime(2018,06,15),
+                    Description="Until it is June,15",
+                    Actions=new List<Action>()
+                    {
+                        new Action()
+                        {
+                            ID=1,
+                            Name="Make html"
+                        },
+                        new Action()
+                        {
+                            ID=2,
+                            Name="Make css"
+                        },
+                        new Action()
+                        {
+                            ID=3,
+                            Name="Make js"
+                        }
+                    },
+                    Image="ImagePath1",
+                    TimeOfPrompt=new System.TimeSpan(12,12,0)
+                },
+                new Prompt()
+                {
+                    ID=2,
+                    userID=2,
+                    Name="Buy clocks for father",
+                    Category=_testingListOfCategories[2],
+                    Date=new System.DateTime(2018,01,06),
+                    Description="Now",
+                    Actions=new List<Action>()
+                    {
+                        new Action()
+                        {
+                            ID=1,
+                            Name="Find shop"
+                        },
+                        new Action()
+                        {
+                            ID=2,
+                            Name="Buy"
+                        }
+                    },
+                    Image="ImagePath2",
+                    TimeOfPrompt=new System.TimeSpan(16,0,0)
+                },
+                new Prompt()
+                {
+                    ID =3,
+                    userID=2,
+                    Name="Paint picture",
+                    Category=_testingListOfCategories[3],
+                    Date=new System.DateTime(2018,10,06),
+                    Description="For dining room",
+                    Actions=new List<Action>()
+                    {
+                        new Action()
+                        {
+                            ID=1,
+                            Name="Buy layout"
+                        },
+                        new Action()
+                        {
+                            ID=2,
+                            Name="Paint something wonderful"
+                        }
+                    },
+                    Image="ImagePath3",
+                    TimeOfPrompt=new System.TimeSpan(15,30,0)
+
+                },
+            };
+
+
+
+
 
 
         }
@@ -155,16 +155,16 @@ namespace DI.Reminder.BL.Tests.Prompts
         #region GetCategoryItemsByID
 
         [TestMethod]
-        public void GetCategoryItemsByID_validInputDataNoUnderCategories_ListOfCategoryPrompts()
+        public void GetCategoryItemsByID_validInputData_NoUnderCategories_ListOfCategoryPrompts()
         {
             //
             //Arrange
             //
             int UserID = 2;
             int ID = 2;
-            
+
             _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns<IList<Category>>(null);
-            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.Category==ID).ToList);
+            _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.Category.ID == ID).ToList);
 
 
             //
@@ -180,7 +180,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
         [TestMethod]
-        public void GetCategoryItemsByID_validInputDataWithUnderCategories_ListOfCategoryPrompts()
+        public void GetCategoryItemsByID_validInputData_UnderCategories_ListOfCategoryPrompts()
         {
             //
             //Arrange
@@ -188,9 +188,9 @@ namespace DI.Reminder.BL.Tests.Prompts
             int UserID = 2;
             int ID = 1;
 
-            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ParentID==1).ToList);
+            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ParentID == 1).ToList);
             _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns<Prompt>(null);
-            
+
             //
             //Act
             //
@@ -204,7 +204,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
         [TestMethod]
-        public void GetCategoryItemsByID_validInputDataBothNullLists_Null()
+        public void GetCategoryItemsByID_validInputData_BothNullLists_Null()
         {
             //
             //Arrange
@@ -269,20 +269,20 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(null,result );
+            Assert.AreEqual(null, result);
             _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int>()), Times.Never);
             _promptRepository.Verify(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
 
         }
         [TestMethod]
-        public void GetPromptDetils_ValidIDWithNoCache_Prompt()
+        public void GetPromptDetils_ValidID_NoCache_Prompt()
         {
             //
             //Arrange
             //
             int userID = 2;
             int ID = 1;
-            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID==ID).FirstOrDefault);
+            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID == ID).FirstOrDefault);
             _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns<Prompt>(null);
             //
             //Act
@@ -291,20 +291,20 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(_testingListOfPrompts[0].Name,result.Name);
+            Assert.AreEqual(_testingListOfPrompts[0].Name, result.Name);
             _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
-            _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(),It.IsAny<int>()), Times.Once);
+            _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(), It.IsAny<int>()), Times.Once);
             _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
         [TestMethod]
-        public void GetPromptDetails_ValidIDWithCache_Prompt()
+        public void GetPromptDetails_ValidID_Cache_Prompt()
         {
             //
             //Arrange
             //
             int userID = 2;
             int ID = 3;
-            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID==ID).FirstOrDefault);
+            _promptRepository.Setup(m => m.GetPrompt(It.IsAny<int>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID == ID).FirstOrDefault);
             _cacheRepository.Setup(m => m.GetValueOfCache<Prompt>(It.IsAny<int>())).Returns(_testingListOfPrompts.Where(m => m.ID == ID).FirstOrDefault);
             //
             //Act
@@ -313,7 +313,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Assert
             //
-            Assert.AreEqual(_testingListOfPrompts[2].Name,result.Name);
+            Assert.AreEqual(_testingListOfPrompts[2].Name, result.Name);
             _cacheRepository.Verify(c => c.GetValueOfCache<Prompt>(It.IsAny<int>()), Times.Once);
             _cacheRepository.Verify(c => c.AddCache<Prompt>(It.IsAny<Prompt>(), It.IsAny<int>()), Times.Never);
             _promptRepository.Verify(r => r.GetPrompt(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
@@ -355,7 +355,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             string value = "site";
             int userID = 2;
             int ID = 2;
-            _search.Setup(m => m.GetSearchItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_testingListOfPrompts.Where(m => m.Name.Contains(value)& m.userID==userID).ToList);
+            _search.Setup(m => m.GetSearchItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_testingListOfPrompts.Where(m => m.Name.Contains(value) & m.userID == userID).ToList);
             //
             //Act
             //

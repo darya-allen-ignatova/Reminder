@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DI.Reminder.BL.CachedRepository;
+using DI.Reminder.BL.Cache;
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.Data.CategoryDataBase;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +12,7 @@ namespace DI.Reminder.BL.Tests.Categories
     [TestClass]
     public class CategoryStorageTesting
     {
-        private Mock<ICacheRepository> _cacheRepository;
+        private Mock<ICacheService> _cacheRepository;
         private Mock<ICategoryRepository> _categoryRepository;
         private List<Category> _testingListOfCategories;
         private CategoryStorage.Categories _categories;
@@ -22,7 +22,7 @@ namespace DI.Reminder.BL.Tests.Categories
         public void TestInitialize()
         {
             
-            _cacheRepository = new Mock<ICacheRepository>();
+            _cacheRepository = new Mock<ICacheService>();
             _categoryRepository = new Mock<ICategoryRepository>();
             _categories = new CategoryStorage.Categories(_categoryRepository.Object, _cacheRepository.Object);
             _testingListOfCategories = new List<Category>()
@@ -109,7 +109,7 @@ namespace DI.Reminder.BL.Tests.Categories
             //
             //Act
             //
-            var result = _categories.GetCategory(id);
+            var result = _categories.GetCategory((int)id);
             //
             //Assert
             //
@@ -117,7 +117,7 @@ namespace DI.Reminder.BL.Tests.Categories
             _categoryRepository.Verify(m => m.GetAllCategories(), Times.Never);
         }
         [TestMethod]
-        public void GetCategory_validInputDataNoCache_Category()
+        public void GetCategory_validInputData_NoCache_Category()
         {
             //
             //Arrange
@@ -139,7 +139,7 @@ namespace DI.Reminder.BL.Tests.Categories
 
         }
         [TestMethod]
-        public void GetCategory_validInputDataWithCache_Category()
+        public void GetCategory_validInputData_Cache_Category()
         {
             //
             //Arrange
