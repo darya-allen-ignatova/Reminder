@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
+<h2 class="title">Home</h2>
+<div style="float:left; width:30%; text-decoration:none">
+    <div class="newtitle">
+        Categories
+    </div>
+    <div class="boton1">
+        <div>   @Html.ActionLink("Category list", "ShowAll", "Category")</div>
+        <div>
+            @Html.ActionLink("Add new category", "Add", "Category")
+        </div>
+    </div>
+</div>
+
+

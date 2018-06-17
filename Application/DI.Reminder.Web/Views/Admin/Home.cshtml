@@ -8,7 +8,7 @@
         Accounts
     </div>
     <div class="boton1">
-        <div style="text-decoration:none">
+        <div>
             <div>
                 @Html.ActionLink("User list", "UserList", "Admin")
             </div>
@@ -23,13 +23,11 @@
         Roles
     </div>
     <div class="boton1">
-        <div style="text-decoration:none">
-            <div>
-                @Html.ActionLink("Role list", "ShowAll", "Role")
-            </div>
-            <div>
-                @Html.ActionLink("Add new role", "Add", "Role")
-            </div>
+        <div>
+            @Html.ActionLink("Role list", "ShowAll", "Role")
+        </div>
+        <div>
+            @Html.ActionLink("Add new role", "Add", "Role")
         </div>
     </div>
 </div>
@@ -38,11 +36,9 @@
         Categories
     </div>
     <div class="boton1">
-        <div >
-            <div style="text-decoration:none">   @Html.ActionLink("Category list", "ShowAll", "Category")</div>
-            <div style="text-decoration:none">
-                @Html.ActionLink("Add new category", "Add", "Category")
-            </div>
+        <div>   @Html.ActionLink("Category list", "ShowAll", "Category")</div>
+        <div>
+            @Html.ActionLink("Add new category", "Add", "Category")
         </div>
     </div>
 </div>
