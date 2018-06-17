@@ -17,6 +17,11 @@ namespace DI.Reminder.Web.Controllers
             _authentication = authentication ?? throw new ArgumentNullException(nameof(authentication));
         }
 
+        public ActionResult LogOut()
+        {
+            Logout();
+            return RedirectToAction("Home", "Start");
+        }
         public ActionResult Registration()
         {
             return View();
@@ -34,6 +39,7 @@ namespace DI.Reminder.Web.Controllers
             };
             account.Roles = role;
             _userService.InsertUser(account);
+            Logout();
             _authentication.httpContext = System.Web.HttpContext.Current;
             _authentication.Registration(account);
             return RedirectToAction("Home", "Start");
@@ -68,6 +74,14 @@ namespace DI.Reminder.Web.Controllers
         {
             _userService.EditUser(account);
             return RedirectToAction("Home", "Start");
+        }
+        private void Logout()
+        {
+            string[] myCookies = Request.Cookies.AllKeys;
+            foreach (string cookie in myCookies)
+            {
+                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+            }
         }
     }
 }

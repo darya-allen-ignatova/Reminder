@@ -27,7 +27,6 @@ namespace DI.Reminder.BL.LoginService.Authentication
 
         public void Registration(Account account)
         {
-            LogOut();
             if (account != null)
             {
                 CreateCookie(account);
@@ -35,7 +34,6 @@ namespace DI.Reminder.BL.LoginService.Authentication
         }
         public bool Authentication(Account newaccount, bool isPersistent=false)
         {
-            LogOut();
             if (newaccount == null || newaccount.Login == null || newaccount.Password == null)
                 return false;
             Account account = _accountRepository.GetAccount(newaccount.Login);
@@ -72,11 +70,6 @@ namespace DI.Reminder.BL.LoginService.Authentication
             httpContext.Response.Cookies.Set(AuthCookie);
         }
 
-
-        public void LogOut()
-        {
-            FormsAuthentication.SignOut();
-        }
 
         private IPrincipal _currentUser;
 

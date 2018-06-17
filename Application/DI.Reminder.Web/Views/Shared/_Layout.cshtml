@@ -14,7 +14,14 @@
                 <div>
                     <a style="text-decoration:none" href="/Start/Home">StartPage</a>
                     <a style="text-decoration:none" href="/Account/Registration">Registration</a>
-                    <a style="text-decoration:none" href="/Account/Login">Log In</a>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a style="text-decoration:none" href="/Account/LogOut">Log Out</a>
+                    }
+                    else
+                    {
+                        <a style="text-decoration:none" href="/Account/Login">Log In</a>
+                    }
                     <a style="text-decoration:none" href="/Account/Edit">Edit account</a>
                 </div>
             </div>
