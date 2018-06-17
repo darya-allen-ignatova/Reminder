@@ -46,7 +46,11 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult Login(Account account)
         {
             _authentication.httpContext= System.Web.HttpContext.Current;
-            _authentication.Authentication(account);
+            if (!_authentication.Authentication(account))
+            {
+                account.Password = null;
+                return View(account);
+            }
             return RedirectToAction("Home", "Start");
         }
         public ActionResult Edit()

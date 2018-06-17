@@ -33,16 +33,18 @@ namespace DI.Reminder.BL.LoginService.Authentication
                 CreateCookie(account);
             }
         }
-        public void Authentication(Account newaccount, bool isPersistent=false)
+        public bool Authentication(Account newaccount, bool isPersistent=false)
         {
             LogOut();
             if (newaccount == null || newaccount.Login == null || newaccount.Password == null)
-                return;
+                return false;
             Account account = _accountRepository.GetAccount(newaccount.Login);
             if (account != null && account.Password.Replace(" ", string.Empty)==newaccount.Password)
             {
                 CreateCookie(account, isPersistent);
+                return true;
             }
+            return false;
         }
         private Account GetAccount(string login)
         {
