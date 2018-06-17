@@ -22,7 +22,18 @@
                     {
                         <a style="text-decoration:none" href="/Account/Login">Log In</a>
                     }
-                    <a style="text-decoration:none" href="/Account/Edit">Edit account</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a style="text-decoration:none" href="/Admin/Home">Admin cabinet</a>
+                    }
+                    else if (User.IsInRole("Editor"))
+                    {
+                        <a style="text-decoration:none" href="/Editor/Home"> Editor cabinet </a>
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a style="text-decoration:none" href="/Account/Edit">Edit account</a>
+                    }
                 </div>
             </div>
         </header>
