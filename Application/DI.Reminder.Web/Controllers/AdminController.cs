@@ -19,7 +19,10 @@ namespace DI.Reminder.Web.Controllers
             _roles=roles?? throw new ArgumentNullException(nameof(roles));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
-
+        public ActionResult Home()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult AddUser()
