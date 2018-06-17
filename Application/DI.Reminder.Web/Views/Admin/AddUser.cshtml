@@ -1,4 +1,4 @@
-﻿@model DI.Reminder.Common.LoginModels.Account
+﻿@model DI.Reminder.Web.Models.ModelAccountWithRoles
 
 @{
     ViewBag.Title = "AddUser";
@@ -13,34 +13,34 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>
-            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "boton1" })
+            @Html.LabelFor(model => model.Account.Login, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Account.Login, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div>
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "boton1" })
+            @Html.LabelFor(model => model.Account.Email, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Account.Email, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div>
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "boton1" })
+            @Html.LabelFor(model => model.Account.Password, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Account.Password, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div>
-            @Html.LabelFor(model => model.PasswordConfirm, htmlAttributes: new { @class = "boton1" })
+            @Html.LabelFor(model => model.Account.PasswordConfirm, htmlAttributes: new { @class = "boton1" })
             <div>
-                @Html.EditorFor(model => model.PasswordConfirm, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.PasswordConfirm, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Account.PasswordConfirm, new { htmlAttributes = new { @class = "input" } })
+                @Html.ValidationMessageFor(model => model.Account.PasswordConfirm, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -53,11 +53,13 @@
 
     <div style="width:45%; float:right">
         <div class="boton1">
-            Roles
         </div>
-        <div id="textBoxRole">
-
+            <div>
+                @Html.LabelFor(model => model.Account.Roles[0].Name, "Roles", htmlAttributes: new { @class = "boton1" })
+                <div>
+                    @Html.DropDownListFor(model => model.Account.Roles[0].Name, Model.AllRoles, htmlAttributes: new { @style = " width: 300px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 28px; padding:0px 10px 20px  10px;" })
+                    @Html.ValidationMessageFor(model => model.AllRoles, "", new { @class = "text-danger" })
+                </div>
         </div>
-        <input value="Add" type="button" class="button" id="AddingButtonRole" col="0"/>
     </div>
 }

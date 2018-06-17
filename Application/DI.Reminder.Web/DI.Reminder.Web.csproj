@@ -159,7 +159,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Search.js" />
     <Content Include="Scripts\SearchClick.js" />
-    <Content Include="Scripts\RoleAdding.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -186,6 +185,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ModelAccountWithRoles.cs" />
     <Compile Include="Models\ModelCategoriesWithPrompts.cs" />
     <Compile Include="Models\PromptViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
