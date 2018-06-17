@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
+<h2 class="title">Home</h2>
+<div style="float:left; width:30%;">
+    <div class="newtitle">
+        Accounts
+    </div>
+    <div class="boton1">
+        <div>
+            <div>
+                @Html.ActionLink("User list", "UserList", "Admin")
+            </div>
+            <div>
+                @Html.ActionLink("Add new user", "AddUser", "Admin")
+            </div>
+        </div>
+    </div>
+</div>
+<div style="float:left; width:30%; text-decoration:none">
+    <div class="newtitle">
+        Roles
+    </div>
+    <div class="boton1">
+        <div>
+            @Html.ActionLink("Role list", "ShowAll", "Role")
+        </div>
+        <div>
+            @Html.ActionLink("Add new role", "Add", "Role")
+        </div>
+    </div>
+</div>
+<div style="float:left; width:30%; text-decoration:none">
+    <div class="newtitle">
+        Categories
+    </div>
+    <div class="boton1">
+        <div>   @Html.ActionLink("Category list", "ShowAll", "Category")</div>
+        <div>
+            @Html.ActionLink("Add new category", "Add", "Category")
+        </div>
+    </div>
+</div>
+

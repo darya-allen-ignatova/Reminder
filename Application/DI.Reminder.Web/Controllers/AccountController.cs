@@ -17,6 +17,11 @@ namespace DI.Reminder.Web.Controllers
             _authentication = authentication ?? throw new ArgumentNullException(nameof(authentication));
         }
 
+        public ActionResult LogOut()
+        {
+            Logout();
+            return RedirectToAction("Home", "Start");
+        }
         public ActionResult Registration()
         {
             return View();
@@ -25,17 +30,23 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Registration(Account account)
         {
-            List<Role> role = new List<Role>()
+            if (ModelState.IsValid)
+            {
+                List<Role> role = new List<Role>()
             {
                 new Role()
                 {
                     Name="User"
                 }
             };
-            account.Roles = role;
-            _userService.InsertUser(account);
-            _authentication.httpContext = System.Web.HttpContext.Current;
-            _authentication.Registration(account);
+                account.Roles = role;
+                _userService.InsertUser(account);
+                Logout();
+                _authentication.httpContext = System.Web.HttpContext.Current;
+                _authentication.Registration(account);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("Home", "Start");
         }
         public ActionResult Login()
@@ -45,15 +56,24 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Login(Account account)
         {
-            _authentication.httpContext= System.Web.HttpContext.Current;
-            _authentication.Authentication(account);
+            if (ModelState.IsValid)
+            {
+                _authentication.httpContext = System.Web.HttpContext.Current;
+                if (!_authentication.Authentication(account))
+                {
+                    account.Password = null;
+                    return View(account);
+                }
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("Home", "Start");
         }
         public ActionResult Edit()
         {
             _authentication.httpContext = System.Web.HttpContext.Current;
             Account _account = _userService.GetUser(_authentication.CurrentUser.Identity.Name);
-            if(_account==null)
+            if (_account == null)
                 return RedirectToAction("Login");
             _account.Password = _account.Password.Replace(" ", string.Empty);
             _account.PasswordConfirm = _account.Password;
@@ -62,8 +82,21 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Account account)
         {
-            _userService.EditUser(account);
+            if (ModelState.IsValid)
+            {
+                _userService.EditUser(account);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("Home", "Start");
+        }
+        private void Logout()
+        {
+            string[] myCookies = Request.Cookies.AllKeys;
+            foreach (string cookie in myCookies)
+            {
+                Response.Cookies[cookie].Expires = DateTime.Now.AddDays(-1);
+            }
         }
     }
 }

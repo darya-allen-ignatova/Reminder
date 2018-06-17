@@ -118,7 +118,6 @@ namespace DI.Reminder.Web.Controllers
                 else
                     return listOfDate;
             }
-            return null;
         }
 
         public ActionResult Navigation(int? id = null)
@@ -204,7 +203,12 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
-            _prompt.InsertPrompt(UserID, prompt);
+            if (ModelState.IsValid)
+            {
+                _prompt.InsertPrompt(UserID, prompt);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
         }
 
 
@@ -223,7 +227,10 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
-            _prompt.DeletePrompt(UserID, prompt.ID);
+            if (ModelState.IsValid)
+            { _prompt.DeletePrompt(UserID, prompt.ID); }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
 
@@ -250,7 +257,12 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
-            _prompt.EditPrompt(prompt);
+            if (ModelState.IsValid)
+            {
+                _prompt.EditPrompt(prompt);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowCategoryList", new { id = 0 });
         }
 

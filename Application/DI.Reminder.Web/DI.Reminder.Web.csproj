@@ -159,7 +159,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Search.js" />
     <Content Include="Scripts\SearchClick.js" />
-    <Content Include="Scripts\RoleAdding.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -170,6 +169,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\EditorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PromptController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -186,6 +186,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ModelAccountWithRoles.cs" />
     <Compile Include="Models\ModelCategoriesWithPrompts.cs" />
     <Compile Include="Models\PromptViewModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
@@ -218,6 +219,8 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
+    <Content Include="Views\Admin\Home.cshtml" />
+    <Content Include="Views\Editor\Home.cshtml" />
     <None Include="Views\Prompt\Navigation.cshtml" />
     <Content Include="Views\Prompt\Details.cshtml" />
     <Content Include="Views\Error\HttpError404.cshtml" />

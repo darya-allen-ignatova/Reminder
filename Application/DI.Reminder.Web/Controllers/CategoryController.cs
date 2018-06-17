@@ -30,10 +30,12 @@ namespace DI.Reminder.Web.Controllers
         {
             if (categoryModel == null)
                 throw new ArgumentNullException();
-            if (categoryModel != null)
+            if (ModelState.IsValid)
             {
                 _categoriesStorage.InsertCategory(GetFromModel(categoryModel));
             }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAllCategories");
         }
 
@@ -54,7 +56,12 @@ namespace DI.Reminder.Web.Controllers
         {
             if (category == null)
                 throw new ArgumentNullException();
-            _categoriesStorage.DeleteCategory(category.ID);
+            if (ModelState.IsValid)
+            {
+                _categoriesStorage.DeleteCategory(category.ID);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return View();
         }
 
@@ -111,7 +118,12 @@ namespace DI.Reminder.Web.Controllers
         {
             if (category == null)
                 throw new ArgumentNullException();
-            _categoriesStorage.EditCategory(category);
+            if (ModelState.IsValid)
+            {
+                _categoriesStorage.EditCategory(category);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAll");
         }
 

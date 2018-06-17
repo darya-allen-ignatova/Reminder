@@ -25,7 +25,10 @@ namespace DI.Reminder.Web.Controllers
         {
             if (role == null)
                 throw new ArgumentNullException();
-            _roles.InsertRole(role);
+            if (ModelState.IsValid)
+            { _roles.InsertRole(role); }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAll");
         }
 
@@ -44,7 +47,10 @@ namespace DI.Reminder.Web.Controllers
         {
             if (role == null)
                 throw new ArgumentNullException();
-            _roles.DeleteRole(role.ID);
+            if (ModelState.IsValid)
+            { _roles.DeleteRole(role.ID); }
+            else
+                RedirectToAction("HttpError500", "Error");
             return View();
         }
 

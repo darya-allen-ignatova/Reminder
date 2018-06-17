@@ -9,7 +9,12 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    if(Model!=null)
+    {
+<div class="text-danger">
+    Invalid login or password. Check and try again
+</div>
+    }
     <div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>

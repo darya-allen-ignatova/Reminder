@@ -1,7 +1,10 @@
-﻿using DI.Reminder.BL.UsersService;
+﻿using DI.Reminder.BL.RoleStorage;
+using DI.Reminder.BL.UsersService;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Web.Filters;
+using DI.Reminder.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace DI.Reminder.Web.Controllers
@@ -10,28 +13,39 @@ namespace DI.Reminder.Web.Controllers
     public class AdminController : Controller
     {
         private IUserService _userService;
-        public AdminController(IUserService userService)
+        private IRoles _roles;
+        public AdminController(IUserService userService, IRoles roles)
         {
+            _roles=roles?? throw new ArgumentNullException(nameof(roles));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
-
-
+        public ActionResult Home()
+        {
+            return View();
+        }
+    
         [HttpGet]
         public ActionResult AddUser()
         {
-            return View();
+            ModelAccountWithRoles modelAccountWithRoles = new ModelAccountWithRoles()
+            {
+                AllRoles = GetRoles(null)
+            };
+            return View(modelAccountWithRoles);
         }
         [HttpPost]
         public ActionResult AddUser(Account account)
         {
             if (account == null)
                 throw new ArgumentNullException();
-            _userService.InsertUser(account);
+            if (ModelState.IsValid)
+            {
+                _userService.InsertUser(account);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("UserList");
         }
-        
-
-
         [HttpGet]
         public ActionResult DeleteUser(int? id)
         {
@@ -62,7 +76,13 @@ namespace DI.Reminder.Web.Controllers
             _account.Password = _account.Password.Replace(" ", string.Empty);
             if (_account == null)
                 return RedirectToAction("HttpError404", "Error");
-            return View(_account);
+            var roleList = GetRoles(_account.Roles[0]);
+            ModelAccountWithRoles modelAccountWithRoles = new ModelAccountWithRoles()
+            {
+                Account = _account,
+                AllRoles = roleList
+            };
+            return View(modelAccountWithRoles);
 
         }
         [HttpPost]
@@ -70,7 +90,12 @@ namespace DI.Reminder.Web.Controllers
         {
             if (account == null)
                 throw new ArgumentNullException();
-            _userService.EditUser(account);
+            if (ModelState.IsValid)
+            {
+                _userService.EditUser(account);
+            }
+            else
+                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("UserList");
         }
 
@@ -91,6 +116,25 @@ namespace DI.Reminder.Web.Controllers
             if (account == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(account);
+        }
+        private IList<SelectListItem> GetRoles(Role role)
+        {
+            IList<SelectListItem> selectList = new List<SelectListItem>();
+            var roleList = _roles.GetAllRoles();
+            
+            foreach(var item in roleList)
+            {
+                bool roleSelect= false;
+                if (role != null && item.ID == role.ID)
+                    roleSelect = true;
+                selectList.Add(new SelectListItem()
+                {
+                    Selected=roleSelect,
+                    Value=item.ID.ToString(),
+                    Text=item.Name
+                });
+            }
+            return selectList;
         }
     }
 }
