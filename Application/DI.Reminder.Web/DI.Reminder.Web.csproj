@@ -188,6 +188,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ModelCategoriesWithPrompts.cs" />
     <Compile Include="Models\PromptViewModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +228,7 @@
     <Content Include="Views\Role\Add.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Role\ShowAll.cshtml" />
+    <Content Include="Views\Prompt\Searching.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

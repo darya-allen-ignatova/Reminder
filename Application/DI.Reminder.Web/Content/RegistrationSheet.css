@@ -7,6 +7,13 @@
     text-shadow: 1px 1px 2px #082b34;
     padding: 20px;
 }
+.nam {
+    color: #855C6A;
+    font-family: ‘Rouge Script’, cursive;
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
 .boton1 {
     color: #855C6A;
     padding-left: 25px;
@@ -107,4 +114,13 @@ input {
 }
 .link{
     text-decoration:none;
+}
+.boton15 {
+    color: #855C6A;
+    padding-left: 25px;
+    padding-top: 10px;
+    text-decoration: none;
+    text-align: left;
+    font-family: ‘Rouge Script’, cursive;
+    font-size: 150%;
 }
