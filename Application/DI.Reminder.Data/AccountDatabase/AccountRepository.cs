@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using DI.Reminder.Common.Logger;
 using DI.Reminder.Common.LoginModels;
-using DI.Reminder.Data.RolesRepository;
+using DI.Reminder.Data.RoleDatabase;
 
 namespace DI.Reminder.Data.AccountDatabase
 {
@@ -12,12 +11,9 @@ namespace DI.Reminder.Data.AccountDatabase
     {
 
         private IRoleRepository _rolerepository;
-        private ILogger _logger;
-        public AccountRepository(IRoleRepository rolerepository, ILogger logger)
+        public AccountRepository(IRoleRepository rolerepository)
         {
             _rolerepository = rolerepository ?? throw new ArgumentNullException(nameof(rolerepository));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
         }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
@@ -59,13 +55,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     AddRoleForUser(account);
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch(Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
         }
         private void AddRoleForUser(Account newaccount)
@@ -84,8 +80,8 @@ namespace DI.Reminder.Data.AccountDatabase
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         SqlParameter sqlparam1 = new SqlParameter()
                         {
-                            ParameterName = "@role",
-                            Value = newaccount.Roles[i].Name
+                            ParameterName = "@roleid",
+                            Value = int.Parse(newaccount.Roles[i].Name)
                         };
                         command.Parameters.Add(sqlparam1);
                         SqlParameter sqlparam2 = new SqlParameter()
@@ -98,13 +94,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     }
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
         }
 
@@ -144,13 +140,13 @@ namespace DI.Reminder.Data.AccountDatabase
                 }
 
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
             return account;
         }
@@ -190,13 +186,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     account.Roles = _rolerepository.GetRoleList(id);
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
             return account;
         }
@@ -209,9 +205,6 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Open();
                     string sqlExpression = "DeleteUser";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    //command.Notification = null;
-                    //var dependency = new SqlDependency(command);
-                    //dependency.OnChange += new OnChangeEventHandler(OnDatabaseChange);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam1 = new SqlParameter()
                     {
@@ -223,13 +216,13 @@ namespace DI.Reminder.Data.AccountDatabase
 
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
         }
         public void UpdateAccount(Account account)
@@ -249,45 +242,25 @@ namespace DI.Reminder.Data.AccountDatabase
                     var result = command.ExecuteNonQuery();
                     connection.Close();
                 }
-                if (account.Roles == null)
-                    account.Roles = _rolerepository.GetRoleList(account.ID);
-                List<int> IDs = GetIDOfRoles(account.ID);
-                for (int i = 0; i < IDs.Count; i++)
-                {
-                    if (account.Roles[i].Name.Replace(" ", string.Empty) == string.Empty)
-                        _rolerepository.DeleteUserRole(IDs[i], account.ID);
-                    else
-                    {
-                        using (SqlConnection connection = new SqlConnection(GetConnection))
+                using (SqlConnection connection = new SqlConnection(GetConnection))
                         {
                             connection.Open();
                             string sqlExpression = $"UpdatingUserRole";
                             SqlCommand command = new SqlCommand(sqlExpression, connection);
                             command.CommandType = System.Data.CommandType.StoredProcedure;
-                            command.Parameters.AddWithValue("@roleid", IDs[i]);
-                            command.Parameters.AddWithValue("@name", account.Roles[i].Name);
+                            command.Parameters.AddWithValue("@roleid",account.Roles[0].Name );
+                            command.Parameters.AddWithValue("@userid", account.ID);
                             var result = command.ExecuteNonQuery();
                             connection.Close();
                         }
-                    }
-                }
-                if (IDs.Count < account.Roles.Count)
-                {
-                    for (int i = IDs.Count; i < account.Roles.Count; i++)
-                    {
-                        if (account.Roles[i].Name.Replace(" ", string.Empty) == string.Empty)
-                            continue;
-                        AddRolesForUser(account.Roles[i].Name, account.ID);
-                    }
-                }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
         }
         private void AddRolesForUser(string roleName, int userid)
@@ -306,13 +279,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Close();
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
         }
         private List<int> GetIDOfRoles(int id)
@@ -335,13 +308,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Close();
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
             return IDs;
         }
@@ -375,16 +348,16 @@ namespace DI.Reminder.Data.AccountDatabase
 
                 }
             }
-            catch (SqlException sqlExc)
+            catch (SqlException)
             {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                throw;
             }
             return _accountlist;
-        } 
+        }
 
     }
 }
