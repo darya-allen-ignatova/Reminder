@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using DI.Reminder.Common.Logger;
 using DI.Reminder.Common.LoginModels;
 using DI.Reminder.Data.RoleDatabase;
 
@@ -11,9 +12,12 @@ namespace DI.Reminder.Data.AccountDatabase
     {
 
         private IRoleRepository _rolerepository;
-        public AccountRepository(IRoleRepository rolerepository)
+        private ILogger _logger;
+        public AccountRepository(IRoleRepository rolerepository, ILogger logger)
         {
             _rolerepository = rolerepository ?? throw new ArgumentNullException(nameof(rolerepository));
+
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
@@ -55,13 +59,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     AddRoleForUser(account);
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         private void AddRoleForUser(Account newaccount)
@@ -94,13 +98,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     }
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
 
@@ -140,13 +144,13 @@ namespace DI.Reminder.Data.AccountDatabase
                 }
 
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return account;
         }
@@ -186,13 +190,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     account.Roles = _rolerepository.GetRoleList(id);
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return account;
         }
@@ -216,13 +220,13 @@ namespace DI.Reminder.Data.AccountDatabase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public void UpdateAccount(Account account)
@@ -254,13 +258,13 @@ namespace DI.Reminder.Data.AccountDatabase
                             connection.Close();
                         }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         private void AddRolesForUser(string roleName, int userid)
@@ -279,13 +283,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         private List<int> GetIDOfRoles(int id)
@@ -308,13 +312,13 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Close();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return IDs;
         }
@@ -348,13 +352,13 @@ namespace DI.Reminder.Data.AccountDatabase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _accountlist;
         }
