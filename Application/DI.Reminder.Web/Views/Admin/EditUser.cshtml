@@ -10,40 +10,46 @@
 {
     @Html.AntiForgeryToken()
 
-    <div style="float:left; width:45%">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Account.ID)
+<div style="float:left; width:45%">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Account.ID)
 
+    <div>
+        @Html.LabelFor(model => model.Account.Login, htmlAttributes: new { @class = "boton1" })
         <div>
-            @Html.LabelFor(model => model.Account.Login, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Account.Login, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            @Html.LabelFor(model => model.Account.Email, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Account.Email, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            @Html.LabelFor(model => model.Account.Password, htmlAttributes: new { @class = "boton1" })
-            <div style="font-size:200%; color:#855C6A;">
-                @Html.EditorFor(model => model.Account.Password, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <input type="submit" value="Save" class="button" />
-            </div>
+            @Html.EditorFor(model => model.Account.Login, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div>
+        @Html.LabelFor(model => model.Account.Email, htmlAttributes: new { @class = "boton1" })
+        <div>
+            @Html.EditorFor(model => model.Account.Email, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.Account.Password, htmlAttributes: new { @class = "boton1" })
+        <div style="font-size:200%; color:#855C6A;">
+            @Html.EditorFor(model => model.Account.Password, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Account.PasswordConfirm, htmlAttributes: new { @class = "boton1" })
+        <div style="font-size:200%; color:#855C6A;">
+            @Html.EditorFor(model => model.Account.PasswordConfirm, new { htmlAttributes = new { @class = "input" } })
+            @Html.ValidationMessageFor(model => model.Account.PasswordConfirm, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div>
+        <div>
+            <input type="submit" value="Save" class="button" />
+        </div>
+    </div>
+</div>
 
 
     <div style="float:right; width:45%">

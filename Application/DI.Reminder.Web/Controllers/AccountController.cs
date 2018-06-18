@@ -56,17 +56,12 @@ namespace DI.Reminder.Web.Controllers
         [HttpPost]
         public ActionResult Login(Account account)
         {
-            if (ModelState.IsValid)
+            _authentication.httpContext = System.Web.HttpContext.Current;
+            if (!_authentication.Authentication(account))
             {
-                _authentication.httpContext = System.Web.HttpContext.Current;
-                if (!_authentication.Authentication(account))
-                {
-                    account.Password = null;
-                    return View(account);
-                }
+                account.Password = null;
+                return View(account);
             }
-            else
-                RedirectToAction("HttpError500", "Error");
             return RedirectToAction("Home", "Start");
         }
         public ActionResult Edit()

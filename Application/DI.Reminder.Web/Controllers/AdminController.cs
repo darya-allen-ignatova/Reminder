@@ -74,6 +74,7 @@ namespace DI.Reminder.Web.Controllers
                 return RedirectToAction("HttpError404", "Error");
             Account _account = _userService.GetUser((int)id);
             _account.Password = _account.Password.Replace(" ", string.Empty);
+            _account.PasswordConfirm = _account.Password;
             if (_account == null)
                 return RedirectToAction("HttpError404", "Error");
             var roleList = GetRoles(_account.Roles[0]);
