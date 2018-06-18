@@ -47,11 +47,8 @@ namespace DI.Reminder.Web.Controllers
         {
             if (role == null)
                 throw new ArgumentNullException();
-            if (ModelState.IsValid)
-            { _roles.DeleteRole(role.ID); }
-            else
-                RedirectToAction("HttpError500", "Error");
-            return View();
+             _roles.DeleteRole(role.ID);
+            return RedirectToAction("ShowAll");
         }
 
 
