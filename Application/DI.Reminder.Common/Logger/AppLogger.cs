@@ -9,7 +9,7 @@ namespace DI.Reminder.Common.Logger
         static AppLogger()
         {
             XmlConfigurator.Configure();
-            logger=LogManager.GetLogger("Logger");
+            logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         }
         
         public  void Debug(string _message)
