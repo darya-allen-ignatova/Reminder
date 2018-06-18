@@ -45,9 +45,8 @@ namespace DI.Reminder.Web.Controllers
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
             var category = _categoriesStorage.GetCategory((int)id);
-            CategoriesModel categoryModel = GetModel(category);
-            if (categoryModel != null)
-                return View(categoryModel);
+            if (category != null)
+                return View(category);
             else
                 return RedirectToAction("HttpError404", "Error");
         }
@@ -71,9 +70,8 @@ namespace DI.Reminder.Web.Controllers
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
             var categoryDetails = _categoriesStorage.GetCategory((int)id);
-            CategoriesModel categoriesModel = GetModel(categoryDetails);
-            if (categoriesModel != null)
-                return View(categoriesModel);
+            if (categoryDetails != null)
+                return View(categoryDetails);
             else
                 return RedirectToAction("HttpError404", "Error");
         }
@@ -83,19 +81,9 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult ShowAll()
         {
             var allCategories = _categoriesStorage.GetAllCategories();
-            IList<CategoriesModel> categoriesModel = new List<CategoriesModel>();
-            if (allCategories != null)
-            {
-                for (int i = 0; i < allCategories.Count; i++)
-                {
-                    categoriesModel.Add(GetModel(allCategories[i]));
-                }
-                return View(categoriesModel);
-            }
-            else
-            {
-                return RedirectToAction("HttpError404", "Error");
-            }
+            if(allCategories!=null)
+            return View(allCategories);
+            return RedirectToAction("HttpError404", "Error");
         }
         public ActionResult Edit(int? ID)
         {
@@ -126,26 +114,7 @@ namespace DI.Reminder.Web.Controllers
                 RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAll");
         }
-
-        private CategoriesModel GetModel(Category category)
-        {
-            CategoriesModel categoriesModel = null;
-            if (category != null)
-            {
-                string parentCategory = null;
-                if (category.ParentID != null)
-                    parentCategory = _categoriesStorage.GetCategory((int)category.ParentID).Name;
-
-                categoriesModel = new CategoriesModel()
-                {
-                    ID = category.ID,
-                    Name = category.Name,
-                    ParentCategory = parentCategory
-                };
-                return categoriesModel;
-            }
-            return null;
-        }
+        
         private List<SelectListItem> GetCategoriesList()
         {
             var allCategories = _categoriesStorage.GetAllCategories();

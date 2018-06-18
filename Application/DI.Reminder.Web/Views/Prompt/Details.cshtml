@@ -40,8 +40,11 @@
         <div style="padding-top:10px">
             @Model.Date.ToShortDateString()
         </div>
-        <div class="nam">
-            Время напоминания: @Html.DisplayFor(X => Model.TimeOfPrompt)
+        <div class="nam" style="margin-top:10px">
+            @if (Model.TimeOfPrompt != null)
+            {
+            <div> Время напоминания: @Html.DisplayFor(X => Model.TimeOfPrompt)</div>
+                    }
         </div>
         <div>
             <img style="width:500px; height:300px; margin:10px" ; src="@Url.Content(Model.Image)" />

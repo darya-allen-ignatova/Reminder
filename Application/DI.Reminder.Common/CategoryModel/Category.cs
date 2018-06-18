@@ -9,8 +9,7 @@ namespace DI.Reminder.Common.CategoryModel
 
         [Required(ErrorMessage = "Field must be filled")]
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Field must be filled")]
+        
         public int? ParentID { get; set; }
     }
 }

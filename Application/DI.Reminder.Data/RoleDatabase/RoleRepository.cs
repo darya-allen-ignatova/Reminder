@@ -1,12 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using DI.Reminder.Common.Logger;
 using DI.Reminder.Common.LoginModels;
 
 namespace DI.Reminder.Data.RoleDatabase
 {
     public class RoleRepository : IRoleRepository
     {
+        private ILogger _logger;
+        public RoleRepository(ILogger logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private string GetConnection
         {
@@ -32,13 +39,13 @@ namespace DI.Reminder.Data.RoleDatabase
                     var result = command.ExecuteNonQuery();
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public void DeleteRole(int id)
@@ -61,13 +68,13 @@ namespace DI.Reminder.Data.RoleDatabase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
         public List<Role> GetRoleList(int? id)
@@ -108,13 +115,13 @@ namespace DI.Reminder.Data.RoleDatabase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _rolelist;
         }
@@ -144,13 +151,13 @@ namespace DI.Reminder.Data.RoleDatabase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
         }
@@ -180,13 +187,13 @@ namespace DI.Reminder.Data.RoleDatabase
 
                 }
             }
-            catch (SqlException)
+            catch (SqlException sqlExc)
             {
-                throw;
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
     }

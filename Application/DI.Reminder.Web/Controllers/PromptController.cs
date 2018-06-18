@@ -23,6 +23,9 @@ namespace DI.Reminder.Web.Controllers
             _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
+
+
+
         public ActionResult Searching()
         {
             SearchModel searchModel = new SearchModel()
@@ -120,6 +123,11 @@ namespace DI.Reminder.Web.Controllers
             }
         }
 
+
+
+
+
+
         public ActionResult Navigation(int? id = null)
         {
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
@@ -161,22 +169,8 @@ namespace DI.Reminder.Web.Controllers
             }
         }
 
-        public ActionResult GetItemsForSearch(int id, string value)
-        {
-            if(value==null)
-                return RedirectToAction("HttpError404", "Error");
-            IList<Prompt> jsondata = _prompt.GetSearchingPrompts(UserID, id, value);
-            if (jsondata == null || jsondata.Count == 0)
-            {
-                return Json(new
-                {
-                    ID = id,
-                    isRedirect = true
-                }, JsonRequestBehavior.AllowGet);
-            }
 
-            return Json(jsondata, JsonRequestBehavior.AllowGet);
-        }
+        
 
         public ActionResult Details(int? ID)
         {

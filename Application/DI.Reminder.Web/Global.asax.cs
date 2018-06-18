@@ -18,7 +18,6 @@ namespace DI.Reminder.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             log4net.Config.XmlConfigurator.Configure();
             String connStr = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            
             System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(connStr);
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Prompts");
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connStr, "Categories");

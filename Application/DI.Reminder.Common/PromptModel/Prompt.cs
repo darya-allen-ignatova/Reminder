@@ -15,13 +15,12 @@ namespace DI.Reminder.Common.PromptModel
         public string Name { get; set; }
 
         [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Field must be filled")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Field must be filled")]
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
-
-        [Required(ErrorMessage = "Field must be filled")]
+        
         public Category Category { get; set; }
 
         [DataType(DataType.Time)]
