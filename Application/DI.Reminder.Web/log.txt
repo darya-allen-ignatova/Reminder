@@ -32,3 +32,15 @@ C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Rem
 2018-06-18 13:40:13,147 [8] ERROR - Error ServiceException:   Прослушивание на http://localhost:61182/Advertising.svc не выполняла ни одна конечная точка, которая могла бы принять сообщение. Среди прочих причин это могло быть вызвано неправильным адресом или действием SOAP. Подробнее см. в описании InnerException (если имеется).
 2018-06-18 13:40:13,449 [7] ERROR - Error ServiceException:   Прослушивание на http://localhost:61182/Advertising.svc не выполняла ни одна конечная точка, которая могла бы принять сообщение. Среди прочих причин это могло быть вызвано неправильным адресом или действием SOAP. Подробнее см. в описании InnerException (если имеется).
 2018-06-18 13:40:13,987 [5] ERROR - Error ServiceException:   Прослушивание на http://localhost:61182/Advertising.svc не выполняла ни одна конечная точка, которая могла бы принять сообщение. Среди прочих причин это могло быть вызвано неправильным адресом или действием SOAP. Подробнее см. в описании InnerException (если имеется).
+2018-06-20 12:01:20,585 [7] ERROR - Error 500:
+C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\App_Web_showall.cshtml.8a329799.tdidmfxj.0.cs(30): error CS0234: The type or namespace name 'CategoriesModel' does not exist in the namespace 'DI.Reminder.Common.CategoryModel' (are you missing an assembly reference?)
+2018-06-20 12:06:03,741 [6] ERROR - Error SqlException: System.InvalidOperationException: Нулевой объект должен иметь значение.
+   в System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   в System.Nullable`1.get_Value()
+   в DI.Reminder.Data.PromptDataBase.PromptRepository.EditPrompt(Prompt prompt) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 282	Нулевой объект должен иметь значение.
+2018-06-20 12:06:03,824 [16] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "ShowCategoryList" на контроллере "DI.Reminder.Web.Controllers.PromptController".
+2018-06-20 12:09:07,503 [17] ERROR - Error 500:
+C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\App_Web_showall.cshtml.8a329799.tfbj-tod.0.cs(30): error CS0234: The type or namespace name 'CategoriesModel' does not exist in the namespace 'DI.Reminder.Common.CategoryModel' (are you missing an assembly reference?)
+2018-06-20 12:23:44,993 [6] ERROR - Error 404:
+Не удалось найти общедоступный метод действия "ShowAllCategories" на контроллере "DI.Reminder.Web.Controllers.CategoryController".

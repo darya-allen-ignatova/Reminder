@@ -38,34 +38,27 @@ namespace DI.Reminder.Web.Controllers
                 RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAllCategories");
         }
-
-
-        public ActionResult Delete(int? id)
-        {
-            if(id==null)
-                return RedirectToAction("HttpError404", "Error");
-            var category = _categoriesStorage.GetCategory((int)id);
-            if (category != null)
-                return View(category);
-            else
-                return RedirectToAction("HttpError404", "Error");
-        }
         [HttpPost]
         public ActionResult Delete(Category category)
         {
             if (category == null)
                 throw new ArgumentNullException();
-            if (ModelState.IsValid)
-            {
-                _categoriesStorage.DeleteCategory(category.ID);
-            }
+            _categoriesStorage.DeleteCategory(category.ID);
+            return RedirectToAction("ShowAll");
+        }
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                return RedirectToAction("HttpError404", "Error");
+            var category = _categoriesStorage.GetCategory((int)id);
+            CategoriesModel categoryModel = GetModel(category);
+            if (categoryModel != null)
+                return View(categoryModel);
             else
-                RedirectToAction("HttpError500", "Error");
-            return View();
+                return RedirectToAction("HttpError404", "Error");
         }
 
-
-        public ActionResult Details(int? id)
+            public ActionResult Details(int? id)
         {
             if(id==null)
                 return RedirectToAction("HttpError404", "Error");
@@ -81,9 +74,38 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult ShowAll()
         {
             var allCategories = _categoriesStorage.GetAllCategories();
-            if(allCategories!=null)
-            return View(allCategories);
-            return RedirectToAction("HttpError404", "Error");
+            IList<CategoriesModel> categoriesModel = new List<CategoriesModel>();
+            if (allCategories != null)
+            {
+                for (int i = 0; i < allCategories.Count; i++)
+                {
+                    categoriesModel.Add(GetModel(allCategories[i]));
+                }
+                return View(categoriesModel);
+            }
+            else
+            {
+                return RedirectToAction("HttpError404", "Error");
+            }
+        }
+        private CategoriesModel GetModel(Category category)
+        {
+            CategoriesModel categoriesModel = null;
+            if (category != null)
+            {
+                string parentCategory = null;
+                if (category.ParentID != null)
+                    parentCategory = _categoriesStorage.GetCategory((int)category.ParentID).Name;
+
+                categoriesModel = new CategoriesModel()
+                {
+                    ID = category.ID,
+                    Name = category.Name,
+                    ParentCategory = parentCategory
+                };
+                return categoriesModel;
+            }
+            return null;
         }
         public ActionResult Edit(int? ID)
         {
