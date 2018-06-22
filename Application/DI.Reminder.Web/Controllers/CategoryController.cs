@@ -36,7 +36,7 @@ namespace DI.Reminder.Web.Controllers
             }
             else
                 RedirectToAction("HttpError500", "Error");
-            return RedirectToAction("ShowAllCategories");
+            return RedirectToAction("ShowAll");
         }
         [HttpPost]
         public ActionResult Delete(Category category)

@@ -225,7 +225,7 @@ namespace DI.Reminder.Web.Controllers
             { _prompt.DeletePrompt(UserID, prompt.ID); }
             else
                 RedirectToAction("HttpError500", "Error");
-            return RedirectToAction("ShowCategoryList", new { id = 0 });
+            return RedirectToAction("Navigation", new { id = 0 });
         }
 
 
@@ -257,7 +257,7 @@ namespace DI.Reminder.Web.Controllers
             }
             else
                 RedirectToAction("HttpError500", "Error");
-            return RedirectToAction("ShowCategoryList", new { id = 0 });
+            return RedirectToAction("Navigation", new { id = 0 });
         }
 
 
