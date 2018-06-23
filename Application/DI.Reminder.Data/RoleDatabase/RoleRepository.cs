@@ -196,5 +196,45 @@ namespace DI.Reminder.Data.RoleDatabase
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
+
+        public Role GetRoleByName(string Name)
+        {
+            Role role = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = "GetRole";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter sqlparam = new SqlParameter()
+                    {
+                        ParameterName = "@roleName",
+                        Value = Name
+                    };
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        role = new Role()
+                        {
+                            ID=int.Parse(reader["ID"].ToString()),
+                            Name=reader["Name"].ToString()
+                        };
+                    }
+                    connection.Close();
+                }
+                
+            }
+            catch (SqlException sqlExc)
+            {
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+            }
+            return role;
+        }
     }
 }

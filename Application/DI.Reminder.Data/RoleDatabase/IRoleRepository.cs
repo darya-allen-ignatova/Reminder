@@ -10,5 +10,6 @@ namespace DI.Reminder.Data.RoleDatabase
         void InsertRole(string Role);
         IList<Role> GetAllRoles();
         void DeleteUserRole(int roleID, int userID);
+        Role GetRoleByName(string Name);
     }
 }
