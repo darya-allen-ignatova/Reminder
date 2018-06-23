@@ -213,6 +213,7 @@ namespace DI.Reminder.Data.RoleDatabase
                         ParameterName = "@roleName",
                         Value = Name
                     };
+                    command.Parameters.Add(sqlparam);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {

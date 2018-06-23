@@ -73,6 +73,7 @@ namespace DI.Reminder.Data.AccountDatabase
             try
             {
                 Account account = GetAccount(newaccount.Login);
+                
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -82,10 +83,18 @@ namespace DI.Reminder.Data.AccountDatabase
                         string sqlExpression = "AddConnection";
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.CommandType = System.Data.CommandType.StoredProcedure;
+                        int? roleID=null;
+                        try
+                        {
+                            roleID=int.Parse(newaccount.Roles[i].Name);
+                        }
+                        catch { }
+                        if(roleID==null)
+                            roleID =newaccount.Roles[i].ID;
                         SqlParameter sqlparam1 = new SqlParameter()
                         {
                             ParameterName = "@roleid",
-                            Value = int.Parse(newaccount.Roles[i].Name)
+                            Value = roleID
                         };
                         command.Parameters.Add(sqlparam1);
                         SqlParameter sqlparam2 = new SqlParameter()

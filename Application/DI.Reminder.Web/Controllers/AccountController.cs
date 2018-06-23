@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using DI.Reminder.BL.LoginService.Authentication;
 using DI.Reminder.BL.UsersService;
 using DI.Reminder.Common.LoginModels;
+using DI.Reminder.Data.RoleDatabase;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -11,10 +12,12 @@ namespace DI.Reminder.Web.Controllers
     {
         private IUserService _userService;
         private IAuthentication _authentication;
-        public AccountController(IAuthentication authentication, IUserService userService)
+        private IRoleRepository _roleRepository;
+        public AccountController(IAuthentication authentication, IUserService userService, IRoleRepository roleRepository)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _authentication = authentication ?? throw new ArgumentNullException(nameof(authentication));
+            _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
 
         public ActionResult LogOut()
@@ -32,14 +35,8 @@ namespace DI.Reminder.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Role> role = new List<Role>()
-            {
-                new Role()
-                {
-                    Name="User"
-                }
-            };
-                account.Roles = role;
+                List<Role> rolelist = new List<Role>() { _roleRepository.GetRoleByName("User") };
+                account.Roles = rolelist;
                 _userService.InsertUser(account);
                 Logout();
                 _authentication.httpContext = System.Web.HttpContext.Current;
