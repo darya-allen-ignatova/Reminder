@@ -23,9 +23,7 @@ namespace DI.Reminder.Web.Controllers
             _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
-
-
-
+        
         public ActionResult Searching()
         {
             SearchModel searchModel = new SearchModel()

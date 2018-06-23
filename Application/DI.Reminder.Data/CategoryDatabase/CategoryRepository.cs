@@ -178,12 +178,15 @@ namespace DI.Reminder.Data.CategoryDataBase
                         Value = category.Name
                     };
                     command.Parameters.Add(sqlparam1);
-                    SqlParameter sqlparam2 = new SqlParameter()
+                    if (category.ParentID != 0)
                     {
-                        ParameterName = "@ParentID",
-                        Value = category.ParentID
-                    };
-                    command.Parameters.Add(sqlparam2);
+                        SqlParameter sqlparam2 = new SqlParameter()
+                        {
+                            ParameterName = "@ParentID",
+                            Value = category.ParentID
+                        };
+                        command.Parameters.Add(sqlparam2);
+                    }
                     var result = command.ExecuteNonQuery();
                 }
             }

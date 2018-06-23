@@ -44,3 +44,8 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\App_Web_showall.cshtml.8a329799.tfbj-tod.0.cs(30): error CS0234: The type or namespace name 'CategoriesModel' does not exist in the namespace 'DI.Reminder.Common.CategoryModel' (are you missing an assembly reference?)
 2018-06-20 12:23:44,993 [6] ERROR - Error 404:
 Не удалось найти общедоступный метод действия "ShowAllCategories" на контроллере "DI.Reminder.Web.Controllers.CategoryController".
+2018-06-23 18:45:32,037 [8] ERROR - Error SqlException: System.FormatException: Входная строка имела неверный формат.
+   в System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   в System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   в System.Int32.Parse(String s)
+   в DI.Reminder.Data.AccountDatabase.AccountRepository.AddRoleForUser(Account newaccount) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\AccountDatabase\AccountRepository.cs:строка 85	Входная строка имела неверный формат.
