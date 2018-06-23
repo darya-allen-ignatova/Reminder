@@ -13,6 +13,7 @@ namespace DI.Reminder.Common.LoginModels
         public string Email { get; set; }
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Field must be filled")]
+        [MinLength(8, ErrorMessage ="Too small. Password must have 8 signs")]
         public string Password { get; set; }
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
