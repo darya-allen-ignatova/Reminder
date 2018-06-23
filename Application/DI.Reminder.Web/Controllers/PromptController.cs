@@ -219,10 +219,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
-            if (ModelState.IsValid)
-            { _prompt.DeletePrompt(UserID, prompt.ID); }
-            else
-                RedirectToAction("HttpError500", "Error");
+             _prompt.DeletePrompt(UserID, prompt.ID); 
             return RedirectToAction("Navigation", new { id = 0 });
         }
 
@@ -230,6 +227,7 @@ namespace DI.Reminder.Web.Controllers
 
 
         public ActionResult Edit(int? id)
+
         {
             if(id==null )
                 return RedirectToAction("HttpError404", "Error");

@@ -53,3 +53,11 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 2018-06-23 19:07:22,650 [5] ERROR - Error ServiceException:   Прослушивание на http://localhost:54808/Advertising.svc не выполняла ни одна конечная точка, которая могла бы принять сообщение. Среди прочих причин это могло быть вызвано неправильным адресом или действием SOAP. Подробнее см. в описании InnerException (если имеется).
 2018-06-23 19:19:45,685 [6] ERROR - Error SqlException: System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта.
    в DI.Reminder.Data.AccountDatabase.AccountRepository.UpdateAccount(Account account) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\AccountDatabase\AccountRepository.cs:строка 264	Ссылка на объект не указывает на экземпляр объекта.
+2018-06-23 19:35:13,766 [6] ERROR - Error SqlException: System.InvalidOperationException: Нулевой объект должен иметь значение.
+   в System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   в System.Nullable`1.get_Value()
+   в DI.Reminder.Data.PromptDataBase.PromptRepository.EditPrompt(Prompt prompt) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 282	Нулевой объект должен иметь значение.
+2018-06-23 19:35:27,929 [6] ERROR - Error SqlException: System.InvalidOperationException: Нулевой объект должен иметь значение.
+   в System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   в System.Nullable`1.get_Value()
+   в DI.Reminder.Data.PromptDataBase.PromptRepository.EditPrompt(Prompt prompt) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 282	Нулевой объект должен иметь значение.
