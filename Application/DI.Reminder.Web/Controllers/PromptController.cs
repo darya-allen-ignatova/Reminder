@@ -130,11 +130,17 @@ namespace DI.Reminder.Web.Controllers
         {
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
             IList<Category> _categorylist = _getcategory.GetCategories(id);
+            int? previousList =null;
+            if (_promptlist.Count != 0)
+            {
+                previousList = _promptlist[0].Category.ParentID;
+            }
             ModelCategoriesWithPrompts modelCategoriesWithPrompts = new ModelCategoriesWithPrompts();
             if (_categorylist.Count != 0)
             {
                 modelCategoriesWithPrompts.CategoryList = _categorylist;
                 modelCategoriesWithPrompts.PromptList = _promptlist;
+                modelCategoriesWithPrompts.previousListID = previousList;
             }
             else
                 return RedirectToAction("HttpError404", "Error");

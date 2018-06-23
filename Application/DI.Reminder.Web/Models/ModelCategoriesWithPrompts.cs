@@ -8,5 +8,6 @@ namespace DI.Reminder.Web.Models
     {
         public IList<Prompt> PromptList { get; set; }
         public IList<Category> CategoryList { get; set; }
+        public int? previousListID { get; set; }
     }
 }

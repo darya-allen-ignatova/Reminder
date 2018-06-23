@@ -61,3 +61,9 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
    в System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
    в System.Nullable`1.get_Value()
    в DI.Reminder.Data.PromptDataBase.PromptRepository.EditPrompt(Prompt prompt) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 282	Нулевой объект должен иметь значение.
+2018-06-23 20:07:50,768 [8] ERROR - Error 404:
+Контроллер для пути "/Navigation/Prompt/ })" не найден или не реализует интерфейс IController.
+2018-06-23 20:08:03,206 [8] ERROR - Error 404:
+Контроллер для пути "/Navigation/Prompt/ })" не найден или не реализует интерфейс IController.
+2018-06-23 20:09:05,461 [6] ERROR - Error 404:
+Контроллер для пути "/Navigation/Prompt/ })" не найден или не реализует интерфейс IController.
