@@ -56,8 +56,10 @@ namespace DI.Reminder.Data.AccountDatabase
 
                     command.Parameters.Add(sqlparam3);
                     var result = command.ExecuteNonQuery();
+                    connection.Close();
                     AddRoleForUser(account);
                 }
+
             }
             catch (SqlException sqlExc)
             {
@@ -73,7 +75,7 @@ namespace DI.Reminder.Data.AccountDatabase
             try
             {
                 Account account = GetAccount(newaccount.Login);
-                
+
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -83,18 +85,10 @@ namespace DI.Reminder.Data.AccountDatabase
                         string sqlExpression = "AddConnection";
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        int? roleID=null;
-                        try
-                        {
-                            roleID=int.Parse(newaccount.Roles[i].Name);
-                        }
-                        catch { }
-                        if(roleID==null)
-                            roleID =newaccount.Roles[i].ID;
                         SqlParameter sqlparam1 = new SqlParameter()
                         {
                             ParameterName = "@roleid",
-                            Value = roleID
+                            Value = newaccount.Roles[i].ID
                         };
                         command.Parameters.Add(sqlparam1);
                         SqlParameter sqlparam2 = new SqlParameter()
@@ -105,6 +99,7 @@ namespace DI.Reminder.Data.AccountDatabase
                         command.Parameters.Add(sqlparam2);
                         var result = command.ExecuteNonQuery();
                     }
+                    connection.Close();
                 }
             }
             catch (SqlException sqlExc)
@@ -136,7 +131,6 @@ namespace DI.Reminder.Data.AccountDatabase
                     };
                     command.Parameters.Add(sqlparam);
                     SqlDataReader reader = command.ExecuteReader();
-
                     while (reader.Read())
                     {
                         account = new Account()
@@ -226,7 +220,7 @@ namespace DI.Reminder.Data.AccountDatabase
                     };
                     command.Parameters.Add(sqlparam1);
                     var result = command.ExecuteNonQuery();
-
+                    connection.Close();
                 }
             }
             catch (SqlException sqlExc)
@@ -253,19 +247,15 @@ namespace DI.Reminder.Data.AccountDatabase
                     command.Parameters.AddWithValue("@email", account.Email);
                     command.Parameters.AddWithValue("@id", account.ID);
                     var result = command.ExecuteNonQuery();
+
+                    sqlExpression = $"UpdatingUserRole";
+                    command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@roleid", account.Roles[0].Name);
+                    command.Parameters.AddWithValue("@userid", account.ID);
+                    result = command.ExecuteNonQuery();
                     connection.Close();
                 }
-                using (SqlConnection connection = new SqlConnection(GetConnection))
-                        {
-                            connection.Open();
-                            string sqlExpression = $"UpdatingUserRole";
-                            SqlCommand command = new SqlCommand(sqlExpression, connection);
-                            command.CommandType = System.Data.CommandType.StoredProcedure;
-                            command.Parameters.AddWithValue("@roleid",account.Roles[0].Name );
-                            command.Parameters.AddWithValue("@userid", account.ID);
-                            var result = command.ExecuteNonQuery();
-                            connection.Close();
-                        }
             }
             catch (SqlException sqlExc)
             {

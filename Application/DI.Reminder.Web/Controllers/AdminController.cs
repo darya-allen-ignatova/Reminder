@@ -38,6 +38,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (account == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("account.Roles[0].Name");
             if (ModelState.IsValid)
             {
                 _userService.InsertUser(account);
@@ -91,6 +92,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (account == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("account.Roles[0].Name");
             if (ModelState.IsValid)
             {
                 _userService.EditUser(account);
@@ -99,10 +101,7 @@ namespace DI.Reminder.Web.Controllers
                 RedirectToAction("HttpError500", "Error");
             return RedirectToAction("UserList");
         }
-
-
-
-        //[OutputCache(CacheProfile = "cacheProfileForUsers")]
+        
         public ActionResult UserList()
         {
             return View(_userService.GetUserList());

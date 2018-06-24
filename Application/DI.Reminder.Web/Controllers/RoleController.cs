@@ -26,7 +26,9 @@ namespace DI.Reminder.Web.Controllers
             if (role == null)
                 throw new ArgumentNullException();
             if (ModelState.IsValid)
-            { _roles.InsertRole(role); }
+            {
+                _roles.InsertRole(role);
+            }
             else
                 RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAll");
@@ -51,9 +53,7 @@ namespace DI.Reminder.Web.Controllers
             return RedirectToAction("ShowAll");
         }
 
-
-
-        //[OutputCache(CacheProfile = "cacheProfileForRoles")]
+        
         public ActionResult ShowAll()
         {
             var allCategories = _roles.GetAllRoles();

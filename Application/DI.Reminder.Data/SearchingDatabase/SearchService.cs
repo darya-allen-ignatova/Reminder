@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace DI.Reminder.Data.SearchingDatabase
 {
@@ -24,8 +25,11 @@ namespace DI.Reminder.Data.SearchingDatabase
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
-        public IList<Prompt> GetSearchItems(int userID, int id, string value)
+        public IList<Prompt> GetSearchResult(string promptval, string categoryval, string dateval, int UserID)
+        {
+            return GetPromptsAfterSearch(promptval, categoryval, dateval, UserID);
+        }
+        private IList<Prompt> GetSearchItems(int userID, int id, string value)
         {
             IList<Prompt> SearchingItems = null;
             switch (id)
@@ -205,6 +209,79 @@ namespace DI.Reminder.Data.SearchingDatabase
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
             return _list;
+        }
+        private IList<Prompt> GetPromptsAfterSearch(string promptval, string categoryval, string dateval, int UserID)
+        {
+            IList<Prompt> promptList = new List<Prompt>();
+            IList<Prompt> result = new List<Prompt>();
+            IList<Prompt> listOfPromptName = null;
+            IList<Prompt> listOfCategoryName = null;
+            IList<Prompt> listOfDate = null;
+            if (promptval != null && promptval != "")
+                listOfPromptName = GetSearchItems(UserID, 2, promptval);
+            if (categoryval != null && categoryval != "0")
+                listOfCategoryName = GetSearchItems(UserID, 1, categoryval);
+            if (dateval != null && dateval != "")
+                listOfDate = GetSearchItems(UserID, 3, dateval);
+            if (listOfPromptName != null)
+            {
+                if (listOfCategoryName != null)
+                {
+                    foreach (var item in listOfPromptName)
+                    {
+                        if (listOfCategoryName.FirstOrDefault(g => g.ID == item.ID) != null)
+                            result.Add(listOfCategoryName.First(g => g.ID == item.ID));
+                    }
+                    if (listOfDate != null)
+                    {
+                        foreach (var item in listOfDate)
+                        {
+                            if (result.FirstOrDefault(g => g.ID == item.ID) != null)
+                                promptList.Add(result.First(g => g.ID == item.ID));
+                        }
+                        return promptList;
+                    }
+                    else
+                    {
+                        return result;
+                    }
+                }
+                else
+                {
+                    if (listOfDate != null)
+                    {
+                        foreach (var item in listOfDate)
+                        {
+                            if (listOfPromptName.FirstOrDefault(g => g.ID == item.ID) != null)
+                                result.Add(listOfPromptName.First(g => g.ID == item.ID));
+                        }
+                        return result;
+                    }
+                    else
+                    {
+                        return listOfPromptName;
+                    }
+                }
+            }
+            else
+            {
+                if (listOfCategoryName != null)
+                {
+                    if (listOfDate != null)
+                    {
+                        foreach (var item in listOfCategoryName)
+                        {
+                            if (listOfDate.FirstOrDefault(g => g.ID == item.ID) != null)
+                                result.Add(listOfDate.First(g => g.ID == item.ID));
+                        }
+                        return result;
+                    }
+                    else
+                        return listOfCategoryName;
+                }
+                else
+                    return listOfDate;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace DI.Reminder.BL.PromptStorage
         Prompt GetPromptDetails(int userID, int id);
         void DeletePrompt(int userID, int id);
         void InsertPrompt(int userID, Prompt newprompt);
-        IList<Prompt> GetSearchingPrompts(int userID, int id, string value);
+        IList<Prompt> GetSearchingPrompts(int UserID, string promptval, string categoryval, string dateval);
         void EditPrompt(Prompt prompt);
     }
 }

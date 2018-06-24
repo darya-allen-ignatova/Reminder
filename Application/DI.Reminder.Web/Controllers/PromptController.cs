@@ -23,6 +23,8 @@ namespace DI.Reminder.Web.Controllers
             _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
             _getcategory = getcategory ?? throw new ArgumentNullException(nameof(getcategory));
         }
+
+
         
         public ActionResult Searching()
         {
@@ -33,11 +35,11 @@ namespace DI.Reminder.Web.Controllers
             searchModel.Categories[0].Text = string.Empty;
             return View(searchModel);
         }
-        public ActionResult Search(string promptval, string categoryval=null , string dateval=null)
+        public ActionResult Search(string promptval=null, string categoryval=null , string dateval=null)
         {
             if (!(promptval != null || categoryval!=null || dateval!=null))
                 throw new ArgumentNullException();
-            var promptList = GetPromptsAfterSearch(promptval,categoryval,dateval);
+            var promptList =_prompt.GetSearchingPrompts(UserID,promptval,categoryval,dateval);
             if(promptList==null || promptList.Count==0 )
             {
                 return Json(new
@@ -47,84 +49,8 @@ namespace DI.Reminder.Web.Controllers
             }
             return Json(promptList, JsonRequestBehavior.AllowGet);
         }
-        private IList<Prompt> GetPromptsAfterSearch(string promptval, string categoryval, string dateval)
-        {
-            IList<Prompt> promptList = new List<Prompt>();
-            IList<Prompt> result = new List<Prompt>();
-            IList<Prompt> listOfPromptName = null;
-            IList<Prompt> listOfCategoryName = null;
-            IList<Prompt> listOfDate = null;
-            if (promptval != null&& promptval!="")
-                listOfPromptName=_prompt.GetSearchingPrompts(UserID, 2, promptval);
-            if (categoryval != null && categoryval!="0")
-                listOfCategoryName = _prompt.GetSearchingPrompts(UserID, 1, categoryval);
-            if (dateval != null && dateval!="")
-                listOfDate = _prompt.GetSearchingPrompts(UserID, 3, dateval);
-            if (listOfPromptName != null)
-            {
-                if (listOfCategoryName != null)
-                {
-                    foreach (var item in listOfPromptName)
-                    {
-                        if(listOfCategoryName.FirstOrDefault(g => g.ID == item.ID)!=null)
-                        result.Add(listOfCategoryName.First(g => g.ID == item.ID));
-                    }
-                    if(listOfDate!=null)
-                    {
-                        foreach (var item in listOfDate)
-                        {
-                            if (result.FirstOrDefault(g => g.ID == item.ID) != null)
-                                promptList.Add(result.First(g => g.ID == item.ID));
-                        }
-                        return promptList;
-                    }
-                    else
-                    {
-                        return result;
-                    }
-                }
-                else
-                {
-                    if(listOfDate!=null)
-                    {
-                        foreach (var item in listOfDate)
-                        {
-                            if (listOfPromptName.FirstOrDefault(g => g.ID == item.ID) != null)
-                                result.Add(listOfPromptName.First(g => g.ID == item.ID));
-                        }
-                        return result;
-                    }
-                    else
-                    {
-                        return listOfPromptName;
-                    }
-                }
-            }
-            else
-            {
-                if (listOfCategoryName != null)
-                {
-                    if (listOfDate != null)
-                    {
-                        foreach (var item in listOfCategoryName)
-                        {
-                            if (listOfDate.FirstOrDefault(g => g.ID == item.ID) != null)
-                                result.Add(listOfDate.First(g => g.ID == item.ID));
-                        }
-                        return result;
-                    }
-                    else
-                        return listOfCategoryName;
-                }
-                else
-                    return listOfDate;
-            }
-        }
-
-
-
-
-
+        
+        
 
         public ActionResult Navigation(int? id = null)
         {

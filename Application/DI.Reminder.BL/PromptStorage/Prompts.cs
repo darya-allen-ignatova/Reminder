@@ -83,11 +83,11 @@ namespace DI.Reminder.BL.PromptStorage
             _cacheRepository.AddCache<Prompt>(newprompt, newprompt.ID);
         }
 
-        public IList<Prompt> GetSearchingPrompts(int userID, int id, string value)
+        public IList<Prompt> GetSearchingPrompts(int UserID, string promptval, string categoryval, string dateval)
         {
-            if (id < 1 || userID < 1)
+            if (UserID < 1)
                 return null;
-            return _search.GetSearchItems(userID, id, value);
+            return _search.GetSearchResult(promptval, categoryval, dateval,UserID);
         }
         public void EditPrompt(Prompt prompt)
         {
