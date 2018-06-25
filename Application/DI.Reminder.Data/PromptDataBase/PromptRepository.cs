@@ -149,7 +149,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"GetActions";
+                    string sqlExpression = "GetActions";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam = new SqlParameter()
@@ -192,7 +192,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"AddPrompt";
+                    string sqlExpression = "AddPrompt";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@name", prompt.Name);
@@ -227,7 +227,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"DeletePrompt";
+                    string sqlExpression = "DeletePrompt";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@id", id);
@@ -257,7 +257,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"AddAction";
+                    string sqlExpression = "AddAction";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Name", action.Name);
@@ -283,7 +283,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"UpdatingPrompt";
+                    string sqlExpression = "UpdatingPrompt";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@name", prompt.Name);
@@ -336,7 +336,7 @@ namespace DI.Reminder.Data.PromptDataBase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"GetAllIDOfPromptActions";
+                    string sqlExpression = "GetAllIDOfPromptActions";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@id", id);

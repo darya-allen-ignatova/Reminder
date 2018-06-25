@@ -46,7 +46,7 @@ namespace DI.Reminder.BL.UsersService
             if(account==null)
             {
                 account = _accountRepository.GetAccount(id);
-                _cacheService.AddCache<Account>(account, account.ID);
+                _cacheService.AddCache(account, account.ID);
             }
             return account;
         }
@@ -59,7 +59,7 @@ namespace DI.Reminder.BL.UsersService
         public void InsertUser(Account account)
         {
             _accountRepository.InsertAccount(account);
-            _cacheService.AddCache<Account>(account, account.ID);
+            _cacheService.AddCache(account, account.ID);
         }
     }
 }

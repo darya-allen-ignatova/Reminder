@@ -58,11 +58,11 @@ namespace DI.Reminder.BL.PromptStorage
         {
             if (id < 1 || userID < 1)
                 return null;
-            Prompt prompt = _cacheRepository.GetValueOfCache<Prompt>((int)id);
+            Prompt prompt = _cacheRepository.GetValueOfCache<Prompt>(id);
             if (prompt == null)
             {
                 prompt = _promptRepository.GetPrompt(userID, id);
-                _cacheRepository.AddCache<Prompt>(prompt, prompt.ID);
+                _cacheRepository.AddCache(prompt, prompt.ID);
             }
             return prompt;
         }
@@ -71,7 +71,7 @@ namespace DI.Reminder.BL.PromptStorage
             if ( userID < 1 || id < 1)
                 return;
             _promptRepository.DeletePrompt(userID, id);
-            _cacheRepository.DeleteCache((int)id);
+            _cacheRepository.DeleteCache(id);
 
         }
 
@@ -80,7 +80,7 @@ namespace DI.Reminder.BL.PromptStorage
             if (userID < 1)
                 return;
             _promptRepository.AddPrompt(userID, newprompt);
-            _cacheRepository.AddCache<Prompt>(newprompt, newprompt.ID);
+            _cacheRepository.AddCache(newprompt, newprompt.ID);
         }
 
         public IList<Prompt> GetSearchingPrompts(int UserID, string promptval, string categoryval, string dateval)

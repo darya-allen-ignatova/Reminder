@@ -16,7 +16,6 @@ namespace DI.Reminder.Data.AccountDatabase
         public AccountRepository(IRoleRepository rolerepository, ILogger logger)
         {
             _rolerepository = rolerepository ?? throw new ArgumentNullException(nameof(rolerepository));
-
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         private string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -121,7 +120,7 @@ namespace DI.Reminder.Data.AccountDatabase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"GetUserByLogin";
+                    string sqlExpression = "GetUserByLogin";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam = new SqlParameter()
@@ -143,6 +142,9 @@ namespace DI.Reminder.Data.AccountDatabase
 
                     }
                     connection.Close();
+                    if (account == null)
+                        return null;
+                    account.Roles = _rolerepository.GetRoleList(account.ID);
 
                 }
 
@@ -166,7 +168,7 @@ namespace DI.Reminder.Data.AccountDatabase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"GetUserByID";
+                    string sqlExpression = "GetUserByID";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam = new SqlParameter()
@@ -239,7 +241,7 @@ namespace DI.Reminder.Data.AccountDatabase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"UpdatingUser";
+                    string sqlExpression = "UpdatingUser";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@login", account.Login);
@@ -248,10 +250,10 @@ namespace DI.Reminder.Data.AccountDatabase
                     command.Parameters.AddWithValue("@id", account.ID);
                     var result = command.ExecuteNonQuery();
 
-                    sqlExpression = $"UpdatingUserRole";
+                    sqlExpression = "UpdatingUserRole";
                     command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@roleid", account.Roles[0].Name);
+                    command.Parameters.AddWithValue("@roleid", account.Roles[0].ID);
                     command.Parameters.AddWithValue("@userid", account.ID);
                     result = command.ExecuteNonQuery();
                     connection.Close();
@@ -273,7 +275,7 @@ namespace DI.Reminder.Data.AccountDatabase
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
-                    string sqlExpression = $"AddRolesForUser";
+                    string sqlExpression = "AddRolesForUser";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@userid", userid);
@@ -291,36 +293,7 @@ namespace DI.Reminder.Data.AccountDatabase
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
-        private List<int> GetIDOfRoles(int id)
-        {
-            List<int> IDs = new List<int>();
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(GetConnection))
-                {
-                    connection.Open();
-                    string sqlExpression = $"GetUserRoles";
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@id", id);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        IDs.Add(int.Parse(reader["ID"].ToString()));
-                    }
-                    connection.Close();
-                }
-            }
-            catch (SqlException sqlExc)
-            {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
-            }
-            return IDs;
-        }
+       
 
         public List<Account> GetAccountList()
         {

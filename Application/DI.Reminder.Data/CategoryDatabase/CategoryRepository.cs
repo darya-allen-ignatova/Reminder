@@ -30,7 +30,7 @@ namespace DI.Reminder.Data.CategoryDataBase
                     connection.Open();
                     string sqlExpression;
 
-                    sqlExpression = $"GetCategoryID";
+                    sqlExpression = "GetCategoryID";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam = new SqlParameter()
@@ -68,7 +68,7 @@ namespace DI.Reminder.Data.CategoryDataBase
                     connection.Open();
                     string sqlExpression;
 
-                    sqlExpression = $"GetCategoryID";
+                    sqlExpression = "GetCategoryID";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     SqlParameter sqlparam = new SqlParameter()
