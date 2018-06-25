@@ -333,13 +333,14 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Arrange
             //
-            string value = null;
-            int userID = 2;
-            int ID = 3;
+            string promptval = null;
+            string categoryval = "2";
+            string dateval = null;
+            int userID = 0;
             //
             //Act
             //
-            var result = _prompts.GetSearchingPrompts(userID, ID, value);
+            var result = _prompts.GetSearchingPrompts(userID, promptval, categoryval, dateval);
             //
             //Assert
             //
@@ -352,19 +353,20 @@ namespace DI.Reminder.BL.Tests.Prompts
             //
             //Arrange
             //
-            string value = "site";
+            string promptval = null;
+            string categoryval = "2";
+            string dateval = null;
             int userID = 2;
-            int ID = 2;
-            _search.Setup(m => m.GetSearchItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_testingListOfPrompts.Where(m => m.Name.Contains(value) & m.userID == userID).ToList);
+            _search.Setup(m => m.GetSearchResult(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_testingListOfPrompts.Where(g => g.Category.ID==int.Parse(categoryval)).ToList);
             //
             //Act
             //
-            var result = _prompts.GetSearchingPrompts(userID, ID, value);
+            var result = _prompts.GetSearchingPrompts(userID, promptval, categoryval, dateval);
             //
             //Assert
             //
             Assert.AreEqual(1, result[0].ID);
-            _search.Verify(r => r.GetSearchItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), Times.Once);
+            _search.Verify(r => r.GetSearchResult(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()), Times.Once);
         }
         #endregion
     }
