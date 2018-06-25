@@ -125,7 +125,7 @@ namespace DI.Reminder.Web.Controllers
             return View(promptViewModel);
         }
         [HttpPost]
-        public void Add(Prompt prompt)
+        public ActionResult Add(Prompt prompt)
         {
             if (prompt == null)
                 throw new ArgumentNullException();
@@ -135,6 +135,7 @@ namespace DI.Reminder.Web.Controllers
             }
             else
                 RedirectToAction("HttpError500", "Error");
+            return RedirectToAction("Navigation");
         }
 
 
@@ -181,6 +182,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("prompt.Category.Name");
             if (ModelState.IsValid)
             {
                 _prompt.EditPrompt(prompt);

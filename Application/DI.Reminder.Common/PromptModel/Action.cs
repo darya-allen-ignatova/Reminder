@@ -6,8 +6,7 @@ namespace DI.Reminder.Common.PromptModel
     {
         [Key]
         public int ID { get; set; }
-
-        [Required(ErrorMessage = "Field must be filled")]
+        
         public string Name { get; set; }
     }
 }

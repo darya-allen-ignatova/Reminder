@@ -279,7 +279,6 @@ namespace DI.Reminder.Data.PromptDataBase
         {
             try
             {
-                prompt.Category.ID = (int)_categoryRepository.GetCategoryID(prompt.Category.Name);
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
@@ -299,6 +298,11 @@ namespace DI.Reminder.Data.PromptDataBase
                 List<int> IDs = GetIDOfActions(prompt.ID);
                 for (int i = 0; i < IDs.Count; i++)
                 {
+                    if (prompt.Actions[i].Name == null || prompt.Actions[i].Name.Replace(" ", string.Empty) == string.Empty)
+                    {
+                        RemoveAction(IDs[i]);
+                        continue;
+                    }
                     using (SqlConnection connection = new SqlConnection(GetConnection))
                     {
                         connection.Open();
@@ -317,6 +321,30 @@ namespace DI.Reminder.Data.PromptDataBase
                     {
                         AddActions(prompt.Actions[i], prompt.ID);
                     }
+                }
+            }
+            catch (SqlException sqlExc)
+            {
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+            }
+        }
+        private void RemoveAction(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = "RemoveAction";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@id", id);
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
                 }
             }
             catch (SqlException sqlExc)

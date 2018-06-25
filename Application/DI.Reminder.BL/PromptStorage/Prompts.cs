@@ -92,6 +92,7 @@ namespace DI.Reminder.BL.PromptStorage
         public void EditPrompt(Prompt prompt)
         {
             _promptRepository.EditPrompt(prompt);
+            prompt.Actions.RemoveAll(g => g.Name==null);
             _cacheRepository.UpdateCache(prompt, prompt.ID);
         }
 

@@ -69,3 +69,15 @@ C:\Users\Дарья\AppData\Local\Temp\Temporary ASP.NET Files\vs\16acfd81\3cc4a2d5\A
 Контроллер для пути "/Navigation/Prompt/ })" не найден или не реализует интерфейс IController.
 2018-06-24 16:00:49,973 [5] ERROR - Error ServiceException:   Подключение к сокету было прервано. Возможно, это вызвано ошибкой обработки сообщения, превышением времени ожидания на удаленном узле или проблемой с выделенным сетевым ресурсом. Тайм-аут локального сокета: "00:09:59.9760000".
 2018-06-24 17:00:08,756 [6] ERROR - Error ServiceException:   Ошибка при получении ответа HTTP на http://localhost:54808/Advertising.svc. Возможно, это вызвано тем, что привязка конечной точки службы не использует протокол HTTP. Это может быть также вызвано тем, что контекст запроса HTTP прерван сервером (возможно, из-за отключения службы). Подробнее см. в журналах сервера.
+2018-06-25 10:44:51,952 [9] ERROR - Error SqlException: .Net SqlClient Data Provider	Procedure or function 'GetCategoryID' expects parameter '@Name', which was not supplied.
+2018-06-25 10:44:52,020 [9] ERROR - Error SqlException: System.InvalidOperationException: Нулевой объект должен иметь значение.
+   в System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   в System.Nullable`1.get_Value()
+   в DI.Reminder.Data.PromptDataBase.PromptRepository.EditPrompt(Prompt prompt) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 282	Нулевой объект должен иметь значение.
+2018-06-25 10:46:20,560 [5] ERROR - Error SqlException: .Net SqlClient Data Provider	Procedure or function 'GetCategoryID' expects parameter '@Name', which was not supplied.
+2018-06-25 10:46:20,582 [5] ERROR - Error SqlException: System.InvalidOperationException: Нулевой объект должен иметь значение.
+   в System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   в System.Nullable`1.get_Value()
+   в DI.Reminder.Data.PromptDataBase.PromptRepository.EditPrompt(Prompt prompt) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 282	Нулевой объект должен иметь значение.
+2018-06-25 10:47:21,272 [5] ERROR - Error SqlException: .Net SqlClient Data Provider	Procedure or function 'GetCategoryID' expects parameter '@Name', which was not supplied.
+2018-06-25 11:02:13,776 [5] ERROR - Error ServiceException:   Подключение к сокету было прервано. Возможно, это вызвано ошибкой обработки сообщения, превышением времени ожидания на удаленном узле или проблемой с выделенным сетевым ресурсом. Тайм-аут локального сокета: "00:09:59.9830000".
