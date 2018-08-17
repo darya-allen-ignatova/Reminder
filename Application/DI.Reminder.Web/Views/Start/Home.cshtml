@@ -1,31 +1,65 @@
-﻿
-<link href="~/Content/AllPages.css" rel="stylesheet" />
-<div>
-    <div class="name vid">
-        <div class="widget">
-            <h3 class="widget-title title">My reminders</h3>
-            <ul class="widget-list">
-                <li><a class="title boton1" type="button" value="Prompts" href='@Url.Action("Navigation", "Prompt")'>Show</a></li>
-                <li> <a class="title boton1" type="button" value="Prompts" href='@Url.Action("Add", "Prompt")'>Add new</a> </li>
-                <li> <a class="title boton1" type="button" value="Prompts" href='@Url.Action("Searching", "Prompt")'>Search</a> </li>
+﻿@{
+    Layout = "~/Views/Shared/_LayoutForStartPage.cshtml";
+}
+<section id="how-it-works" class=" padding-top-bottom-90 image-blurred-edge">
+    <h2 class="cta-heading padding-top-90 margin-top-bottom-30" style="text-align: center;">How it works</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <img src="~/Images/in-this-house-we-are-a-family-large-size.jpg" class="img-responsive"/>
+            </div>
+            <div class="col-md-5 text-left">
+                <h4  style="padding-bottom:30px">It will be useful for you if:</h4>
+                <ul class="list6b" style="font-size:large;">
+                    <li class="content" style="padding-bottom:35px">
+                        You don't have much time to keep in your brain all things that are little and not so
+                    </li>
+                    <li class="content"  style="padding-bottom:35px">
+                        You don't want to starve because you have forgotten to buy a meal for dinner by the reason of a tiresome day
+                    </li>
 
-            </ul>
-            <div style="color:#855C6A; line-height:35px">
-                Do you have a lot of things to do? Do you constantly miss something? This project is for you! It was created just to help in a reminder of the affairs, so everyone can manage everything, everywhere.
+                    <li class="content"  style="padding-bottom:35px">
+                        You want something to reminde you about birthdays, meetings, sales, special days as weddings. funerals or kids' graduation
+
+                    </li>
+
+                    <li class="content"  style="padding-bottom:35px">
+                        You want something that would be always ready to hand at your laptop, tablet or smartphone
+                    </li>
+                </ul>
             </div>
         </div>
-
     </div>
-    <div class="vid-rigth">
-        <div>
-            <img class="big" src="~/Content/iABCCXH53.jpg" />
+</section>
+
+<section id="registration" class="padding-top-bottom-120 gradient-violat">
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-8 sunscription-wraper-outer col-md-offset-2 bg-fit " style="padding-left: 15px; background-color:#F8FBDD">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 padding-top-bottom-90" style="padding-left: 15px">
+                        <div class="subscription-wraper text-center">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <h4 class="text-upper margin-top-bottom-30">Join us</h4>
+                                <a style="text-decoration:none" class="btn" href="/Account/Registration"> Registration </a>
+                            }
+                            else
+                            {
+                                <h4 class="text-upper margin-top-bottom-30">How nice to see you again</h4>
+                                <a style="text-decoration:none" class="btn" href="/Prompt/Navigation">Let's start</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="vid-services">
+</section>
+<section id="advertising">
+    @{
+        Html.RenderAction("Advertising", "Service");
+    }
+</section>
 
-        @{
-            Html.RenderAction("Advertising", "Service");
-        }
-    </div>
 
-</div>

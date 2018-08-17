@@ -110,19 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ErrorSheet.css" />
-    <Content Include="Content\RegistrationSheet.css" />
-    <Content Include="Content\SearchSheet.css" />
+    <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Images\0.jpg" />
-    <Content Include="Content\3-Details-To-Keep-In-Mind-About-Orthodontic-Treatment-.jpeg" />
-    <Content Include="Content\AllPages.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\CategoriesSheet.css" />
-    <Content Include="Content\iABCCXH53.jpg" />
     <Content Include="Content\Images.css" />
-    <Content Include="Content\Layout.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Content\solid-pink-iphone-clipart-4.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.jpg" />
@@ -139,6 +132,9 @@
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
+    <Content Include="Images\galka-8.png" />
+    <Content Include="Images\in-this-house-we-are-a-family-large-size.jpg" />
+    <Content Include="Images\kisspng-check-mark-computer-icons-clip-art-green-check-image-5ab204b99a6133.8845407915216160576324.jpg" />
     <Content Include="Scripts\ActionAdding.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -202,7 +198,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -228,11 +224,14 @@
     <Content Include="Views\Error\HttpError500.cshtml" />
     <Content Include="Views\Error\OtherErrors.cshtml" />
     <Content Include="Views\Service\Advertising.cshtml" />
-    <Content Include="Views\Start\Home.cshtml" />
     <Content Include="Views\Role\Add.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Role\ShowAll.cshtml" />
     <Content Include="Views\Prompt\Searching.cshtml" />
+    <Content Include="Views\Start\Home.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutForPages.cshtml" />
+    <Content Include="Views\Shared\_LayoutForStartPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

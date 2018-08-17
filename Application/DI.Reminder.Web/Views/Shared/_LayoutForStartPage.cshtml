@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your reminder</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background-color:#F8FBDD">
+    <nav class="navbar navbar-default navbar-fixed-top gradient-violat" style="padding-bottom:15px">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header">
+
+                    <a class="navbar-brand" href="#">
+                        <span class=" logo-white">
+                            <img src="~/Images/galka-8.png" class="img-responsive" />
+                            <span style="vertical-align:sub"> Your reminder</span>
+                        </span>
+                    </a>
+                </div>
+
+
+                <ul class="nav navbar-nav  navbar-right" style="vertical-align:bottom; margin-top:20px">
+                    <li><a href="#how-it-works" style="text-decoration:none; color:white; font-size:large">How it works</a></li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Account/LogOut">Log Out</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href="#registration" style="text-decoration:none; color:white; font-size:large">Registration</a></li>
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Account/Login">Log In</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div>
+        @RenderBody()
+    </div>
+    <footer style="  width:100%">
+        <hr class="footer-divider" />
+        <h6 class="text-center">© 2018 Your reminder. Все права защищены </h6>
+        <div class="footer-end-line"></div>
+    </footer>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+</body>
+</html>
