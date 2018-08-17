@@ -9,11 +9,11 @@ using DI.Reminder.BL.LoginService.UserProv;
 using DI.Reminder.BL.UsersService;
 using DI.Reminder.BL.RoleStorage;
 
-namespace DI.Reminder.BL.BusinessRegistry
+namespace DI.Reminder.Dependence.Registries
 {
-    public class BLRegistry:Registry
+    public class BusinessRegistry:Registry
     {
-        public BLRegistry()
+        public BusinessRegistry()
         {
             For<ICacheService>().Use<CacheService>();
             For<IPrompt>().Use<Prompts>();

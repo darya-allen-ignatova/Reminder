@@ -72,7 +72,6 @@
     <Compile Include="CategoryDatabase\CategoryRepository.cs" />
     <Compile Include="CategoryDatabase\ICategoryRepository.cs" />
     <Compile Include="PromptDataBase\IPromptRepository.cs" />
-    <Compile Include="DataRegistry\DataRegistry.cs" />
     <Compile Include="DService\DataService.cs" />
     <Compile Include="DService\IDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

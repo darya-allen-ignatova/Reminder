@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="CategoryModel\CategoriesModel.cs" />
     <Compile Include="CategoryModel\Category.cs" />
-    <Compile Include="CommonRegistry\CommonRegistry.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\AppLogger.cs" />
     <Compile Include="LoginModels\Account.cs" />

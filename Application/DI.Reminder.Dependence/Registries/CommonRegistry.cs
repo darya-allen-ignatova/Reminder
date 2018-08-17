@@ -1,7 +1,7 @@
 ﻿using StructureMap;
 using DI.Reminder.Common.Logger;
 
-namespace DI.Reminder.Common.CommonRegistry
+namespace DI.Reminder.Dependence.Registries
 {
     public class CommonRegistry:Registry
     {

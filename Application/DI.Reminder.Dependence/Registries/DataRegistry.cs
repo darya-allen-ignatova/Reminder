@@ -6,7 +6,7 @@ using DI.Reminder.Data.RoleDatabase;
 using DI.Reminder.Data.DService;
 using DI.Reminder.Data.SearchingDatabase;
 
-namespace DI.Reminder.Data.DataRegistry
+namespace DI.Reminder.Dependence.Registries
 {
     public class DataRegistry : Registry
     {

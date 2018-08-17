@@ -10,7 +10,7 @@ namespace DI.Reminder.Dependence
         {
             Scan(scan =>
             {
-                scan.AssembliesFromApplicationBaseDirectory();
+                scan.TheCallingAssembly();
                 scan.LookForRegistries();
             }
             );
