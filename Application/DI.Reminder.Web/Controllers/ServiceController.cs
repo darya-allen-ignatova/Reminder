@@ -20,12 +20,17 @@ namespace DI.Reminder.Web.Controllers
         [ChildActionOnly]
         public ActionResult Advertising()
         {
-            return View(GetServiceItems());
+            var items = GetServiceItems();
+            if(items.Count==1)
+            {
+                ViewBag.Flag = true;
+            }
+            return View(items);
         }
         
-        private IEnumerable<ServiceItem> GetServiceItems()
+        private IList<ServiceItem> GetServiceItems()
         {
-            IEnumerable<ServiceItem> advertising = _blservice.Get();
+            IList<ServiceItem> advertising = _blservice.Get();
             if (advertising == null)
             {
                 return GetDefaultServiceItem();
@@ -33,14 +38,14 @@ namespace DI.Reminder.Web.Controllers
             return advertising;
         }
 
-        private IEnumerable<ServiceItem> GetDefaultServiceItem()
+        private IList<ServiceItem> GetDefaultServiceItem()
         {
             return new List<ServiceItem>()
                 {
                     new ServiceItem()
                     {
                         ID=0,
-                        Title="Против рекламы",
+                        Title="We are against advertising. Please enjoy the site",
                         Url=null,
                         Image="/Images/0.jpg"
                     }

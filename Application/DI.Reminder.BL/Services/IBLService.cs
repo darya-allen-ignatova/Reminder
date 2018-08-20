@@ -5,6 +5,6 @@ namespace DI.Reminder.BL.Services
 {
     public interface IBLService
     {
-        IEnumerable<ServiceItem> Get();
+        IList<ServiceItem> Get();
     }
 }

@@ -27,7 +27,7 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult Registration()
         {
-            return View();
+            return View("Edit", new Account());
         }
 
         [HttpPost]

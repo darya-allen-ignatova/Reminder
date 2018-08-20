@@ -12,7 +12,7 @@ namespace DI.Reminder.BL.Services
         {
             _dataservice = dataservice ?? throw new ArgumentNullException(nameof(dataservice));
         }
-        public IEnumerable<ServiceItem> Get()
+        public IList<ServiceItem> Get()
         {
             IList<ServiceItem> list = new List<ServiceItem>();
             try

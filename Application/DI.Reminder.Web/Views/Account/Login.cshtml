@@ -6,36 +6,46 @@
 <link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
 <h2 class="title">Аuthentication</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    if(Model!=null)
+    if (Model != null)
     {
-<div class="text-danger">
-    Invalid login or password. Check and try again
-</div>
+        <div class="text-danger">
+            Invalid login or password. Check and try again
+        </div>
     }
-    <div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div>
-            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="container padding-top-bottom-120">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Login)
+                    </h3>
+                    <h4 class="input">
+                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
 
-        <div>
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="padding-top-45 input">
+                    <h3  class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Password)
+                    </h3> <h4>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        
+                    </h4>
+                </div>
 
-        <div>
-            <div>
-                <input type="submit" value="Log In" class="button" src="@Url.Action("Authentication")"/>
+                <div class="padding-top-30">
+                    <div>
+                        <h4>
+                            <input type="submit" style="text-decoration:none; width:100%"  class="btn" value="Log in"/>
+                        </h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

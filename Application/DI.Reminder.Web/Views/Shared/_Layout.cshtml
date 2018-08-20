@@ -7,74 +7,57 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body style="background-color:#F8FBDD">
-    <nav class="navbar navbar-default navbar-fixed-top gradient-violat" style="padding-bottom:15px">
-        <div class="container">
-            <div class="row">
-                <div class="navbar-header">
+<body style="background-color:#F8FBE6" class="wrapper">
+    <div class="content">
+        <nav class="navbar navbar-default navbar-fixed-top gradient-violat" style="padding-bottom:15px">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header">
 
-                    <a class="navbar-brand" href="#">
-                        <span class="logo-wraper logo-white">
-                            <img src="~/Images/galka-8.png" class="img-responsive" />
-                            <span style="vertical-align:sub"> Your reminder</span>
-                        </span>
-                    </a>
-                </div>
+                        <a class="navbar-brand" href="#">
+                            <span class=" logo-white">
+                                <img src="~/Images/galka-8.png" class="img-responsive" />
+                                <span style="vertical-align:sub"> Your reminder</span>
+                            </span>
+                        </a>
+                    </div>
 
-                <div  style="color:white">
-                    <ul class="nav navbar-nav  navbar-right " style="vertical-align:bottom; margin-top:20px">
 
-                        <li><a style="text-decoration:none; color:white; font-size:large" href="/Start/Home">Start Page</a></li>
-                        <li>
-                            <a style="text-decoration:none ; color:white; font-size:large" href="/Account/Registration">Registration</a>
-                        </li>
+                    <ul class="nav navbar-nav  navbar-right" style="vertical-align:bottom; margin-top:20px">
+                        <li><a href="/Start/Home" style="text-decoration:none; color:white; font-size:large">Start page</a></li>
                         @if (Request.IsAuthenticated)
-                        {
-                            <li>
-                                <a style="text-decoration:none; color:white; font-size:large" href="/Account/LogOut">Log Out</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a style="text-decoration:none; color:white; font-size:large" href="/Account/Login">Log In</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li>
-                                <a style="text-decoration:none; color:white; font-size:large" href="/Admin/Home">Admin cabinet</a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Editor"))
-                        {
-                            <li>
-                                <a style="text-decoration:none; color:white; font-size:large" href="/Editor/Home"> Editor cabinet </a>
-                            </li>
-                        }
-                        @if (Request.IsAuthenticated)
-                        {
-                            <li>
-                                <a style="text-decoration:none; color:white; font-size:large" href="/Account/Edit">Edit account</a>
-                            </li>
-                        }
+    {
+                    <li>
+                        <a style="text-decoration:none; color:white; font-size:large" href="/Account/LogOut">Log Out</a>
+                    </li>
+}
+else
+{
+                    <li><a href="/Account/Registration" style="text-decoration:none; color:white; font-size:large">Registration</a></li>
+                    <li>
+                        <a style="text-decoration:none; color:white; font-size:large" href="/Account/Login">Log In</a>
+                    </li>
+}
 
                     </ul>
                 </div>
             </div>
+
+        </nav>
+
+        <div>
+            @RenderBody()
         </div>
-    </nav>
-
-    <div>
-        @RenderBody()
     </div>
-    <footer style="  width:100%">
-        <hr class="footer-divider" />
-        <h6 class="text-center">© 2018 Your reminder. Все права защищены </h6>
-        <div class="footer-end-line"></div>
-    </footer>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <div class="footer">
+        <footer>
+            <hr class="footer-divider" />
+            <h6 class="text-center">© 2018 Your reminder. Все права защищены </h6>
+            <div class="footer-end-line"></div>
+        </footer>
 
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    </div>
 </body>
 </html>

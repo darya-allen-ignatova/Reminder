@@ -234,7 +234,7 @@ namespace DI.Reminder.Data.AccountDatabase
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
-        public void UpdateAccount(Account account)
+        public void AdminUpdateAccount(Account account)
         {
             try
             {
@@ -256,6 +256,33 @@ namespace DI.Reminder.Data.AccountDatabase
                     command.Parameters.AddWithValue("@roleid", account.Roles[0].ID);
                     command.Parameters.AddWithValue("@userid", account.ID);
                     result = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (SqlException sqlExc)
+            {
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+            }
+        }
+        public void UpdateAccount(Account account)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = "UpdatingUser";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@login", account.Login);
+                    command.Parameters.AddWithValue("@password", account.Password);
+                    command.Parameters.AddWithValue("@email", account.Email);
+                    command.Parameters.AddWithValue("@id", account.ID);
+                    var result = command.ExecuteNonQuery();
                     connection.Close();
                 }
             }
