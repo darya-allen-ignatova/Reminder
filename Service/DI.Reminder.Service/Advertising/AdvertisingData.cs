@@ -11,6 +11,7 @@ namespace DI.Reminder.Service.Advertising
 {
     public class AdvertisingData
     {
+        private int countOfItems = 3;
         private string GetConnection
         {
             get { return connection; }
@@ -64,9 +65,10 @@ namespace DI.Reminder.Service.Advertising
         {
             IList<AdvertisingItem> itemsfromdatabase = GetListOfAdvertisings();
             IList<AdvertisingItem> list = new List<AdvertisingItem>();
-            for (int i = 0; i < 3; i++)
+            int[] random = RandomArray(itemsfromdatabase.Count);
+            for (int i = 0; i < countOfItems; i++)
             {
-                AdvertisingItem _advert = itemsfromdatabase.FirstOrDefault(f => f.ID == RandomItem(i*DateTime.Now.Second, itemsfromdatabase));
+                AdvertisingItem _advert = itemsfromdatabase.FirstOrDefault(f => f.ID == random[i]);
                 list.Add(new AdvertisingItem()
                 {
                     ID = _advert.ID, Title = _advert.Title, Url = _advert.Url, Image = _advert.Image
@@ -74,10 +76,29 @@ namespace DI.Reminder.Service.Advertising
             }
             return list;
         }
-        private int RandomItem(int t, IList<AdvertisingItem> itemslist)
+        private int[] RandomArray(int totalCount)
         {
-            Random rnd = new Random(t);
-            return rnd.Next(1, itemslist.Count);
+            int[] array = new int[countOfItems];
+            for (int i = 0; i < array.Length;)
+            {
+                bool flag = true;
+                Random rnd = new Random(i *DateTime.Now.Millisecond+10);
+                int number= rnd.Next(1, totalCount);
+                foreach(int m in array)
+                {
+                    if (m == number)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    array[i] = number;
+                    i++;
+                }
+            }
+            return array;
         }
         private byte[] GetImageByteArray(string imagePath)
         {
