@@ -3,49 +3,75 @@
 @{
     ViewBag.Title = "UserDetails";
 }
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
-<h2 class="title">UserDetails</h2>
-<div>
-    <div style="width:45%; float:left">
-        <dl class="dl-horizontal">
-            <dt class="title">
-                @Html.DisplayNameFor(model => model.Login)
-            </dt>
+<div class="container padding-top-120" >
+    <div class="row padding-top-45">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
 
-            <dd class="boton1">
-                @Html.DisplayFor(model => model.Login)
-            </dd>
+                <div class="padding-top-20 ">
+                    <h3>
+                        @Html.LabelFor(model => model.Login)
+                    </h3>
 
-            <dt class="title">
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
+                    <h4 class="padding-top-30">
+                        @Html.DisplayFor(model => model.Login)
+                    </h4>
+                </div>
 
-            <dd class="boton1">
-                @Html.DisplayFor(model => model.Email)
-            </dd>
+                <div class="padding-top-20 ">
+                    <h3>
+                        @Html.LabelFor(model => model.Email)
+                    </h3>
 
-            <dt class="title">
-                @Html.DisplayNameFor(model => model.Password)
-            </dt>
+                    <h4 class="padding-top-30 " style="color:#D3ED4C">
+                        @Html.DisplayFor(model => model.Email)
+                    </h4>
+                </div>
 
-            <dd class="boton1">
-                @Html.DisplayFor(model => model.Password)
-            </dd>
+                <div class="padding-top-120">
+                    <div>
+                        <h4>
+                            <a type="button" href="/Admin/EditUser/@Model.ID" style="text-decoration:none; width:100%;" class="btn">Edit</a>
+                        </h4>
+                    </div>
+                </div>
 
+            </div>
 
-        </dl>
-        <p style="margin-top:30px;color: #855C6A;font-family: ‘Rouge Script’, cursive; font-size: 200%; margin-left:10px">
-            @Html.ActionLink("Edit", "EditUser", new { id = Model.ID }) |
-            @Html.ActionLink("Back to List", "UserList")
-        </p>
-    </div>
-    <div style="width:45%; float:right">
-        <div class="title">
-            Role
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                <div>
+                    <h3 class="padding-top-20 ">
+                        @Html.LabelFor(model => model.Password)
+                    </h3>
+
+                    <h4 class="padding-top-30 ">
+                        @Html.DisplayFor(model => model.Password)
+                    </h4>
+                </div><div class="padding-top-20 ">
+                    <h3>
+                        @Html.Label("Role")
+                    </h3>
+
+                    <h4 class="padding-top-30 ">
+                        @Html.DisplayFor(model => model.Roles[0].Name)
+                    </h4>
+                </div>
+
+                <div class="padding-top-120">
+                    <div>
+                        <h4>
+                            <a type="button" href="/Admin/DeleteUser/@Model.ID" style="text-decoration:none; width:100%;" class="btn">Delete user</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-top-20 col-md-8">
+                <div>
+                    <h4>
+                        <a type="button" href="/Admin/UserList" style="text-decoration:none; width:100%;" class="btn">Back to list</a>
+                    </h4>
+                </div>
+            </div>
+            </div>
         </div>
-
-        <div class="boton1">
-            @Html.DisplayFor(model => model.Roles[0].Name)
-        </div>
     </div>
-</div>

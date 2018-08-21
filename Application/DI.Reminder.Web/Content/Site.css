@@ -11,7 +11,7 @@ body {
     background-color: #F8FBDD
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h5, h6 {
     font-family: 'Segoe', sans-serif;
     color: #1D654B;
     font-weight: 600;
@@ -19,7 +19,14 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 15px;
     padding-right: 15px;
 }
-
+h4 {
+    color: #B4BB2F;
+    font-family: 'Segoe', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 h1 {
     font-size: 3.998em;
 }
@@ -34,6 +41,7 @@ h3 {
 
 h4 {
     font-size: 1.414em;
+
 }
 
 p {
@@ -1077,4 +1085,7 @@ body {
 .input .form-control {
     color: #12311E;
     font-size: large;
+}
+.numcolor h4 {
+    color: #D3ED4C;
 }

@@ -3,66 +3,81 @@
 @{
     ViewBag.Title = "EditUser";
 }
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
 <h2 class="title">Edit User</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div style="float:left; width:45%">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Account.ID)
+    <div class="container padding-top-90">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div>
-        @Html.LabelFor(model => model.Account.Login, htmlAttributes: new { @class = "boton1" })
-        <div>
-            @Html.EditorFor(model => model.Account.Login, new { htmlAttributes = new { @class = "input" } })
-            @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div>
-        @Html.LabelFor(model => model.Account.Email, htmlAttributes: new { @class = "boton1" })
-        <div>
-            @Html.EditorFor(model => model.Account.Email, new { htmlAttributes = new { @class = "input" } })
-            @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div>
-        @Html.LabelFor(model => model.Account.Password, htmlAttributes: new { @class = "boton1" })
-        <div style="font-size:200%; color:#855C6A;">
-            @Html.EditorFor(model => model.Account.Password, new { htmlAttributes = new { @class = "input" } })
-            @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Account.PasswordConfirm, htmlAttributes: new { @class = "boton1" })
-        <div style="font-size:200%; color:#855C6A;">
-            @Html.EditorFor(model => model.Account.PasswordConfirm, new { htmlAttributes = new { @class = "input" } })
-            @Html.ValidationMessageFor(model => model.Account.PasswordConfirm, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div>
-        <div>
-            <input type="submit" value="Save" class="button" />
-        </div>
-    </div>
-</div>
-
-
-    <div style="float:right; width:45%">
-
-        <div id="textBoxRole">
-            <div>
-                @Html.LabelFor(model => model.Account.Roles[0].ID, "Roles", htmlAttributes: new { @class = "boton1" })
-                <div>
-                    @Html.DropDownListFor(model => model.Account.Roles[0].ID, Model.AllRoles, htmlAttributes: new { @style = " width: 300px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 28px; padding:0px 10px 20px  10px;" })
-                    @Html.ValidationMessageFor(model => model.AllRoles, "", new { @class = "text-danger" })
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Account.Login)
+                    </h3>
+                    <h4>
+                        @Html.EditorFor(model => model.Account.Login, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })
+                    </h4>
                 </div>
+
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Account.Email)
+                    </h3>
+                    <h4>
+                        @Html.EditorFor(model => model.Account.Email, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
+                <div class="padding-top-45">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Account.Roles[0].ID, "Roles")
+                    </h3>
+                    <h4>
+                        @Html.DropDownListFor(model => model.Account.Roles[0].ID, Model.AllRoles, htmlAttributes: new { @style = " width: 100%;font-size:small; border: 1px solid rgba(255, 255, 255, .4);border - radius: 10px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif;  background - color: white;color: #12311E; padding:0px 10px 10px  10px;" })
+                        @Html.ValidationMessageFor(model => model.AllRoles, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
+                @using (Html.BeginForm())
+                {
+            @Html.AntiForgeryToken()
+
+            <div class="padding-top-30">
+                <div>
+                    <h4>
+                        <input type="submit" style="text-decoration:none; width:100%;" class="btn" value="Save" />
+                    </h4>
+                </div>
+            </div>}
+
+            </div>
+
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Account.Password)
+                    </h3>
+                    <h4 >
+                        @Html.EditorFor(model => model.Account.Password, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Account.PasswordConfirm)
+                    </h3>
+                    <h4 >
+                        @Html.EditorFor(model => model.Account.PasswordConfirm, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Account.PasswordConfirm, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
+
+                
             </div>
         </div>
     </div>
-
 }

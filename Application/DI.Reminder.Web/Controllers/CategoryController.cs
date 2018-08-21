@@ -23,7 +23,7 @@ namespace DI.Reminder.Web.Controllers
             var allCategories = GetCategoriesList();
             CategoryViewModel categoryViewModel = new CategoryViewModel();
             categoryViewModel.AllCategories = allCategories;
-            return View(categoryViewModel);
+            return View("Edit", categoryViewModel);
         }
         [HttpPost]
         public ActionResult Add(CategoryViewModel categoryModel)

@@ -31,7 +31,7 @@ namespace DI.Reminder.Web.Controllers
             {
                 AllRoles = GetRoles(null)
             };
-            return View(modelAccountWithRoles);
+            return View("EditUser",modelAccountWithRoles);
         }
         [HttpPost]
         public ActionResult AddUser(Account account)

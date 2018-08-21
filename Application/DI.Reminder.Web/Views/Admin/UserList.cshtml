@@ -4,27 +4,39 @@
     ViewBag.Title = "GetUserList";
 }
 
-<h2  class="title">List of Users</h2>
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
-<table>
-    <tr class="title">
-        <th>
-            @Html.DisplayNameFor(model => model.Login)
-        </th>
-    </tr>
+<h2 class="title">List of Users</h2>
+<div class="container padding-top-120">
+    <div class="row">
 
-@foreach (var item in Model) {
-    <tr class="boton1">
-        <td>
-            @Html.DisplayFor(modelItem => item.Login)
-        </td>
-        <td class="boton2" style="margin-left:20px">
+
+        <div class="padding-top-20 ">
+            <h3>
+                @Html.Label(" List of Users")
+            </h3> 
+            <div class="col-md-10 col-lg-10 col-xs-10 col-sm-10">
+                @foreach (var item in Model)
+        {
+                <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <h4 class="padding-top-30">
+                @Html.DisplayFor(modelItem => item.Login)
+            </h4>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 text-right">
+            <h4 class="padding-top-30">
                 @Html.ActionLink("Edit", "EditUser", new { id = item.ID })
                 @Html.ActionLink("Details", "UserDetails", new { id = item.ID })
                 @Html.ActionLink("Delete", "DeleteUser", new { id = item.ID })
-           
-        </td>
-    </tr>
+            </h4>
+        </div>
 }
 
-</table>
+
+
+            </div>
+    </div>
+        </div>
+    </div>
+
+
+
+

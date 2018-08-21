@@ -3,53 +3,63 @@
 @{
     ViewBag.Title = "DeleteUser";
 }
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
-<h2 class="title">Are you sure you want to delete this?</h2>
-<div style="width:45%; float:left">
-    <dl>
-        <dt class="newtitle">
-            @Html.DisplayNameFor(model => model.Login)
-        </dt>
+<h2 class="title">Delete User</h2>
+<div class="container padding-top-120">
+    <div class="row">
+        <h2 class="title" style="padding-bottom:30px;">Are you sure you want to delete this?</h2>
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
 
-        <dd class="boton1">
-            @Html.DisplayFor(model => model.Login)
-        </dd>
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.LabelFor(model => model.Login)
+                </h3>
 
-        <dt class="newtitle">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(model => model.Login)
+                </h4>
+            </div>
 
-        <dd class="boton1">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.LabelFor(model => model.Email)
+                </h3>
 
-        
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+                <h4 class="padding-top-30 " style="color:#D3ED4C">
+                    @Html.DisplayFor(model => model.Email)
+                </h4>
+            </div>
+            @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div>
-            <input type="submit" value="Delete" class="button" /> 
+        <div class="padding-top-120">
+            <div>
+                <h4>
+                    <input type="submit"  style="text-decoration:none; width:100%;" class="btn" value="Delete user"/>
+                </h4>
+            </div>
+        </div>}
         </div>
-    }
-</div>
-<div style="width:45%; float:right">
-    <div class="newtitle">Roles</div>
-    @if (Model.Roles.Count != 0)
-    {
-        foreach (var m in Model.Roles)
-        {
-    <div class="boton1">
-            @Html.DisplayFor(model => m.Name)
+
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <div>
+                <h3 class="padding-top-20 ">
+                    @Html.LabelFor(model => model.Password)
+                </h3>
+
+                <h4 class="padding-top-30 ">
+                    @Html.DisplayFor(model => model.Password)
+                </h4>
+            </div><div class="padding-top-20 ">
+                <h3>
+                    @Html.Label("Role")
+                </h3>
+
+                <h4 class="padding-top-30 ">
+                    @Html.DisplayFor(model => model.Roles[0].Name)
+                </h4>
+            </div>
+           
+        </div>
     </div>
-        }
-    }
-    else
-    {
-        <div class="boton2">
-            There aren't any Roles
-        </div>
-    }
 </div>
