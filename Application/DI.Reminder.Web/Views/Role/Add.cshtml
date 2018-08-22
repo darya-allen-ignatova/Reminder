@@ -3,28 +3,45 @@
 @{
     ViewBag.Title = "Add";
 }
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
 <h2 class="title">Add role</h2>
+<div class="container padding-top-90">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div>
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "boton1" })
-            <div>
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="padding-top-45 ">
+                <h3 class="padding-bottom-90">
+                    @Html.LabelFor(model => model.Name)
+                </h3>
+                <h4>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "input form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </h4>
             </div>
-        </div>
 
-        <div>
-            <div>
-                <input type="submit" value="Create" class="button" />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="padding-top-30">
+                    <div>
+                        <h4>
+                            <input type="submit" style="text-decoration:none; width:100%;" class="btn" value="Save" />
+                        </h4>
+                    </div>
+                </div>
+
+            }
+
+            <div class="padding-top-20">
+                <div>
+                    <h4>
+                        <a type="button" href="/Role/ShowAll" style="text-decoration:none; width:100%;" class="btn">Back to list</a>
+                    </h4>
+                </div>
             </div>
         </div>
     </div>
-}
+</div>
+
 

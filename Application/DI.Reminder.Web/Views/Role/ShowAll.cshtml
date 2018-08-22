@@ -3,28 +3,41 @@
 @{
     ViewBag.Title = "ShowAllRoles";
 }
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
 <h2 class="title">Roles</h2>
+<div class="container padding-top-120">
+    <div class="row">
+        <div class="padding-top-20 ">
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                <h3>
+                    @Html.Label("Name")
+                </h3>
+            </div>
+            
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {<div class="row">
+            <div></div>
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h4>
+            </div>
 
-<table>
-    <tr>
-        <th class="newtitle">
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-    </tr>
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4" style="padding-top:40px; font-size:large">
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </div>
+        </div>
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td class="boton1">
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td class="boton1">
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
 
-</table>
-<div style="margin-top:30px;color: #855C6A;font-family: ‘Rouge Script’, cursive; font-size: 200%; margin-left:20px">
-    @Html.ActionLink("Add", "Add")
+    <div class="padding-top-90">
+        <div>
+            <h4>
+                <a type="button" href="/Role/Add" style="text-decoration:none; width:100%;" class="btn">Add new role</a>
+            </h4>
+        </div>
+    </div>
 </div>
+
+
