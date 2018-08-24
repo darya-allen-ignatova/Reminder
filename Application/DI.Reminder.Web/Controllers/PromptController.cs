@@ -122,7 +122,7 @@ namespace DI.Reminder.Web.Controllers
             {
                 CategoryList = selectList
             };
-            return View(promptViewModel);
+            return View("Edit",promptViewModel);
         }
         [HttpPost]
         public ActionResult Add(Prompt prompt)

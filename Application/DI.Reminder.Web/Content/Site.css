@@ -1089,3 +1089,24 @@ body {
 .numcolor h4 {
     color: #D3ED4C;
 }
+.list5a {
+    padding: 0;
+    list-style: none;
+    text-decoration:none;
+}
+
+    .list5a li {
+        position: relative;
+        padding: 10px 30px;
+        background: linear-gradient(to right,#2B7741,#369854,#2B7741);
+        border: 2px solid #0E2518;
+        color: #0E2518;
+        box-shadow: 0 5px 5px 0 rgba(0,0,0, .3);
+        margin-bottom: 5px;
+        text-align: center;
+        background-size: 100% 100%;
+        z-index: 1;
+        border-radius: 20px;
+    }
+
+      

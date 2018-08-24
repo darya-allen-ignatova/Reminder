@@ -2,38 +2,51 @@
 
 @{
     ViewBag.Title = "Searching";
+    Layout = "~/Views/Shared/_LayoutForPages.cshtml";
 }
-<link href="~/Content/RegistrationSheet.css" rel="stylesheet" />
 
-<h2 class="title" >Search</h2>
-<div style="width:30%; float:left">
-    <div>
-        @Html.LabelFor(model => model.Prompt.Name, htmlAttributes: new { @class = "boton1" })
-        <div>
-            @Html.EditorFor(model => model.Prompt.Name, new { htmlAttributes = new { @class = "input prompt" } })
-            
+<h2 class="title">Search</h2>
+<div class="container padding-top-90">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="padding-top-45 ">
+                <h3 class="padding-bottom-90">
+                    @Html.LabelFor(model => model.Prompt.Name)
+                </h3>
+                <h4>
+                    @Html.EditorFor(model => model.Prompt.Name, new { htmlAttributes = new { @class = "input form-control" } })
+                    @Html.ValidationMessageFor(model => model.Prompt.Name, "", new { @class = "text-danger" })
+                </h4>
+            </div>
+            <div class="padding-top-45 ">
+                <h3 class="padding-bottom-90">
+                    @Html.Label("Category")
+                </h3>
+                <h4>
+                    @Html.DropDownListFor(model => model.Prompt.Category.ID, Model.Categories, htmlAttributes: new { @style = " width: 100%;font-size:small; border: 1px solid rgba(255, 255, 255, .4);border - radius: 10px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif;  background - color: white;color: #12311E; padding:0px 10px 10px  10px;" })
+
+                    @Html.ValidationMessageFor(model => model.Categories, "", new { @class = "text-danger" })
+                </h4>
+            </div>
+            <div class="padding-top-45 ">
+                <h3 class="padding-bottom-90">
+                    @Html.LabelFor(model => model.Prompt.Date)
+                </h3>
+                <h4>
+                    @Html.EditorFor(model => model.Prompt.Date, new { htmlAttributes = new { @class = "input form-control" } })
+                    @Html.ValidationMessageFor(model => model.Prompt.Date, "", new { @class = "text-danger" })
+                </h4>
+            </div>
+            <div class="padding-top-45 ">
+                <h4>   <input type="submit" value="Search" class="btn" id="search" /></h4>
+            </div>
         </div>
-    </div>
-     <div>
-        @Html.LabelFor(model => model.Prompt.Category.Name, "Category", htmlAttributes: new { @class = "boton1" })
-        <div>
-            @Html.DropDownListFor(model => model.Prompt.Category.Name, Model.Categories,  htmlAttributes: new {@class= "category", @style = " width: 325px; height: 48px; border: 1px solid rgba(255, 255, 255, .4);border - radius: 4px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif; font - size: 40px; font - weight: 400; background - color: white;color: #855C6A;margin-left: 18px; margin-bottom:10px;margin-top:10px;padding:0px 10px 20px  10px;" })
-            
-        </div>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Prompt.Date, htmlAttributes: new { @class = "boton1" })
-        <div>
-            @Html.EditorFor(model => model.Prompt.Date, new { htmlAttributes = new { @class = "input date" } })
-        </div>
-    </div>
-    <div>
-        <input type="submit" value="Search" class="button" id="search"/>
-    </div>
-</div>
-<div style="width:68%; float:right">
-    <div style=" width:100%; height:200px;overflow-y:auto;">
-        <div id="JSON" style="margin-top:50px" class="boton15">
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <h4 id="JSON" class="padding-top-45 ">
+            </h4>
+
         </div>
     </div>
 </div>

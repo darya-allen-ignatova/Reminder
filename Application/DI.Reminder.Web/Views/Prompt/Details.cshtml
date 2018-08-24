@@ -1,64 +1,128 @@
 ﻿@model DI.Reminder.Common.PromptModel.Prompt
 @{
     ViewBag.Title = "PromptDetails";
+    Layout = "~/Views/Shared/_LayoutForPages.cshtml";
 }
-<link href="~/Content/AllPages.css" rel="stylesheet" />
-<h2 class="name">Additional information about prompt</h2>
-<hr />
-<div style="height:500px">
-
-    <div class="vid1" style="margin:10px;margin-left:20px;">
-        <div class="title"> @Html.DisplayFor(X => Model.Name)</div>
-        <div class="nam" style="margin-left:10px"> Category:@Html.DisplayFor(X => Model.Category.Name)</div>
-        <div class="nam" style="margin-left:10px">Description:</div>
-        <div class="nam" style="margin-left:10px">@Html.DisplayFor(X => Model.Description)</div>
-    </div>
 
 
-    <div class="vid1-rigth" >
-        <div class="title" style="margin-top:13px;margin-left:20px;">
-            Список действий
+<h2 class="title">Details</h2>
+<div class="container padding-top-120">
+    <div class="row ">
+
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.LabelFor(model => model.Name)
+                </h3>
+
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(model => model.Name)
+                </h4>
+            </div>
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.LabelFor(model => model.Date)
+                </h3>
+
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(model => model.Date)
+                </h4>
+            </div>
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.LabelFor(model => model.Description)
+                </h3>
+
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(model => model.Description)
+                </h4>
+            </div>
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.Label("Category")
+                </h3>
+
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(model => model.Category.Name)
+                </h4>
+            </div>
+
         </div>
-        @if (Model.Actions!= null )
-        {
-            foreach (var actions in Model.Actions)
-            {
-        <div class="nam" style="margin:6px">
-            @Html.DisplayFor(X => actions.Name)
-        </div>
-            }
-            }
-            else
-            {
-            @Html.Display("Список действий отсутсвует")
-            }
-        </div>
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.Label("Time of prompt")
+                </h3>
 
+                <h4 class="padding-top-30">
+                    @Html.DisplayFor(model => model.TimeOfPrompt)
+                </h4>
+            </div>
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.Label(" Actions")
+                </h3>
 
-
-    <div class="vid1-services">
-        <div style="padding-top:10px">
-            @Model.Date.ToShortDateString()
-        </div>
-        <div class="nam" style="margin-top:10px">
-            @if (Model.TimeOfPrompt != null)
-            {
-            <div> Время напоминания: @Html.DisplayFor(X => Model.TimeOfPrompt)</div>
+                @if (Model.Actions != null)
+                {
+                    foreach (var actions in Model.Actions)
+                    {
+                        <h4 class="padding-top-30">
+                            @Html.DisplayFor(X => actions.Name)
+                        </h4>
                     }
+                }
+                else
+                {
+                        <h4>
+                            @Html.DisplayName("There aren't any items in this list")
+                        </h4>
+                }
+            </div>
         </div>
-        <div>
-            <img style="width:500px; height:300px; margin:10px" ; src="@Url.Content(Model.Image)" />
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <div class="padding-top-20 ">
+                <h3>
+                    @Html.Label(" Image")
+                </h3>
+
+                <h4 class="padding-top-30">
+                    <img class="img-responsive" src="@Url.Content(Model.Image)" />
+                </h4>
+            </div>
+        </div>
+
+    </div>
+    <div class="row padding-top-45">
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+            <div>
+                <div>
+                    <h4>
+                        <a type="button" href="/Prompt/Edit/@Model.ID" style="text-decoration:none; width:100%;" class="btn">Edit</a>
+                    </h4>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <div>
+                <div>
+                    <h4>
+                        <a type="button" href="/Prompt/Delete/@Model.ID" style="text-decoration:none; width:100%;" class="btn">Delete</a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+            <div>
+                <div>
+                    <h4>
+                        <a type="button" href="/Prompt/Navigation" style="text-decoration:none; width:100%;" class="btn">Back to list</a>
+                    </h4>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
-
-<div style="width:100%; height:300px; float:left">
-    <a style="padding-right:10px" class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Edit", "Prompt", new { id = Model.ID })'>Edit</a>
-    <a style="padding-right:10px" class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Delete", "Prompt", new { id = Model.ID })'>Delete</a>
-    <a style="padding-right:10px" class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Navigation", "Prompt", new { id = 0 })'>Back to list</a>
-    <a style="padding-right:10px" class="title button somebut-left" type="button" value="Prompts" href='@Url.Action("Home", "Start")'>Back to start page</a>
-</div>
-
-
-

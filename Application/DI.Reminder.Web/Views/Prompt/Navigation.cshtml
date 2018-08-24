@@ -1,56 +1,66 @@
 ﻿@model DI.Reminder.Web.Models.ModelCategoriesWithPrompts
 @{
-    ViewBag.Title = "Show";
+    ViewBag.Title = "Navigation";
+
+    Layout = "~/Views/Shared/_LayoutForPages.cshtml";
 }
+<h2 class="title">Navigation</h2>
 
-<link href="~/Content/SearchSheet.css" rel="stylesheet" />
-<link href="~/Content/CategoriesSheet.css" rel="stylesheet"  />
-<link href="~/Content/AllPages.css" rel="stylesheet" />
-<div>
-    <div class="vid">
-        <div class="widget">
-            <h3 class="widget-title title">Categories</h3>
-            <ul class="widget-list title" id="widget">
-                @if (Model.CategoryList[0].ParentID == null)
-                {
-                    <li>
-                        <a id="b_0" name="0">All</a>
-                    </li>
-                }
-                @foreach (var item in Model.CategoryList)
-                {
-                    <li>
-                        <a id="b_@item.ID" name="@item.ID">@item.Name</a>
-
-                    </li>
-                }
-
-            </ul>
-            @if (Model.CategoryList[0].ParentID != null)
+<div class="container padding-top-120">
+    <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3 " style="padding-top:5px">
+        <ul class="list5a " >
+            @if (Model.CategoryList[0].ParentID == null)
             {
-                <a class="title" type="button" value="Prompts" href='/Prompt/Navigation/@Model.previousListID'>Back to previous list</a>
+                <li>
+                    <a style="text-decoration:none;color: #fff;" id="b_0" name="0">All</a>
+                </li>
+            }
+            @foreach (var item in Model.CategoryList)
+            {
+                <li style="margin-bottom:20px; margin-top:20px">
+                    <a style="text-decoration:none;color: #fff;" id="b_@item.ID" name="@item.ID">@item.Name</a>
+              </li>
             }
 
-        </div>
-    </div>
-    <div class="vid-rigth-new">
-        <div style=" padding-top:30px; width:100%; background: #FADADD; display:block; min-width: 100px; height:200px;overflow-y:auto;"></div>
-        <div class="nam" id="JSON" style="margin-top:20px">
-         @if(Model.PromptList!=null)
-         {
-             foreach (var item in Model.PromptList)
-             {
-                 <div>@item.Name<a style="float:right; margin-right:600px" href="/Prompt/Details/@item.ID">Details</a></div>
-             }
-         }
-         else
-         {
-             <div>
-                 There are no any prompts in chosen category
-             </div>
-             <a style="padding-top:20px" href="/Prompt/Add"> Add new </a>
-         }
+        </ul>
+        @if (Model.CategoryList[0].ParentID != null)
+        {
+            <a class="title" type="button" value="Prompts" href='/Prompt/Navigation/@Model.previousListID'>Back to previous list</a>
+        }
 
-            </div>
-        </div>
     </div>
+    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8  col-lg-offset-1 ">
+
+        <div class="nam" id="JSON" >
+            @if (Model.PromptList != null)
+            {
+                foreach (var item in Model.PromptList)
+                {<div class="row">
+
+                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                            <div style="padding-top:10px">
+                                <h5>@item.Name</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4" style="padding-top:10px">
+                            <h5><a href="/Prompt/Details/@item.ID">Details</a></h5>
+                        </div>
+                    </div>
+                }
+
+            }
+
+            else
+            {
+                <div>
+                    <h4> @Html.Label("There are no any prompts in chosen category") </h4>
+                </div>
+                <a style="padding-top:20px" href="/Prompt/Add"> Add new </a>
+            }
+
+
+        </div>
+
+    </div>
+</div>
+</div>
