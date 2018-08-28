@@ -13,15 +13,14 @@
         <div class="row">
             <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+                @Html.HiddenFor(model => model.Account.ID)
                 <div class="padding-top-45 ">
                     <h3 class="padding-bottom-90">
                         @Html.LabelFor(model => model.Account.Login)
                     </h3>
                     <h4>
                         @Html.EditorFor(model => model.Account.Login, new { htmlAttributes = new { @class = "input form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })
-                    </h4>
+                    </h4>  <h5>  @Html.ValidationMessageFor(model => model.Account.Login, "", new { @class = "text-danger" })</h5>
                 </div>
 
                 <div class="padding-top-45 ">
@@ -30,8 +29,7 @@
                     </h3>
                     <h4>
                         @Html.EditorFor(model => model.Account.Email, new { htmlAttributes = new { @class = "input form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })
-                    </h4>
+                    </h4>  <h5>   @Html.ValidationMessageFor(model => model.Account.Email, "", new { @class = "text-danger" })</h5>
                 </div>
                 <div class="padding-top-45">
                     <h3 class="padding-bottom-90">
@@ -39,20 +37,19 @@
                     </h3>
                     <h4>
                         @Html.DropDownListFor(model => model.Account.Roles[0].ID, Model.AllRoles, htmlAttributes: new { @style = " width: 100%;font-size:small; border: 1px solid rgba(255, 255, 255, .4);border - radius: 10px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif;  background - color: white;color: #12311E; padding:0px 10px 10px  10px;" })
-                        @Html.ValidationMessageFor(model => model.AllRoles, "", new { @class = "text-danger" })
-                    </h4>
+                    </h4><h5>   @Html.ValidationMessageFor(model => model.AllRoles, "", new { @class = "text-danger" })</h5>
                 </div>
                 @using (Html.BeginForm())
                 {
-            @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-            <div class="padding-top-30">
-                <div>
-                    <h4>
-                        <input type="submit" style="text-decoration:none; width:100%;" class="btn" value="Save" />
-                    </h4>
-                </div>
-            </div>}
+                    <div class="padding-top-30">
+                        <div>
+                            <h4>
+                                <input type="submit" style="text-decoration:none; width:100%;" class="btn" value="Save" />
+                            </h4>
+                        </div>
+                    </div>}
 
             </div>
 
@@ -61,22 +58,20 @@
                     <h3 class="padding-bottom-90">
                         @Html.LabelFor(model => model.Account.Password)
                     </h3>
-                    <h4 >
+                    <h4>
                         @Html.EditorFor(model => model.Account.Password, new { htmlAttributes = new { @class = "input form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })
-                    </h4>
+                    </h4>  <h5>   @Html.ValidationMessageFor(model => model.Account.Password, "", new { @class = "text-danger" })</h5>
                 </div>
                 <div class="padding-top-45 ">
                     <h3 class="padding-bottom-90">
                         @Html.LabelFor(model => model.Account.PasswordConfirm)
                     </h3>
-                    <h4 >
+                    <h4>
                         @Html.EditorFor(model => model.Account.PasswordConfirm, new { htmlAttributes = new { @class = "input form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account.PasswordConfirm, "", new { @class = "text-danger" })
-                    </h4>
+                    </h4>  <h5>  @Html.ValidationMessageFor(model => model.Account.PasswordConfirm, "", new { @class = "text-danger" })</h5>
                 </div>
 
-                
+
             </div>
         </div>
     </div>

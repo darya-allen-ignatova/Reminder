@@ -2,14 +2,13 @@
 @{
     ViewBag.Title = "Navigation";
 
-    Layout = "~/Views/Shared/_LayoutForPages.cshtml";
+    Layout = "~/Views/Shared/_LayoutForNavigation.cshtml";
 }
 <h2 class="title">Navigation</h2>
-
 <div class="container padding-top-120">
     <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3 " style="padding-top:5px">
-        <ul class="list5a " >
-            @if (Model.CategoryList[0].ParentID == null)
+        <ul class="list5a ">
+            @if (Model.CategoryList[0].ParentCategory == null)
             {
                 <li>
                     <a style="text-decoration:none;color: #fff;" id="b_0" name="0">All</a>
@@ -19,48 +18,61 @@
             {
                 <li style="margin-bottom:20px; margin-top:20px">
                     <a style="text-decoration:none;color: #fff;" id="b_@item.ID" name="@item.ID">@item.Name</a>
-              </li>
+                </li>
             }
 
         </ul>
-        @if (Model.CategoryList[0].ParentID != null)
+        @if (Model.CategoryList[0].ParentCategory != null)
         {
-            <a class="title" type="button" value="Prompts" href='/Prompt/Navigation/@Model.previousListID'>Back to previous list</a>
+
+            <a class="btn" type="button" style="text-decoration:none; width:100%;margin-top:50px" value="Prompts" href='/Prompt/Navigation/@Model.previousListID'>Back to previous list</a>
         }
 
     </div>
     <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8  col-lg-offset-1 ">
 
-        <div class="nam" id="JSON" >
+        <div class="nam" id="JSON">
             @if (Model.PromptList != null)
-            {
-                foreach (var item in Model.PromptList)
-                {<div class="row">
+    {
+        foreach (var item in Model.PromptList)
+        {<div class="row">
 
-                        <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
-                            <div style="padding-top:10px">
-                                <h5>@item.Name</h5>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4" style="padding-top:10px">
-                            <h5><a href="/Prompt/Details/@item.ID">Details</a></h5>
-                        </div>
+                <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                    <div style="padding-top:10px">
+                        <h5>@item.Name</h5>
                     </div>
-                }
-
-            }
-
-            else
-            {
-                <div>
-                    <h4> @Html.Label("There are no any prompts in chosen category") </h4>
                 </div>
-                <a style="padding-top:20px" href="/Prompt/Add"> Add new </a>
-            }
+                <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4" style="padding-top:10px">
+                    <h5><a href="/Prompt/Details/@item.ID">Details</a></h5>
+                </div>
+            </div>
+}
 
+}
 
+else
+{
+        <div>
+            <h4> @Html.Label("There are no any prompts in chosen category") </h4>
         </div>
+        <div class="padding-top-20">
+            <div>
+                <h4>
+                    <input type="button" style="text-decoration:none; width:100%;" href="/Prompt/Add" class="btn" value="Add new" />
+                </h4>
+            </div>
+        </div>
+}
+        </div><div class="padding-top-45">
+                <div>
+                    <h4>
+                        <a type="button" href="/Prompt/Add" style="text-decoration:none; width:65%;" class="btn">Add new</a>
+                    </h4>
+                </div>
+            </div>
+
+        
 
     </div>
-</div>
+    
 </div>

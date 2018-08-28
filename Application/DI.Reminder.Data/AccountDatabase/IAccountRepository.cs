@@ -11,5 +11,6 @@ namespace DI.Reminder.Data.AccountDatabase
         void UpdateAccount(Account account);
         List<Account> GetAccountList();
         Account GetAccount(int id);
+        void AdminUpdateAccount(Account account);
     }
 }

@@ -6,10 +6,9 @@ namespace DI.Reminder.Common.CategoryModel
     {
         [Key]
         public int ID { get; set; }
-
-        [Required(ErrorMessage = "Field must be filled")]
+        
         public string Name { get; set; }
         
-        public int? ParentID { get; set; }
+        public Category ParentCategory { get; set; }
     }
 }

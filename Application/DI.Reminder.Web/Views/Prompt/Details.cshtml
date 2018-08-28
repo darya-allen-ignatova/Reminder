@@ -10,7 +10,7 @@
     <div class="row ">
 
         <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
+            @Html.HiddenFor(model => model.ID)
             <div class="padding-top-20 ">
                 <h3>
                     @Html.LabelFor(model => model.Name)
@@ -86,10 +86,10 @@
                 <h3>
                     @Html.Label(" Image")
                 </h3>
-
-                <h4 class="padding-top-30">
+                @if (Model.Image != null)
+                { <h4 class="padding-top-30">
                     <img class="img-responsive" src="@Url.Content(Model.Image)" />
-                </h4>
+                </h4>}
             </div>
         </div>
 

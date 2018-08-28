@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryModel\CategoriesModel.cs" />
     <Compile Include="CategoryModel\Category.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\AppLogger.cs" />

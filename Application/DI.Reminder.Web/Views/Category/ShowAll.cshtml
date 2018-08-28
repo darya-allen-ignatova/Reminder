@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DI.Reminder.Common.CategoryModel.CategoriesModel>
+﻿@model IEnumerable<DI.Reminder.Common.CategoryModel.Category>
 
 @{
     ViewBag.Title = "ShowAll";
@@ -36,7 +36,7 @@
                     }
                     else
                     {
-                        @Html.DisplayFor(modelItem => item.ParentCategory)
+                        @Html.DisplayFor(modelItem => item.ParentCategory.Name)
                     }
 
 

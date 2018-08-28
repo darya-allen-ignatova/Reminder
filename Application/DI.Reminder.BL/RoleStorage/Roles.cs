@@ -16,12 +16,17 @@ namespace DI.Reminder.BL.RoleStorage
             _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
             _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
         }
-        public void DeleteRole(int id)
+        public bool? DeleteRole(int id)
         {
             if (id < 1)
-                return;
-            _roleRepository.DeleteRole(id);
-            _cacheService.DeleteCache(id);
+                return null;
+            bool flag=_roleRepository.DeleteRole(id);
+            if (flag)
+            {
+                _cacheService.DeleteCache(id);
+                return true;
+            }
+            return false;
         }
 
         public IList<Role> GetAllRoles()

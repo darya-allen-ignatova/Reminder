@@ -26,16 +26,17 @@ namespace DI.Reminder.Web.Controllers
             return View("Edit", categoryViewModel);
         }
         [HttpPost]
-        public ActionResult Add(CategoryViewModel categoryModel)
+        public ActionResult Add(Category category)
         {
-            if (categoryModel == null)
+            if (category == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("category.ID");
             if (ModelState.IsValid)
             {
-                _categoriesStorage.InsertCategory(GetFromModel(categoryModel));
+                _categoriesStorage.InsertCategory(category);
             }
             else
-                RedirectToAction("HttpError500", "Error");
+               RedirectToAction("HttpError500", "Error");
             return RedirectToAction("ShowAll");
         }
         [HttpPost]
@@ -51,20 +52,8 @@ namespace DI.Reminder.Web.Controllers
             if (id == null)
                 return RedirectToAction("HttpError404", "Error");
             var category = _categoriesStorage.GetCategory((int)id);
-            CategoriesModel categoryModel = GetModel(category);
-            if (categoryModel != null)
-                return View(categoryModel);
-            else
-                return RedirectToAction("HttpError404", "Error");
-        }
-
-            public ActionResult Details(int? id)
-        {
-            if(id==null)
-                return RedirectToAction("HttpError404", "Error");
-            var categoryDetails = _categoriesStorage.GetCategory((int)id);
-            if (categoryDetails != null)
-                return View(categoryDetails);
+            if (category != null)
+                return View(category);
             else
                 return RedirectToAction("HttpError404", "Error");
         }
@@ -72,38 +61,14 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult ShowAll()
         {
             var allCategories = _categoriesStorage.GetAllCategories();
-            IList<CategoriesModel> categoriesModel = new List<CategoriesModel>();
             if (allCategories != null)
             {
-                for (int i = 0; i < allCategories.Count; i++)
-                {
-                    categoriesModel.Add(GetModel(allCategories[i]));
-                }
-                return View(categoriesModel);
+                return View(allCategories);
             }
             else
             {
                 return RedirectToAction("HttpError404", "Error");
             }
-        }
-        private CategoriesModel GetModel(Category category)
-        {
-            CategoriesModel categoriesModel = null;
-            if (category != null)
-            {
-                string parentCategory = null;
-                if (category.ParentID != null)
-                    parentCategory = _categoriesStorage.GetCategory((int)category.ParentID).Name;
-
-                categoriesModel = new CategoriesModel()
-                {
-                    ID = category.ID,
-                    Name = category.Name,
-                    ParentCategory = parentCategory
-                };
-                return categoriesModel;
-            }
-            return null;
         }
         public ActionResult Edit(int? ID)
         {
@@ -122,10 +87,12 @@ namespace DI.Reminder.Web.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit(CategoryViewModel categoryModel)
         {
+            Category category = categoryModel.category;
             if (category == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("category.ID");
             if (ModelState.IsValid)
             {
                 _categoriesStorage.EditCategory(category);
@@ -153,15 +120,6 @@ namespace DI.Reminder.Web.Controllers
                 });
             }
             return selectlist;
-        }
-        private Category GetFromModel(CategoryViewModel categoryModel)
-        {
-            return new Category()
-            {
-                ID = categoryModel.category.ID,
-                Name = categoryModel.category.Name,
-                ParentID = categoryModel.category.ParentID
-            };
         }
     }
 }

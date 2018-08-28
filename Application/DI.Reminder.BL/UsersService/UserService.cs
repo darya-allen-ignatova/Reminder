@@ -28,7 +28,7 @@ namespace DI.Reminder.BL.UsersService
 
         public void EditUser(Account account)
         {
-            _accountRepository.UpdateAccount(account);
+            _accountRepository.AdminUpdateAccount(account);
             account.Roles = _roleRepository.GetRoleList(account.ID);
             _cacheService.UpdateCache(account, account.ID);
         }

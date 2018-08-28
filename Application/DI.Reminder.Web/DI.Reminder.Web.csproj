@@ -199,7 +199,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Prompt\Add.cshtml" />
     <Content Include="Views\Prompt\Delete.cshtml" />
     <Content Include="Views\Prompt\Edit.cshtml" />
     <Content Include="Views\Admin\DeleteUser.cshtml" />
@@ -227,6 +226,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutForPages.cshtml" />
     <Content Include="Views\Shared\_LayoutForStartPage.cshtml" />
+    <Content Include="Views\Shared\_LayoutForNavigation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -25,38 +25,38 @@
                 <ul class="nav navbar-nav  navbar-right" style="vertical-align:bottom; margin-top:20px">
 
                     @if (User.IsInRole("Admin"))
-    {
-                <li>
-                    <a style="text-decoration:none; color:white; font-size:large" href="/Admin/Home">Admin cabinet</a>
-                </li>
+                    {
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Admin/Home">Admin cabinet</a>
+                        </li>
 
-}
-else if (User.IsInRole("Editor"))
-{
-                <li>
-                    <a style="text-decoration:none; color:white; font-size:large" href="/Editor/Home"> Editor cabinet</a>
-                </li>
+                    }
+                    else if (User.IsInRole("Editor"))
+                    {
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Editor/Home"> Editor cabinet</a>
+                        </li>
 
-}
+                    }
                     @if (Request.IsAuthenticated)
-    {
-                <li>
-                    <a style="text-decoration:none; color:white; font-size:large" href="/Account/Edit">Edit account</a>
-                </li>
-}
+                    {
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Account/Edit">Edit account</a>
+                        </li>
+                    }
                     @if (Request.IsAuthenticated)
-    {
-                <li>
-                    <a style="text-decoration:none; color:white; font-size:large" href="/Account/LogOut">Log Out</a>
-                </li>
-}
-else
-{
-                <li><a href="#registration" style="text-decoration:none; color:white; font-size:large">Registration</a></li>
-                <li>
-                    <a style="text-decoration:none; color:white; font-size:large" href="/Account/Login">Log In</a>
-                </li>
-}
+                    {
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Account/LogOut">Log Out</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href="#registration" style="text-decoration:none; color:white; font-size:large">Registration</a></li>
+                        <li>
+                            <a style="text-decoration:none; color:white; font-size:large" href="/Account/Login">Log In</a>
+                        </li>
+                    }
 
                 </ul>
             </div>
@@ -74,6 +74,14 @@ else
     </footer>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script src="~/Scripts/ClickFunction.js"></script>
+    <script src="~/Scripts/SearchClick.js"></script>
+    <script src="~/Scripts/ActionAdding.js"></script>
 
 </body>
 </html>

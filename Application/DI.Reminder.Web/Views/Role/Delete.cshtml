@@ -7,7 +7,12 @@
     <div class="row padding-top-45">
         <h2 class="title" style="padding-bottom:30px;">Are you sure you want to delete this role?</h2>
         <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
+            @Html.HiddenFor(model => model.ID)
+           <div class="padding-top-20 ">
+                 <h5 class="text-danger">
+                     @ViewData["message"]
+                 </h5>
+                </div>
             <div class="padding-top-20 ">
                 <h3>
                     @Html.LabelFor(model => model.Name)

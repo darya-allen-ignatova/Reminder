@@ -39,6 +39,7 @@ namespace DI.Reminder.Web.Controllers
             if (account == null)
                 throw new ArgumentNullException();
             ModelState.Remove("account.Roles[0].Name");
+            ModelState.Remove("account.ID");
             if (ModelState.IsValid)
             {
                 _userService.InsertUser(account);

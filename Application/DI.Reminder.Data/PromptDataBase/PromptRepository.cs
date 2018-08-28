@@ -187,7 +187,6 @@ namespace DI.Reminder.Data.PromptDataBase
         {
             try
             {
-                prompt.Category.ID = int.Parse(prompt.Category.Name.Replace(" ", string.Empty));
                 prompt.Category = _categoryRepository.GetCategory(prompt.Category.ID);
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {

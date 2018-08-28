@@ -1,5 +1,6 @@
 ﻿using DI.Reminder.Common.CategoryModel;
 using System;
+using System.Web.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace DI.Reminder.Common.PromptModel

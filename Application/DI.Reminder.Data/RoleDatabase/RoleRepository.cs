@@ -48,7 +48,7 @@ namespace DI.Reminder.Data.RoleDatabase
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
         }
-        public void DeleteRole(int id)
+        public bool DeleteRole(int id)
         {
             try
             {
@@ -71,11 +71,14 @@ namespace DI.Reminder.Data.RoleDatabase
             catch (SqlException sqlExc)
             {
                 _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+                return false;
             }
             catch (Exception ex)
             {
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+                return false;
             }
+            return true;
         }
         public List<Role> GetRoleList(int? id)
         {
@@ -161,41 +164,7 @@ namespace DI.Reminder.Data.RoleDatabase
             }
             return _list;
         }
-        public void DeleteUserRole(int roleID, int userID)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(GetConnection))
-                {
-                    connection.Open();
-                    string sqlExpression = "DeleteUserRole";
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    SqlParameter sqlparam = new SqlParameter()
-                    {
-                        ParameterName = "@userID",
-                        Value = userID
-                    };
-                    command.Parameters.Add(sqlparam);
-                    SqlParameter sqlparam1 = new SqlParameter()
-                    {
-                        ParameterName = "@id",
-                        Value = roleID
-                    };
-                    command.Parameters.Add(sqlparam1);
-                    var result = command.ExecuteNonQuery();
-
-                }
-            }
-            catch (SqlException sqlExc)
-            {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
-            }
-        }
+       
 
         public Role GetRoleByName(string Name)
         {

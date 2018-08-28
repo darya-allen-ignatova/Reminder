@@ -6,10 +6,9 @@ namespace DI.Reminder.Data.RoleDatabase
     public interface IRoleRepository
     {
         List<Role> GetRoleList(int? id);
-        void DeleteRole(int id);
+        bool DeleteRole(int id);
         void InsertRole(string Role);
         IList<Role> GetAllRoles();
-        void DeleteUserRole(int roleID, int userID);
         Role GetRoleByName(string Name);
     }
 }

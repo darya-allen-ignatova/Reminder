@@ -11,7 +11,7 @@
     <div class="row ">
         <h2 class="title" style="padding-bottom:30px;">Are you sure you want to delete this prompt?</h2>
         <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
-
+            @Html.HiddenFor(model => model.ID)
             <div class="padding-top-20 ">
                 <h3>
                     @Html.LabelFor(model => model.Name)
@@ -66,9 +66,10 @@
                     @Html.Label(" Image")
                 </h3>
 
-                <h4 class="padding-top-30">
+              @if (Model.Image != null)
+              {  <h4 class="padding-top-30">
                     <img style="width:500px; height:300px; margin:2px" ; src="@Url.Content(Model.Image)" />
-                </h4>
+                </h4>}
             </div>
         </div>
     </div>

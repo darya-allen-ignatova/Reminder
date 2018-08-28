@@ -25,6 +25,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (role == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("ID");
             if (ModelState.IsValid)
             {
                 _roles.InsertRole(role);
@@ -49,7 +50,13 @@ namespace DI.Reminder.Web.Controllers
         {
             if (role == null)
                 throw new ArgumentNullException();
-             _roles.DeleteRole(role.ID);
+             bool? flag=_roles.DeleteRole(role.ID);
+            switch(flag)
+            {
+                case true:
+                case null: return RedirectToAction("ShowAll");
+                case false:ViewData["message"] = "Error.You can't delete role by the reason of availability user with this role"; return RedirectToAction("Delete", role.ID);
+             }
             return RedirectToAction("ShowAll");
         }
 

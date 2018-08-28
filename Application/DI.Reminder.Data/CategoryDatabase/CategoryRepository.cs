@@ -134,17 +134,22 @@ namespace DI.Reminder.Data.CategoryDataBase
                     }
                     while (reader.Read())
                     {
-                        int? parent = null;
+                        int parent=-1;
                         object ParentID = reader.GetValue(2);
                         if (!Convert.IsDBNull(ParentID))
                         {
                             parent = int.Parse(ParentID.ToString());
                         }
+                        Category Parent = null;
+                        if (parent != -1)
+                        {
+                            Parent =GetCategory(parent);
+                        }
                         _list.Add(new Category()
                         {
                             ID = int.Parse(reader.GetValue(0).ToString()),
                             Name = reader.GetValue(1).ToString(),
-                            ParentID = parent
+                            ParentCategory = Parent
                         });
                     }
                     connection.Close();
@@ -178,12 +183,12 @@ namespace DI.Reminder.Data.CategoryDataBase
                         Value = category.Name
                     };
                     command.Parameters.Add(sqlparam1);
-                    if (category.ParentID != 0)
+                    if (category.ParentCategory.ID != 0)
                     {
                         SqlParameter sqlparam2 = new SqlParameter()
                         {
                             ParameterName = "@ParentID",
-                            Value = category.ParentID
+                            Value = category.ParentCategory.ID
                         };
                         command.Parameters.Add(sqlparam2);
                     }
@@ -250,17 +255,22 @@ namespace DI.Reminder.Data.CategoryDataBase
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        int? parent = null;
+                        int parentID = -1;
                         object ParentID = reader.GetValue(2);
                         if (!Convert.IsDBNull(ParentID))
                         {
-                            parent = int.Parse(ParentID.ToString());
+                            parentID = int.Parse(ParentID.ToString());
+                        }
+                        Category Parent = null;
+                        if(parentID!=-1)
+                        {
+                            Parent = GetCategory(parentID);
                         }
                         category = new Category()
                         {
                             ID = int.Parse(reader["ID"].ToString()),
                             Name = reader["Name"].ToString(),
-                            ParentID = parent
+                            ParentCategory = Parent
                         };
                     }
                     connection.Close();
@@ -297,17 +307,22 @@ namespace DI.Reminder.Data.CategoryDataBase
                     }
                     while (reader.Read())
                     {
-                        int? parent = null;
+                        int parent = -1;
                         object ParentID = reader.GetValue(2);
                         if (!Convert.IsDBNull(ParentID))
                         {
                             parent = int.Parse(ParentID.ToString());
                         }
+                        Category Parent = null;
+                        if(parent!=-1)
+                        {
+                            Parent = GetCategory(parent);
+                        }
                         _list.Add(new Category()
                         {
                             ID = int.Parse(reader.GetValue(0).ToString()),
                             Name = reader.GetValue(1).ToString(),
-                            ParentID = parent
+                            ParentCategory= Parent
                         });
                     }
                     connection.Close();
@@ -327,7 +342,7 @@ namespace DI.Reminder.Data.CategoryDataBase
         }
         public void EditCategory(Category category)
         {
-            int? ParentID = int.Parse(category.ParentID.ToString().Replace(" ", string.Empty));
+            int? ParentID = int.Parse(category.ParentCategory.ID.ToString().Replace(" ", string.Empty));
             try
             {
                 using (SqlConnection connection = new SqlConnection(GetConnection))

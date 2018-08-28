@@ -59,7 +59,7 @@ namespace DI.Reminder.Web.Controllers
             int? previousList =null;
             try
             {
-                previousList = _getcategory.GetCategory((int)_categorylist[0].ParentID).ParentID;
+                previousList = _categorylist[0].ParentCategory.ParentCategory.ID;
             }
             catch
             { }
@@ -129,6 +129,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
+            ModelState.Remove("prompt.ID");
             if (ModelState.IsValid)
             {
                 _prompt.InsertPrompt(UserID, prompt);

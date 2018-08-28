@@ -6,180 +6,185 @@
     Layout = "~/Views/Shared/_LayoutForPages.cshtml";
 }
 <h2 class="title">Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<div class="container padding-top-90">
-    <div class="row">
-        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+    <div class="container padding-top-90">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                @Html.HiddenFor(model => model.Prompt.ID)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Prompt.Name)
+                    </h3>
+                    <h4>
+                        @Html.EditorFor(model => model.Prompt.Name, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.Name, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-                    @Html.LabelFor(model => model.Prompt.Name)
-                </h3>
-                <h4>
-                    @Html.EditorFor(model => model.Prompt.Name, new { htmlAttributes = new { @class = "input form-control" } })
-                    @Html.ValidationMessageFor(model => model.Prompt.Name, "", new { @class = "text-danger" })
-                </h4>
-            </div>
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Prompt.Date)
+                    </h3>
+                    <h4>
+                        @Html.EditorFor(model => model.Prompt.Date, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.Date, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
 
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-                    @Html.LabelFor(model => model.Prompt.Date)
-                </h3>
-                <h4>
-                    @Html.EditorFor(model => model.Prompt.Date, new { htmlAttributes = new { @class = "input form-control" } })
-                    @Html.ValidationMessageFor(model => model.Prompt.Date, "", new { @class = "text-danger" })
-                </h4>
-            </div>
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Prompt.Description)
+                    </h3>
+                    <h4>
+                        @Html.EditorFor(model => model.Prompt.Description, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.Description, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.LabelFor(model => model.Prompt.Category.Name, "Category")
+                    </h3>
+                    <h4>
+                        @Html.DropDownListFor(model => model.Prompt.Category.ID, Model.CategoryList, htmlAttributes: new { @style = " width: 100%;font-size:small; border: 1px solid rgba(255, 255, 255, .4);border - radius: 10px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif;  background - color: white;color: #12311E; padding:0px 10px 10px  10px;" })
 
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-                    @Html.LabelFor(model => model.Prompt.Description)
-                </h3>
-                <h4>
-                    @Html.EditorFor(model => model.Prompt.Description, new { htmlAttributes = new { @class = "input form-control" } })
-                    @Html.ValidationMessageFor(model => model.Prompt.Description, "", new { @class = "text-danger" })
-                </h4>
-            </div>
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-                    @Html.LabelFor(model => model.Prompt.Category.Name, "Category")
-                </h3>
-                <h4>
-                    @Html.DropDownListFor(model => model.Prompt.Category.ID, Model.CategoryList, htmlAttributes: new { @style = " width: 100%;font-size:small; border: 1px solid rgba(255, 255, 255, .4);border - radius: 10px; background - clip: padding - box;display: block;font - family: 'Open Sans', sans - serif;  background - color: white;color: #12311E; padding:0px 10px 10px  10px;" })
-
-                    @Html.ValidationMessageFor(model => model.CategoryList, "", new { @class = "text-danger" })
-                </h4>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-
-                    @Html.Label("Time of prompt")
-
-                </h3>
-                <h4>
-                    @Html.EditorFor(model => model.Prompt.TimeOfPrompt, new { htmlAttributes = new { @class = "input form-control" } })
-                    @Html.ValidationMessageFor(model => model.Prompt.TimeOfPrompt, "", new { @class = "text-danger" })
-                </h4>
-            </div>
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-                    @Html.Label(" Actions")
-                </h3>
-                @if (Model.Prompt != null && Model.Prompt.Actions != null)
-                {
-                    for (int i = 0; i < Model.Prompt.Actions.Count; i++)
-                    {
-                        <div class="padding-top-20">
-                            <h4>
-                                @Html.EditorFor(model => model.Prompt.Actions[i].Name, new { htmlAttributes = new { @class = "input form-control" } })
-                            </h4>
-                        </div>
-                    }
-                }
-                <div id="textBox">
-                    @if (Model.Prompt != null && Model.Prompt.Actions == null)
-                    {
-                        <h4>
-                            @Html.DisplayName("There aren't any items in this list")}
-                        </h4>}
+                        @Html.ValidationMessageFor(model => model.CategoryList, "", new { @class = "text-danger" })
+                    </h4>
                 </div>
             </div>
-            <div class="padding-top-45 ">
-                <h4>
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+
+                        @Html.Label("Time of prompt")
+
+                    </h3>
+                    <h4>
+                        @Html.EditorFor(model => model.Prompt.TimeOfPrompt, new { htmlAttributes = new { @class = "input form-control" } })
+                        @Html.ValidationMessageFor(model => model.Prompt.TimeOfPrompt, "", new { @class = "text-danger" })
+                    </h4>
+                </div>
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.Label(" Actions")
+                    </h3>
                     @if (Model.Prompt != null && Model.Prompt.Actions != null)
                     {
-                        <input class="padding-top-20 btn" value="Add" type="button" id="AddingButton" col="@Model.Prompt.Actions.Count" />
+                        for (int i = 0; i < Model.Prompt.Actions.Count; i++)
+                        {
+                            <div class="padding-top-20">
+                                <h4>
+                                    @Html.EditorFor(model => model.Prompt.Actions[i].Name, new { htmlAttributes = new { @class = "input form-control" } })
+                                </h4>
+                            </div>
+                        }
+                    }
+                    <div id="textBox">
+                        @if (Model.Prompt != null && Model.Prompt.Actions == null)
+                        {
+                            <h4>
+                                @Html.DisplayName("There aren't any items in this list")}
+                            </h4>}
+                    </div>
+                </div>
+                <div class="padding-top-45 ">
+                    <h4>
+                        @if (Model.Prompt != null && Model.Prompt.Actions != null)
+                        {
+                            <input class="padding-top-20 btn" value="Add" type="button" id="AddingButton" col="@Model.Prompt.Actions.Count" />
+                        }
+                        else
+                        {
+                            <input class="padding-top-20 btn" value="Add" type="button" id="AddingButton" col="0" />
+                        }
+                    </h4>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+                <div class="padding-top-45 ">
+                    <h3 class="padding-bottom-90">
+                        @Html.Label(" Image")
+                    </h3>
+                    @if (Model.Prompt != null)
+                    {
+                        if (Model.Prompt.Image != null)
+                        { <div>
+                            <img class="img-responsive" ; src="@Url.Content(Model.Prompt.Image)" />
+                        </div>}
+                        <div class="padding-top-30">
+                            <input type="file" class="input form-control"name="prompt.Image" style="height:110%" value="@Model.Prompt.Image" />
+                            @Html.ValidationMessageFor(model => model.Prompt.Image, "", new { @class = "text-danger" })
+                        </div>
                     }
                     else
                     {
-                        <input class="padding-top-20 btn" value="Add" type="button" id="AddingButton" col="0" />
-                    }
-                </h4>
-            </div>
-
-        </div>
-
-        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
-            <div class="padding-top-45 ">
-                <h3 class="padding-bottom-90">
-                    @Html.Label(" Image")
-                </h3>
-                @if (Model.Prompt != null)
-                {<div>
-                        <img class="img-responsive" ; src="@Url.Content(Model.Prompt.Image)" />
-                    </div>
-                    <div class="padding-top-30">
-                        <input type="file" class="input form-control" style="height:110%" value="@Model.Prompt.Image" />
-                        @Html.ValidationMessageFor(model => model.Prompt.Image, "", new { @class = "text-danger" })
-                    </div>
-                }
-                else
-                    {
-                        <div >
+                        <div>
                             <h4>
-                                <input type="file" class="input form-control" style="height:110%" value="Image" />
+                                <input type="file" class="input form-control"name="prompt.Image" style="height:110%" value="Image" />
                             </h4>
                         </div>
                     }
+                </div>
+
+
+
+
             </div>
 
 
-
-
         </div>
+        <div class="row padding-top-45">
+            @if (Model.Prompt != null)
+            {<div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
 
-
-    </div>
-    <div class="row padding-top-45">
-        @if (Model.Prompt != null)
-        {<div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
-                <div class="padding-top-30">
-                    <div>
-                        <h4>
-                            <a type="button" href="/Prompt/Edit/@Model.Prompt.ID" style="text-decoration:none; width:100%;" class="btn">Edit</a>
-                        </h4>
-                    </div>
-                </div>
-            </div> }
-        else
-        {
-            using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
                     <div class="padding-top-30">
                         <div>
                             <h4>
-                                <input type="submit" style="text-decoration:none; width:100%;" class="btn" value="Save" />
+                                <input type="submit" href="/Prompt/Edit/@Model.Prompt.ID" style="text-decoration:none; width:100%;" class="btn" value="Save"/>
+                            </h4>
+                        </div>
+                    </div>
+                </div> }
+            else
+            {
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <div class="padding-top-30">
+                            <div>
+                                <h4>
+                                    <input type="submit" style="text-decoration:none; width:100%;" class="btn" value="Save" />
+                                </h4>
+                            </div>
+                        </div>
+                    </div>}
+            }
+            @if (Model.Prompt != null)
+            {<div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+
+                    <div class="padding-top-30">
+                        <div>
+                            <h4>
+                                <a type="button" href="/Prompt/Delete/@Model.Prompt.ID" style="text-decoration:none; width:100%;" class="btn">Delete</a>
                             </h4>
                         </div>
                     </div>
                 </div>}
-        }
-        @if (Model.Prompt != null)
-        {<div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
                 <div class="padding-top-30">
                     <div>
                         <h4>
-                            <a type="button" href="/Prompt/Delete/@Model.Prompt.ID" style="text-decoration:none; width:100%;" class="btn">Delete</a>
+                            <a type="button" href="/Prompt/Navigation" style="text-decoration:none; width:100%;" class="btn">Back to list</a>
                         </h4>
                     </div>
                 </div>
-            </div>}
-        <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-            <div class="padding-top-30">
-                <div>
-                    <h4>
-                        <a type="button" href="/Prompt/Navigation" style="text-decoration:none; width:100%;" class="btn">Back to list</a>
-                    </h4>
-                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>}
