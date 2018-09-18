@@ -140,7 +140,7 @@ namespace DI.Reminder.Web.Controllers
             if (prompt == null)
                 throw new ArgumentNullException();
             _prompt.DeletePrompt(UserID, prompt.ID);
-            return RedirectToAction("Navigation", new { id = 0 });
+            return RedirectToAction("Navigation");
         }
 
 
@@ -215,11 +215,6 @@ namespace DI.Reminder.Web.Controllers
         {
             var listOfCategories = _getcategory.GetAllCategories();
             List<SelectListItem> selectList = new List<SelectListItem>();
-            selectList.Add(new SelectListItem()
-            {
-                Value = "0",
-                Text = "Root category"
-            });
             for (int i = 0; i < listOfCategories.Count; i++)
             {
                 selectList.Add(new SelectListItem()

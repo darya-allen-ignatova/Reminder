@@ -40,25 +40,25 @@ namespace DI.Reminder.BL.Tests.Prompts
                 {
                     ID=1,
                     Name="Important",
-                    ParentID=null
+                    ParentCategory = new Category()
                 },
                 new Category()
                 {
                     ID =2,
                     Name="Work",
-                    ParentID=1
+                    ParentCategory = new Category(){ID=1}
                 },
                 new Category()
                 {
                     ID=3,
                     Name="Family",
-                    ParentID=1
+                     ParentCategory = new Category(){ID=1}
                 },
                 new Category()
                 {
                     ID=4,
                     Name="Other",
-                    ParentID=null
+                     ParentCategory=new Category()
                 }
             };
             _testingListOfPrompts = new List<Prompt>()
@@ -188,7 +188,7 @@ namespace DI.Reminder.BL.Tests.Prompts
             int UserID = 2;
             int ID = 1;
 
-            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ParentID == 1).ToList);
+            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int>())).Returns(_testingListOfCategories.Where(m => m.ParentCategory.ID == 1).ToList);
             _promptRepository.Setup(m => m.GetPromptsList(It.IsAny<int>(), It.IsAny<int>())).Returns<Prompt>(null);
 
             //

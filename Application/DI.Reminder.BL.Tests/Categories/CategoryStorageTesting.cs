@@ -31,25 +31,25 @@ namespace DI.Reminder.BL.Tests.Categories
                 {
                     ID=1,
                     Name="Important",
-                    ParentID=null
+                    ParentCategory=new Category()
                 },
                 new Category()
                 {
                     ID =2,
                     Name="Work",
-                    ParentID=1
+                    ParentCategory=new Category(){ID=1 }
                 },
                 new Category()
                 {
                     ID=3,
                     Name="Family",
-                    ParentID=1
+                    ParentCategory=new Category(){ID=1 }
                 },
                 new Category()
                 {
                     ID=4,
                     Name="Other",
-                    ParentID=null
+                    ParentCategory=new Category()
                 }
             };
 
@@ -83,7 +83,7 @@ namespace DI.Reminder.BL.Tests.Categories
             //Arrange
             //
             int? id = 1;
-            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int?>())).Returns(_testingListOfCategories.Where(t => t.ParentID == 1).ToList);
+            _categoryRepository.Setup(m => m.GetCategories(It.IsAny<int?>())).Returns(_testingListOfCategories.Where(t => t.ParentCategory.ID == 1).ToList);
             //
             //Act
             //
@@ -92,7 +92,7 @@ namespace DI.Reminder.BL.Tests.Categories
             //Assert
             //
             Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(_testingListOfCategories[1].Name, result.FirstOrDefault(m => m.ParentID == 1).Name);
+            Assert.AreEqual(_testingListOfCategories[1].Name, result.FirstOrDefault(m => m.ParentCategory.ID == 1).Name);
             _categoryRepository.Verify(m => m.GetCategories(It.IsAny<int?>()), Times.Once);
         }
         #endregion
@@ -172,7 +172,7 @@ namespace DI.Reminder.BL.Tests.Categories
             //Arrange
             //
             string Name="Work";
-            _categoryRepository.Setup(m => m.GetCategoryParentID(It.IsAny<string>())).Returns(_testingListOfCategories.FirstOrDefault( m => m.Name==Name).ParentID);
+            _categoryRepository.Setup(m => m.GetCategoryParentID(It.IsAny<string>())).Returns(_testingListOfCategories.FirstOrDefault( m => m.Name==Name).ParentCategory.ID);
             //
             //Act
             //

@@ -184,3 +184,15 @@ The statement has been terminated.
    в DI.Reminder.Data.PromptDataBase.PromptRepository.GetPrompt(Int32 userID, Nullable`1 id) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 124	Не удалось привести тип объекта "System.String" к типу "System.Byte[]".
 2018-08-28 17:21:42,204 [5] ERROR - Error SqlException: System.InvalidCastException: Не удалось привести тип объекта "System.String" к типу "System.Byte[]".
    в DI.Reminder.Data.PromptDataBase.PromptRepository.GetPrompt(Int32 userID, Nullable`1 id) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 124	Не удалось привести тип объекта "System.String" к типу "System.Byte[]".
+2018-09-18 19:38:21,506 [6] ERROR - Error SqlException: System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта.
+   в DI.Reminder.Data.AccountDatabase.AccountRepository.AdminUpdateAccount(Account account) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\AccountDatabase\AccountRepository.cs:строка 256	Ссылка на объект не указывает на экземпляр объекта.
+2018-09-18 19:45:09,225 [7] ERROR - Error SqlException: System.InvalidCastException: Не удалось привести тип объекта "System.String" к типу "System.Byte[]".
+   в DI.Reminder.Data.PromptDataBase.PromptRepository.GetPrompt(Int32 userID, Nullable`1 id) в C:\Users\Дарья\Documents\Visual Studio 2017\Projects\Reminder\Application\DI.Reminder.Data\PromptDataBase\PromptRepository.cs:строка 124	Не удалось привести тип объекта "System.String" к типу "System.Byte[]".
+2018-09-18 19:47:50,482 [13] ERROR - Error SqlException: .Net SqlClient Data Provider	The DELETE statement conflicted with the REFERENCE constraint "FK_Users_Roles_Roles". The conflict occurred in database "DI.Reminder.DataBase", table "dbo.Users_Roles", column 'RoleID'.
+The statement has been terminated.
+2018-09-18 19:47:53,601 [5] ERROR - Error SqlException: .Net SqlClient Data Provider	The DELETE statement conflicted with the REFERENCE constraint "FK_Users_Roles_Roles". The conflict occurred in database "DI.Reminder.DataBase", table "dbo.Users_Roles", column 'RoleID'.
+The statement has been terminated.
+2018-09-18 19:47:56,040 [5] ERROR - Error SqlException: .Net SqlClient Data Provider	The DELETE statement conflicted with the REFERENCE constraint "FK_Users_Roles_Roles". The conflict occurred in database "DI.Reminder.DataBase", table "dbo.Users_Roles", column 'RoleID'.
+The statement has been terminated.
+2018-09-18 19:48:00,677 [15] ERROR - Error SqlException: .Net SqlClient Data Provider	The DELETE statement conflicted with the REFERENCE constraint "FK_Users_Roles_Roles". The conflict occurred in database "DI.Reminder.DataBase", table "dbo.Users_Roles", column 'RoleID'.
+The statement has been terminated.
