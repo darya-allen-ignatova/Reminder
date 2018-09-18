@@ -110,11 +110,6 @@ namespace DI.Reminder.Data.PromptDataBase
                         int IDCategory = int.Parse(reader["CategoryID"].ToString());
                         category = _categoryRepository.GetCategory(IDCategory);
                         int Id = int.Parse(reader["ID"].ToString());
-                        object objimage = reader["Image"]; string image;
-                        if (Convert.IsDBNull(objimage))
-                            image = null;
-                        else
-                            image = objimage.ToString();
                         prompt = new Prompt()
                         {
                             ID = int.Parse(reader["ID"].ToString()),
@@ -123,9 +118,12 @@ namespace DI.Reminder.Data.PromptDataBase
                             Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
                             TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
                             Description = reader["Description"].ToString(),
-                            Image = image,
                             Actions = GetActions(Id)
                         };
+                        if (reader["image"] != null)
+                            prompt.ImageData = (byte[])reader["image"];
+                        if (reader["imagetype"] != null)
+                            prompt.ImageMimeType = reader["imagetype"].ToString();
                     }
                     connection.Close();
                 }
@@ -199,7 +197,8 @@ namespace DI.Reminder.Data.PromptDataBase
                     command.Parameters.AddWithValue("@categoryid", prompt.Category.ID);
                     command.Parameters.AddWithValue("@dataofcreating", prompt.Date);
                     command.Parameters.AddWithValue("@description", prompt.Description);
-                    command.Parameters.AddWithValue("@Image", prompt.Image);
+                    command.Parameters.AddWithValue("@image", prompt.ImageData);
+                    command.Parameters.AddWithValue("@imagetype", prompt.ImageMimeType);
                     command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);
                     var result = command.ExecuteScalar();
                     prompt.ID = int.Parse(result.ToString());
@@ -288,8 +287,8 @@ namespace DI.Reminder.Data.PromptDataBase
                     command.Parameters.AddWithValue("@categoryid", prompt.Category.ID);
                     command.Parameters.AddWithValue("@dateofcreating", prompt.Date);
                     command.Parameters.AddWithValue("@description", prompt.Description);
-                    command.Parameters.AddWithValue("@image", prompt.Image);
                     command.Parameters.AddWithValue("@timeofprompt", prompt.TimeOfPrompt);
+                    command.Parameters.AddWithValue("@imagetype", prompt.ImageMimeType);
                     command.Parameters.AddWithValue("@id", prompt.ID);
                     var result = command.ExecuteNonQuery();
                     connection.Close();

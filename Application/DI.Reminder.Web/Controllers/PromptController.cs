@@ -8,6 +8,7 @@ using System;
 using DI.Reminder.Common.CategoryModel;
 using DI.Reminder.BL.UsersService;
 using System.Linq;
+using System.Web;
 
 namespace DI.Reminder.Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace DI.Reminder.Web.Controllers
         }
 
 
-        
+
         public ActionResult Searching()
         {
             SearchModel searchModel = new SearchModel()
@@ -35,12 +36,12 @@ namespace DI.Reminder.Web.Controllers
             searchModel.Categories[0].Text = string.Empty;
             return View(searchModel);
         }
-        public ActionResult Search(string promptval=null, string categoryval=null , string dateval=null)
+        public ActionResult Search(string promptval = null, string categoryval = null, string dateval = null)
         {
-            if (!(promptval != null || categoryval!=null || dateval!=null))
+            if (!(promptval != null || categoryval != null || dateval != null))
                 throw new ArgumentNullException();
-            var promptList =_prompt.GetSearchingPrompts(UserID,promptval,categoryval,dateval);
-            if(promptList==null || promptList.Count==0 )
+            var promptList = _prompt.GetSearchingPrompts(UserID, promptval, categoryval, dateval);
+            if (promptList == null || promptList.Count == 0)
             {
                 return Json(new
                 {
@@ -49,14 +50,14 @@ namespace DI.Reminder.Web.Controllers
             }
             return Json(promptList, JsonRequestBehavior.AllowGet);
         }
-        
-        
+
+
 
         public ActionResult Navigation(int? id = null)
         {
-            IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID,id);
+            IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID, id);
             IList<Category> _categorylist = _getcategory.GetCategories(id);
-            int? previousList =null;
+            int? previousList = null;
             try
             {
                 previousList = _categorylist[0].ParentCategory.ParentCategory.ID;
@@ -76,15 +77,15 @@ namespace DI.Reminder.Web.Controllers
         }
         public ActionResult GetCategoryPrompts(int? id)
         {
-            if(id==null)
+            if (id == null)
                 return RedirectToAction("HttpError404", "Error");
             IList<Prompt> _promptlist = _prompt.GetCategoryItemsByID(UserID, id);
             IList<Category> _categorylist = _getcategory.GetCategories((int)id);
-            if((_categorylist!=null && _promptlist==null) || (_categorylist == null && _promptlist == null))
+            if ((_categorylist != null && _promptlist == null) || (_categorylist == null && _promptlist == null))
             {
                 return Json(new
                 {
-                   isEmpty = true
+                    isEmpty = true
                 }, JsonRequestBehavior.AllowGet);
             }
             else if (_categorylist != null)
@@ -95,18 +96,18 @@ namespace DI.Reminder.Web.Controllers
                     isRedirect = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            else 
+            else
             {
                 return Json(_promptlist, JsonRequestBehavior.AllowGet);
             }
         }
 
 
-        
+
 
         public ActionResult Details(int? ID)
         {
-            if(ID==null)
+            if (ID == null)
                 return RedirectToAction("HttpError404", "Error");
             Prompt prompt = _prompt.GetPromptDetails(UserID, (int)ID);
             if (prompt == null)
@@ -122,31 +123,14 @@ namespace DI.Reminder.Web.Controllers
             {
                 CategoryList = selectList
             };
-            return View("Edit",promptViewModel);
+            return View("Edit", promptViewModel);
         }
-        [HttpPost]
-        public ActionResult Add(Prompt prompt)
-        {
-            if (prompt == null)
-                throw new ArgumentNullException();
-            ModelState.Remove("prompt.ID");
-            if (ModelState.IsValid)
-            {
-                _prompt.InsertPrompt(UserID, prompt);
-            }
-            else
-                RedirectToAction("HttpError500", "Error");
-            return RedirectToAction("Navigation");
-        }
-
-
-
         public ActionResult Delete(int? id)
         {
-            if(id==null)
+            if (id == null)
                 return RedirectToAction("HttpError404", "Error");
             Prompt prompt = _prompt.GetPromptDetails(UserID, (int)id);
-            if (prompt == null )
+            if (prompt == null)
                 return RedirectToAction("HttpError404", "Error");
             return View(prompt);
         }
@@ -155,7 +139,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (prompt == null)
                 throw new ArgumentNullException();
-             _prompt.DeletePrompt(UserID, prompt.ID); 
+            _prompt.DeletePrompt(UserID, prompt.ID);
             return RedirectToAction("Navigation", new { id = 0 });
         }
 
@@ -165,7 +149,7 @@ namespace DI.Reminder.Web.Controllers
         public ActionResult Edit(int? id)
 
         {
-            if(id==null )
+            if (id == null)
                 return RedirectToAction("HttpError404", "Error");
             Prompt prompt = _prompt.GetPromptDetails(UserID, (int)id);
             if (prompt == null)
@@ -179,17 +163,39 @@ namespace DI.Reminder.Web.Controllers
             return View(promptViewModel);
         }
         [HttpPost]
-        public ActionResult Edit(Prompt prompt)
+        public ActionResult Edit(Prompt prompt, HttpPostedFileBase image)
         {
             if (prompt == null)
                 throw new ArgumentNullException();
-            ModelState.Remove("prompt.Category.Name");
-            if (ModelState.IsValid)
+            if (prompt.ID == 0)
             {
-                _prompt.EditPrompt(prompt);
+                ModelState.Remove("prompt.ID");
+                if (ModelState.IsValid)
+                {
+                    if (image != null)
+                    {
+                        prompt.ImageMimeType = image.ContentType;
+                        prompt.ImageData = new byte[image.ContentLength];
+                        image.InputStream.Read(prompt.ImageData, 0, image.ContentLength);
+                    }
+                    _prompt.InsertPrompt(UserID, prompt);
+                }
+
             }
             else
-                RedirectToAction("HttpError500", "Error");
+            {
+                ModelState.Remove("prompt.Category.Name");
+                if (ModelState.IsValid)
+                {
+                    if (image != null)
+                    {
+                        prompt.ImageMimeType = image.ContentType;
+                        prompt.ImageData = new byte[image.ContentLength];
+                        image.InputStream.Read(prompt.ImageData, 0, image.ContentLength);
+                    }
+                    _prompt.EditPrompt(prompt);
+                }
+            }
             return RedirectToAction("Navigation", new { id = 0 });
         }
 
@@ -204,7 +210,7 @@ namespace DI.Reminder.Web.Controllers
         }
 
 
-        
+
         private List<SelectListItem> GetAllCategories()
         {
             var listOfCategories = _getcategory.GetAllCategories();
@@ -224,5 +230,16 @@ namespace DI.Reminder.Web.Controllers
             }
             return selectList;
         }
+        public FileContentResult GetImage(int promptID)
+        {
+            Prompt prompt = _prompt.GetPromptDetails(UserID, promptID);
+            if (prompt != null)
+            {
+                return File(prompt.ImageData, prompt.ImageMimeType);
+            }
+            else
+                return null;
+        }
+
     }
 }

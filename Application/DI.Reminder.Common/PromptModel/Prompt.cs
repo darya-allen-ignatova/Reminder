@@ -1,6 +1,5 @@
 ﻿using DI.Reminder.Common.CategoryModel;
 using System;
-using System.Web.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace DI.Reminder.Common.PromptModel
@@ -31,6 +30,10 @@ namespace DI.Reminder.Common.PromptModel
         public List<Action> Actions { get; set; }
 
         public string Image { get; set; }
-        
+
+        public byte[] ImageData { get; set; }
+
+        public string ImageMimeType { get; set; }
+
     }
 }

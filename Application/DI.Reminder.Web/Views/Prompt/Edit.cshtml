@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_LayoutForPages.cshtml";
 }
 <h2 class="title">Edit</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Prompt",FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -111,32 +111,26 @@
                     <h3 class="padding-bottom-90">
                         @Html.Label(" Image")
                     </h3>
-                    @if (Model.Prompt != null)
-                    {
-                        if (Model.Prompt.Image != null)
-                        { <div>
-                            <img class="img-responsive" ; src="@Url.Content(Model.Prompt.Image)" />
-                        </div>}
-                        <div class="padding-top-30">
-                            <input type="file" class="input form-control"name="prompt.Image" style="height:110%" value="@Model.Prompt.Image" />
-                            @Html.ValidationMessageFor(model => model.Prompt.Image, "", new { @class = "text-danger" })
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <h4>
-                                <input type="file" class="input form-control"name="prompt.Image" style="height:110%" value="Image" />
-                            </h4>
-                        </div>
-                    }
+                    @if (Model.Prompt==null || Model.Prompt.ImageData == null)
+        {
+           <h4>None</h4>
+}
+else
+{
+            <img class="img-responsive" ; src="@Url.Action("GetImage", "Prompt", new { Model.Prompt.ID })" />
+
+}
+                    <div class="padding-top-30">
+                        <h4>Upload new image</h4>
+                        <input type="file" class="input form-control" name="Image" style="height:110%" />
+                    </div>
+
+
+
+
+
                 </div>
-
-
-
-
             </div>
-
 
         </div>
         <div class="row padding-top-45">
@@ -187,4 +181,5 @@
                 </div>
             </div>
         </div>
-    </div>}
+    </div>
+        }
