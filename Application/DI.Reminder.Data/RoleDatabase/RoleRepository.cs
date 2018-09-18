@@ -80,36 +80,67 @@ namespace DI.Reminder.Data.RoleDatabase
             }
             return true;
         }
-        public List<Role> GetRoleList(int? id=null)
+        public Role GetRole(int? id)
         {
-            List<Role> _rolelist = null;
+            Role _role = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
                     connection.Open();
                     string sqlExpression;
-                    if (id == null)
-                        sqlExpression = "GetAllRoles";
-                    else
-                        sqlExpression = "GetUserRoles";
+                    sqlExpression = "GetUserRoles";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    if (id != null)
-                    {
-                        SqlParameter sqlparam = new SqlParameter()
+                    SqlParameter sqlparam = new SqlParameter()
                         {
                             ParameterName = "@id",
                             Value = id
                         };
                         command.Parameters.Add(sqlparam);
-                    }
+                    
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        _rolelist = new List<Role>();
                         while (reader.Read())
                         {
-                            _rolelist.Add(new Role
+                            _role=new Role
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString()
+                            };
+                        }
+                    }
+                    connection.Close();
+
+                }
+            }
+            catch (SqlException sqlExc)
+            {
+                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
+            }
+            return _role;
+        }
+        public List<Role> GetRoleList()
+        {
+            List<Role> _roles = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnection))
+                {
+                    connection.Open();
+                    string sqlExpression = "GetAllRoles";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        _roles = new List<Role>();
+                        while (reader.Read())
+                        {
+                            _roles.Add(new Role()
                             {
                                 ID = int.Parse(reader["ID"].ToString()),
                                 Name = reader["Name"].ToString()
@@ -128,7 +159,7 @@ namespace DI.Reminder.Data.RoleDatabase
             {
                 _logger.Error("SqlException: " + ex + "\t" + ex.Message);
             }
-            return _rolelist;
+            return _roles;
         }
 
         public Role GetRoleByName(string Name)

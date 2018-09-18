@@ -19,6 +19,6 @@ namespace DI.Reminder.Common.LoginModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "Passwords aren't similar")]  
         public string PasswordConfirm { get; set; }
-        public List<Role> Roles { get; set; }
+        public Role Role { get; set; }
     }
 }

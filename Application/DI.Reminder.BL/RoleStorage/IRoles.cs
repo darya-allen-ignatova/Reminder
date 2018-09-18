@@ -9,6 +9,5 @@ namespace DI.Reminder.BL.RoleStorage
         bool? DeleteRole(int id);
         IList<Role> GetAllRoles();
         Role GetRole(int id);
-        Role GetRoleByName(string Name);
     }
 }

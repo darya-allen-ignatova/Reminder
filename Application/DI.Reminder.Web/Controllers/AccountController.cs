@@ -35,8 +35,8 @@ namespace DI.Reminder.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Role> rolelist = new List<Role>() { _roleRepository.GetRoleByName("User") };
-                account.Roles = rolelist;
+                Role role = _roleRepository.GetRoleByName("User");
+                account.Role = role;
                 _userService.InsertUser(account);
                 Logout();
                 _authentication.httpContext = System.Web.HttpContext.Current;

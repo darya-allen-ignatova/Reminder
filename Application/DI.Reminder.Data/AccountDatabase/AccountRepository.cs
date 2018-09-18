@@ -77,17 +77,13 @@ namespace DI.Reminder.Data.AccountDatabase
 
                 using (SqlConnection connection = new SqlConnection(GetConnection))
                 {
-                    connection.Open();
-                    for (int i = 0; i < newaccount.Roles.Count; i++)
-                    {
-
-                        string sqlExpression = "AddConnection";
+                    connection.Open();string sqlExpression = "AddConnection";
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         SqlParameter sqlparam1 = new SqlParameter()
                         {
                             ParameterName = "@roleid",
-                            Value = newaccount.Roles[i].ID
+                            Value = newaccount.Role.ID
                         };
                         command.Parameters.Add(sqlparam1);
                         SqlParameter sqlparam2 = new SqlParameter()
@@ -97,7 +93,7 @@ namespace DI.Reminder.Data.AccountDatabase
                         };
                         command.Parameters.Add(sqlparam2);
                         var result = command.ExecuteNonQuery();
-                    }
+                    
                     connection.Close();
                 }
             }
@@ -146,7 +142,7 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Close();
                     if (account == null)
                         return null;
-                    account.Roles = _rolerepository.GetRoleList(account.ID);
+                    account.Role = _rolerepository.GetRole(account.ID);
 
                 }
 
@@ -196,7 +192,7 @@ namespace DI.Reminder.Data.AccountDatabase
                     connection.Close();
                     if (account == null)
                         return null;
-                    account.Roles = _rolerepository.GetRoleList(id);
+                    account.Role = _rolerepository.GetRole(id);
                 }
             }
             catch (SqlException sqlExc)
@@ -257,7 +253,7 @@ namespace DI.Reminder.Data.AccountDatabase
                     sqlExpression = "UpdatingUserRole";
                     command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@roleid", account.Roles[0].ID);
+                    command.Parameters.AddWithValue("@roleid", account.Role.ID);
                     command.Parameters.AddWithValue("@userid", account.ID);
                     result = command.ExecuteNonQuery();
                     connection.Close();
@@ -343,13 +339,13 @@ namespace DI.Reminder.Data.AccountDatabase
                         while (reader.Read())
                         {
                             int id = int.Parse(reader["ID"].ToString());
-                            List<Role> _rolelist = _rolerepository.GetRoleList(id);
+                            Role _role = _rolerepository.GetRole(id);
                             _accountlist.Add(new Account()
                             {
                                 ID = id,
                                 Login = reader["Login"].ToString(),
                                 Password = reader["Password"].ToString(),
-                                Roles = _rolelist
+                                Role = _role
                             });
                         }
                     }

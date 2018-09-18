@@ -79,7 +79,7 @@ namespace DI.Reminder.Web.Controllers
             _account.PasswordConfirm = _account.Password;
             if (_account == null)
                 return RedirectToAction("HttpError404", "Error");
-            var roleList = GetRoles(_account.Roles[0]);
+            var roleList = GetRoles(_account.Role);
             ModelAccountWithRoles modelAccountWithRoles = new ModelAccountWithRoles()
             {
                 Account = _account,
@@ -93,7 +93,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if (account == null)
                 throw new ArgumentNullException();
-            ModelState.Remove("account.Roles[0].Name");
+            ModelState.Remove("account.Role.Name");
             if (ModelState.IsValid)
             {
                 _userService.EditUser(account);

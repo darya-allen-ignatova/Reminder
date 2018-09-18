@@ -36,15 +36,13 @@ namespace DI.Reminder.BL.LoginService.UserProv
             {
                 return false;
             }
-            var UserRoles = _roleRepository.GetRoleList(userIndentity.account.ID);
-            foreach (var _role in UserRoles)
-            {
-                var hasRole = UserRoles.Any(p => string.Compare(_role.Name.Replace(" ", string.Empty), role, true) == 0);
-                if (hasRole)
+            var UserRole = _roleRepository.GetRole(userIndentity.account.ID);
+            var hasRole = string.Compare(UserRole.Name.Replace(" ", string.Empty), role, true) == 0;
+            if (hasRole)
                 {
                     return true;
                 }
-            }
+            
             return false;
         }
     }

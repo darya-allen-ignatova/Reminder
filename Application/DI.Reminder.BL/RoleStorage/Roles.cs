@@ -54,10 +54,6 @@ namespace DI.Reminder.BL.RoleStorage
             }
             return role;
         }
-
-        public Role GetRoleByName(string Name)
-        {
-            return _roleRepository.GetRoleByName(Name);
-        }
+        
     }
 }
