@@ -129,17 +129,19 @@ namespace DI.Reminder.Data.AccountDatabase
                         Value = login
                     };
                     command.Parameters.Add(sqlparam);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        account = new Account()
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Login = reader["Login"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Email = reader["Email"].ToString()
-                        };
+                            account = new Account()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Login = reader["Login"].ToString(),
+                                Password = reader["Password"].ToString(),
+                                Email = reader["Email"].ToString()
+                            };
 
+                        }
                     }
                     connection.Close();
                     if (account == null)
@@ -177,17 +179,19 @@ namespace DI.Reminder.Data.AccountDatabase
                         Value = id
                     };
                     command.Parameters.Add(sqlparam);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        account = new Account()
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Login = reader["Login"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Email = reader["Email"].ToString()
-                        };
+                            account = new Account()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Login = reader["Login"].ToString(),
+                                Password = reader["Password"].ToString(),
+                                Email = reader["Email"].ToString()
+                            };
 
+                        }
                     }
                     connection.Close();
                     if (account == null)
@@ -333,19 +337,21 @@ namespace DI.Reminder.Data.AccountDatabase
                     string sqlExpression = "GetAllUsers";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    SqlDataReader reader = command.ExecuteReader();
-                    _accountlist = new List<Account>();
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int id = int.Parse(reader["ID"].ToString());
-                        List<Role> _rolelist = _rolerepository.GetRoleList(id);
-                        _accountlist.Add(new Account()
+                        _accountlist = new List<Account>();
+                        while (reader.Read())
                         {
-                            ID = id,
-                            Login = reader["Login"].ToString(),
-                            Password = reader["Password"].ToString(),
-                            Roles = _rolelist
-                        });
+                            int id = int.Parse(reader["ID"].ToString());
+                            List<Role> _rolelist = _rolerepository.GetRoleList(id);
+                            _accountlist.Add(new Account()
+                            {
+                                ID = id,
+                                Login = reader["Login"].ToString(),
+                                Password = reader["Password"].ToString(),
+                                Roles = _rolelist
+                            });
+                        }
                     }
                     connection.Close();
 

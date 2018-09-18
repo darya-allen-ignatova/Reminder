@@ -20,86 +20,8 @@ namespace DI.Reminder.Data.CategoryDataBase
             get { return connection; }
             set { }
         }
-        public int? GetCategoryID(string Name)
-        {
-            int? ID = null;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(GetConnection))
-                {
-                    connection.Open();
-                    string sqlExpression;
-
-                    sqlExpression = "GetCategoryID";
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    SqlParameter sqlparam = new SqlParameter()
-                    {
-                        ParameterName = "@Name",
-                        Value = Name
-                    };
-                    command.Parameters.Add(sqlparam);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        ID = int.Parse(reader["ID"].ToString());
-                    }
-                    connection.Close();
-
-                }
-            }
-            catch (SqlException sqlExc)
-            {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
-            }
-            return ID;
-        }
-        public int? GetCategoryParentID(string Name)
-        {
-            int? parent = null;
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(GetConnection))
-                {
-                    connection.Open();
-                    string sqlExpression;
-
-                    sqlExpression = "GetCategoryID";
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    SqlParameter sqlparam = new SqlParameter()
-                    {
-                        ParameterName = "@Name",
-                        Value = Name
-                    };
-                    command.Parameters.Add(sqlparam);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        object ParentID = reader["ParentID"];
-                        if (!Convert.IsDBNull(ParentID))
-                        {
-                            parent = int.Parse(ParentID.ToString());
-                        }
-                    }
-                    connection.Close();
-
-                }
-            }
-            catch (SqlException sqlExc)
-            {
-                _logger.Error("SqlException: " + sqlExc.Source + "\t" + sqlExc.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("SqlException: " + ex + "\t" + ex.Message);
-            }
-            return parent;
-        }
+        
+       
         public IList<Category> GetCategories(int? id)
         {
             List<Category> _list = null;
@@ -126,31 +48,33 @@ namespace DI.Reminder.Data.CategoryDataBase
                         };
                         command.Parameters.Add(sqlparam);
                     }
-                    SqlDataReader reader = command.ExecuteReader();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
 
-                    if (reader.HasRows)
-                    {
-                        _list = new List<Category>();
-                    }
-                    while (reader.Read())
-                    {
-                        int parent=-1;
-                        object ParentID = reader.GetValue(2);
-                        if (!Convert.IsDBNull(ParentID))
+                        if (reader.HasRows)
                         {
-                            parent = int.Parse(ParentID.ToString());
+                            _list = new List<Category>();
                         }
-                        Category Parent = null;
-                        if (parent != -1)
+                        while (reader.Read())
                         {
-                            Parent =GetCategory(parent);
+                            int parent = -1;
+                            object ParentID = reader.GetValue(2);
+                            if (!Convert.IsDBNull(ParentID))
+                            {
+                                parent = int.Parse(ParentID.ToString());
+                            }
+                            Category Parent = null;
+                            if (parent != -1)
+                            {
+                                Parent = GetCategory(parent);
+                            }
+                            _list.Add(new Category()
+                            {
+                                ID = int.Parse(reader.GetValue(0).ToString()),
+                                Name = reader.GetValue(1).ToString(),
+                                ParentCategory = Parent
+                            });
                         }
-                        _list.Add(new Category()
-                        {
-                            ID = int.Parse(reader.GetValue(0).ToString()),
-                            Name = reader.GetValue(1).ToString(),
-                            ParentCategory = Parent
-                        });
                     }
                     connection.Close();
 
@@ -252,26 +176,28 @@ namespace DI.Reminder.Data.CategoryDataBase
                         Value = id
                     };
                     command.Parameters.Add(sqlparam);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int parentID = -1;
-                        object ParentID = reader.GetValue(2);
-                        if (!Convert.IsDBNull(ParentID))
+                        while (reader.Read())
                         {
-                            parentID = int.Parse(ParentID.ToString());
+                            int parentID = -1;
+                            object ParentID = reader.GetValue(2);
+                            if (!Convert.IsDBNull(ParentID))
+                            {
+                                parentID = int.Parse(ParentID.ToString());
+                            }
+                            Category Parent = null;
+                            if (parentID != -1)
+                            {
+                                Parent = GetCategory(parentID);
+                            }
+                            category = new Category()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                ParentCategory = Parent
+                            };
                         }
-                        Category Parent = null;
-                        if(parentID!=-1)
-                        {
-                            Parent = GetCategory(parentID);
-                        }
-                        category = new Category()
-                        {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["Name"].ToString(),
-                            ParentCategory = Parent
-                        };
                     }
                     connection.Close();
 
@@ -299,31 +225,33 @@ namespace DI.Reminder.Data.CategoryDataBase
                     sqlExpression = "GetAllCategories";
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    SqlDataReader reader = command.ExecuteReader();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
 
-                    if (reader.HasRows)
-                    {
-                        _list = new List<Category>();
-                    }
-                    while (reader.Read())
-                    {
-                        int parent = -1;
-                        object ParentID = reader.GetValue(2);
-                        if (!Convert.IsDBNull(ParentID))
+                        if (reader.HasRows)
                         {
-                            parent = int.Parse(ParentID.ToString());
+                            _list = new List<Category>();
                         }
-                        Category Parent = null;
-                        if(parent!=-1)
+                        while (reader.Read())
                         {
-                            Parent = GetCategory(parent);
+                            int parent = -1;
+                            object ParentID = reader.GetValue(2);
+                            if (!Convert.IsDBNull(ParentID))
+                            {
+                                parent = int.Parse(ParentID.ToString());
+                            }
+                            Category Parent = null;
+                            if (parent != -1)
+                            {
+                                Parent = GetCategory(parent);
+                            }
+                            _list.Add(new Category()
+                            {
+                                ID = int.Parse(reader.GetValue(0).ToString()),
+                                Name = reader.GetValue(1).ToString(),
+                                ParentCategory = Parent
+                            });
                         }
-                        _list.Add(new Category()
-                        {
-                            ID = int.Parse(reader.GetValue(0).ToString()),
-                            Name = reader.GetValue(1).ToString(),
-                            ParentCategory= Parent
-                        });
                     }
                     connection.Close();
 

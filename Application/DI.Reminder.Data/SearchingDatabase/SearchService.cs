@@ -64,21 +64,23 @@ namespace DI.Reminder.Data.SearchingDatabase
                         Value = userID
                     };
                     command.Parameters.Add(sqlparam1);
-                    SqlDataReader reader = command.ExecuteReader();
-                    _list = new List<Prompt>();
-                    Category category = null;
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
-                        category = _categoryRepository.GetCategory(IDCategory);
-                        int Id = int.Parse(reader["ID"].ToString());
-                        _list.Add(new Prompt()
+                        _list = new List<Prompt>();
+                        Category category = null;
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["Name"].ToString(),
-                            Category = category,
-                            Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
-                        });
+                            int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                            category = _categoryRepository.GetCategory(IDCategory);
+                            int Id = int.Parse(reader["ID"].ToString());
+                            _list.Add(new Prompt()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Category = category,
+                                Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
+                            });
+                        }
                     }
                     connection.Close();
 
@@ -117,21 +119,23 @@ namespace DI.Reminder.Data.SearchingDatabase
                         Value = userID
                     };
                     command.Parameters.Add(sqlparam1);
-                    SqlDataReader reader = command.ExecuteReader();
-                    _list = new List<Prompt>();
-                    Category category = null;
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
-                        category = _categoryRepository.GetCategory(IDCategory);
-                        int Id = int.Parse(reader["ID"].ToString());
-                        _list.Add(new Prompt()
+                        _list = new List<Prompt>();
+                        Category category = null;
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["Name"].ToString(),
-                            Category = category,
-                            Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
-                        });
+                            int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                            category = _categoryRepository.GetCategory(IDCategory);
+                            int Id = int.Parse(reader["ID"].ToString());
+                            _list.Add(new Prompt()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Category = category,
+                                Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
+                            });
+                        }
                     }
                     connection.Close();
 
@@ -180,21 +184,23 @@ namespace DI.Reminder.Data.SearchingDatabase
                         Value = userID
                     };
                     command.Parameters.Add(sqlparam1);
-                    SqlDataReader reader = command.ExecuteReader();
-                    _list = new List<Prompt>();
-                    Category category = null;
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
-                        category = _categoryRepository.GetCategory(IDCategory);
-                        int Id = int.Parse(reader["ID"].ToString());
-                        _list.Add(new Prompt()
+                        _list = new List<Prompt>();
+                        Category category = null;
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["Name"].ToString(),
-                            Category = category,
-                            Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
-                        });
+                            int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                            category = _categoryRepository.GetCategory(IDCategory);
+                            int Id = int.Parse(reader["ID"].ToString());
+                            _list.Add(new Prompt()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Category = category,
+                                Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
+                            });
+                        }
                     }
                     connection.Close();
 

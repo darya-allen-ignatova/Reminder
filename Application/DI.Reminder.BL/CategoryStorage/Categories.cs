@@ -48,13 +48,7 @@ namespace DI.Reminder.BL.CategoryStorage
             }
             return category;
         }
-
-        public int? GetCategoryParentID(string categoryName)
-        {
-            if (categoryName == null)
-                return null;
-            return _category.GetCategoryParentID(categoryName);
-        }
+        
 
 
         public void InsertCategory(Category category)
@@ -63,12 +57,6 @@ namespace DI.Reminder.BL.CategoryStorage
                 return;
             _category.AddCategory(category);
             _cacheService.AddCache(category, category.ID);
-        }
-        public int? GetCategoryIDByName(string Name)
-        {
-            if (Name == null)
-                return null;
-            return _category.GetCategoryID(Name);
         }
         public void EditCategory(Category category)
         {

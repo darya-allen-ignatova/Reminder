@@ -31,7 +31,7 @@ namespace DI.Reminder.BL.RoleStorage
 
         public IList<Role> GetAllRoles()
         {
-            return _roleRepository.GetAllRoles();
+            return _roleRepository.GetRoleList();
         }
 
         public void InsertRole(Role role)
@@ -48,7 +48,7 @@ namespace DI.Reminder.BL.RoleStorage
             var role = _cacheService.GetValueOfCache<Role>(id);
             if(role==null)
             {
-                IList<Role> list = _roleRepository.GetAllRoles();
+                IList<Role> list = _roleRepository.GetRoleList();
                 role=list.FirstOrDefault(t => t.ID == id);
                 _cacheService.AddCache(role, role.ID);
             }

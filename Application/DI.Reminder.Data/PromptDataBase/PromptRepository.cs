@@ -53,18 +53,24 @@ namespace DI.Reminder.Data.PromptDataBase
                         Value = userID
                     };
                     command.Parameters.Add(sqlparam1);
-                    SqlDataReader reader = command.ExecuteReader();
-                    Category category = null;
-                    if (reader.HasRows)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        _list = new List<Prompt>();
-                    }
-                    while (reader.Read())
-                    {
-                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
-                        category = _categoryRepository.GetCategory(IDCategory);
-                        _list.Add(new Prompt() { ID = int.Parse(reader["ID"].ToString()), Name = reader["Name"].ToString(),
-                            Category = category });
+                        Category category = null;
+                        if (reader.HasRows)
+                        {
+                            _list = new List<Prompt>();
+                        }
+                        while (reader.Read())
+                        {
+                            int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                            category = _categoryRepository.GetCategory(IDCategory);
+                            _list.Add(new Prompt()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Category = category
+                            });
+                        }
                     }
                     connection.Close();
 
@@ -103,27 +109,29 @@ namespace DI.Reminder.Data.PromptDataBase
                         Value = userID
                     };
                     command.Parameters.Add(sqlparam1);
-                    SqlDataReader reader = command.ExecuteReader();
-                    Category category = null;
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int IDCategory = int.Parse(reader["CategoryID"].ToString());
-                        category = _categoryRepository.GetCategory(IDCategory);
-                        int Id = int.Parse(reader["ID"].ToString());
-                        prompt = new Prompt()
+                        Category category = null;
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["Name"].ToString(),
-                            Category = category,
-                            Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
-                            TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
-                            Description = reader["Description"].ToString(),
-                            Actions = GetActions(Id)
-                        };
-                        if (reader["image"] != null)
-                            prompt.ImageData = (byte[])reader["image"];
-                        if (reader["imagetype"] != null)
-                            prompt.ImageMimeType = reader["imagetype"].ToString();
+                            int IDCategory = int.Parse(reader["CategoryID"].ToString());
+                            category = _categoryRepository.GetCategory(IDCategory);
+                            int Id = int.Parse(reader["ID"].ToString());
+                            prompt = new Prompt()
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["Name"].ToString(),
+                                Category = category,
+                                Date = Convert.ToDateTime(reader["DateOfCreating"].ToString()),
+                                TimeOfPrompt = TimeSpan.Parse(reader["TimeOfPrompt"].ToString()),
+                                Description = reader["Description"].ToString(),
+                                Actions = GetActions(Id)
+                            };
+                            if (reader["image"] != null)
+                                prompt.ImageData = (byte[])reader["image"];
+                            if (reader["imagetype"] != null)
+                                prompt.ImageMimeType = reader["imagetype"].ToString();
+                        }
                     }
                     connection.Close();
                 }
@@ -156,16 +164,18 @@ namespace DI.Reminder.Data.PromptDataBase
                         Value = id
                     };
                     command.Parameters.Add(sqlparam);
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                        actions = new List<Common.PromptModel.Action>();
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        actions.Add(new Common.PromptModel.Action
+                        if (reader.HasRows)
+                            actions = new List<Common.PromptModel.Action>();
+                        while (reader.Read())
                         {
-                            ID = int.Parse(reader["ID"].ToString()),
-                            Name = reader["ActionName"].ToString(),
-                        });
+                            actions.Add(new Common.PromptModel.Action
+                            {
+                                ID = int.Parse(reader["ID"].ToString()),
+                                Name = reader["ActionName"].ToString(),
+                            });
+                        }
                     }
                     connection.Close();
                 }
@@ -366,10 +376,12 @@ namespace DI.Reminder.Data.PromptDataBase
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@id", id);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        IDs.Add(int.Parse(reader["ID"].ToString()));
+                        while (reader.Read())
+                        {
+                            IDs.Add(int.Parse(reader["ID"].ToString()));
+                        }
                     }
                     connection.Close();
                 }
