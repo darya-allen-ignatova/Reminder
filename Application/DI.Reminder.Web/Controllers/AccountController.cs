@@ -44,7 +44,7 @@ namespace DI.Reminder.Web.Controllers
             }
             else
                 RedirectToAction("HttpError500", "Error");
-            return RedirectToAction("Home", "Start");
+            return RedirectToAction("Login");
         }
         public ActionResult Login()
         {

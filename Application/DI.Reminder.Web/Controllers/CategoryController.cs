@@ -74,7 +74,7 @@ namespace DI.Reminder.Web.Controllers
         {
             if(ID==null)
                 return RedirectToAction("HttpError404", "Error");
-            var CategoryList = GetCategoriesList();
+            var CategoryList = GetCategoriesList((int)ID);
             var categoryDetails = _categoriesStorage.GetCategory((int)ID);
             if (categoryDetails == null)
                 return RedirectToAction("HttpError404", "Error");
@@ -102,7 +102,7 @@ namespace DI.Reminder.Web.Controllers
             return RedirectToAction("ShowAll");
         }
         
-        private List<SelectListItem> GetCategoriesList()
+        private List<SelectListItem> GetCategoriesList(int id=0)
         {
             var allCategories = _categoriesStorage.GetAllCategories();
             var selectlist = new List<SelectListItem>();
@@ -113,6 +113,8 @@ namespace DI.Reminder.Web.Controllers
             });
             for (int i = 0; i < allCategories.Count; i++)
             {
+                if (allCategories[i].ID == id)
+                    continue;
                 selectlist.Add(new SelectListItem()
                 {
                     Value = allCategories[i].ID.ToString(),
